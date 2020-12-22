@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
-import {v4 as uuidv4} from 'uuid';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { v4 as uuidv4, v4 } from 'uuid';
 
-import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
-import {useRoute, useNavigation} from '@react-navigation/native';
+import { Storage, API, graphqlOperation, Auth } from 'aws-amplify';
+import { useRoute, useNavigation } from '@react-navigation/native';
 
 import styles from './styles';
-import {createPost} from '../../graphql/mutations';
+import { createPost } from '../../graphql/mutations';
 
 const CreatePost = () => {
   const [description, setDescription] = useState('');
@@ -21,9 +21,9 @@ const CreatePost = () => {
 
       const blob = await response.blob();
 
-      const filename = `${uuidv4()}.mp4`;
+      const filename = `filename1.mp4`;
       const s3Response = await Storage.put(filename, blob);
-
+      console.log('s3Response', s3Response)
       setVideoKey(s3Response.key);
     } catch (e) {
       console.error(e);
@@ -31,6 +31,7 @@ const CreatePost = () => {
   };
 
   useEffect(() => {
+    console.log('route.params.videoUri', route.params.videoUri)
     uploadToStorage(route.params.videoUri);
   }, []);
 
@@ -48,11 +49,11 @@ const CreatePost = () => {
         videoUri: videoKey,
         description: description,
         userID: userInfo.attributes.sub,
-        songID: 'b6e2ee3a-04a7-4b25-aef5-90b41e4bba33',
+        songID: "20dee14b-39a9-4321-8ec7-c3380e2f5c27",
       };
 
       const response = await API.graphql(
-        graphqlOperation(createPost, {input: newPost}),
+        graphqlOperation(createPost, { input: newPost }),
       );
       navigation.navigate("Home", { screen: "Home" });
     } catch (e) {
