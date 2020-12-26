@@ -31,7 +31,7 @@ const HomeBottomTabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={'Search'}
         component={() => <Text>Search</Text>}
         options={{
@@ -39,7 +39,7 @@ const HomeBottomTabNavigator = () => {
             <AntDesign name={'search1'} size={25} color={color} />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name={'Upload'}
         component={Camera}

@@ -4,7 +4,7 @@ import { v4 as uuidv4, v4 } from 'uuid';
 
 import { Storage, API, graphqlOperation, Auth } from 'aws-amplify';
 import { useRoute, useNavigation } from '@react-navigation/native';
-
+import { withAuthenticator } from 'aws-amplify-react-native';
 import styles from './styles';
 import { createPost } from '../../graphql/mutations';
 
@@ -20,8 +20,8 @@ const CreatePost = () => {
       const response = await fetch(imagePath);
 
       const blob = await response.blob();
-
-      const filename = `filename1.mp4`;
+      const random = Math.floor(Math.random() * 9000);
+      const filename = `${random}.mp4`;
       const s3Response = await Storage.put(filename, blob);
       console.log('s3Response', s3Response)
       setVideoKey(s3Response.key);
@@ -79,4 +79,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default withAuthenticator(CreatePost);

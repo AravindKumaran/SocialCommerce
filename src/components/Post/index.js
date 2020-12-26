@@ -47,6 +47,7 @@ const Post = (props) => {
       <TouchableWithoutFeedback onPress={onPlayPausePress}>
         <View>
           <Video
+          //  ref={ controls => controls = Video}
             source={{uri: videoUri}}
             style={styles.video}
             onError={(e) => console.log(e)}
@@ -64,7 +65,7 @@ const Post = (props) => {
 
               <TouchableOpacity style={styles.iconContainer} onPress={onLikePress}>
                 <AntDesign name={'heart'} size={40} color={isLiked ? 'red' : 'white'} />
-                <Text style={styles.statsLabel}>{post.likes}</Text>
+                <Text style={styles.statsLabel}>{post.likes || 0}</Text>
               </TouchableOpacity>
 
               <View style={styles.iconContainer}>
@@ -72,10 +73,10 @@ const Post = (props) => {
                 <Text style={styles.statsLabel}>{post.comments}</Text>
               </View>
 
-              <View style={styles.iconContainer}>
+              {/* <View style={styles.iconContainer}>
                 <Fontisto name={'share-a'} size={35} color="white" />
                 <Text style={styles.statsLabel}>{post.shares}</Text>
-              </View>
+              </View> */}
             </View>
 
             <View style={styles.bottomContainer}>

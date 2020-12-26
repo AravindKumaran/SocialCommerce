@@ -13,7 +13,7 @@ import {SafeAreaView, StatusBar} from 'react-native';
 import Navigation from './src/navigation';
 
 import {Auth, API, graphqlOperation} from 'aws-amplify';
-import {withAuthenticator} from 'aws-amplify-react-native';
+// import {withAuthenticator} from 'aws-amplify-react-native';
 
 import {createUser} from './src/graphql/mutations';
 import {getUser} from './src/graphql/queries';
@@ -73,4 +73,4 @@ const App: () => React$Node = () => {
   );
 };
 
-export default withAuthenticator(App);
+export default App;
