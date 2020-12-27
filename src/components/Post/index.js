@@ -23,9 +23,10 @@ const Post = (props) => {
 
   const onLikePress = () => {
     const likesToAdd = isLiked ? -1 : 1;
+    const postLikes = isLiked ? post.likes[0] : 0;
     setPost({
       ...post,
-      likes: post.likes + likesToAdd,
+      likes: [postLikes + likesToAdd],
     });
     setIsLiked(!isLiked);
   };

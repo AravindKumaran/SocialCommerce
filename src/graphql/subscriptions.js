@@ -13,6 +13,7 @@ export const onCreateUser = /* GraphQL */ `
           id
           videoUri
           description
+          likes
           userID
           songID
           createdAt
@@ -37,6 +38,7 @@ export const onUpdateUser = /* GraphQL */ `
           id
           videoUri
           description
+          likes
           userID
           songID
           createdAt
@@ -61,6 +63,7 @@ export const onDeleteUser = /* GraphQL */ `
           id
           videoUri
           description
+          likes
           userID
           songID
           createdAt
@@ -79,6 +82,7 @@ export const onCreatePost = /* GraphQL */ `
       id
       videoUri
       description
+      likes
       userID
       user {
         id
@@ -110,6 +114,7 @@ export const onUpdatePost = /* GraphQL */ `
       id
       videoUri
       description
+      likes
       userID
       user {
         id
@@ -141,6 +146,7 @@ export const onDeletePost = /* GraphQL */ `
       id
       videoUri
       description
+      likes
       userID
       user {
         id

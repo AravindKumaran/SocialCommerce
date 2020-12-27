@@ -49,6 +49,7 @@ const CreatePost = () => {
         videoUri: videoKey,
         description: description,
         userID: userInfo.attributes.sub,
+        likes: 0,
         songID: "20dee14b-39a9-4321-8ec7-c3380e2f5c27",
       };
 

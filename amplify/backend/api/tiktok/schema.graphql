@@ -10,6 +10,7 @@ type Post @model @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   videoUri: String!
   description: String!
+  likes: [Int]
 
   userID: ID!
   user: User @connection(fields: ["userID"])

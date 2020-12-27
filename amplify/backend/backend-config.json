@@ -29,10 +29,6 @@
     "tiktokclone": {
       "service": "S3",
       "providerPlugin": "awscloudformation"
-    },
-    "undefined": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
     }
   }
 }

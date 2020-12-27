@@ -13,6 +13,7 @@ export const getUser = /* GraphQL */ `
           id
           videoUri
           description
+          likes
           userID
           songID
           createdAt
@@ -53,6 +54,7 @@ export const getPost = /* GraphQL */ `
       id
       videoUri
       description
+      likes
       userID
       user {
         id
@@ -89,6 +91,7 @@ export const listPosts = /* GraphQL */ `
         id
         videoUri
         description
+        likes
         userID
         user {
           id
