@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, TouchableWithoutFeedback, Text, Image, TouchableOpacity} from 'react-native';
-import {Storage} from 'aws-amplify';
+import {API, graphqlOperation, Storage} from 'aws-amplify';
 
 import Video from 'react-native-video';
 import styles from './styles';
@@ -9,6 +9,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import { updatePost } from '../../graphql/mutations';
 
 const Post = (props) => {
   const [post, setPost] = useState(props.post);
@@ -21,13 +22,16 @@ const Post = (props) => {
     setPaused(!paused);
   };
 
-  const onLikePress = () => {
+  const onLikePress  = async () => {
     const likesToAdd = isLiked ? -1 : 1;
-    const postLikes = isLiked ? post.likes[0] : 0;
+    const postLikes = post.likes[0];
     setPost({
       ...post,
       likes: [postLikes + likesToAdd],
     });
+    const response = await API.graphql(
+      graphqlOperation(updatePost, { input: {likes: [postLikes + likesToAdd], id: post.id} }),
+    );
     setIsLiked(!isLiked);
   };
 
