@@ -1,15 +1,23 @@
-import React, {useEffect, useState} from 'react';
-import {View, FlatList, Dimensions} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, FlatList, Dimensions } from 'react-native';
 import Post from '../../components/Post';
-import {API, graphqlOperation} from 'aws-amplify';
+import { API, graphqlOperation } from 'aws-amplify';
 
-import {listPosts} from '../../graphql/queries';
+import { listPosts } from '../../graphql/queries';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchPost = async () => {
+      const unsubscribe = navigation.addListener('focus', async () => {
+        try {
+          const response = await API.graphql(graphqlOperation(listPosts));
+          setPosts(response.data.listPosts.items);
+        } catch (e) {
+          console.error(e);
+        }
+      });
       // fetch all the posts
       try {
         const response = await API.graphql(graphqlOperation(listPosts));
@@ -20,13 +28,13 @@ const Home = () => {
     };
 
     fetchPost();
-  }, []);
+  }, [navigation]);
 
   return (
     <View>
       <FlatList
         data={posts}
-        renderItem={({item}) => <Post post={item} />}
+        renderItem={({ item }) => <Post post={item} />}
         showsVerticalScrollIndicator={false}
         snapToInterval={Dimensions.get('window').height - 130}
         snapToAlignment={'start'}
