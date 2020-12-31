@@ -38,7 +38,7 @@ const CreatePost = () => {
   const onPublish = async () => {
     // create post in the database (API)
     if (!videoKey) {
-      console.warn('Video is uploading! Please wait!');
+      console.warn('VIdeo is not yet uploaded');
       return;
     }
 
