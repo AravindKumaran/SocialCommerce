@@ -35,6 +35,7 @@ const getRandomImage = () => {
 
 const App: () => React$Node = () => {
   useEffect(() => {
+    SplashScreen.hide();
     const fetchUser = async () => {
       // get currently authenticated user
       const userInfo = await Auth.currentAuthenticatedUser({bypassCache: true});
@@ -81,8 +82,8 @@ const App: () => React$Node = () => {
   );
 };
 
-
-export default class WelcomePage extends Component {
+export default App;
+class WelcomePage extends React.Component {
 
   componentDidMount() {
     // do stuff while splash screen is shown
