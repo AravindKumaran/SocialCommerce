@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="horizontal"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:gravity="center_vertical"
+android:paddingLeft="100dip"
+android:paddingRight="100dip"
+android:paddingTop="100dip"
+android:paddingBottom="100dip"
+android:background="#ffffff">
+
+<ImageView
+    android:src="@drawable/launch_screen"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:adjustViewBounds="true"
+    android:scaleType="centerInside"/>
+
+</RelativeLayout>

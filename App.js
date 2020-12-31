@@ -18,6 +18,10 @@ import {Auth, API, graphqlOperation} from 'aws-amplify';
 import {createUser} from './src/graphql/mutations';
 import {getUser} from './src/graphql/queries';
 
+import SplashScreen from 'react-native-splash-screen';
+
+
+
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-3.jpg',
@@ -43,10 +47,14 @@ const App: () => React$Node = () => {
         graphqlOperation(getUser, {id: userInfo.attributes.sub}),
       );
 
+     
+
       if (getUserResponse.data.getUser) {
         console.log('User already exists in database');
         return;
       }
+
+      
 
       // if it doesn't (it's newly registered user)
       // then, create a new user in database
@@ -73,4 +81,12 @@ const App: () => React$Node = () => {
   );
 };
 
-export default App;
+
+export default class WelcomePage extends Component {
+
+  componentDidMount() {
+    // do stuff while splash screen is shown
+      // After having done stuff (such as async tasks) hide the splash screen
+      SplashScreen.hide();
+  }
+}

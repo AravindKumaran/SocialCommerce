@@ -10,4 +10,7 @@ import Amplify from 'aws-amplify';
 import config from './aws-exports';
 Amplify.configure(config);
 
+import { NativeModules } from 'react-native';
+export default NativeModules.SplashScreen;
+
 AppRegistry.registerComponent(appName, () => App);
