@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { v4 as uuidv4, v4 } from 'uuid';
 
@@ -14,6 +14,11 @@ const CreatePost = () => {
 
   const route = useRoute();
   const navigation = useNavigation();
+  const [user, setUser] = useState(null);
+  const signin = useCallback(() => {
+    Auth.federatedSignIn({ provider: "google" });
+    setUser(true);
+  }, []);
 
   const uploadToStorage = async (imagePath) => {
     try {
@@ -31,8 +36,19 @@ const CreatePost = () => {
   };
 
   useEffect(() => {
-    console.log('route.params.videoUri', route.params.videoUri)
-    uploadToStorage(route.params.videoUri);
+    console.log('route.params.videoUri', route.params.videoUri);
+    Auth.currentAuthenticatedUser()
+      .then(user => {
+        user.getUserData((err, userData) => {
+          setUser({
+            email: user.attributes.email
+          })
+        });
+        uploadToStorage(route.params.videoUri);
+      })
+      .catch(error => {
+        setUser(null);
+      });
   }, []);
 
   const onPublish = async () => {
@@ -44,7 +60,7 @@ const CreatePost = () => {
 
     try {
       const userInfo = await Auth.currentAuthenticatedUser();
-
+      console.log('df', userInfo)
       const newPost = {
         videoUri: videoKey,
         description: description,
@@ -71,13 +87,27 @@ const CreatePost = () => {
         placeholder={'Description'}
         style={styles.textInput}
       />
-      <TouchableOpacity onPress={onPublish}>
-        <View style={styles.button}>
-          <Text style={styles.buttonText}>Publish</Text>
-        </View>
-      </TouchableOpacity>
+      {user === null ?
+        <TouchableOpacity onPress={signin}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Sign in before Publish</Text>
+          </View>
+        </TouchableOpacity> : <>
+          <TouchableOpacity onPress={onPublish}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Publish</Text>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => { Auth.signOut(); setUser(null) }}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>Sign out</Text>
+            </View>
+          </TouchableOpacity></>
+      }
+
     </View>
   );
 };
 
-export default withAuthenticator(CreatePost);
+export default CreatePost;
