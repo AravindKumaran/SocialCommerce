@@ -1,12 +1,19 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
-import { v4 as uuidv4, v4 } from 'uuid';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
+import {v4 as uuidv4, v4} from 'uuid';
 
-import { Storage, API, graphqlOperation, Auth } from 'aws-amplify';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import { withAuthenticator } from 'aws-amplify-react-native';
+import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
+import {useRoute, useNavigation} from '@react-navigation/native';
+import {withAuthenticator} from 'aws-amplify-react-native';
 import styles from './styles';
-import { createPost } from '../../graphql/mutations';
+import {createPost} from '../../graphql/mutations';
+import LoginButton from './Publish';
 
 const CreatePost = () => {
   const [description, setDescription] = useState('');
@@ -15,8 +22,9 @@ const CreatePost = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const [user, setUser] = useState(null);
+  const [isNotLoading, setNotLoading] = useState(false);
   const signin = useCallback(() => {
-    Auth.federatedSignIn({ provider: "google" });
+    Auth.federatedSignIn({provider: 'google'});
     setUser(true);
   }, []);
 
@@ -28,8 +36,9 @@ const CreatePost = () => {
       const random = Math.floor(Math.random() * 9000);
       const filename = `${random}.mp4`;
       const s3Response = await Storage.put(filename, blob);
-      console.log('s3Response', s3Response)
+      console.log('s3Response', s3Response);
       setVideoKey(s3Response.key);
+      setNotLoading(true);
     } catch (e) {
       console.error(e);
     }
@@ -38,15 +47,15 @@ const CreatePost = () => {
   useEffect(() => {
     console.log('route.params.videoUri', route.params.videoUri);
     Auth.currentAuthenticatedUser()
-      .then(user => {
+      .then((user) => {
         user.getUserData((err, userData) => {
           setUser({
-            email: user.attributes.email
-          })
+            email: user.attributes.email,
+          });
         });
         uploadToStorage(route.params.videoUri);
       })
-      .catch(error => {
+      .catch((error) => {
         setUser(null);
       });
   }, []);
@@ -60,19 +69,19 @@ const CreatePost = () => {
 
     try {
       const userInfo = await Auth.currentAuthenticatedUser();
-      console.log('df', userInfo)
+      console.log('df', userInfo);
       const newPost = {
         videoUri: videoKey,
         description: description,
         userID: userInfo.attributes.sub,
         likes: 0,
-        songID: "20dee14b-39a9-4321-8ec7-c3380e2f5c27",
+        songID: '20dee14b-39a9-4321-8ec7-c3380e2f5c27',
       };
 
       const response = await API.graphql(
-        graphqlOperation(createPost, { input: newPost }),
+        graphqlOperation(createPost, {input: newPost}),
       );
-      navigation.navigate("Home", { screen: "Home" });
+      navigation.navigate('Home', {screen: 'Home'});
     } catch (e) {
       console.error(e);
     }
@@ -80,32 +89,43 @@ const CreatePost = () => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        value={description}
-        onChangeText={setDescription}
-        numberOfLines={5}
-        placeholder={'Description'}
-        style={styles.textInput}
-      />
-      {user === null ?
-        <TouchableOpacity onPress={signin}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Sign in before Publish</Text>
-          </View>
-        </TouchableOpacity> : <>
-          <TouchableOpacity onPress={onPublish}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Publish</Text>
-            </View>
-          </TouchableOpacity>
+      {isNotLoading == true ? (
+        <>
+          <TextInput
+            value={description}
+            onChangeText={setDescription}
+            numberOfLines={5}
+            placeholder={'Description'}
+            style={styles.textInput}
+          />
+          {user === null ? (
+            <TouchableOpacity onPress={signin}>
+              <View style={styles.button}>
+                <Text style={styles.buttonText}>Sign in before Publish</Text>
+              </View>
+            </TouchableOpacity>
+          ) : (
+            <>
+              {/* <LoginButton onPress =  {onPublish }/> */}
 
-          <TouchableOpacity onPress={() => { Auth.signOut(); setUser(null) }}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Sign out</Text>
-            </View>
-          </TouchableOpacity></>
-      }
-
+              <TouchableOpacity style={styles.button} onPress={onPublish}>
+                <Text style={styles.buttonText}>Publish</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  Auth.signOut();
+                  setUser(null);
+                }}>
+                <View style={styles.button}>
+                  <Text style={styles.buttonText}>Sign out</Text>
+                </View>
+              </TouchableOpacity>
+            </>
+          )}
+        </>
+      ) : (
+        <ActivityIndicator animating={true} size="large" color="#00ff00" />
+      )}
     </View>
   );
 };
