@@ -13,7 +13,7 @@ import {useRoute, useNavigation} from '@react-navigation/native';
 import {withAuthenticator} from 'aws-amplify-react-native';
 import styles from './styles';
 import {createPost} from '../../graphql/mutations';
-import LoginButton from './Publish';
+
 
 const CreatePost = () => {
   const [description, setDescription] = useState('');
