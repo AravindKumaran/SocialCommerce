@@ -19,6 +19,7 @@ import {createUser} from './src/graphql/mutations';
 import {getUser} from './src/graphql/queries';
 
 import SplashScreen from 'react-native-splash-screen';
+// import Toptab from './src/navigation/homeTopTabNavigator';
 
 
 
@@ -76,6 +77,7 @@ const App: () => React$Node = () => {
     <>
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
+        {/* <Toptab /> */}
         <Navigation />
       </SafeAreaView>
     </>

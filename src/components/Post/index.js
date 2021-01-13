@@ -4,12 +4,13 @@ import {API, graphqlOperation, Storage} from 'aws-amplify';
 
 import Video from 'react-native-video';
 import styles from './styles';
-
-import Entypo from 'react-native-vector-icons/Entypo';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Fontisto from 'react-native-vector-icons/Fontisto';
-import { updatePost } from '../../graphql/mutations';
+
+// import Entypo from 'react-native-vector-icons/Entypo';
+// import AntDesign from 'react-native-vector-icons/AntDesign';
+// import FontAwesome from 'react-native-vector-icons/FontAwesome';
+// import { updatePost } from '../../graphql/mutations';
+// import Fontisto from 'react-native-vector-icons/Fontisto';
 
 const Post = (props) => {
   const [post, setPost] = useState(props.post);
@@ -22,18 +23,18 @@ const Post = (props) => {
     setPaused(!paused);
   };
 
-  const onLikePress  = async () => {
-    const likesToAdd = isLiked ? -1 : 1;
-    const postLikes = post.likes[0];
-    setPost({
-      ...post,
-      likes: [postLikes + likesToAdd],
-    });
-    const response = await API.graphql(
-      graphqlOperation(updatePost, { input: {likes: [postLikes + likesToAdd], id: post.id} }),
-    );
-    setIsLiked(!isLiked);
-  };
+  // const onLikePress  = async () => {
+  //   const likesToAdd = isLiked ? -1 : 1;
+  //   const postLikes = post.likes[0];
+  //   setPost({
+  //     ...post,
+  //     likes: [postLikes + likesToAdd],
+  //   });
+  //   const response = await API.graphql(
+  //     graphqlOperation(updatePost, { input: {likes: [postLikes + likesToAdd], id: post.id} }),
+  //   );
+  //   setIsLiked(!isLiked);
+  // };
 
   const getVideoUri = async () => {
     if (post.videoUri.startsWith('http')) {
@@ -62,19 +63,20 @@ const Post = (props) => {
           />
 
           <View style={styles.uiContainer}>
-            <View style={styles.rightContainer}>
-              <Image
+            {/* <View style={styles.rightContainer}> */}
+              {/* <Image
                 style={styles.profilePicture}
                 source={{uri: post.user.imageUri}}
-              />
+              /> */}
 
-              <TouchableOpacity style={styles.iconContainer} onPress={onLikePress}>
-                <AntDesign name={'heart'} size={40} color={isLiked ? 'red' : 'white'} />
-                <Text style={styles.statsLabel}>{post.likes || 0}</Text>
+              <TouchableOpacity style={{position: 'absolute', left: 25, bottom: 80, top: 480 }} /*onPress={onLikePress}*/ >
+                <Fontisto name={'heart'} size={25} color={isLiked ? 'red' : 'white'} />
+                {/* <Text style={styles.statsLabel}>{post.likes || 0}</Text> */}
               </TouchableOpacity>
 
-              <View style={styles.iconContainer}>
-                <FontAwesome name={'commenting'} size={40} color="white" />
+              <View style={{position: 'absolute', right: 25, bottom: 80, top: 480 }}>
+              <Fontisto name={'commenting'} size={25}  color="white" />
+                {/* <Fontosio name={'heart'} size={40} color="white" /> */}
                 <Text style={styles.statsLabel}>{post.comments}</Text>
               </View>
 
@@ -82,9 +84,10 @@ const Post = (props) => {
                 <Fontisto name={'share-a'} size={35} color="white" />
                 <Text style={styles.statsLabel}>{post.shares}</Text>
               </View> */}
-            </View>
 
-            <View style={styles.bottomContainer}>
+            {/* </View> */}
+
+            {/* <View style={styles.bottomContainer}>
               <View>
                 <Text style={styles.handle}>@{post.user.username}</Text>
                 <Text style={styles.description}>{post.description}</Text>
@@ -99,7 +102,7 @@ const Post = (props) => {
                 style={styles.songImage}
                 source={{uri: post.song.imageUri}}
               />
-            </View>
+            </View> */}
           </View>
         </View>
       </TouchableWithoutFeedback>

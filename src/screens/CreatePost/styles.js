@@ -21,6 +21,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  activityIndicator: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 80
   }
 });
 

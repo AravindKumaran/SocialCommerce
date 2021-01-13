@@ -124,10 +124,17 @@ const CreatePost = () => {
           )}
         </>
       ) : (
-        <ActivityIndicator animating={true} size="large" color="#00ff00" />
+        <ActivityIndicator  
+        animating={true} 
+        size="large" 
+        color="#bc2b78" 
+        style = {styles.activityIndicator}
+        />
       )}
     </View>
   );
 };
 
 export default CreatePost;
+
+

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, Dimensions } from 'react-native';
+import { View, FlatList, Dimensions, Image, StyleSheet } from 'react-native';
 import Post from '../../components/Post';
 import { API, graphqlOperation } from 'aws-amplify';
+import Bgimage from '../assets/images/Bg_image.png';
+import Bgname from '../assets/images/Bg_name.png';
 
 import { listPosts } from '../../graphql/queries';
 
@@ -31,17 +33,24 @@ const Home = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <View>
-      <FlatList
+    <View style={{  position: 'absolute', padding: 10, width: 400, height: 1500, top: 80, bottom: 50,
+    paddingLeft: 4, paddingRight: 10, paddingBottom: 30, backgroundColor: '#292929' }}>
+      {/* <Image name={Bgimage} style={{ width: 75, height: 75}} /> */}
+      {/* <Image name= {Bgimage}></Image> */}
+      {/* <Image source={require('../assets/images/Bg_image')} style={{ width: 75, height: 75, borderRadius: 50, top: 20 }} /> */}
+      {/* <Image source={require('../assets/images/Bg_name.png')} style={{ width: 75, height: 75, borderRadius: 50, top: 20 }} /> */}
+    <FlatList      
         data={posts}
         renderItem={({ item }) => <Post post={item} />}
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}
         decelerationRate={'fast'}
-        snapToInterval={Dimensions.get('window').height - 70 }
+        snapToInterval={Dimensions.get('window').height - 160 }
+        borderRadius= {50}
       />
     </View>
   );
 };
 
 export default Home;
+
