@@ -37,7 +37,7 @@ const HomeBottomTabNavigator = () => {
     <Tab.Navigator
       tabBarOptions={{
         tabStyle: {
-          backgroundColor: '#292929',
+          backgroundColor: '#383734',
         },
         inactiveTintColor: '#FFFFFF',
         activeTintColor: '#21FFFC',      
@@ -46,6 +46,15 @@ const HomeBottomTabNavigator = () => {
         indicatorStyle: {
           opacity: 0,
         },
+        style:{
+          borderRadius:21, 
+          backgroundColor:"#383734",
+          position:'absolute',
+          bottom: 0,
+          padding:10,
+          height: 54,
+          zIndex: 8 
+       }
       }}>
       <Tab.Screen
         name={'Home'}

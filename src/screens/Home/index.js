@@ -39,7 +39,7 @@ const Home = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}
         decelerationRate={'fast'}
-        snapToInterval={Dimensions.get('window').height - 160 }
+        snapToInterval={Dimensions.get('window').height - 142 }
         borderRadius= {50}
       />
     </View>

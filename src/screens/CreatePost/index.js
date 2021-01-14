@@ -38,8 +38,10 @@ const CreatePost = () => {
       const s3Response = await Storage.put(filename, blob);
       console.log('s3Response', s3Response);
       setVideoKey(s3Response.key);
-      setNotLoading(true);
-      onPublish();
+      setTimeout(() => {
+        console.log('video', videoKey)
+        onPublish(s3Response.key);
+      }, 1000);
     } catch (e) {
       console.error(e);
     }
@@ -65,9 +67,10 @@ const CreatePost = () => {
     uploadToStorage(route.params.videoUri);
   }
 
-  const onPublish = async () => {
+  const onPublish = async (keyVideo) => {
     // create post in the database (API)
-    if (!videoKey) {
+    if (!keyVideo) {
+      setNotLoading(true);
       console.warn('Video is uploading! Please wait!');
       return;
     }
@@ -76,7 +79,7 @@ const CreatePost = () => {
       const userInfo = await Auth.currentAuthenticatedUser();
       console.log('df', userInfo);
       const newPost = {
-        videoUri: videoKey,
+        videoUri: keyVideo,
         description: description,
         userID: userInfo.attributes.sub,
         likes: 0,
@@ -86,6 +89,7 @@ const CreatePost = () => {
       const response = await API.graphql(
         graphqlOperation(createPost, { input: newPost }),
       );
+      setNotLoading(true);
       navigation.navigate('Home', { screen: 'Home' });
     } catch (e) {
       console.error(e);
@@ -94,7 +98,7 @@ const CreatePost = () => {
 
   return (
     <View style={styles.container}>
-      {isNotLoading == true ? (
+      {isNotLoading !== false ? (
         <>
           <TextInput
             value={description}

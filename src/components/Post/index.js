@@ -69,12 +69,12 @@ const Post = (props) => {
                 source={{uri: post.user.imageUri}}
               /> */}
 
-              <TouchableOpacity style={{position: 'absolute', left: 25, bottom: 80, top: 480 }} /*onPress={onLikePress}*/ >
+              <TouchableOpacity style={{position: 'absolute', left: 25, bottom: "0%", top: "90%" }} /*onPress={onLikePress}*/ >
                 <Fontisto name={'heart'} size={25} color={isLiked ? 'red' : 'white'} />
                 {/* <Text style={styles.statsLabel}>{post.likes || 0}</Text> */}
               </TouchableOpacity>
 
-              <View style={{position: 'absolute', right: 25, bottom: 80, top: 480 }}>
+              <View style={{position: 'absolute', right: 25, bottom: "0%", top: "90%" }}>
               <Fontisto name={'commenting'} size={25}  color="white" />
                 {/* <Fontosio name={'heart'} size={40} color="white" /> */}
                 <Text style={styles.statsLabel}>{post.comments}</Text>
