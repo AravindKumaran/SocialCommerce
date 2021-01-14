@@ -21,13 +21,14 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 15,
     right: 0,
-    borderRadius: 20,
+    borderRadius: 10,
     // backgroundColor: '#292929',
     // borderWidth: 10
   },
   uiContainer: {
     height: '100%',
     justifyContent: 'flex-end',
+    marginBottom: 7
   },
   // bottomContainer: {
   //   padding: 10,

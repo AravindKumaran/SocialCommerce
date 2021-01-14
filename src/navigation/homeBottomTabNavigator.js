@@ -6,6 +6,7 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import ProfileScreen from '../screens/Profile/index';
 import {Image, Text} from 'react-native';
+import { color } from 'react-native-reanimated';
 
 
 
@@ -41,7 +42,10 @@ const HomeBottomTabNavigator = () => {
         inactiveTintColor: '#FFFFFF',
         activeTintColor: '#21FFFC',      
         showLabel: false,
-        showIcon: true
+        showIcon: true,
+        indicatorStyle: {
+          opacity: 0,
+        },
       }}>
       <Tab.Screen
         name={'Home'}
@@ -52,8 +56,9 @@ const HomeBottomTabNavigator = () => {
           tabBarIcon: ({tintColor}) => (
             // <SimpleLineIcons name={'home'} size={25}  tintColor={ tintColor }
               // style={{height: 25, resizeMode: 'contain'}}
+              <>
               <Image source={require('../assets/images/Home_icon.png')} width={35} height={35} />           
-          ),
+          </>),
         }}
       />
       <Tab.Screen

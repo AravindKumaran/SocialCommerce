@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState, useCallback} from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,13 +6,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import {v4 as uuidv4, v4} from 'uuid';
+import { v4 as uuidv4, v4 } from 'uuid';
 
-import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
-import {useRoute, useNavigation} from '@react-navigation/native';
-import {withAuthenticator} from 'aws-amplify-react-native';
+import { Storage, API, graphqlOperation, Auth } from 'aws-amplify';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { withAuthenticator } from 'aws-amplify-react-native';
 import styles from './styles';
-import {createPost} from '../../graphql/mutations';
+import { createPost } from '../../graphql/mutations';
 
 
 const CreatePost = () => {
@@ -22,9 +22,9 @@ const CreatePost = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const [user, setUser] = useState(null);
-  const [isNotLoading, setNotLoading] = useState(false);
+  const [isNotLoading, setNotLoading] = useState(null);
   const signin = useCallback(() => {
-    Auth.federatedSignIn({provider: 'google'});
+    Auth.federatedSignIn({ provider: 'google' });
     setUser(true);
   }, []);
 
@@ -39,6 +39,7 @@ const CreatePost = () => {
       console.log('s3Response', s3Response);
       setVideoKey(s3Response.key);
       setNotLoading(true);
+      onPublish();
     } catch (e) {
       console.error(e);
     }
@@ -53,12 +54,16 @@ const CreatePost = () => {
             email: user.attributes.email,
           });
         });
-        uploadToStorage(route.params.videoUri);
       })
       .catch((error) => {
         setUser(null);
       });
   }, []);
+
+  const onPublishButtonClick = async () => {
+    setNotLoading(false);
+    uploadToStorage(route.params.videoUri);
+  }
 
   const onPublish = async () => {
     // create post in the database (API)
@@ -79,9 +84,9 @@ const CreatePost = () => {
       };
 
       const response = await API.graphql(
-        graphqlOperation(createPost, {input: newPost}),
+        graphqlOperation(createPost, { input: newPost }),
       );
-      navigation.navigate('Home', {screen: 'Home'});
+      navigation.navigate('Home', { screen: 'Home' });
     } catch (e) {
       console.error(e);
     }
@@ -105,32 +110,32 @@ const CreatePost = () => {
               </View>
             </TouchableOpacity>
           ) : (
-            <>
-              {/* <LoginButton onPress =  {onPublish }/> */}
+              <>
+                {/* <LoginButton onPress =  {onPublish }/> */}
 
-              <TouchableOpacity style={styles.button} onPress={onPublish}>
-                <Text style={styles.buttonText}>Publish</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  Auth.signOut();
-                  setUser(null);
-                }}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Sign out</Text>
-                </View>
-              </TouchableOpacity>
-            </>
-          )}
+                <TouchableOpacity style={styles.button} onPress={onPublishButtonClick}>
+                  <Text style={styles.buttonText}>Publish</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    Auth.signOut();
+                    setUser(null);
+                  }}>
+                  <View style={styles.button}>
+                    <Text style={styles.buttonText}>Sign out</Text>
+                  </View>
+                </TouchableOpacity>
+              </>
+            )}
         </>
       ) : (
-        <ActivityIndicator  
-        animating={true} 
-        size="large" 
-        color="#bc2b78" 
-        style = {styles.activityIndicator}
-        />
-      )}
+          <ActivityIndicator
+            animating={true}
+            size="large"
+            color="#bc2b78"
+            style={styles.activityIndicator}
+          />
+        )}
     </View>
   );
 };

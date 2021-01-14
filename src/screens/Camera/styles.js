@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 25,
+    bottom: "4%",
     backgroundColor: '#ff4343',
   },
   buttonStop: {
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     height: 30,
     width: 30,
+    bottom: "4%",
     borderRadius: 3,
     backgroundColor: '#ff4343',
   },
