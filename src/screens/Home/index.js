@@ -32,7 +32,8 @@ const Home = ({ navigation }) => {
   return (
     <View style={{  position: 'absolute', padding: 10, width: 417, height: 1500, top: 80, bottom: 50,
     paddingLeft: 4, marginRight: 4, paddingBottom: 30, backgroundColor: '#292929' }}>
-      <Image source={require('../../assets/images/Logo.png')} size= {15} style={{overlayColor: '#292929', right: 0, left:0, height: 85, paddingLeft: 2, paddingRight: 2, width: 417, top: -80, position: 'absolute', borderBottomRightRadius: 30}} />
+      <Image source={require('../../assets/images/Logo.png')} size= {15} style={{overlayColor: '#292929', right: 0, left:0, height: 85, paddingLeft: 2, paddingRight: 2, width: 470, top: -80, position: 'absolute', borderBottomRightRadius: 30}} />
+      {/* <Image source={require('../../assets/images/Line.png')} size= {5} style={{position: 'absolute', width: 50, right: 50, height: 45, top: -60, resizeMode: 'stretch'}} /> */}
       <FlatList      
         data={posts}
         renderItem={({ item }) => <Post post={item} />}
