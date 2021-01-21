@@ -2,11 +2,21 @@ import React, { useState } from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Camera from '../screens/Camera';
+<<<<<<< HEAD
 import Feather from 'react-native-vector-icons/Feather';
 import ProfileScreen from '../screens/Profile/index';
 import {Image, Text, View} from 'react-native';
 import BottomImage from '../navigation/bottomimage';
 
+=======
+import Search from '../screens/Search';
+import Notifications from '../screens/Notifications';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import Feather from 'react-native-vector-icons/Feather';
+import ProfileScreen from '../screens/Profile/index';
+import {Image, Text, View} from 'react-native';
+import {color} from 'react-native-reanimated';
+>>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
 
 // import post from '../components/Post'
 // import Entypo from 'react-native-vector-icons/Entypo';
@@ -26,6 +36,30 @@ import BottomImage from '../navigation/bottomimage';
 // import { color } from 'react-native-reanimated';
 // import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
+const ActiveStyle = () => (
+  <>
+    <Image
+      style={{
+        position: 'absolute',
+        bottom: -2,
+      }}
+      source={require('../assets/images/blur.png')}
+      width={15}
+      height={15}
+      tintColor={color}
+    />
+    <View
+      style={{
+        width: 27,
+        height: 4,
+        borderRadius: 14,
+        position: 'absolute',
+        bottom: 1,
+        borderBottomColor: '#21FFFC',
+        borderBottomWidth: 4,
+      }}></View>
+  </>
+);
 
 // function Color(){
 //   return {
@@ -117,12 +151,13 @@ const HomeBottomTabNavigator = () => {
           backgroundColor: '#383734',
         },
         inactiveTintColor: '#FFFFFF',
-        activeTintColor: '#21FFFC',      
+        activeTintColor: '#21FFFC',
         showLabel: false,
         showIcon: true,
         indicatorStyle: {
           opacity: 0.2,
         },
+<<<<<<< HEAD
         // itemStyle: {
         //        height: 52,
         //        opacity:0.8,               
@@ -149,11 +184,23 @@ const HomeBottomTabNavigator = () => {
       //      opacity:0.8,                <---- added opacity
       //      backgroundColor:colors.COLOR_FFFFFF                  <----- added background color . ('transparent' color gave this issue')
       // }},
+=======
+        style: {
+          borderRadius: 20,
+          backgroundColor: '#383734',
+          position: 'absolute',
+          bottom: 0,
+          padding: 10,
+          height: 70,
+          zIndex: 8,
+        },
+>>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
       }}>
       <Tab.Screen
         name={'Home'}
         component={Home}
         options={{
+<<<<<<< HEAD
           // tabBarIcon: ({tintColor}) => <SimpleLineIcons name='home' color={tintColor} size={25}/>,
           // tabBarOptions: { activeTintColor:'blue' }
           tabBarIcon: ({tintColor}) => (
@@ -165,12 +212,26 @@ const HomeBottomTabNavigator = () => {
                 <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 5}} />     
                 <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 5}} />     
           </>),
+=======
+          tabBarIcon: ({focused, color}) => (
+            <>
+              <Image
+                source={require('../assets/images/Home_icon.png')}
+                width={25}
+                height={25}
+                tintColor={color}
+              />
+              {focused && <ActiveStyle />}
+            </>
+          ),
+>>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
         }}
       />
       <Tab.Screen
         name={'Search'}
-        component={Home}
+        component={Search}
         options={{
+<<<<<<< HEAD
           tabBarIcon: ({tintColor}) => (
             <>
             {/* <Feather name={'search'} size={25} color={tintColor}  style={{bottom: -5}} tintColor='#21FFFC' />  */}
@@ -179,6 +240,19 @@ const HomeBottomTabNavigator = () => {
               <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 5}} />     
               <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 5}} />                              
            </>),       
+=======
+          tabBarIcon: ({focused, color}) => (
+            <>
+              <Image
+                source={require('../assets/images/Search_icon.png')}
+                width={25}
+                height={25}
+                tintColor={color}
+              />
+              {focused && <ActiveStyle />}
+            </>
+          ),
+>>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
         }}
       />
       <Tab.Screen
@@ -186,7 +260,10 @@ const HomeBottomTabNavigator = () => {
         component={Camera}
         options={{
           tabBarIcon: ({}) => (
-            <Image source={require('../assets/images/Plus.png')} style={{ width: 75, height: 75, borderRadius: 50, bottom: 20 }} />
+            <Image
+              source={require('../assets/images/Plus.png')}
+              style={{width: 75, height: 75, borderRadius: 37, bottom: 40}}
+            />
             // <Image name= {Plus}  />
             // <Fontisto name={'plus-a'} size={25}  color="white"
             // />
@@ -196,8 +273,9 @@ const HomeBottomTabNavigator = () => {
       />
       <Tab.Screen
         name={'Notification'}
-        component={Home}
+        component={Notifications}
         options={{
+<<<<<<< HEAD
           tabBarIcon: ({tintColor}) => (
             <>
             {/* <Feather name={'bell'} size={25} color={tintColor} style={{bottom: -5}} />  */}
@@ -205,12 +283,26 @@ const HomeBottomTabNavigator = () => {
               <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 5}} />     
               <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 5}} />                                       
           </>),
+=======
+          tabBarIcon: ({focused, color}) => (
+            <>
+              <Image
+                source={require('../assets/images/Bell_icon.png')}
+                width={25}
+                height={25}
+                tintColor={color}
+              />
+              {focused && <ActiveStyle />}
+            </>
+          ),
+>>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
         }}
       />
-      <Tab.Screen       
+      <Tab.Screen
         name={'Profile'}
         component={ProfileScreen}
         options={{
+<<<<<<< HEAD
           tabBarIcon: ({tintColor}) => (       
             <>
             {/* // <Image source={{uri: post.user.imageUri}} style={{ width: 25, height: 25, borderRadius: 50, bottom: 20 }} />    */}
@@ -220,6 +312,17 @@ const HomeBottomTabNavigator = () => {
               {/* // <Feather name={'user'} size={25} color={tintColor} onPress={() => ('Profile')}
               // />    */}
           </>),
+=======
+          tabBarIcon: ({tintColor}) => (
+            // <Image source={{uri: post.user.imageUri}} style={{ width: 25, height: 25, borderRadius: 50, bottom: 20 }} />
+            <Image
+              source={require('../assets/images/Profile_icon.png')}
+              size={25}
+            />
+            // <Feather name={'user'} size={25} color={tintColor} onPress={() => ('Profile')}
+            // />
+          ),
+>>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
         }}
       />
     </Tab.Navigator>
@@ -227,5 +330,3 @@ const HomeBottomTabNavigator = () => {
 };
 
 export default HomeBottomTabNavigator;
-
-
