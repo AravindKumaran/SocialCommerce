@@ -1,13 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Camera from '../screens/Camera';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Feather from 'react-native-vector-icons/Feather';
 import ProfileScreen from '../screens/Profile/index';
-import {Image, Text} from 'react-native';
-import { color } from 'react-native-reanimated';
-
+import {Image, Text, View} from 'react-native';
+import BottomImage from '../navigation/bottomimage';
 
 
 // import post from '../components/Post'
@@ -25,14 +23,93 @@ import { color } from 'react-native-reanimated';
 // import Likeicon from '../assets/images/Like_icon.png';
 // import Plus from '../assets/images/Plus.png';
 // import Fontisto from 'react-native-vector-icons/Fontisto';
+// import { color } from 'react-native-reanimated';
+// import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 
 
-const Tab = createBottomTabNavigator();
+// function Color(){
+//   return {
+   
+//       <Image source={require('../assets/images/Search_icon.png')} size={15} style={{width: 25, height: 25, bottom: -5}}  />
+
+//   }
+// }
+
+// const Color = () => {
+//   return (
+//     <View>
+//       <Image
+//         source={require('../assets/images/Search_icon.png')}
+//         style={{width: 25, height: 25, bottom: -5}}
+//         tintColor= '#21FFFC'
+//       />
+//     </View>
+//     // tintColor= '#21FFFC'
+//   );
+// }
+
 
 // tabBarIcon: ({tintColor}) => <SimpleLineIcons name='home' color={tintColor} size={25}/>
 // tabBarOptions: { activeTintColor:'blue', }
 
+// state={
+//   tintColor: '#21FFFC',
+//   pressed: false,
+// };
+
+// function ChangeColor() {
+//   if(!this.state.pressed){
+//      this.setState({ pressed: true, tintColor: '#21FFFC' });
+//   } else {
+//     this.setState({ pressed: false, tintColor: '#21FFFC' });
+//   }
+// };
+
+// const Color = () => {
+//   const [isEnabled, setIsEnabled] = useState(false);
+//   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+//   return (
+//     <View>
+//       <Switch
+//         trackColor={{ false: "#767577", true: "#21FFFC" }}
+//         ios_backgroundColor="#3e3e3e"
+//         onValueChange={toggleSwitch}
+//         value={isEnabled}
+//       />
+//     </View>
+//   );
+// }
+
+// const Color = () => {
+//   tintColor = '#21FFFC'
+// }
+
+const Tab = createBottomTabNavigator();
+
+// function Color() {
+//   const isClicked = true;
+  
+// }
+
+// class constructor {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       myDynamicColor: '#ffffff'
+//     };
+//   }
+// }
+
+// function changeColor(bool) {
+//   this.setState({
+//     myDynamicColor: bool ? '#932727' : '#ffffff';
+//   })
+// }
+
+
 const HomeBottomTabNavigator = () => {
+ 
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -44,8 +121,13 @@ const HomeBottomTabNavigator = () => {
         showLabel: false,
         showIcon: true,
         indicatorStyle: {
-          opacity: 0,
+          opacity: 0.2,
         },
+        // itemStyle: {
+        //        height: 52,
+        //        opacity:0.8,               
+        //        backgroundColor: '#21FFFC',
+        // },
         style:{
           borderRadius:21, 
           backgroundColor:"#383734",
@@ -55,6 +137,18 @@ const HomeBottomTabNavigator = () => {
           height: 54,
           zIndex: 8 
        }
+      //  contentOptions: {
+      //   activeBackgroundColor: 'transparent',
+      //   activeTintColor: colors.COLOR_BF876E,
+      //   inactiveTintColor: colors.COLOR_AFAFAF,
+      //   labelStyle: styles.drawerItemText,
+      //   activeLabelStyle: [styles.drawerItemText, { color: colors.COLOR_BF876E }],
+      //   iconContainerStyle: styles.drawerIcon,
+      //   itemStyle: {{
+      //      height: 52,
+      //      opacity:0.8,                <---- added opacity
+      //      backgroundColor:colors.COLOR_FFFFFF                  <----- added background color . ('transparent' color gave this issue')
+      // }},
       }}>
       <Tab.Screen
         name={'Home'}
@@ -66,7 +160,10 @@ const HomeBottomTabNavigator = () => {
             // <SimpleLineIcons name={'home'} size={25}  tintColor={ tintColor }
               // style={{height: 25, resizeMode: 'contain'}}
               <>
-              <Image source={require('../assets/images/Home_icon.png')} width={35} height={35} />           
+              <Image source={require('../assets/images/Home_icon.png')} width={35} height={35} style={{bottom: -5}} tintColor='#21FFFC' />   
+              {/* onPress={BottomImage} */}
+                <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 5}} />     
+                <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 5}} />     
           </>),
         }}
       />
@@ -75,9 +172,13 @@ const HomeBottomTabNavigator = () => {
         component={Home}
         options={{
           tabBarIcon: ({tintColor}) => (
-            <Feather name={'search'} size={25} color={tintColor} 
-            />                                        
-          ),
+            <>
+            {/* <Feather name={'search'} size={25} color={tintColor}  style={{bottom: -5}} tintColor='#21FFFC' />  */}
+            {/* <Image source={myPNGImage} style={[styles.PNGImageStyle, {tintColor: this.state.myDynamicColor}]}/> */}
+            <Image source={require('../assets/images/Search_icon.png')} size={15} style={{width: 25, height: 25, bottom: -5}} />
+              <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 5}} />     
+              <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 5}} />                              
+           </>),       
         }}
       />
       <Tab.Screen
@@ -98,9 +199,12 @@ const HomeBottomTabNavigator = () => {
         component={Home}
         options={{
           tabBarIcon: ({tintColor}) => (
-            <Feather name={'bell'} size={25} color={tintColor} 
-            />                                        
-          ),
+            <>
+            {/* <Feather name={'bell'} size={25} color={tintColor} style={{bottom: -5}} />  */}
+            <Image source={require('../assets/images/Bell_icon.png')} size={25} style={{bottom: -5}} tintColor='#21FFFC' />
+              <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 5}} />     
+              <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 5}} />                                       
+          </>),
         }}
       />
       <Tab.Screen       
@@ -108,11 +212,14 @@ const HomeBottomTabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({tintColor}) => (       
-            // <Image source={{uri: post.user.imageUri}} style={{ width: 25, height: 25, borderRadius: 50, bottom: 20 }} />   
-            <Image source={require('../assets/images/Profile_icon.png')} size={25}/>                                                                 
-              // <Feather name={'user'} size={25} color={tintColor} onPress={() => ('Profile')}
-              // />   
-          ),
+            <>
+            {/* // <Image source={{uri: post.user.imageUri}} style={{ width: 25, height: 25, borderRadius: 50, bottom: 20 }} />    */}
+            <Image source={require('../assets/images/Profile_icon.png')} size={25} style={{bottom: -5}}/>   
+              <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 10}} />     
+              <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 10}} />                                                                
+              {/* // <Feather name={'user'} size={25} color={tintColor} onPress={() => ('Profile')}
+              // />    */}
+          </>),
         }}
       />
     </Tab.Navigator>

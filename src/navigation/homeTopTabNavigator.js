@@ -147,4 +147,22 @@
    
 
 
-       
+// import React from 'react';
+// import {Image, View} from 'react-native';
+
+// const Home = () => {
+//   return (
+//     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+//       <Image
+//         style={{height: 360, width: 345}}
+//         source={{
+//           uri:
+//             'https://cdn.pixabay.com/photo/2017/01/10/14/48/umbrella-1969261_960_720.png',
+//         }}
+//         tintColor="blue"
+//       />
+//     </View>
+//   );
+// };
+
+// export default Home;

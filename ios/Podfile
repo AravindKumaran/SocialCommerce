@@ -9,6 +9,8 @@ target 'TikTok' do
   use_react_native!(:path => config["reactNativePath"])
 
 
+  pod 'RNInAppBrowser', :path => '../node_modules/react-native-inappbrowser-reborn'
+
   target 'TikTokTests' do
     inherit! :complete
     # Pods for testing
