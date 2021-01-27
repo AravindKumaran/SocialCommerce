@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeBottomTabNavigator from './homeBottomTabNavigator';
 // import createMaterialTopTabNavigator from './homeTopTabNavigator';
 import CreatePost from '../screens/CreatePost';
+import Product from '../screens/Product';
 
 const Stack = createStackNavigator();
 

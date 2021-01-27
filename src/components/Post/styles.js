@@ -28,67 +28,73 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginBottom: 7
   },
-  // bottomContainer: {
-  //   padding: 10,
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between',
-  //   alignItems: 'flex-end',
-  // },
-  // handle: {
-  //   color: '#fff',
-  //   fontSize: 16,
-  //   fontWeight: '700',
-  //   marginBottom: 10,
-  // },
-  // description: {
-  //   color: '#fff',
-  //   fontSize: 16,
-  //   fontWeight: '300',
-  //   marginBottom: 10,
-  // },
-  // songRow: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  // },
-  // songName: {
-  //   color: '#fff',
-  //   fontSize: 16,
-  //   marginLeft: 5,
-  // },
+  bottomContainer: {
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    
+  },
+  handle: {
+    color: '#fff',
+    fontFamily: 'Proxima Nova',
+    fontSize: 20,
+    fontWeight: '700',
+    bottom: 25,
+    left: 10
+  },
+  description: {
+    color: '#fff',
+    fontFamily: 'Proxima Nova',
+    fontSize: 12,
+    fontWeight: '400',
+    bottom: 26, 
+    color: '#21FFFC',
+    left: 17
+  },
+  songRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  songName: {
+    color: '#fff',
+    fontSize: 16,
+    marginLeft: 5,
+  },
 
-  // songImage: {
-  //   width: 50,
-  //   height: 50,
-  //   borderRadius: 25,
-  //   borderWidth: 2,
-  //   borderColor: '#fff',
-  //   alignItems: 'flex-end',
-  // },
+  songImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: '#fff',
+    alignItems: 'flex-end',
+  },
+  rightContainer: {
+    alignSelf: 'flex-end',
+    height: 300,
+    justifyContent: 'space-between',
+    marginRight: 5,
+    bottom: -40, 
+    right: -10
+  },
+  profilePicture: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: '#fff',
+  },
 
-  //  right container
-  // rightContainer: {
-  //   alignSelf: 'flex-end',
-  //   height: 300,
-  //   justifyContent: 'space-between',
-  //   marginRight: 5,
-  // },
-  // profilePicture: {
-  //   width: 50,
-  //   height: 50,
-  //   borderRadius: 25,
-  //   borderWidth: 2,
-  //   borderColor: '#fff',
-  // },
-
-  // iconContainer: {
-  //   alignItems: 'center',
-  // },
-  // statsLabel: {
-  //   color: '#fff',
-  //   fontSize: 16,
-  //   fontWeight: '600',
-  //   marginTop: 5,
-  // },
+  iconContainer: {
+    alignItems: 'center',
+  },
+  statsLabel: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+    marginTop: 5,
+  },
 });
 
 export default styles;

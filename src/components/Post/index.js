@@ -4,12 +4,13 @@ import {API, graphqlOperation, Storage} from 'aws-amplify';
 
 import Video from 'react-native-video';
 import styles from './styles';
-import Fontisto from 'react-native-vector-icons/Fontisto';
+import Product from '../../screens/Product/index';
 
 // import Entypo from 'react-native-vector-icons/Entypo';
 // import AntDesign from 'react-native-vector-icons/AntDesign';
 // import FontAwesome from 'react-native-vector-icons/FontAwesome';
 // import { updatePost } from '../../graphql/mutations';
+// import Fontisto from 'react-native-vector-icons/Fontisto';
 // import Fontisto from 'react-native-vector-icons/Fontisto';
 
 const Post = (props) => {
@@ -23,6 +24,8 @@ const Post = (props) => {
     setPaused(!paused);
   };
 
+  const [shouldShow, setShouldShow] = useState(true);
+  
   // const onLikePress  = async () => {
   //   const likesToAdd = isLiked ? -1 : 1;
   //   const postLikes = post.likes[0];
@@ -50,6 +53,7 @@ const Post = (props) => {
 
   return (
     <View style={styles.container}>
+      {/* {shouldShow ? ( */}
       <TouchableWithoutFeedback onPress={onPlayPausePress}>
         <View>
           <Video
@@ -63,29 +67,70 @@ const Post = (props) => {
           />
 
           <View style={styles.uiContainer}>
-            {/* <View style={styles.rightContainer}> */}
-              {/* <Image
-                style={styles.profilePicture}
-                source={{uri: post.user.imageUri}}
-              /> */}
+            <View style={styles.rightContainer}>
+            {/* <Image
+              source={require('../../assets/images/Profile_icon.png')}
+              size={25}
+            /> */}
 
-              <TouchableOpacity style={{position: 'absolute', left: 25, bottom: "0%", top: "90%" }} /*onPress={onLikePress}*/ >
-                <Fontisto name={'heart'} size={25} color={isLiked ? 'red' : 'white'} />
+              {/* {shouldShow ? ( */}
+
+              <TouchableOpacity style={{position: 'absolute', right: 15, bottom: 0, top: 30 }} /*onPress={onLikePress}*/ >
+                {/* {shouldShow ? ( */}
+                <Image
+                source={require('../../assets/images/Profile1_icon.png')}
+                size={25}
+                />
+                {/* <Fontisto name={'heart'} size={25} color={isLiked ? 'red' : 'white'} /> */}
                 {/* <Text style={styles.statsLabel}>{post.likes || 0}</Text> */}
               </TouchableOpacity>
 
-              <View style={{position: 'absolute', right: 25, bottom: "0%", top: "90%" }}>
-              <Fontisto name={'commenting'} size={25}  color="white" />
+              <TouchableOpacity style={{position: 'absolute', right: 20, bottom: 0, top: 100 }} /*onPress={onLikePress}*/ >
+                <Image
+                source={require('../../assets/images/Like_icon.png')}
+                size={25}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={{position: 'absolute', right: 20, bottom: 0, top: 150 }} onPress={() => setShouldShow(!shouldShow)} >
+                <Image 
+                onPress={() => setShouldShow(!shouldShow)}
+                source={require('../../assets/images/Product_icon.png')}
+                size={25}
+                />
+              </TouchableOpacity>
+              
+              {/* ) : ( */}
+
+              <TouchableOpacity style={{position: 'absolute', right: 20, bottom: 0, top: 200 }}>
+                <Image
+                source={require('../../assets/images/Comment_icon.png')}
+                size={25}
+                />
+              {/* <Fontisto name={'commenting'} size={25}  color="white" /> */}
                 {/* <Fontosio name={'heart'} size={40} color="white" /> */}
-                <Text style={styles.statsLabel}>{post.comments}</Text>
-              </View>
+                {/* <Text style={styles.statsLabel}>{post.comments}</Text> */}
+              </TouchableOpacity>
 
               {/* <View style={styles.iconContainer}>
                 <Fontisto name={'share-a'} size={35} color="white" />
                 <Text style={styles.statsLabel}>{post.shares}</Text>
               </View> */}
 
-            {/* </View> */}
+            </View>
+
+            <View style={styles.bottomContainer}>
+              <View>
+                <Text style={styles.handle}>{post.user.username}</Text>
+                <Image source={require('../../assets/images/Dot.png')} size={25} style={{bottom:15, left: 10}}/>                                        
+                <Text style={styles.description}>{post.description}</Text>
+
+                {/* <View style={styles.songRow}> */}
+                  {/* <Entypo name={'beamed-note'} size={24} color="white" /> */}
+                  {/* <Text style={styles.songName}>{post.song.name}</Text> */}
+                {/* </View> */}
+              </View>
+            </View>
 
             {/* <View style={styles.bottomContainer}>
               <View>
@@ -98,11 +143,11 @@ const Post = (props) => {
                 </View>
               </View>
 
-              <Image
+              {/* <Image
                 style={styles.songImage}
                 source={{uri: post.song.imageUri}}
-              />
-            </View> */}
+              /> */}
+            {/* </View> */} 
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -111,3 +156,27 @@ const Post = (props) => {
 };
 
 export default Post;
+
+
+
+// import React, { useState } from 'react';
+// import { StyleSheet, View, Button, Image } from 'react-native';
+
+// const App = () => {
+//   const [shouldShow, setShouldShow] = useState(false);
+//   return (
+//       <View style={styles.container}>
+//         {shouldShow ? (
+//           <Image
+//             source={{ uri:     'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png'
+//             }}
+//             style={{ width: 250, height: 250 }}
+//           />
+//         ) : (
+//         <Button
+//           title="Hide/Show Component"
+//           onPress={() => setShouldShow(!shouldShow)}
+//         /> )}
+//       </View>
+//   );
+// };

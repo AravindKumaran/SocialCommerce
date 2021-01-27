@@ -11,6 +11,7 @@ import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
 
 import Navigation from './src/navigation';
+// import Product from './src/screens/Products';
 
 import {Auth, API, graphqlOperation} from 'aws-amplify';
 // import {withAuthenticator} from 'aws-amplify-react-native';
@@ -79,6 +80,7 @@ const App: () => React$Node = () => {
       <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
         {/* <Toptab /> */}
         <Navigation />
+        {/* <Product /> */}
       </SafeAreaView>
     </>
   );

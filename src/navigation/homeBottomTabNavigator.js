@@ -2,23 +2,13 @@ import React, { useState } from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Camera from '../screens/Camera';
-<<<<<<< HEAD
-import Feather from 'react-native-vector-icons/Feather';
-import ProfileScreen from '../screens/Profile/index';
-import {Image, Text, View} from 'react-native';
-import BottomImage from '../navigation/bottomimage';
-
-=======
 import Search from '../screens/Search';
 import Notifications from '../screens/Notifications';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
-import Feather from 'react-native-vector-icons/Feather';
 import ProfileScreen from '../screens/Profile/index';
 import {Image, Text, View} from 'react-native';
 import {color} from 'react-native-reanimated';
->>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
 
-// import post from '../components/Post'
+// import post from '../components/Post';
 // import Entypo from 'react-native-vector-icons/Entypo';
 // import AntDesign from 'react-native-vector-icons/AntDesign';
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -35,6 +25,9 @@ import {color} from 'react-native-reanimated';
 // import Fontisto from 'react-native-vector-icons/Fontisto';
 // import { color } from 'react-native-reanimated';
 // import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+// import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+// import Feather from 'react-native-vector-icons/Feather';
+// import Product from '../screens/Product';
 
 const ActiveStyle = () => (
   <>
@@ -157,62 +150,20 @@ const HomeBottomTabNavigator = () => {
         indicatorStyle: {
           opacity: 0.2,
         },
-<<<<<<< HEAD
-        // itemStyle: {
-        //        height: 52,
-        //        opacity:0.8,               
-        //        backgroundColor: '#21FFFC',
-        // },
-        style:{
-          borderRadius:21, 
-          backgroundColor:"#383734",
-          position:'absolute',
-          bottom: 0,
-          padding:10,
-          height: 54,
-          zIndex: 8 
-       }
-      //  contentOptions: {
-      //   activeBackgroundColor: 'transparent',
-      //   activeTintColor: colors.COLOR_BF876E,
-      //   inactiveTintColor: colors.COLOR_AFAFAF,
-      //   labelStyle: styles.drawerItemText,
-      //   activeLabelStyle: [styles.drawerItemText, { color: colors.COLOR_BF876E }],
-      //   iconContainerStyle: styles.drawerIcon,
-      //   itemStyle: {{
-      //      height: 52,
-      //      opacity:0.8,                <---- added opacity
-      //      backgroundColor:colors.COLOR_FFFFFF                  <----- added background color . ('transparent' color gave this issue')
-      // }},
-=======
         style: {
           borderRadius: 20,
           backgroundColor: '#383734',
           position: 'absolute',
           bottom: 0,
           padding: 10,
-          height: 70,
+          height: 55,
           zIndex: 8,
         },
->>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
       }}>
       <Tab.Screen
         name={'Home'}
         component={Home}
         options={{
-<<<<<<< HEAD
-          // tabBarIcon: ({tintColor}) => <SimpleLineIcons name='home' color={tintColor} size={25}/>,
-          // tabBarOptions: { activeTintColor:'blue' }
-          tabBarIcon: ({tintColor}) => (
-            // <SimpleLineIcons name={'home'} size={25}  tintColor={ tintColor }
-              // style={{height: 25, resizeMode: 'contain'}}
-              <>
-              <Image source={require('../assets/images/Home_icon.png')} width={35} height={35} style={{bottom: -5}} tintColor='#21FFFC' />   
-              {/* onPress={BottomImage} */}
-                <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 5}} />     
-                <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 5}} />     
-          </>),
-=======
           tabBarIcon: ({focused, color}) => (
             <>
               <Image
@@ -220,27 +171,17 @@ const HomeBottomTabNavigator = () => {
                 width={25}
                 height={25}
                 tintColor={color}
+                style={{bottom: 10}}
               />
               {focused && <ActiveStyle />}
             </>
           ),
->>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
         }}
       />
       <Tab.Screen
         name={'Search'}
         component={Search}
         options={{
-<<<<<<< HEAD
-          tabBarIcon: ({tintColor}) => (
-            <>
-            {/* <Feather name={'search'} size={25} color={tintColor}  style={{bottom: -5}} tintColor='#21FFFC' />  */}
-            {/* <Image source={myPNGImage} style={[styles.PNGImageStyle, {tintColor: this.state.myDynamicColor}]}/> */}
-            <Image source={require('../assets/images/Search_icon.png')} size={15} style={{width: 25, height: 25, bottom: -5}} />
-              <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 5}} />     
-              <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 5}} />                              
-           </>),       
-=======
           tabBarIcon: ({focused, color}) => (
             <>
               <Image
@@ -248,11 +189,11 @@ const HomeBottomTabNavigator = () => {
                 width={25}
                 height={25}
                 tintColor={color}
+                style={{bottom: 10}}
               />
               {focused && <ActiveStyle />}
             </>
           ),
->>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
         }}
       />
       <Tab.Screen
@@ -262,7 +203,7 @@ const HomeBottomTabNavigator = () => {
           tabBarIcon: ({}) => (
             <Image
               source={require('../assets/images/Plus.png')}
-              style={{width: 75, height: 75, borderRadius: 37, bottom: 40}}
+              style={{width: 65, height: 65, borderRadius: 37, bottom: 25}}
             />
             // <Image name= {Plus}  />
             // <Fontisto name={'plus-a'} size={25}  color="white"
@@ -275,15 +216,6 @@ const HomeBottomTabNavigator = () => {
         name={'Notification'}
         component={Notifications}
         options={{
-<<<<<<< HEAD
-          tabBarIcon: ({tintColor}) => (
-            <>
-            {/* <Feather name={'bell'} size={25} color={tintColor} style={{bottom: -5}} />  */}
-            <Image source={require('../assets/images/Bell_icon.png')} size={25} style={{bottom: -5}} tintColor='#21FFFC' />
-              <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 5}} />     
-              <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 5}} />                                       
-          </>),
-=======
           tabBarIcon: ({focused, color}) => (
             <>
               <Image
@@ -291,38 +223,27 @@ const HomeBottomTabNavigator = () => {
                 width={25}
                 height={25}
                 tintColor={color}
+                style={{bottom: 10}}
               />
               {focused && <ActiveStyle />}
             </>
           ),
->>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
         }}
       />
       <Tab.Screen
         name={'Profile'}
         component={ProfileScreen}
         options={{
-<<<<<<< HEAD
-          tabBarIcon: ({tintColor}) => (       
-            <>
-            {/* // <Image source={{uri: post.user.imageUri}} style={{ width: 25, height: 25, borderRadius: 50, bottom: 20 }} />    */}
-            <Image source={require('../assets/images/Profile_icon.png')} size={25} style={{bottom: -5}}/>   
-              <Image source={require('../assets/images/Bottom1.png')} width={35} height={35} style={{bottom: 10}} />     
-              <Image source={require('../assets/images/Bottom.png')} width={35} height={35} style={{bottom: 10}} />                                                                
-              {/* // <Feather name={'user'} size={25} color={tintColor} onPress={() => ('Profile')}
-              // />    */}
-          </>),
-=======
           tabBarIcon: ({tintColor}) => (
             // <Image source={{uri: post.user.imageUri}} style={{ width: 25, height: 25, borderRadius: 50, bottom: 20 }} />
             <Image
               source={require('../assets/images/Profile_icon.png')}
               size={25}
+              style={{bottom: 10}}
             />
             // <Feather name={'user'} size={25} color={tintColor} onPress={() => ('Profile')}
             // />
           ),
->>>>>>> 002da3b9beaa850ee7e9c204c2a92a9247c67124
         }}
       />
     </Tab.Navigator>
