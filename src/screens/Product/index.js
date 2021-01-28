@@ -44,8 +44,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'black',
-    zIndex: 1,
-    top: -25
+    zIndex: 100,
+    top: -25, 
   },
   Rectangle:{
     bottom: -550,
