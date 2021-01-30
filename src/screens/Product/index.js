@@ -6,11 +6,6 @@ const Product = () => {
   return (
     <View style={styles.container}>
 
-      {/* <Image
-        source={require('../../assets/images/Tag1.png')}
-        style={{top: 250}}
-      /> */}
-
       <TouchableOpacity style={styles.Rectangle} /> 
         
         <TouchableOpacity style={styles.Brand}>
@@ -22,8 +17,6 @@ const Product = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.Rectangle1} > 
-          {/* <Text style={styles.text1}>Sony</Text>
-          <Text style={styles.text2}>Model 3</Text> */}
           <Text style={styles.text3}>Buy Now</Text>
         </TouchableOpacity>
 
@@ -31,7 +24,7 @@ const Product = () => {
 
       <Image
         source={require('../../assets/images/Tag4.png')}
-        style={{bottom: -300, left: -110}}
+        style={{bottom: -260, left: -110}}
       />
 
     </View>
@@ -43,9 +36,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
-    zIndex: 100,
-    top: -25, 
+    zIndex: 1,
+    bottom: 550
   },
   Rectangle:{
     bottom: -550,
@@ -56,7 +48,7 @@ const styles = StyleSheet.create({
     left: 5,
   },
   Rectangle1:{
-    bottom: -485,
+    bottom: -455,
     width: 200,
     height: 40,
     backgroundColor: '#518BF9',
@@ -66,28 +58,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center'
   },
-  // Brand:{
-  //   bottom: -155,
-  //   width: 200,
-  //   height: 40,
-  //   backgroundColor: '#518BF9',
-  //   borderRadius: 10, 
-  //   right: -70,
-  //   justifyContent: 'center',
-  //   alignContent: 'center',
-  //   alignItems: 'center'
-  // },
-  // Model:{
-  //   bottom: -155,
-  //   width: 200,
-  //   height: 40,
-  //   backgroundColor: '#518BF9',
-  //   borderRadius: 10, 
-  //   right: -70,
-  //   justifyContent: 'center',
-  //   alignContent: 'center',
-  //   alignItems: 'center'
-  // },
   text1:{
     fontFamily: 'Proxima Nova',
     fontWeight: 'bold',
@@ -99,7 +69,7 @@ const styles = StyleSheet.create({
   text2:{
     fontFamily: 'Proxima Nova',
     fontWeight: 'normal',
-    top: 460,
+    top: 440,
     color: '#222222',
     fontSize: 12,
     left: 25
@@ -110,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   Square:{
-    bottom: -390,
+    bottom: -350,
     width: 100,
     height: 100,
     backgroundColor: '#ffffff',
@@ -194,3 +164,29 @@ export default Product;
           style={{position: 'absolute', right: 20, bottom: 250, width: 400, height: 150 }}
         /> */}
         {/* <Text>Home Page</Text> */}
+
+
+
+
+  // Brand:{
+  //   bottom: -155,
+  //   width: 200,
+  //   height: 40,
+  //   backgroundColor: '#518BF9',
+  //   borderRadius: 10, 
+  //   right: -70,
+  //   justifyContent: 'center',
+  //   alignContent: 'center',
+  //   alignItems: 'center'
+  // },
+  // Model:{
+  //   bottom: -155,
+  //   width: 200,
+  //   height: 40,
+  //   backgroundColor: '#518BF9',
+  //   borderRadius: 10, 
+  //   right: -70,
+  //   justifyContent: 'center',
+  //   alignContent: 'center',
+  //   alignItems: 'center'
+  // },
