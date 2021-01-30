@@ -4,8 +4,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black',
-    bottom: -10
+    backgroundColor: '#383734',
+    top: 0,
+    height: '100%'
   },
   preview: {
     flex: 1,

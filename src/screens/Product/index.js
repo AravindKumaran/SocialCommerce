@@ -6,11 +6,6 @@ const Product = () => {
   return (
     <View style={styles.container}>
 
-      {/* <Image
-        source={require('../../assets/images/Tag1.png')}
-        style={{top: 250}}
-      /> */}
-
       <TouchableOpacity style={styles.Rectangle} /> 
         
         <TouchableOpacity style={styles.Brand}>
@@ -22,8 +17,6 @@ const Product = () => {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.Rectangle1} > 
-          {/* <Text style={styles.text1}>Sony</Text>
-          <Text style={styles.text2}>Model 3</Text> */}
           <Text style={styles.text3}>Buy Now</Text>
         </TouchableOpacity>
 
@@ -65,28 +58,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center'
   },
-  // Brand:{
-  //   bottom: -155,
-  //   width: 200,
-  //   height: 40,
-  //   backgroundColor: '#518BF9',
-  //   borderRadius: 10, 
-  //   right: -70,
-  //   justifyContent: 'center',
-  //   alignContent: 'center',
-  //   alignItems: 'center'
-  // },
-  // Model:{
-  //   bottom: -155,
-  //   width: 200,
-  //   height: 40,
-  //   backgroundColor: '#518BF9',
-  //   borderRadius: 10, 
-  //   right: -70,
-  //   justifyContent: 'center',
-  //   alignContent: 'center',
-  //   alignItems: 'center'
-  // },
   text1:{
     fontFamily: 'Proxima Nova',
     fontWeight: 'bold',
@@ -193,3 +164,29 @@ export default Product;
           style={{position: 'absolute', right: 20, bottom: 250, width: 400, height: 150 }}
         /> */}
         {/* <Text>Home Page</Text> */}
+
+
+
+
+  // Brand:{
+  //   bottom: -155,
+  //   width: 200,
+  //   height: 40,
+  //   backgroundColor: '#518BF9',
+  //   borderRadius: 10, 
+  //   right: -70,
+  //   justifyContent: 'center',
+  //   alignContent: 'center',
+  //   alignItems: 'center'
+  // },
+  // Model:{
+  //   bottom: -155,
+  //   width: 200,
+  //   height: 40,
+  //   backgroundColor: '#518BF9',
+  //   borderRadius: 10, 
+  //   right: -70,
+  //   justifyContent: 'center',
+  //   alignContent: 'center',
+  //   alignItems: 'center'
+  // },
