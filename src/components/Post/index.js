@@ -19,12 +19,17 @@ const Post = (props) => {
   const [videoUri, setVideoUri] = useState('');
 
   const [paused, setPaused] = useState(false);
+  const [isTouched, setTouched] = useState(false);
 
   const onPlayPausePress = () => {
     setPaused(!paused);
   };
 
-  const [shouldShow, setShouldShow] = useState(true);
+  // const tag = () => {
+  //   setTouched(!isTouched);
+  // };
+
+  // const [shouldShow, setShouldShow] = useState(true);
   
   // const onLikePress  = async () => {
   //   const likesToAdd = isLiked ? -1 : 1;
@@ -92,12 +97,14 @@ const Post = (props) => {
                 />
               </TouchableOpacity>
 
-              <TouchableOpacity style={{position: 'absolute', right: 20, bottom: 0, top: 150 }} onPress={() => setShouldShow(!shouldShow)} >
-                <Image 
-                onPress={() => setShouldShow(!shouldShow)}
+              <TouchableOpacity style={{position: 'absolute', right: 20, bottom: 0, top: 150 }} onPress={() => setTouched(!isTouched)} >
+                <>
+                <Image
                 source={require('../../assets/images/Product_icon.png')}
                 size={25}
                 />
+                {isTouched && <Product />}
+                </>
               </TouchableOpacity>
               
               {/* ) : ( */}
@@ -180,3 +187,9 @@ export default Post;
 //       </View>
 //   );
 // };
+
+
+// const icon = this.props.active
+//   ? require('./my-icon-active.png')
+//   : require('./my-icon-inactive.png');
+// <Image source={icon} />;

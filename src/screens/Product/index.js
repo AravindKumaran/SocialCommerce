@@ -31,7 +31,7 @@ const Product = () => {
 
       <Image
         source={require('../../assets/images/Tag4.png')}
-        style={{bottom: -300, left: -110}}
+        style={{bottom: -260, left: -110}}
       />
 
     </View>
@@ -43,9 +43,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
-    zIndex: 100,
-    top: -25, 
+    zIndex: 1,
+    bottom: 550
   },
   Rectangle:{
     bottom: -550,
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
     left: 5,
   },
   Rectangle1:{
-    bottom: -485,
+    bottom: -455,
     width: 200,
     height: 40,
     backgroundColor: '#518BF9',
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
   text2:{
     fontFamily: 'Proxima Nova',
     fontWeight: 'normal',
-    top: 460,
+    top: 440,
     color: '#222222',
     fontSize: 12,
     left: 25
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   Square:{
-    bottom: -390,
+    bottom: -350,
     width: 100,
     height: 100,
     backgroundColor: '#ffffff',
