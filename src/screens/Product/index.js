@@ -1,33 +1,26 @@
 import React from 'react';
 
-import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Image, Pressable} from 'react-native';
 
 const Product = () => {
   return (
     <View style={styles.container}>
 
-      {/* <Image
-        source={require('../../assets/images/Tag1.png')}
-        style={{top: 250}}
-      /> */}
-
-      <TouchableOpacity style={styles.Rectangle} /> 
+      <View style={styles.Rectangle} /> 
         
-        <TouchableOpacity style={styles.Brand}>
+        <View style={styles.Brand}>
           <Text style={styles.text1}>SONY ALPHA</Text>
-        </TouchableOpacity>
+        </View>
         
-        <TouchableOpacity style={styles.Model}>
+        <View style={styles.Model} >
           <Text style={styles.text2}>ILCE5100L 24.3MP</Text>
-        </TouchableOpacity>
+        </View>
 
         <TouchableOpacity style={styles.Rectangle1} > 
-          {/* <Text style={styles.text1}>Sony</Text>
-          <Text style={styles.text2}>Model 3</Text> */}
           <Text style={styles.text3}>Buy Now</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.Square} /> 
+        <View style={styles.Square} /> 
 
       <Image
         source={require('../../assets/images/Tag4.png')}
@@ -43,7 +36,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 1,
+    // zIndex: 1,
     bottom: 550
   },
   Rectangle:{
@@ -56,37 +49,15 @@ const styles = StyleSheet.create({
   },
   Rectangle1:{
     bottom: -455,
-    width: 200,
-    height: 40,
+    width: '55%',
+    height: '35%',
     backgroundColor: '#518BF9',
     borderRadius: 10, 
     right: -70,
     justifyContent: 'center',
     alignContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  // Brand:{
-  //   bottom: -155,
-  //   width: 200,
-  //   height: 40,
-  //   backgroundColor: '#518BF9',
-  //   borderRadius: 10, 
-  //   right: -70,
-  //   justifyContent: 'center',
-  //   alignContent: 'center',
-  //   alignItems: 'center'
-  // },
-  // Model:{
-  //   bottom: -155,
-  //   width: 200,
-  //   height: 40,
-  //   backgroundColor: '#518BF9',
-  //   borderRadius: 10, 
-  //   right: -70,
-  //   justifyContent: 'center',
-  //   alignContent: 'center',
-  //   alignItems: 'center'
-  // },
   text1:{
     fontFamily: 'Proxima Nova',
     fontWeight: 'bold',
@@ -193,3 +164,29 @@ export default Product;
           style={{position: 'absolute', right: 20, bottom: 250, width: 400, height: 150 }}
         /> */}
         {/* <Text>Home Page</Text> */}
+
+
+
+
+  // Brand:{
+  //   bottom: -155,
+  //   width: 200,
+  //   height: 40,
+  //   backgroundColor: '#518BF9',
+  //   borderRadius: 10, 
+  //   right: -70,
+  //   justifyContent: 'center',
+  //   alignContent: 'center',
+  //   alignItems: 'center'
+  // },
+  // Model:{
+  //   bottom: -155,
+  //   width: 200,
+  //   height: 40,
+  //   backgroundColor: '#518BF9',
+  //   borderRadius: 10, 
+  //   right: -70,
+  //   justifyContent: 'center',
+  //   alignContent: 'center',
+  //   alignItems: 'center'
+  // },

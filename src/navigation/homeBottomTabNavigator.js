@@ -210,7 +210,7 @@ const HomeBottomTabNavigator = () => {
             // />
           ),
           tabBarLabel: () => null,
-          tabBarVisible: false
+          
         }}
       />
       <Tab.Screen
