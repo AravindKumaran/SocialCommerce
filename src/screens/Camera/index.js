@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {RNCamera} from 'react-native-camera';
-// import RNVideoHelper from 'react-native-video-helper';
-// import {ProcessingManager} from 'react-native-video-processing';
+import RNVideoHelper from 'react-native-video-helper';
+import {ProcessingManager} from 'react-native-video-processing';
 
 import styles from './styles';
 import awaitAsyncGenerator from '@babel/runtime/helpers/esm/awaitAsyncGenerator';

@@ -9,7 +9,7 @@ const Product = () => {
       <View style={styles.Rectangle} /> 
         
         <View style={styles.Brand}>
-          <Text style={styles.text1}>SONY ALPHA</Text>
+          <Text style={styles.text1}>Sony Alpha</Text>
         </View>
         
         <View style={styles.Model} >
@@ -37,23 +37,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // zIndex: 1,
-    bottom: 550,
+    bottom: 500,
     right: 7
   },
   Rectangle:{
     bottom: -550,
-    width: 350,
+    width: 370,
     height: 138,
     backgroundColor: 'grey',
     borderRadius: 10, 
     left: 5,
+    opacity: 0.8
   },
   Rectangle1:{
     bottom: -455,
     width: '55%',
     height: '35%',
     backgroundColor: '#518BF9',
-    borderRadius: 10, 
+    borderRadius: 5, 
     right: -70,
     justifyContent: 'center',
     alignContent: 'center',
@@ -61,24 +62,24 @@ const styles = StyleSheet.create({
   },
   text1:{
     fontFamily: 'Proxima Nova',
-    fontWeight: 'bold',
+    fontWeight: "700",
     color: '#222222',
-    fontSize: 16,
+    fontSize: 14,
     top: 430,
-    left: 20
+    left: 10
   },
   text2:{
     fontFamily: 'Proxima Nova',
-    fontWeight: 'normal',
+    fontWeight: "400",
     top: 440,
-    color: '#222222',
+    color: '#363636',
     fontSize: 12,
     left: 25
   },
   text3:{
     fontFamily: 'Proxima Nova',
     fontWeight: '700',
-    fontSize: 16,
+    fontSize: 14,
   },
   Square:{
     bottom: -350,
