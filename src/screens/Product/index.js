@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // zIndex: 1,
-    bottom: 550
+    bottom: 550,
+    right: 7
   },
   Rectangle:{
     bottom: -550,
