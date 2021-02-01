@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     button: {
       alignItems: "center",
       color: "white",
-      backgroundColor: "red",
+      backgroundColor: "white",
       fontSize: 20,
       padding: 20
     }
