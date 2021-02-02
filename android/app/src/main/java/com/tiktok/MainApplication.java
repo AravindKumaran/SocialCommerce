@@ -1,7 +1,7 @@
 package com.tiktok;
 
 import com.proyecto26.inappbrowser.RNInAppBrowserPackage;
-import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
+// import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -30,7 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           new RNInAppBrowserPackage();
-          new CustomTabsPackage();
+          // new CustomTabsPackage();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           return packages;
         }
