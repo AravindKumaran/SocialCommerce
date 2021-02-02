@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {View, TouchableWithoutFeedback, Text, Image, TouchableOpacity} from 'react-native';
-import {API, graphqlOperation, Storage} from 'aws-amplify';
+import React, { useEffect, useState } from 'react';
+import { View, TouchableWithoutFeedback, Text, Image, TouchableOpacity } from 'react-native';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
 
 import Video from 'react-native-video';
 import styles from './styles';
@@ -30,7 +30,7 @@ const Post = (props) => {
   // };
 
   // const [shouldShow, setShouldShow] = useState(true);
-  
+
   // const onLikePress  = async () => {
   //   const likesToAdd = isLiked ? -1 : 1;
   //   const postLikes = post.likes[0];
@@ -54,7 +54,7 @@ const Post = (props) => {
 
   useEffect(() => {
     getVideoUri();
-  },[]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -62,8 +62,8 @@ const Post = (props) => {
       <TouchableWithoutFeedback onPress={onPlayPausePress}>
         <View>
           <Video
-          //  ref={ controls => controls = Video}
-            source={{uri: videoUri}}
+            //  ref={ controls => controls = Video}
+            source={{ uri: videoUri }}
             style={styles.video}
             onError={(e) => console.log(e)}
             resizeMode={'cover'}
@@ -73,48 +73,49 @@ const Post = (props) => {
 
           <View style={styles.uiContainer}>
             <View style={styles.rightContainer}>
-            {/* <Image
+              {/* <Image
               source={require('../../assets/images/Profile_icon.png')}
               size={25}
             /> */}
 
               {/* {shouldShow ? ( */}
 
-              <TouchableOpacity style={{position: 'absolute', right: 15, bottom: 0, top: 30 }} /*onPress={onLikePress}*/ >
+              <TouchableOpacity style={{ position: 'absolute', right: 15, bottom: 0, top: -20 }} /*onPress={onLikePress}*/ >
                 {/* {shouldShow ? ( */}
                 <Image
-                source={require('../../assets/images/Profile1_icon.png')}
-                size={25}
+                  source={require('../../assets/images/Profile1_icon.png')}
+                  size={25}
                 />
                 {/* <Fontisto name={'heart'} size={25} color={isLiked ? 'red' : 'white'} /> */}
                 {/* <Text style={styles.statsLabel}>{post.likes || 0}</Text> */}
               </TouchableOpacity>
 
-              <TouchableOpacity style={{position: 'absolute', right: 20, bottom: 0, top: 100 }} /*onPress={onLikePress}*/ >
+              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 50 }} /*onPress={onLikePress}*/ >
                 <Image
-                source={require('../../assets/images/Like_icon.png')}
-                size={25}
+                  source={require('../../assets/images/Like_icon.png')}
+                  size={25}
                 />
               </TouchableOpacity>
 
-              <TouchableOpacity style={{position: 'absolute', right: 20, bottom: 0, top: 150 }} onPress={() => setTouched(!isTouched)} >
+              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 105 }} onPress={() => setTouched(!isTouched)} >
                 <>
-                <Image
-                source={require('../../assets/images/Product_icon.png')}
-                size={25}
-                />
-                {isTouched && <Product />}
+                  {!isTouched ?
+                    <Image
+                      source={require('../../assets/images/Product_icon.png')}
+                      size={25}
+                    /> : <></>}
+                  {isTouched && <Product />}
                 </>
               </TouchableOpacity>
-              
+
               {/* ) : ( */}
 
-              <TouchableOpacity style={{position: 'absolute', right: 20, bottom: 0, top: 200 }}>
+              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 250 }}>
                 <Image
-                source={require('../../assets/images/Comment_icon.png')}
-                size={25}
+                  source={require('../../assets/images/Comment_icon.png')}
+                  size={25}
                 />
-              {/* <Fontisto name={'commenting'} size={25}  color="white" /> */}
+                {/* <Fontisto name={'commenting'} size={25}  color="white" /> */}
                 {/* <Fontosio name={'heart'} size={40} color="white" /> */}
                 {/* <Text style={styles.statsLabel}>{post.comments}</Text> */}
               </TouchableOpacity>
@@ -129,12 +130,12 @@ const Post = (props) => {
             <View style={styles.bottomContainer}>
               <View>
                 <Text style={styles.handle}>{post.user.username}</Text>
-                <Image source={require('../../assets/images/Dot.png')} size={25} style={{bottom:15, left: 10}}/>                                        
+                <Image source={require('../../assets/images/Dot.png')} size={25} style={{ bottom: 15, left: 10 }} />
                 <Text style={styles.description}>{post.description}</Text>
 
                 {/* <View style={styles.songRow}> */}
-                  {/* <Entypo name={'beamed-note'} size={24} color="white" /> */}
-                  {/* <Text style={styles.songName}>{post.song.name}</Text> */}
+                {/* <Entypo name={'beamed-note'} size={24} color="white" /> */}
+                {/* <Text style={styles.songName}>{post.song.name}</Text> */}
                 {/* </View> */}
               </View>
             </View>
@@ -154,7 +155,7 @@ const Post = (props) => {
                 style={styles.songImage}
                 source={{uri: post.song.imageUri}}
               /> */}
-            {/* </View> */} 
+            {/* </View> */}
           </View>
         </View>
       </TouchableWithoutFeedback>

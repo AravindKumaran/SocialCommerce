@@ -18,14 +18,14 @@ import {WebView} from 'react-native-webview';
 const ProfileScreen = () => {
   const [user, setUser] = useState(null);
 
-  function signin() {
-    Auth.federatedSignIn({provider: 'google'});
-  }
+  // function signin() {
+  //   Auth.federatedSignIn({provider: 'google'});
+  // }
 
-  // const signin = useCallback(() => {
-  //   Auth.federatedSignIn({ provider: 'google' });
-  //   setUser(true);
-  // }, []);
+  const signin = useCallback(() => {
+    Auth.federatedSignIn({provider: 'google'});
+    setUser(true);
+  }, []);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
@@ -46,7 +46,7 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       {user === null ? (
         // <TouchableOpacity onPress={signin}>
-        // <View style={styles.button}>
+        //   <View style={styles.button}>
         <WebView
           style={styles.button}
           onPress={signin}
@@ -57,6 +57,9 @@ const ProfileScreen = () => {
           }}
         />
       ) : (
+        //     <Text style={styles.buttonText}>Sign in</Text>
+        //   </View>
+        // </TouchableOpacity>
         // <Text style={styles.buttonText}>Sign in</Text>
         // </View>
         // </TouchableOpacity>
