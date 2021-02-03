@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // zIndex: 1,
-    bottom: 500,
+    bottom: 550,
     right: 7,
   },
   Rectangle: {

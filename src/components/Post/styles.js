@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     bottom: 26, 
     color: '#21FFFC',
-    left: 17
+    left: 17, 
+    zIndex: 1
   },
   songRow: {
     flexDirection: 'row',
