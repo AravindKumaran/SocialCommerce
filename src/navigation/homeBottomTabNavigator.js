@@ -54,6 +54,8 @@ const ActiveStyle = () => (
   </>
 );
 
+
+
 // function Color(){
 //   return {
    
@@ -133,22 +135,29 @@ const Tab = createBottomTabNavigator();
 //     myDynamicColor: bool ? '#932727' : '#ffffff';
 //   })
 // }
-
+// backgroundColor: '#383734',
 
 const HomeBottomTabNavigator = () => {
+  const [isTouched, setTouched] = useState(false);
  
   return (
+    <>
+    {!isTouched ? (
     <Tab.Navigator
       tabBarOptions={{
         tabStyle: {
           backgroundColor: '#383734',
+          height: 55,
+          bottom: 10,
+          borderTopEndRadius: 20,
+          borderTopStartRadius: 20
         },
         inactiveTintColor: '#FFFFFF',
         activeTintColor: '#21FFFC',
         showLabel: false,
         showIcon: true,
         indicatorStyle: {
-          opacity: 0.2,
+          opacity: 0.2, 
         },
         style: {
           borderRadius: 20,
@@ -171,7 +180,7 @@ const HomeBottomTabNavigator = () => {
                 width={25}
                 height={25}
                 tintColor={color}
-                style={{bottom: 10}}
+                style={{bottom: 5}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -189,7 +198,7 @@ const HomeBottomTabNavigator = () => {
                 width={25}
                 height={25}
                 tintColor={color}
-                style={{bottom: 10}}
+                style={{bottom: 5}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -197,20 +206,22 @@ const HomeBottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
+        screenOptions={{tabBarVisible: false}}
+        onPress={() => setTouched(!isTouched)}
         name={'Upload'}
         component={Camera}
         options={{
           tabBarIcon: ({}) => (
             <Image
               source={require('../assets/images/Plus.png')}
-              style={{width: 65, height: 65, borderRadius: 37, bottom: 25}}
+              style={{width: 65, height: 65, borderRadius: 37, bottom: 20}}
             />
             // <Image name= {Plus}  />
             // <Fontisto name={'plus-a'} size={25}  color="white"
             // />
           ),
           tabBarLabel: () => null,
-          
+          tabBarVisible: false
         }}
       />
       <Tab.Screen
@@ -224,7 +235,7 @@ const HomeBottomTabNavigator = () => {
                 width={25}
                 height={25}
                 tintColor={color}
-                style={{bottom: 10}}
+                style={{bottom: 5}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -240,7 +251,7 @@ const HomeBottomTabNavigator = () => {
             <Image
               source={require('../assets/images/Profile_icon.png')}
               size={25}
-              style={{bottom: 10}}
+              style={{bottom: 5}}
             />
             // <Feather name={'user'} size={25} color={tintColor} onPress={() => ('Profile')}
             // />
@@ -248,6 +259,8 @@ const HomeBottomTabNavigator = () => {
         }}
       />
     </Tab.Navigator>
+    ) : (<Camera />) }
+   </>
   );
 };
 

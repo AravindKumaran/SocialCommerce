@@ -16,7 +16,7 @@ import {color} from 'react-native-reanimated';
 
 const Post = (props) => {
   const [post, setPost] = useState(props.post);
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setLiked] = useState(false);
   const [videoUri, setVideoUri] = useState('');
 
   const [paused, setPaused] = useState(false);
@@ -112,28 +112,21 @@ const Post = (props) => {
 
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 50 }} /*onPress={onLikePress}*/ >
-
-                {/* <Image
-                  source={require('../../assets/images/Like_icon.png')}
-                  size={25}
-                /> */}
-
+              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 50 }} onPress={() => setLiked(!isLiked)} /*onPress={onLikePress}*/ >
                 <>
-                  {!isTouched ?
-                    <Image
-                      source={require('../../assets/images/Like_icon.png')}
-                      size={25}
-                    /> 
-                    : 
-                    <Image
-                    style={{top: -110, position: 'absolute', right: 0}}
-                    source={require('../../assets/images/Like_icon.png')}
-                    size={25}
-                    // tintColor={isTouched ? '#31d9fc' : 'white'}
-                    /> }
-                </>
-
+                  {!isTouched ? (
+                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
+                    ) : (  <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
+                    ) }
+                     </>
+                        <>
+                        {!isLiked ? (
+                        <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} /> 
+                        ) : (
+                        <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                        ) } 
+                     </>
+                
               </TouchableOpacity>
 
               <TouchableOpacity style={ {position: 'absolute', right: 20, bottom: 0, zIndex: 1, top: 105}}  onPress={() => setTouched(!isTouched)} >

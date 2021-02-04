@@ -4,9 +4,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#383734',
-    top: 0,
-    height: '100%'
+    top: -5,
+    overlayColor: 'red',
+    backgroundColor: 'red',
+    top: 70
   },
   preview: {
     flex: 1,
@@ -21,6 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     bottom: "12%",
     backgroundColor: '#ff4343',
+    zIndex: 1
   },
   buttonStop: {
     alignSelf: 'center',
