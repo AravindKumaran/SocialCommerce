@@ -114,19 +114,11 @@ const Post = (props) => {
 
               <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 50 }} onPress={() => setLiked(!isLiked)} /*onPress={onLikePress}*/ >
                 <>
-                  {!isTouched ? (
+                  {!isLiked  ? (
                     <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
-                    ) : (  <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
-                    ) }
-                     </>
-                        <>
-                        {!isLiked ? (
-                        <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} /> 
-                        ) : (
-                        <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
-                        ) } 
-                     </>
-                
+                    ) : (  <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                    ) } 
+                </>
               </TouchableOpacity>
 
               <TouchableOpacity style={ {position: 'absolute', right: 20, bottom: 0, zIndex: 1, top: 105}}  onPress={() => setTouched(!isTouched)} >

@@ -212,13 +212,12 @@ const HomeBottomTabNavigator = () => {
         component={Camera}
         options={{
           tabBarIcon: ({}) => (
+            <Text>
+            {!isTouched ? (
             <Image
               source={require('../assets/images/Plus.png')}
               style={{width: 65, height: 65, borderRadius: 37, bottom: 20}}
-            />
-            // <Image name= {Plus}  />
-            // <Fontisto name={'plus-a'} size={25}  color="white"
-            // />
+            /> ) : <View/>  } </Text> 
           ),
           tabBarLabel: () => null,
           tabBarVisible: false
@@ -247,14 +246,13 @@ const HomeBottomTabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({tintColor}) => (
-            // <Image source={{uri: post.user.imageUri}} style={{ width: 25, height: 25, borderRadius: 50, bottom: 20 }} />
+            
             <Image
               source={require('../assets/images/Profile_icon.png')}
               size={25}
               style={{bottom: 5}}
             />
-            // <Feather name={'user'} size={25} color={tintColor} onPress={() => ('Profile')}
-            // />
+            
           ),
         }}
       />

@@ -5,9 +5,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     top: -5,
-    overlayColor: 'red',
-    backgroundColor: 'red',
-    top: 70
+    // overlayColor: 'red',
+    backgroundColor: '#383734',
+    top: 0
   },
   preview: {
     flex: 1,
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 25,
-    bottom: "12%",
+    bottom: 5,
     backgroundColor: '#ff4343',
     zIndex: 1
   },
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     height: 30,
     width: 30,
-    bottom: "12%",
+    bottom: 5,
     borderRadius: 3,
     backgroundColor: '#ff4343',
   },
