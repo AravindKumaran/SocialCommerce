@@ -113,11 +113,68 @@ const Post = (props) => {
               </TouchableOpacity>
 
               <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 50 }} onPress={() => setLiked(!isLiked)} /*onPress={onLikePress}*/ >
-                <>
-                  {!isLiked  ? (
+                <>  
+                  
+                {!isTouched ?
+                    <Image
+                      source={require('../../assets/images/Like_icon.png')}
+                      size={25}
+                    /> 
+                    : 
+                    <Image
+                    style={{top: -110, position: 'absolute', right: 0}}
+                    source={require('../../assets/images/Like_icon.png')}
+                    size={25}
+                    /> }
+
+                  {/* if ({isLiked===true && isTouched===false}) {
+                    <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                  }
+                  else if ({isLiked===false && isTouched===true}) {
+                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
+                  }
+                  else if ({isLiked===true && isTouched===true}) {
+                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                  }
+                  else if ({isLiked===false && isTouched===false}){
+                    <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
+                  }
+                  else{
                     <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
-                    ) : (  <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                  } */}
+
+                  {/* {!isLiked && isTouched ? (
+                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
+                    ) : (  
+                    <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                    ) }
+
+                  {isLiked && !isTouched ? (
+                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
+                    ) : (  
+                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
+                    ) }
+
+                  {!isLiked && !isTouched ? (
+                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
+                    ) : (  
+                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
                     ) } 
+
+                  {isLiked && isTouched ? (
+                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
+                    ) : (  
+                    <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
+                    ) }  */}
+
+                  {/* {!isLiked && isTouched }  
+                      <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                       {isLiked && !isTouched}  
+                              <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
+                               {!isLiked && !isTouched}  
+                                      <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                                       {isLiked && isTouched}  
+                                              <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} /> */}
                 </>
               </TouchableOpacity>
 
@@ -232,30 +289,3 @@ export default Post;
 
 
 
-// import React, { useState } from 'react';
-// import { StyleSheet, View, Button, Image } from 'react-native';
-
-// const App = () => {
-//   const [shouldShow, setShouldShow] = useState(false);
-//   return (
-//       <View style={styles.container}>
-//         {shouldShow ? (
-//           <Image
-//             source={{ uri:     'https://raw.githubusercontent.com/AboutReact/sampleresource/master/old_logo.png'
-//             }}
-//             style={{ width: 250, height: 250 }}
-//           />
-//         ) : (
-//         <Button
-//           title="Hide/Show Component"
-//           onPress={() => setShouldShow(!shouldShow)}
-//         /> )}
-//       </View>
-//   );
-// };
-
-
-// const icon = this.props.active
-//   ? require('./my-icon-active.png')
-//   : require('./my-icon-inactive.png');
-// <Image source={icon} />;
