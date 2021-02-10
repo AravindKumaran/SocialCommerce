@@ -115,17 +115,36 @@ const Post = (props) => {
               <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 50 }} onPress={() => setLiked(!isLiked)} /*onPress={onLikePress}*/ >
                 <>  
                   
-                {!isTouched ?
+                {!isLiked && !isTouched ? 
                     <Image
                       source={require('../../assets/images/Like_icon.png')}
                       size={25}
                     /> 
                     : 
                     <Image
-                    style={{top: -110, position: 'absolute', right: 0}}
-                    source={require('../../assets/images/Like_icon.png')}
+                    style={{top: 0, position: 'absolute', right: -60}}
+                    source={require('../../assets/images/Like_icon1.png')}
                     size={25}
                     /> }
+                  
+                  { 
+                  (!isLiked && isTouched ? 
+                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
+                  :
+
+                  (isLiked && !isTouched ? 
+                    <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                  :
+
+                  (!isLiked && !isTouched ? 
+                    <Image style={{top: 0, position: 'absolute', right: -60}} source={require('../../assets/images/Like_icon.png')} size={25} />
+                  :
+
+                  (isLiked && isTouched ? 
+                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                  : <View/>
+                  ))))
+                  }
 
                   {/* if ({isLiked===true && isTouched===false}) {
                     <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
