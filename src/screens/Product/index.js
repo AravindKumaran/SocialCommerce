@@ -16,9 +16,15 @@ const Product = () => {
       <View style={styles.Model} >
         <Text style={styles.text2}>ILCE5100L 24.3MP</Text>
       </View>
+
+      
       <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#5e37f4', '#518bf9', '#21fffc']} style={styles.Rectangle1} >
+      <TouchableOpacity>
         <Text style={styles.text3}>Buy Now</Text>
+        </TouchableOpacity>
       </LinearGradient>
+      
+
       <View style={styles.Square} />
 
       <Image
@@ -36,7 +42,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // zIndex: 1,
-    bottom: 500,
+    bottom: 550,
     right: 7,
   },
   Rectangle: {

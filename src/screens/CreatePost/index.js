@@ -105,7 +105,7 @@ const CreatePost = () => {
             value={description}
             onChangeText={setDescription}
             numberOfLines={5}
-            placeholder={'Description'}
+            placeholder={'Hashtag'}
             style={styles.textInput}
           />
           {user === null ? (

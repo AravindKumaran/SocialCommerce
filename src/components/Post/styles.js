@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: Dimensions.get('window').height - 120 ,
+    height: Dimensions.get('window').height - 140 ,
   },
   videPlayButton: {
     position: 'absolute',
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 15,
     right: 0,
-    borderRadius: 10,
+    // borderRadius: 10,
     // backgroundColor: '#292929',
     // borderWidth: 10
   },
@@ -50,7 +50,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     bottom: 26, 
     color: '#21FFFC',
-    left: 17
+    left: 17, 
+    zIndex: 1
   },
   songRow: {
     flexDirection: 'row',

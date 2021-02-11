@@ -5,6 +5,7 @@ import { API, graphqlOperation, Storage } from 'aws-amplify';
 import Video from 'react-native-video';
 import styles from './styles';
 import Product from '../../screens/Product/index';
+import {color} from 'react-native-reanimated';
 
 // import Entypo from 'react-native-vector-icons/Entypo';
 // import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -15,11 +16,12 @@ import Product from '../../screens/Product/index';
 
 const Post = (props) => {
   const [post, setPost] = useState(props.post);
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setLiked] = useState(false);
   const [videoUri, setVideoUri] = useState('');
 
   const [paused, setPaused] = useState(false);
   const [isTouched, setTouched] = useState(false);
+  const [isPressed, setPressed] = useState(false);
 
   const onPlayPausePress = () => {
     setPaused(!paused);
@@ -43,6 +45,7 @@ const Post = (props) => {
   //   );
   //   setIsLiked(!isLiked);
   // };
+  
 
   const getVideoUri = async () => {
     if (post.videoUri.startsWith('http')) {
@@ -73,51 +76,108 @@ const Post = (props) => {
 
           <View style={styles.uiContainer}>
             <View style={styles.rightContainer}>
+
               {/* <Image
               source={require('../../assets/images/Profile_icon.png')}
               size={25}
-            /> */}
+              /> */}
 
               {/* {shouldShow ? ( */}
 
-              <TouchableOpacity style={{ position: 'absolute', right: 15, bottom: 0, top: -20 }} /*onPress={onLikePress}*/ >
+
+              <TouchableOpacity style={{ position: 'absolute', right: 15, bottom: 0, top: -20,  }} /*onPress={onLikePress}*/ >
+
                 {/* {shouldShow ? ( */}
-                <Image
+                {/* <Image
                   source={require('../../assets/images/Profile1_icon.png')}
                   size={25}
-                />
+                /> */}
                 {/* <Fontisto name={'heart'} size={25} color={isLiked ? 'red' : 'white'} /> */}
                 {/* <Text style={styles.statsLabel}>{post.likes || 0}</Text> */}
+                <>
+                
+                  {!isTouched ?
+                    <Image
+                      source={require('../../assets/images/Profile1_icon.png')}
+                      size={25}
+                    /> 
+                    : 
+                    <Image
+                    style={{top: -110, position: 'absolute', right: 0}}
+                    source={require('../../assets/images/Profile1_icon.png')}
+                    size={25}
+                    // tintColor={isTouched ? '#31d9fc' : 'white'}
+                    /> }
+                </>
+
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 50 }} /*onPress={onLikePress}*/ >
-                <Image
-                  source={require('../../assets/images/Like_icon.png')}
-                  size={25}
-                />
+              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 50 }} onPress={() => setLiked(!isLiked)} /*onPress={onLikePress}*/ >
+                <>
+                  {!isLiked  ? (
+                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
+                    ) : (  <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
+                    ) } 
+                </>
               </TouchableOpacity>
 
-              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 105 }} onPress={() => setTouched(!isTouched)} >
+              <TouchableOpacity style={ {position: 'absolute', right: 20, bottom: 0, zIndex: 1, top: 105}}  onPress={() => setTouched(!isTouched)} >
+
                 <>
                   {!isTouched ?
                     <Image
                       source={require('../../assets/images/Product_icon.png')}
                       size={25}
-                    /> : <></>}
+                    /> 
+                    : 
+                    <Image
+                    style={{top: -110, position: 'absolute', right: 0}}
+                    source={require('../../assets/images/Product_icon1.png')}
+                    size={25}
+                    // tintColor={isTouched ? '#31d9fc' : 'white'}
+                    /> }
                   {isTouched && <Product />}
                 </>
+
+                    {/* <Image
+                      source={require('../../assets/images/Bucket.png')}
+                      size={25}
+                      tintColor={isTouched ? '#31d9fc' : 'white'}
+                      style={{ position: 'absolute', right: 11, bottom: 0, top: 8 }}
+                    /> */}
+
               </TouchableOpacity>
 
               {/* ) : ( */}
+                {/* top:` ${isPressed} ? " 20": "30" `  */}
+                {/* style = { [ yourExternalStyle, { topStyle} ] } */}
+                {/* style={Object.assign({}, styles.square, styles.round)} /> */}
+                {/* [ {position: 'absolute', right: 20, bottom: 0, zIndex: 1} , {top: `${isTouched} ? "12%" : "14%" `} ] */}
 
-              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 250 }}>
-                <Image
+              <TouchableOpacity style={{ position: 'absolute', right: 20, bottom: 0, top: 160 }}>
+
+                {/* <Image
                   source={require('../../assets/images/Comment_icon.png')}
                   size={25}
-                />
+                /> */}
                 {/* <Fontisto name={'commenting'} size={25}  color="white" /> */}
                 {/* <Fontosio name={'heart'} size={40} color="white" /> */}
                 {/* <Text style={styles.statsLabel}>{post.comments}</Text> */}
+
+                <>
+                  {!isTouched ?
+                    <Image
+                      source={require('../../assets/images/Comment_icon.png')}
+                      size={25}
+                    /> 
+                    : 
+                    <Image
+                    style={{top: 50, position: 'absolute', right: 0}}
+                    source={require('../../assets/images/Comment_icon.png')}
+                    size={25}
+                    // tintColor={isTouched ? '#31d9fc' : 'white'}
+                    /> }
+                </>
               </TouchableOpacity>
 
               {/* <View style={styles.iconContainer}>
@@ -128,18 +188,23 @@ const Post = (props) => {
             </View>
 
             <View style={styles.bottomContainer}>
-              <View>
-                <Text style={styles.handle}>{post.user.username}</Text>
-                <Image source={require('../../assets/images/Dot.png')} size={25} style={{ bottom: 15, left: 10 }} />
-                <Text style={styles.description}>{post.description}</Text>
+              <>
+                {!isTouched ? (
+                <View>
+                  <Text style={styles.handle}>{post.user.username}</Text>
+                  <Image source={require('../../assets/images/Dot.png')} size={25} style={{ bottom: 15, left: 10 }} />
+                  <Text style={styles.description}>{post.description}</Text>
+                </View>
+                  )  :  (
+                  <View />  )
+                }
+              </>
+            </View>
 
-                {/* <View style={styles.songRow}> */}
+            {/* <View style={styles.songRow}> */}
                 {/* <Entypo name={'beamed-note'} size={24} color="white" /> */}
                 {/* <Text style={styles.songName}>{post.song.name}</Text> */}
                 {/* </View> */}
-              </View>
-            </View>
-
             {/* <View style={styles.bottomContainer}>
               <View>
                 <Text style={styles.handle}>@{post.user.username}</Text>
