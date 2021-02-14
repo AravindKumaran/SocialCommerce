@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList, ScrollView } from "react-native";
 import Searchbar from '../../screens/Search/searchbar';
+import Trending from '../../screens/Search/trending';
+import MasonryList from "react-native-masonry-list/src/MasonryList";
 
 const ActiveStyle = () => (
   <>
@@ -63,23 +65,22 @@ const ActiveStyle1 = () => (
 );
 
 const Categories = () => {
-  const [isTouched, setTouched] = useState(false);
+  const [isTouched, setTouched] = useState(true);
   const [isPressed, setPressed] = useState(false);
   const [isClicked, setClicked] = useState(false);
-
 
   return (
     <View style={styles.container}>
 
       <Searchbar />
-
+      
       <View style={styles.cat}>
         <Image style={{top: 80, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
-        <TouchableOpacity style={styles.type1} onPress={() => setTouched(!isTouched)}>
+        <TouchableOpacity style={styles.type1} onPress={() => {setTouched(!isTouched); setPressed(!isPressed)}}>
           <Text style={{color: !isTouched ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Categories</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.type2} onPress={() => setPressed(!isPressed)}>
+        <TouchableOpacity style={styles.type2} onPress={() => {setPressed(!isPressed); setTouched(!isTouched)}}>
           <Text style={{color: !isPressed ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Brands</Text>
         </TouchableOpacity>
         <Image style={{top: 180, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
@@ -89,7 +90,8 @@ const Categories = () => {
         </TouchableOpacity>
       </View>
 
-      {isTouched ? (
+
+      {isTouched && isPressed==false ? (
       <View style={styles.container1}>
         <ActiveStyle />
         <TouchableOpacity style={styles.t1}>
@@ -119,7 +121,7 @@ const Categories = () => {
       </View>
       ) : (<></>) }
 
-      {isPressed ? (
+      {isPressed && isTouched==false ? (
       <View style={styles.container2}>
         <ActiveStyle1 />
         <TouchableOpacity style={styles.t6}>
@@ -148,10 +150,15 @@ const Categories = () => {
         </TouchableOpacity>
       </View>
       ) : (<></>) }
+      
+      {isClicked ? 
+      <Trending />
+      : <></> }
 
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {

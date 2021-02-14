@@ -5,7 +5,7 @@ import Camera from '../screens/Camera';
 import Search from '../screens/Search';
 import Notifications from '../screens/Notifications';
 import ProfileScreen from '../screens/Profile/index';
-import {Image, Text, View} from 'react-native';
+import {Image, Text, View, TouchableOpacity, BackHandler, useEffect} from 'react-native';
 import {color} from 'react-native-reanimated';
 
 // import post from '../components/Post';
@@ -137,12 +137,18 @@ const Tab = createBottomTabNavigator();
 // }
 // backgroundColor: '#383734',
 
+
+
+
 const HomeBottomTabNavigator = () => {
   const [isTouched, setTouched] = useState(false);
- 
+
+  function handleBackButtonClick() {
+    setTouched(false);
+    return true;
+  }
+   
   return (
-    <>
-    {!isTouched ? (
     <Tab.Navigator
       tabBarOptions={{
         tabStyle: {
@@ -206,18 +212,37 @@ const HomeBottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        screenOptions={{tabBarVisible: false}}
-        onPress={() => setTouched(!isTouched)}
         name={'Upload'}
         component={Camera}
         options={{
           tabBarIcon: ({}) => (
-            <Text>
-            {!isTouched ? (
-            <Image
-              source={require('../assets/images/Plus.png')}
-              style={{width: 65, height: 65, borderRadius: 37, bottom: 20}}
-            /> ) : <View/>  } </Text> 
+              // <Image
+              //   onPress={() => setTouched(!isTouched)}
+              //   source={require('../assets/images/Plus.png')}
+              //   style={{width: 65, height: 65, borderRadius: 37, bottom: 20}}
+              // />    
+
+            // <>
+            //   <TouchableOpacity onPress={() => setTouched(!isTouched)}>
+            //   <Image
+            //     source={require('../assets/images/Plus.png')}
+            //     style={{width: 65, height: 65, borderRadius: 37, bottom: 20, zIndex: 1, }}
+            //   />    
+            //   </TouchableOpacity>
+            // </>
+
+            <>
+            {!isTouched ?
+              <TouchableOpacity onPress={() => setTouched(!isTouched)}>
+              <Image
+                source={require('../assets/images/Plus.png')}
+                style={{width: 65, height: 65, borderRadius: 37, bottom: 20, zIndex: 1, }}
+              />   
+              </TouchableOpacity>
+              : 
+              null && {handleBackButtonClick}}
+            </>
+
           ),
           tabBarLabel: () => null,
           tabBarVisible: false
@@ -250,16 +275,26 @@ const HomeBottomTabNavigator = () => {
             <Image
               source={require('../assets/images/Profile_icon.png')}
               size={25}
-              style={{bottom: 5}}
+              style={{bottom: 2}}
             />
             
           ),
         }}
       />
     </Tab.Navigator>
-    ) : (<Camera />) }
-   </>
   );
 };
 
 export default HomeBottomTabNavigator;
+
+
+// import { useBackHandler } from '@react-native-community/hooks'
+
+// useBackHandler(() => {
+//   if (shouldBeHandledHere) {
+//     // handle it
+//     return true
+//   }
+//   // let the default thing happen
+//   return false
+// })
