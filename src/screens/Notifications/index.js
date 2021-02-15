@@ -1,18 +1,18 @@
 import React from 'react';
 
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, Images, Dimensions} from 'react-native';
 
 const Notification = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.coverer}>
       <Text>Notifications</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  coverer: {
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#000',
@@ -21,3 +21,5 @@ const styles = StyleSheet.create({
 });
 
 export default Notification;
+
+

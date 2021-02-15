@@ -1,219 +1,286 @@
-import React from 'react';
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList, ScrollView } from "react-native";
+import Searchbar from '../../screens/Search/searchbar';
+import Trending from '../../screens/Search/trending';
+import MasonryList from "react-native-masonry-list/src/MasonryList";
 
-import {StyleSheet, View, Text} from 'react-native';
+const ActiveStyle = () => (
+  <>
+    <Image
+      style={{
+        position: 'absolute',
+        bottom: 20,
+        left: 95,
+        transform: [{
+          rotate: '-180deg'
+        }],
+      }}
+      source={require('../../assets/images/blur.png')}
+      width={15}
+      height={15}
+    />
+    <View
+      style={{
+        width: 27,
+        height: 4,
+        borderRadius: 14,
+        position: 'absolute',
+        bottom: 55,
+        borderBottomColor: '#21FFFC',
+        borderBottomWidth: 4,
+        left: 120
+      }}>
+    </View>
+  </>
+);
 
-const Notification = () => {
+const ActiveStyle1 = () => (
+  <>
+    <Image
+      style={{
+        position: 'absolute',
+        bottom: 20,
+        right: 80,
+        transform: [{
+          rotate: '-180deg'
+        }],
+      }}
+      source={require('../../assets/images/blur.png')}
+      width={5}
+      height={5}
+    />
+    <View
+      style={{
+        width: 27,
+        height: 4,
+        borderRadius: 14,
+        position: 'absolute',
+        bottom: 55,
+        borderBottomColor: '#21FFFC',
+        borderBottomWidth: 4,
+        right: 110
+      }}>
+    </View>
+  </>
+);
+
+const Categories = () => {
+  const [isTouched, setTouched] = useState(true);
+  const [isPressed, setPressed] = useState(false);
+  const [isClicked, setClicked] = useState(false);
+
   return (
     <View style={styles.container}>
-      <Text>Search</Text>
+
+      <Searchbar />
+      
+      <View style={styles.cat}>
+        <Image style={{top: 80, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
+        <TouchableOpacity style={styles.type1} onPress={() => {setTouched(!isTouched); setPressed(!isPressed)}}>
+          <Text style={{color: !isTouched ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Categories</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.type2} onPress={() => {setPressed(!isPressed); setTouched(!isTouched)}}>
+          <Text style={{color: !isPressed ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Brands</Text>
+        </TouchableOpacity>
+        <Image style={{top: 180, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
+
+        <TouchableOpacity style={styles.type3} onPress={() => setClicked(!isClicked)}>
+          <Text style={{color: !isClicked ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16}}>Top Trending</Text>
+        </TouchableOpacity>
+      </View>
+
+
+      {isTouched && isPressed==false ? (
+      <View style={styles.container1}>
+        <ActiveStyle />
+        <TouchableOpacity style={styles.t1}>
+          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image1.png')} size={15} /> 
+          <Text style={styles.text1}>Men</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.t2}>
+          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image2.png')} size={15} /> 
+          <Text style={styles.text2}>Women</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.t3}>
+          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image3.png')} size={15} /> 
+          <Text style={styles.text3}>Kids</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.t4}>
+          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image4.png')} size={15} /> 
+          <Text style={styles.text4}>Apparels</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.t5}>
+          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image5.png')} size={15} /> 
+          <Text style={styles.text5}>Beauty</Text>
+        </TouchableOpacity>
+      </View>
+      ) : (<></>) }
+
+      {isPressed && isTouched==false ? (
+      <View style={styles.container2}>
+        <ActiveStyle1 />
+        <TouchableOpacity style={styles.t6}>
+          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L1.png')} size={15} /> 
+          <Text style={styles.text6}>Adidas</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.t7}>
+          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L2.png')} size={15} /> 
+          <Text style={styles.text7}>Armani</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.t8}>
+          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L3.png')} size={15} /> 
+          <Text style={styles.text8}>Beats</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.t9}>
+          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L4.png')} size={15} /> 
+          <Text style={styles.text9}>Bose</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.t10}>
+          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L5.png')} size={15} /> 
+          <Text style={styles.text10}>Hugo Boss</Text>
+        </TouchableOpacity>
+      </View>
+      ) : (<></>) }
+      
+      {isClicked ? 
+      <Trending />
+      : <></> }
+
     </View>
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000',
-    color: '#fff',
+    
+  },
+  cat: {
+    top: -80
+  },
+  type1:{
+    top: 100, left: 100
+  },
+  type2:{
+    top: 78, right: -250,
+  },
+  type3:{
+    top: 200, right: -150,
+  },
+  category:{
+    // color: isPressed ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16, 
+  },
+  brand:{
+    color: '#282D34', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16, tintColor: '#21FFFC'
+  },
+  trend:{
+    color: '#282D34', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16
+  },
+  container1:{
+    top: -10
+  },
+  text1:{
+    top: 10,  left: 10, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  text2:{
+    top: 10,  left: 0, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  text3:{
+    top: 10, left: 10, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  text4:{
+    top: 10,  right: 0, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  text5:{
+    top: 10,  right: -5, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  t1:{
+    top: 0,
+    left: 10,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  t2:{
+    top: 0,
+    left: 90,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  t3:{
+    top: 0,
+    left: 170,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  t4:{
+    top: 0,
+    right: 90,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  t5:{
+    top: 0,
+    right: 10,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  container2:{
+    top: -10
+  },
+  text6:{
+    top: -10,  left: 15, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  text7:{
+    top: -10,  left: 15, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  text8:{
+    top: -10, left: 20, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  text9:{
+    top: -10,  right: -25, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  text10:{
+    top: -10,  right: -5, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+  },
+  t6:{
+    top: -5,
+    left: 0,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  t7:{
+    top: -5,
+    left: 80,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  t8:{
+    top: -5,
+    left: 155,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  t9:{
+    top: -5,
+    right: 80,
+    zIndex: 1,
+    position: 'absolute'
+  },
+  t10:{
+    top: -5,
+    right: 0,
+    zIndex: 1,
+    position: 'absolute'
   },
 });
 
-export default Notification;
-
-
-// import React from 'react';
-
-// import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
-
-// const Search = () => {
-//   return (
-//     <View style={styles.container}>
-
-//       {/* <Image
-//         source={require('../../assets/images/Tag1.png')}
-//         style={{top: 250}}
-//       /> */}
-
-//       <TouchableOpacity style={styles.Rectangle} /> 
-        
-//       <TouchableOpacity style={styles.Brand}>
-//         <Text style={styles.text1}>SONY ALPHA</Text>
-//       </TouchableOpacity>
-        
-//       <TouchableOpacity style={styles.Model}>
-//         <Text style={styles.text2}>ILCE5100L 24.3MP</Text>
-//       </TouchableOpacity>
-
-//       <TouchableOpacity style={styles.Rectangle1} > 
-//         {/* <Text style={styles.text1}>Sony</Text>
-//         <Text style={styles.text2}>Model 3</Text> */}
-//         <Text style={styles.text3}>Buy Now</Text>
-//       </TouchableOpacity>
-
-//       <TouchableOpacity style={styles.Square} /> 
-
-//       <Image
-//         source={require('../../assets/images/Tag4.png')}
-//         style={{top: -40, left: -110}}
-//       />
-
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container:{
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     backgroundColor: 'black',
-//   },
-//   Rectangle:{
-//     bottom: -255,
-//     width: 350,
-//     height: 138,
-//     backgroundColor: 'grey',
-//     borderRadius: 10, 
-//     left: 5
-//   },
-//   Rectangle1:{
-//     bottom: -155,
-//     width: 200,
-//     height: 40,
-//     backgroundColor: '#518BF9',
-//     borderRadius: 10, 
-//     right: -70,
-//     justifyContent: 'center',
-//     alignContent: 'center',
-//     alignItems: 'center'
-//   },
-//   // Brand:{
-//   //   bottom: -155,
-//   //   width: 200,
-//   //   height: 40,
-//   //   backgroundColor: '#518BF9',
-//   //   borderRadius: 10, 
-//   //   right: -70,
-//   //   justifyContent: 'center',
-//   //   alignContent: 'center',
-//   //   alignItems: 'center'
-//   // },
-//   // Model:{
-//   //   bottom: -155,
-//   //   width: 200,
-//   //   height: 40,
-//   //   backgroundColor: '#518BF9',
-//   //   borderRadius: 10, 
-//   //   right: -70,
-//   //   justifyContent: 'center',
-//   //   alignContent: 'center',
-//   //   alignItems: 'center'
-//   // },
-//   text1:{
-//     fontFamily: 'Proxima Nova',
-//     fontWeight: 'bold',
-//     color: '#222222',
-//     fontSize: 16,
-//     bottom: -130,
-//     left: 20
-//   },
-//   text2:{
-//     fontFamily: 'Proxima Nova',
-//     fontWeight: 'normal',
-//     top: 140,
-//     color: '#222222',
-//     fontSize: 12,
-//     left: 25
-//   },
-//   text3:{
-//     fontFamily: 'Proxima Nova',
-//     fontWeight: '700',
-//     fontSize: 16
-//   },
-//   Square:{
-//     bottom: -55,
-//     width: 100,
-//     height: 100,
-//     backgroundColor: '#ffffff',
-//     borderRadius: 10, 
-//     left: -110
-//   }
-// });
-
-// export default Search;
-
-
-
-
-// // import React, {Component} from 'react';
-// // import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-
-// // class Home extends Component {
-// //   state = {};
-// //   render() {
-// //     return (
-// //       <View style={styles.container}>
-// //         <TouchableOpacity style={styles.Rectangle} /> 
-// //         <TouchableOpacity style={styles.Rectangle1} > 
-// //           <Text style={styles.text}>Buy Now!</Text>
-// //         </TouchableOpacity>
-// //         <TouchableOpacity style={styles.Square} /> 
-// //       </View>
-// //     );
-// //   }
-// // }
-
-// // export default Home;
-
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1,
-// //     justifyContent: 'center',
-// //     alignContent: 'center',
-// //     alignItems: 'center',
-// //     overflow: 'visible'
-// //   },
-// //   Rectangle:
-// //   {
-// //     bottom: -100,
-// //     width: 350,
-// //     height: 138,
-// //     backgroundColor: '#E5E5E5',
-// //     borderRadius: 10, 
-// //     left: 10
-// //   },
-// //   Rectangle1:
-// //   {
-// //     bottom: -35,
-// //     width: 200,
-// //     height: 40,
-// //     backgroundColor: '#518BF9',
-// //     borderRadius: 10, 
-// //     right: -70,
-// //     justifyContent: 'center',
-// //     alignContent: 'center',
-// //     alignItems: 'center'
-// //   },
-// //   text:{
-// //     fontFamily: 'Proxima Nova',
-// //     fontWeight: '700',
-// //   },
-// //   Square:
-// //   {
-// //     bottom: 60,
-// //     width: 100,
-// //     height: 100,
-// //     backgroundColor: '#ffffff',
-// //     borderRadius: 10, 
-// //     left: -90
-// //   }
-// // });
-
-// {/* <Image
-//           source={require('../../assets/images/Tag1.png')}    
-//           size={25}
-//           style={{position: 'absolute', right: 20, bottom: 250, width: 400, height: 150 }}
-//         /> */}
-//         {/* <Text>Home Page</Text> */}
+export default Categories;

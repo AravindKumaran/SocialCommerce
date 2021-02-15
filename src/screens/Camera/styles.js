@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     top: -5,
     // overlayColor: 'red',
     backgroundColor: '#383734',
-    top: 0
+    top: 0,
   },
   preview: {
     flex: 1,

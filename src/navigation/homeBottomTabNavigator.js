@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Camera from '../screens/Camera';
 import Search from '../screens/Search';
 import Notifications from '../screens/Notifications';
 import ProfileScreen from '../screens/Profile/index';
-import {Image, Text, View} from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  TouchableOpacity,
+  BackHandler,
+  useEffect,
+} from 'react-native';
 import {color} from 'react-native-reanimated';
 
 // import post from '../components/Post';
@@ -54,11 +61,9 @@ const ActiveStyle = () => (
   </>
 );
 
-
-
 // function Color(){
 //   return {
-   
+
 //       <Image source={require('../assets/images/Search_icon.png')} size={15} style={{width: 25, height: 25, bottom: -5}}  />
 
 //   }
@@ -76,7 +81,6 @@ const ActiveStyle = () => (
 //     // tintColor= '#21FFFC'
 //   );
 // }
-
 
 // tabBarIcon: ({tintColor}) => <SimpleLineIcons name='home' color={tintColor} size={25}/>
 // tabBarOptions: { activeTintColor:'blue', }
@@ -118,7 +122,7 @@ const Tab = createBottomTabNavigator();
 
 // function Color() {
 //   const isClicked = true;
-  
+
 // }
 
 // class constructor {
@@ -138,11 +142,7 @@ const Tab = createBottomTabNavigator();
 // backgroundColor: '#383734',
 
 const HomeBottomTabNavigator = () => {
-  const [isTouched, setTouched] = useState(false);
- 
   return (
-    <>
-    {!isTouched ? (
     <Tab.Navigator
       tabBarOptions={{
         tabStyle: {
@@ -150,14 +150,14 @@ const HomeBottomTabNavigator = () => {
           height: 55,
           bottom: 10,
           borderTopEndRadius: 20,
-          borderTopStartRadius: 20
+          borderTopStartRadius: 20,
         },
         inactiveTintColor: '#FFFFFF',
         activeTintColor: '#21FFFC',
         showLabel: false,
         showIcon: true,
         indicatorStyle: {
-          opacity: 0.2, 
+          opacity: 0.2,
         },
         style: {
           borderRadius: 20,
@@ -206,22 +206,26 @@ const HomeBottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        screenOptions={{tabBarVisible: false}}
-        onPress={() => setTouched(!isTouched)}
         name={'Upload'}
         component={Camera}
-        options={{
-          tabBarIcon: ({}) => (
-            <Text>
-            {!isTouched ? (
-            <Image
-              source={require('../assets/images/Plus.png')}
-              style={{width: 65, height: 65, borderRadius: 37, bottom: 20}}
-            /> ) : <View/>  } </Text> 
+        options={() => ({
+          tabBarIcon: ({focused, color}) => (
+            <>
+              <Image
+                source={require('../assets/images/Plus.png')}
+                style={{
+                  width: 65,
+                  height: 65,
+                  borderRadius: 37,
+                  bottom: focused ? -20 : 20,
+                  zIndex: 1,
+                }}
+              />
+            </>
           ),
           tabBarLabel: () => null,
-          tabBarVisible: false
-        }}
+          tabBarVisible: false,
+        })}
       />
       <Tab.Screen
         name={'Notification'}
@@ -246,20 +250,27 @@ const HomeBottomTabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({tintColor}) => (
-            
             <Image
               source={require('../assets/images/Profile_icon.png')}
               size={25}
-              style={{bottom: 5}}
+              style={{bottom: 2}}
             />
-            
           ),
         }}
       />
     </Tab.Navigator>
-    ) : (<Camera />) }
-   </>
   );
 };
 
 export default HomeBottomTabNavigator;
+
+// import { useBackHandler } from '@react-native-community/hooks'
+
+// useBackHandler(() => {
+//   if (shouldBeHandledHere) {
+//     // handle it
+//     return true
+//   }
+//   // let the default thing happen
+//   return false
+// })
