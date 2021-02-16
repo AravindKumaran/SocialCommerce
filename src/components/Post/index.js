@@ -6,6 +6,7 @@ import Video from 'react-native-video';
 import styles from './styles';
 import Product from '../../screens/Product/index';
 import {color} from 'react-native-reanimated';
+// import InViewPort from 'react-native-inviewport';
 
 // import Entypo from 'react-native-vector-icons/Entypo';
 // import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -59,11 +60,29 @@ const Post = (props) => {
     getVideoUri();
   }, []);
 
+
+  // pauseVideo = () => {
+  //   if(this.video) {
+  //     this.video.pauseAsync();
+  //   }
+  // }
+
+  // playVideo = () => {
+  //   if(this.video) {
+  //     this.video.playAsync();
+  //   }
+  // }
+
+  // handlePlaying = (isVisible) => {
+  //   isVisible ? this.playVideo() : this.pauseVideo();
+  // }
+
   return (
     <View style={styles.container}>
       {/* {shouldShow ? ( */}
       <TouchableWithoutFeedback onPress={onPlayPausePress}>
         <View>
+          {/* <InViewPort onChange={this.handlePlaying}> */}
           <Video
             //  ref={ controls => controls = Video}
             source={{ uri: videoUri }}
@@ -72,7 +91,9 @@ const Post = (props) => {
             resizeMode={'cover'}
             repeat={true}
             paused={paused}
+            // muted={true}
           />
+          {/* </InViewPort> */}
 
           <View style={styles.uiContainer}>
             <View style={styles.rightContainer}>
