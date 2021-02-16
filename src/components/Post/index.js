@@ -91,7 +91,7 @@ const Post = (props) => {
             resizeMode={'cover'}
             repeat={true}
             paused={paused}
-            // muted={true}
+            muted={true}
           />
           {/* </InViewPort> */}
 
