@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: Dimensions.get('window').height,
+    height: Dimensions.get('window').height- 20,
   },
   videPlayButton: {
     position: 'absolute',
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    zIndex: 100,
+    zIndex: 1,
   },
   video: {
     position: 'absolute',
@@ -20,20 +20,22 @@ const styles = StyleSheet.create({
     bottom: 15,
     right: 0,
     // borderRadius: 10,
-    // backgroundColor: '#292929',
-    // borderWidth: 10
+    backgroundColor: '#292929',
+    // borderWidth: 10,
   },
   uiContainer: {
     height: '100%',
     justifyContent: 'flex-end',
-    marginBottom: 7
+    marginBottom: 7, 
+    // position: 'absolute',
+    // zIndex: 1
   },
   bottomContainer: {
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
-    
+    bottom: 150,
   },
   handle: {
     color: '#fff',
@@ -76,8 +78,8 @@ const styles = StyleSheet.create({
     height: 300,
     justifyContent: 'space-between',
     marginRight: 5,
-    bottom: -40, 
-    right: -10
+    bottom: 120, 
+    right: -10,
   },
   profilePicture: {
     width: 50,

@@ -45,7 +45,7 @@ const Home = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}
         decelerationRate={'fast'}
-        snapToInterval={Dimensions.get('window').height }
+        snapToInterval={Dimensions.get('window').height-20 }
         borderRadius= {50}
       />
       </Viewport.Tracker>

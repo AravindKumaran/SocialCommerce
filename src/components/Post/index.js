@@ -6,6 +6,9 @@ import Video from 'react-native-video';
 import styles from './styles';
 import Product from '../../screens/Product/index';
 import {color} from 'react-native-reanimated';
+import VideoPlayer from 'react-native-video-player';
+// import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
+// import { Viewport } from '@skele/components';
 // import InViewPort from 'react-native-inviewport';
 
 // import Entypo from 'react-native-vector-icons/Entypo';
@@ -24,9 +27,33 @@ const Post = (props) => {
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(false);
 
+    const [duration, setDuration] = useState(0);
+    // const [paused, setPaused] = useState(true);
+    const [currentTime, setCurrentTime] = useState(0);
+    // const [playerState, setPlayerState] = useState(PLAYER_STATES.PAUSED);
+    const [isLoading, setIsLoading] = useState(true);
+
   const onPlayPausePress = () => {
     setPaused(!paused);
   };
+
+  const onLoad = (data) => {
+    setDuration(Math.round(data.duration));
+    setIsLoading(false);
+  };
+
+  const onLoadStart = () => setIsLoading(true);
+
+  const onEnd = () => {
+    // setPlayerState(PLAYER_STATES.ENDED);
+    setCurrentTime(duration);
+  };
+
+  // const onLoadStart = () => {
+  //   setPressed(!isPressed)
+  // };
+
+  
 
   // const tag = () => {
   //   setTouched(!isTouched);
@@ -83,16 +110,39 @@ const Post = (props) => {
       <TouchableWithoutFeedback onPress={onPlayPausePress}>
         <View>
           {/* <InViewPort onChange={this.handlePlaying}> */}
-          <Video
+
+          <View style={styles.video}>
+          <VideoPlayer
             //  ref={ controls => controls = Video}
-            source={{ uri: videoUri }}
-            style={styles.video}
-            onError={(e) => console.log(e)}
-            resizeMode={'cover'}
-            repeat={true}
-            paused={paused}
-            muted={true}
+            video={{uri : videoUri }}
+            // autoplay={true}
+            videoWidth={1100}
+            videoHeight={1750}
+            loop={true}
+            resizeMode='cover'
+            // style={styles.video}
+            pauseOnPress={true}
+            paused={false}
+            disableControlsAutoHide={false}
+            // customStyles={wrapper}
+            // onError={(e) => console.log(e)}
+            // resizeMode={'cover'}
+            // repeat={true}
+            // paused={paused}
+            // playInBackground={false}
+            // onLoad={onLoad}
+            // onEnd={onEnd}
+            // onLoadStart={onLoadStart}
+            // controls={true}
+            // muted={true}
           />
+          </View>
+
+          {/* </VideoPlayer> */}
+          {/* <MediaControls
+            isLoading={isLoading}
+          /> */}
+          
           {/* </InViewPort> */}
 
           <View style={styles.uiContainer}>
