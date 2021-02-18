@@ -10,7 +10,7 @@ const ActiveStyle = () => (
       style={{
         position: 'absolute',
         bottom: 20,
-        left: 95,
+        left: 100,
         transform: [{
           rotate: '-180deg'
         }],
@@ -28,7 +28,7 @@ const ActiveStyle = () => (
         bottom: 55,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
-        left: 120
+        left: 125
       }}>
     </View>
   </>
@@ -40,7 +40,7 @@ const ActiveStyle1 = () => (
       style={{
         position: 'absolute',
         bottom: 20,
-        right: 80,
+        right: 78,
         transform: [{
           rotate: '-180deg'
         }],
@@ -58,7 +58,7 @@ const ActiveStyle1 = () => (
         bottom: 55,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
-        right: 110
+        right: 105
       }}>
     </View>
   </>
@@ -77,16 +77,16 @@ const Categories = () => {
       <View style={styles.cat}>
         <Image style={{top: 80, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
         <TouchableOpacity style={styles.type1} onPress={() => {setTouched(!isTouched); setPressed(!isPressed)}}>
-          <Text style={{color: !isTouched ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Categories</Text>
+          <Text style={{color: !isTouched ? '#FFFFFF' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Categories</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.type2} onPress={() => {setPressed(!isPressed); setTouched(!isTouched)}}>
-          <Text style={{color: !isPressed ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Brands</Text>
+          <Text style={{color: !isPressed ? '#FFFFFF' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Brands</Text>
         </TouchableOpacity>
         <Image style={{top: 180, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
 
         <TouchableOpacity style={styles.type3} onPress={() => setClicked(!isClicked)}>
-          <Text style={{color: !isClicked ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16}}>Top Trending</Text>
+          <Text style={{color: !isClicked ? '#FFFFFF' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16}}>Top Trending</Text>
         </TouchableOpacity>
       </View>
 
@@ -162,13 +162,15 @@ const Categories = () => {
 
 const styles = StyleSheet.create({
   container: {
-    
+    backgroundColor: '#20232A',
+    height: 1000
+    // zIndex: 1
   },
   cat: {
-    top: -80
+    top: -80, 
   },
   type1:{
-    top: 100, left: 100
+    top: 100, left: 100,
   },
   type2:{
     top: 78, right: -250,
@@ -180,28 +182,30 @@ const styles = StyleSheet.create({
     // color: isPressed ? '#282D34' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16, 
   },
   brand:{
-    color: '#282D34', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16, tintColor: '#21FFFC'
+    color: '#FFFFFF', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16, tintColor: '#21FFFC'
   },
   trend:{
-    color: '#282D34', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16
+    color: '#FFFFFF', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16
   },
   container1:{
-    top: -10
+    top: -10,
+    // backgroundColor: '#20232A',
+    // zIndex: 1
   },
   text1:{
-    top: 10,  left: 10, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: 10,  left: 10, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   text2:{
-    top: 10,  left: 0, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: 10,  left: 0, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   text3:{
-    top: 10, left: 10, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: 10, left: 10, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   text4:{
-    top: 10,  right: 0, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: 10,  right: 0, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   text5:{
-    top: 10,  right: -5, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: 10,  right: -5, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   t1:{
     top: 0,
@@ -234,22 +238,24 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
   container2:{
-    top: -10
+    top: -10,
+    // backgroundColor: '#20232A',
+    // zIndex: 1
   },
   text6:{
-    top: -10,  left: 15, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: -10,  left: 15, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   text7:{
-    top: -10,  left: 15, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: -10,  left: 15, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   text8:{
-    top: -10, left: 20, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: -10, left: 20, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   text9:{
-    top: -10,  right: -25, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: -10,  right: -25, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   text10:{
-    top: -10,  right: -5, color: '#282D34', fontWeight: '400', fontFamily: 'Proxima Nova', 
+    top: -10,  right: -5, color: '#FFFFFF', fontWeight: '400', fontFamily: 'Proxima Nova', 
   },
   t6:{
     top: -5,

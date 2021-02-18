@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableWithoutFeedback, Text, Image, TouchableOpacity } from 'react-native';
+import { View, TouchableWithoutFeedback, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 
 import Video from 'react-native-video';
@@ -27,33 +27,9 @@ const Post = (props) => {
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(false);
 
-    const [duration, setDuration] = useState(0);
-    // const [paused, setPaused] = useState(true);
-    const [currentTime, setCurrentTime] = useState(0);
-    // const [playerState, setPlayerState] = useState(PLAYER_STATES.PAUSED);
-    const [isLoading, setIsLoading] = useState(true);
-
   const onPlayPausePress = () => {
     setPaused(!paused);
   };
-
-  const onLoad = (data) => {
-    setDuration(Math.round(data.duration));
-    setIsLoading(false);
-  };
-
-  const onLoadStart = () => setIsLoading(true);
-
-  const onEnd = () => {
-    // setPlayerState(PLAYER_STATES.ENDED);
-    setCurrentTime(duration);
-  };
-
-  // const onLoadStart = () => {
-  //   setPressed(!isPressed)
-  // };
-
-  
 
   // const tag = () => {
   //   setTouched(!isTouched);
@@ -87,63 +63,40 @@ const Post = (props) => {
     getVideoUri();
   }, []);
 
-
-  // pauseVideo = () => {
-  //   if(this.video) {
-  //     this.video.pauseAsync();
-  //   }
-  // }
-
-  // playVideo = () => {
-  //   if(this.video) {
-  //     this.video.playAsync();
-  //   }
-  // }
-
-  // handlePlaying = (isVisible) => {
-  //   isVisible ? this.playVideo() : this.pauseVideo();
-  // }
-
   return (
     <View style={styles.container}>
       {/* {shouldShow ? ( */}
       <TouchableWithoutFeedback onPress={onPlayPausePress}>
         <View>
-          {/* <InViewPort onChange={this.handlePlaying}> */}
 
           <View style={styles.video}>
-          <VideoPlayer
-            //  ref={ controls => controls = Video}
-            video={{uri : videoUri }}
-            // autoplay={true}
-            videoWidth={1100}
-            videoHeight={1750}
-            loop={true}
-            resizeMode='cover'
-            // style={styles.video}
-            pauseOnPress={true}
-            paused={false}
-            disableControlsAutoHide={false}
-            // customStyles={wrapper}
-            // onError={(e) => console.log(e)}
-            // resizeMode={'cover'}
-            // repeat={true}
-            // paused={paused}
-            // playInBackground={false}
-            // onLoad={onLoad}
-            // onEnd={onEnd}
-            // onLoadStart={onLoadStart}
-            // controls={true}
-            // muted={true}
-          />
+            <VideoPlayer
+              //  ref={ controls => controls = Video}
+              video={{uri : videoUri }}
+              thumbnail={{ uri: 'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1' }}
+              autoplay={false}
+              videoWidth={1100}
+              videoHeight={Dimensions.get('window').height * 2.3}
+              loop={true}
+              resizeMode='cover'
+              // style={styles.video}
+              pauseOnPress={true}
+              paused={false}
+              disableControlsAutoHide={false}
+              // hideControlsOnStart={false}
+              // customStyles={wrapper}
+              // onError={(e) => console.log(e)}
+              // resizeMode={'cover'}
+              // repeat={true}
+              // paused={paused}
+              // playInBackground={false}
+              // onLoad={onLoad}
+              // onEnd={onEnd}
+              // onLoadStart={onLoadStart}
+              // controls={true}
+              // muted={true}
+            />
           </View>
-
-          {/* </VideoPlayer> */}
-          {/* <MediaControls
-            isLoading={isLoading}
-          /> */}
-          
-          {/* </InViewPort> */}
 
           <View style={styles.uiContainer}>
             <View style={styles.rightContainer}>

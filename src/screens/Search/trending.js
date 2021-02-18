@@ -12,7 +12,7 @@ const Trending = () => {
         width: 400,
         height: 400,
         top: 150,
-        backgroundColor: '#C4C4C4',
+        backgroundColor: '#20232A'
       }}>
         <View style={{left: 5, top: 5}}>
         

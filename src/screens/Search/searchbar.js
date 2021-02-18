@@ -20,9 +20,9 @@ export default class Searchbar extends React.Component {
 
     return (
         <SearchBar
-                    containerStyle={{borderRadius: 40, width: '100%', backgroundColor: 'white', top: -1}}
-                    inputContainerStyle={{borderRadius: 20, color: '#282D34'}}
-                    inputStyle={{fontFamily: 'Proxima Nova', fontSize: 15, fontWeight: '400', color: '#51565E', left: 5, }}
+                    containerStyle={{borderRadius: 40, width: '100%', backgroundColor: '#20232A', top: -1}}
+                    inputContainerStyle={{borderRadius: 30, color: '#20232A'}}
+                    inputStyle={{fontFamily: 'Proxima Nova', fontSize: 15, fontWeight: '400', color: '#ffffff', left: 5, }}
                     searchIcon={{left: 6, size: 25, color: '#ffffff'}}
                     placeholder="Search"
                     onChangeText={this.updateSearch}

@@ -263,14 +263,3 @@ const HomeBottomTabNavigator = () => {
 };
 
 export default HomeBottomTabNavigator;
-
-// import { useBackHandler } from '@react-native-community/hooks'
-
-// useBackHandler(() => {
-//   if (shouldBeHandledHere) {
-//     // handle it
-//     return true
-//   }
-//   // let the default thing happen
-//   return false
-// })
