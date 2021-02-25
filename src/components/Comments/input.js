@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 
 const In = () => {
-  const donorsData = [
+  const user = [
     {
       name: 'Tamil25',
       photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
@@ -43,17 +43,17 @@ const In = () => {
       <View style={styles.container}>
 
         <View>
-
               <Text style={styles.text1}>Comments</Text>
-              <Image source={require('../../assets/images/Bline.png')} size={25} style={{ top: 250, left: 120, zIndex: 1 }} />
+              <Image source={require('../../assets/images/Bline.png')} size={25} style={{ top: 280, left: 115, zIndex: 1 }} />
               <Image source={require('../../assets/images/Lline.png')} size={25} style={{ bottom: 240, right: 0, zIndex: 1 }} />
               <Image source={require('../../assets/images/Tline.png')} size={25} style={{ bottom: 270, left: 175, zIndex: 1 }} />
-              <Image source={require('../../assets/images/Dline.png')} size={25} style={{ top: 200, left: 180, zIndex: 1 }} />
+              <Image source={require('../../assets/images/Dline.png')} size={25} style={{ top: 230, left: 175, zIndex: 1 }} />
               </View>
         <View>
-        {donorsData.map((v, i) => {
+          
+        {user.map((v, i) => {
           return (
-            <View key={v.uid} style={{top: 60}}>
+            <View key={v.uid} style={{top: 10, margin: -30, left: 25}}>
 
               <View style={{right: 70, bottom: 70}}>
               <Text style={{ color: '#20232A', fontFamily: 'Proxima Nova' , fontWeight: '700', fontSize: 14 }}>{v.name}</Text>
@@ -63,24 +63,24 @@ const In = () => {
               <Text style={{ color: '#20232A', right: 60, fontFamily: 'Proxima Nova' , fontWeight: '400', fontSize: 12}}>{v.comment}</Text>
               </View>
 
-              <View style={{right: 130, bottom: 100}}>
-                <Image source={{ uri: v.photo }} style={{ height: 30, width: 35}} />
+              <View style={{right: 130, bottom: 100, margin: 0}}>
+                <Image source={{ uri: v.photo }} style={{ height: 30, width: 35, borderRadius: 20}} />
               </View>
 
               <View style={{right: 10, bottom: 110}}>
                 <Text style={{ color: '#999999', right: 60,fontFamily: 'Proxima Nova' , fontWeight: '400', fontSize: 12}}>{v.createdat}</Text>
               </View>
 
-              <View style={{left: 90, bottom: 125}}>
+              <View style={{left: 90, bottom: 126}}>
                 <Text style={{ color: '#999999', right: 60,fontFamily: 'Proxima Nova' , fontWeight: '700', fontSize: 12}}>{v.reply}</Text>
               </View>
 
-              <View style={{left: 260, bottom: 135}}>
+              <View style={{left: 260, bottom: 140}}>
                 <Text style={{ color: '#999999', right: 60,fontFamily: 'Proxima Nova' , fontWeight: '700', fontSize: 10}}>{v.likes}</Text>
               </View>
 
-              <View style={{left: 200, bottom: 190}}>
-                <Image source={{ uri: v.like }} style={{ height: 25, width: 25}} />
+              <View style={{left: 203, bottom: 180}}>
+                <Image source={{ uri: v.like }} style={{ height: 20, width: 20}} />
               </View>
 
             </View>
@@ -110,12 +110,12 @@ const styles = StyleSheet.create({
     borderColor: '#EEE',
     alignItems: 'center',
     paddingLeft: 15,
-    left: 15,
+    right: -20,
     bottom: 450,
     width: Dimensions.get('window').width ,
     height: Dimensions.get('window').height - 170,
     backgroundColor: '#EDFDFF',
-    borderRadius: 20, 
+    borderRadius: 30, 
     zIndex: 1
   },
   img: {
