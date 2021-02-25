@@ -9,14 +9,20 @@ import {
 } from 'react-native';
 import {API, graphqlOperation, Storage} from 'aws-amplify';
 
-import Video from 'react-native-video';
+// import Video from 'react-native-video';
 import styles from './styles';
 import Product from '../../screens/Product/index';
+import List from '../Comments/list';
+import Comment from '../Comments/comment';
+
 import {color} from 'react-native-reanimated';
+import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-player';
+
 // import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
 // import { Viewport } from '@skele/components';
 // import InViewPort from 'react-native-inviewport';
+// import InViewPort from './InViewPort';
 
 // import Entypo from 'react-native-vector-icons/Entypo';
 // import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -89,6 +95,7 @@ const Post = (props) => {
       <TouchableWithoutFeedback>
         <View>
           <View style={styles.video}>
+            {/* <InViewPort onChange={this.handlePlaying}> */}
             <VideoPlayer
               ref={vidRef}
               //  ref={ controls => controls = Video}
@@ -106,6 +113,7 @@ const Post = (props) => {
               pauseOnPress={true}
               // paused={true}
               disableControlsAutoHide={false}
+              disableSeek={true}
               // hideControlsOnStart={false}
               // customStyles={wrapper}
               // onError={(e) => console.log(e)}
@@ -119,6 +127,7 @@ const Post = (props) => {
               // controls={true}
               // muted={true}
             />
+            {/* </InViewPort> */}
           </View>
 
           <View style={styles.uiContainer}>
@@ -298,6 +307,16 @@ const Post = (props) => {
               {/* style = { [ yourExternalStyle, { topStyle} ] } */}
               {/* style={Object.assign({}, styles.square, styles.round)} /> */}
               {/* [ {position: 'absolute', right: 20, bottom: 0, zIndex: 1} , {top: `${isTouched} ? "12%" : "14%" `} ] */}
+
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  right: 20,
+                  bottom: 0,
+                  top: 160,
+                  zIndex: 1,
+                }}
+                onPress={() => setPressed(!isPressed)}></TouchableOpacity>
 
               <TouchableOpacity
                 style={{position: 'absolute', right: 20, bottom: 0, top: 160}}>

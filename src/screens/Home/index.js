@@ -12,8 +12,10 @@ import {
 import Post from '../../components/Post';
 import {API, graphqlOperation} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
-import Product from '../../screens/Product/index';
-import {Viewport} from '@skele/components';
+
+// import Product from '../../screens/Product/index';
+// import { Viewport } from '@skele/components';
+// import {inViewPort} from 'react-native-inviewport';
 
 const Home = ({navigation}) => {
   const [posts, setPosts] = useState([]);

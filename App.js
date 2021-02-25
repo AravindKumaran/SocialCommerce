@@ -50,8 +50,6 @@ const App: () => React$Node = () => {
         graphqlOperation(getUser, {id: userInfo.attributes.sub}),
       );
 
-     
-
       if (getUserResponse.data.getUser) {
         console.log('User already exists in database');
         return;
@@ -80,6 +78,8 @@ const App: () => React$Node = () => {
       <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
         {/* <Toptab /> */}
         <Navigation />
+        {/* ? <Comments user={user} />
+        : <Login onLoggedIn={this.onLoggedIn} />; */}
         {/* <Product /> */}
       </SafeAreaView>
     </>
