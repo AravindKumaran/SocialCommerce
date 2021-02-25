@@ -3,7 +3,9 @@ import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList, ScrollView, 
 import Searchbar from '../../screens/Search/searchbar';
 import Trending from '../../screens/Search/trending';
 import VideoPlayer from 'react-native-video-player';
+import Video from 'react-native-video';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
+import Home from '../Home/index';
 
 // import Home from '../../screens/Home/index';
 // import Post from '../../components/Post/index';
@@ -14,7 +16,7 @@ const ActiveStyle = () => (
     <Image
       style={{
         position: 'absolute',
-        bottom: 20,
+        bottom: 10,
         left: 100,
         transform: [{
           rotate: '-180deg'
@@ -44,7 +46,7 @@ const ActiveStyle1 = () => (
     <Image
       style={{
         position: 'absolute',
-        bottom: 400,
+        bottom: 10,
         right: 78,
         transform: [{
           rotate: '-180deg'
@@ -60,7 +62,7 @@ const ActiveStyle1 = () => (
         height: 4,
         borderRadius: 14,
         position: 'absolute',
-        bottom: 433,
+        bottom: 53,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
         right: 105
@@ -138,7 +140,15 @@ const Categories = (props) => {
           <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image5.png')} size={15} /> 
           <Text style={styles.text5}>Beauty</Text>
         </TouchableOpacity>
+
+        <View>
+          <Trending />
+        </View>
+
       </View>
+
+
+
       ) : (<></>) }
 
       {isPressed && isTouched==false ? (
@@ -169,11 +179,17 @@ const Categories = (props) => {
           <Text style={styles.text10}>Hugo Boss</Text>
         </TouchableOpacity>
 
-        <View style={styles.video}>
+        <View>
+          <Trending />
+        </View>
+
+        {/* <Home /> */}
+
+        {/* <View style={styles.video}>
           <VideoPlayer
             video={{uri : videoUri }}
             thumbnail={{ uri: 'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1' }}
-            autoplay={false}
+            autoplay
             videoWidth={1100}
             videoHeight={Dimensions.get('window').height * 1.4}
             loop={true}
@@ -182,14 +198,14 @@ const Categories = (props) => {
             paused={false}
             disableControlsAutoHide={false}
           />
-      </View>
+      </View> */}
 
       </View>
       ) : (<></>) }
       
-      {isClicked ? 
+      {/* {isClicked ? 
         <Trending />
-      : <></> }
+      : <></> } */}
 
     </View>
   );

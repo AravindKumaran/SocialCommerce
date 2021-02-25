@@ -1,11 +1,18 @@
 import { coverer } from 'aws-amplify-react-native/dist/AmplifyUI';
-import React, {Component} from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import React, {Component, useState} from 'react';
+import {View, Image, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import { FlatList, ScrollView } from 'react-native';
 import styles from '../../components/Post/styles';
+// import Video from 'react-native-af-video-player'
+import VideoPlayer from 'react-native-video-player';
 import Video from 'react-native-video';
 
 const Trending = () => {
+  const [paused, setPaused] = useState(false);
+  const onPlayPausePress = () => {
+    setPaused(!paused);
+  };
+
   return (
       <View style={{
         flex: 1,
@@ -15,7 +22,7 @@ const Trending = () => {
         backgroundColor: '#20232A'
       }}>
         <View style={{left: 5, top: 5}}>
-        
+        {/* <TouchableWithoutFeedback onPress={onPlayPausePress}> */}
         <View style={{
           flex: 1,
           width: 166,
@@ -23,15 +30,18 @@ const Trending = () => {
           position: 'absolute',
           // backgroundColor: 'red'
         }} >
-        <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        <Video
+        repeat={false}
+        // paused={true}
+        // thumbnail={{ uri: 'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1' }}
+        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
-
+        
         {/* <Image source={require('../../assets/images/R1.png')} />  */}
         </View>
-        
+        {/* </TouchableWithoutFeedback> */}
         <View style={{
           flex: 1,
           width: 166,
@@ -40,7 +50,7 @@ const Trending = () => {
           position: 'absolute',
           // backgroundColor: 'pink'
         }} >
-        <Video 
+        <Video
         source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -77,7 +87,7 @@ const Trending = () => {
           // backgroundColor: 'orange'
         }} >
         <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -93,7 +103,7 @@ const Trending = () => {
           // backgroundColor: 'green'
         }} >
         <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -127,7 +137,7 @@ const Trending = () => {
           // backgroundColor: 'violet'
         }} >
         <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -144,7 +154,7 @@ const Trending = () => {
           // backgroundColor: 'purple'
         }} >
         <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -161,7 +171,7 @@ const Trending = () => {
           // backgroundColor: 'grey'
         }} >
         <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
