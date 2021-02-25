@@ -6,6 +6,7 @@ import HomeBottomTabNavigator from './homeBottomTabNavigator';
 // import createMaterialTopTabNavigator from './homeTopTabNavigator';
 import CreatePost from '../screens/CreatePost';
 import Product from '../screens/Product';
+import List from '../components/Comments/list';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,7 @@ const RootNavigation = () => {
           name="CreatePost"
           component={CreatePost}
         />
+        {/* <Stack.Screen name="Comments" component={List} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

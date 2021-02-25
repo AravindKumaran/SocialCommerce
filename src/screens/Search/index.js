@@ -1,8 +1,13 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList, ScrollView } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList, ScrollView, Dimensions } from "react-native";
 import Searchbar from '../../screens/Search/searchbar';
 import Trending from '../../screens/Search/trending';
-import MasonryList from "react-native-masonry-list/src/MasonryList";
+import VideoPlayer from 'react-native-video-player';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
+
+// import Home from '../../screens/Home/index';
+// import Post from '../../components/Post/index';
+// import MasonryList from "react-native-masonry-list/src/MasonryList";
 
 const ActiveStyle = () => (
   <>
@@ -39,7 +44,7 @@ const ActiveStyle1 = () => (
     <Image
       style={{
         position: 'absolute',
-        bottom: 20,
+        bottom: 400,
         right: 78,
         transform: [{
           rotate: '-180deg'
@@ -55,7 +60,7 @@ const ActiveStyle1 = () => (
         height: 4,
         borderRadius: 14,
         position: 'absolute',
-        bottom: 55,
+        bottom: 433,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
         right: 105
@@ -64,10 +69,25 @@ const ActiveStyle1 = () => (
   </>
 );
 
-const Categories = () => {
+const Categories = (props) => {
+  const [post, setPost] = useState(props.post);
   const [isTouched, setTouched] = useState(true);
   const [isPressed, setPressed] = useState(false);
   const [isClicked, setClicked] = useState(false);
+  const [videoUri, setVideoUri] = useState('');
+
+  const getVideoUri = async () => {
+    if (post.videoUri.startsWith('http')) {
+      setVideoUri(post.videoUri);
+      return;
+    }
+    setVideoUri(await Storage.get(post.videoUri));
+  };
+
+  useEffect(() => {
+    getVideoUri();
+  }, []);
+
 
   return (
     <View style={styles.container}>
@@ -148,11 +168,27 @@ const Categories = () => {
           <Image style={{height: 75, width: 75}} source={require('../../assets/images/L5.png')} size={15} /> 
           <Text style={styles.text10}>Hugo Boss</Text>
         </TouchableOpacity>
+
+        <View style={styles.video}>
+          <VideoPlayer
+            video={{uri : videoUri }}
+            thumbnail={{ uri: 'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1' }}
+            autoplay={false}
+            videoWidth={1100}
+            videoHeight={Dimensions.get('window').height * 1.4}
+            loop={true}
+            resizeMode='cover'
+            pauseOnPress={true}
+            paused={false}
+            disableControlsAutoHide={false}
+          />
+      </View>
+
       </View>
       ) : (<></>) }
       
       {isClicked ? 
-      <Trending />
+        <Trending />
       : <></> }
 
     </View>
@@ -287,6 +323,9 @@ const styles = StyleSheet.create({
     zIndex: 1,
     position: 'absolute'
   },
+  video:{
+    top: 150
+  }
 });
 
 export default Categories;

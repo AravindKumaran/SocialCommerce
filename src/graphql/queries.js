@@ -49,6 +49,24 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
+export const comments= /* GraphQL */ `
+query GetComments($id: ID!) {
+  getComments(id: $id) {
+    id
+    username
+    email
+    imageUri
+    comments{
+      id
+      username
+      email
+      imageUri
+      createdAt
+      updatedAt
+    }
+  }
+}
+`;
 export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {

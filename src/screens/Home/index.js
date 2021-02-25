@@ -1,13 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Component, PureComponent, useRef } from 'react';
 import { View, FlatList, Dimensions, Image, Text, ImageOverlay, StyleSheet, TouchableOpacity } from 'react-native';
 import Post from '../../components/Post';
 import { API, graphqlOperation } from 'aws-amplify';
 import { listPosts } from '../../graphql/queries';
-import Product from '../../screens/Product/index';
-import { Viewport } from '@skele/components';
+
+// import Product from '../../screens/Product/index';
+// import { Viewport } from '@skele/components';
+// import {inViewPort} from 'react-native-inviewport';
+
 
 const Home = ({ navigation }) => {
   const [posts, setPosts] = useState([]);
+
+  const viewabilityConfigCallbackPairs = useRef([{ viewabilityConfig, onViewableItemsChanged }])
+
+  const viewabilityConfig = {
+    viewAreaCoveragePercentThreshold: 80, waitForInteraction: true
+  };
+
+  const onViewableItemsChanged = {
+    waitForInteraction: true
+  };
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -38,7 +51,6 @@ const Home = ({ navigation }) => {
       <Image source={require('../../assets/images/Livebox1.png')} size= {5} style={{right: 0, left: 18.5, paddingLeft: 0, paddingRight: 0, height: 20,  width: 90, top: -33, position: 'absolute' }} />
       <Image source={require('../../assets/images/Line1.png')} size= {5} style={{right: 0, left: 357.5, paddingLeft: 4, paddingRight: 4, height: 15,  width: 19, top: -30, position: 'absolute'}} />
       
-      <Viewport.Tracker>
       <FlatList
         data={posts}
         renderItem={({ item }) => <Post post={item} />}
@@ -47,9 +59,12 @@ const Home = ({ navigation }) => {
         decelerationRate={'fast'}
         snapToInterval={Dimensions.get('window').height - 20}
         borderRadius= {50}
+        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
+        // onViewableItemsChanged={(info) =>console.log(info)}
+        // onViewableItemsChanged={{ onViewableItemsChanged }}
+        // viewabilityConfig={{ viewAreaCoveragePercentThreshold: 95 }}
       />
-      </Viewport.Tracker>
-      
+
     </View>
   );
 };
