@@ -14,6 +14,7 @@ import styles from './styles';
 import Product from '../../screens/Product/index';
 import List from '../Comments/list';
 import Comment from '../Comments/comment';
+import In from '../Comments/input';
 
 import {color} from 'react-native-reanimated';
 import Video from 'react-native-video';
@@ -39,6 +40,7 @@ const Post = (props) => {
   const [paused, setPaused] = useState(false);
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(false);
+  const [isClicked, setClicked] = useState(false);
 
   const vidRef = useRef(null);
 
@@ -319,7 +321,8 @@ const Post = (props) => {
                 onPress={() => setPressed(!isPressed)}></TouchableOpacity>
 
               <TouchableOpacity
-                style={{position: 'absolute', right: 20, bottom: 0, top: 160}}>
+                style={{position: 'absolute', right: 20, bottom: 0, top: 160, zIndex: 1}}
+                onPress={() => setClicked(!isClicked)}>
                 {/* <Image
                   source={require('../../assets/images/Comment_icon.png')}
                   size={25}
@@ -340,9 +343,14 @@ const Post = (props) => {
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                       // tintColor={isTouched ? '#31d9fc' : 'white'}
-                    />
+                    /> 
                   )}
                 </>
+                
+                {isClicked ? 
+                  <In /> : <></>
+                }
+
               </TouchableOpacity>
 
               {/* <View style={styles.iconContainer}>

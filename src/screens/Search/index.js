@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Image, FlatList, ScrollView, Dimensions } from "react-native";
 import Searchbar from '../../screens/Search/searchbar';
 import Trending from '../../screens/Search/trending';
+import Brands from '../../screens/Search/brands';
 import VideoPlayer from 'react-native-video-player';
 import Video from 'react-native-video';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
@@ -180,7 +181,7 @@ const Categories = (props) => {
         </TouchableOpacity>
 
         <View>
-          <Trending />
+          <Brands />
         </View>
 
         {/* <Home /> */}
@@ -273,13 +274,13 @@ const styles = StyleSheet.create({
   },
   t3:{
     top: 0,
-    left: 170,
+    left: 172,
     zIndex: 1,
     position: 'absolute'
   },
   t4:{
     top: 0,
-    right: 90,
+    right: 85,
     zIndex: 1,
     position: 'absolute'
   },
@@ -323,7 +324,7 @@ const styles = StyleSheet.create({
   },
   t8:{
     top: -5,
-    left: 155,
+    left: 160,
     zIndex: 1,
     position: 'absolute'
   },

@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft: 15,
     right: -20,
-    bottom: 450,
+    bottom: 430,
     width: Dimensions.get('window').width ,
     height: Dimensions.get('window').height - 170,
     backgroundColor: '#EDFDFF',
