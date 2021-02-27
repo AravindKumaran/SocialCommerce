@@ -144,9 +144,9 @@ const Categories = (props) => {
           <Text style={styles.text5}>Beauty</Text>
         </TouchableOpacity>
 
-        {/* <View>
+        <View>
           <Trending />
-        </View> */}
+        </View>
 
       </View>
 
@@ -182,9 +182,9 @@ const Categories = (props) => {
           <Text style={styles.text10}>Hugo Boss</Text>
         </TouchableOpacity>
 
-        {/* <View>
+        <View>
           <Brands />
-        </View> */}
+        </View>
 
         {/* <Home /> */}
 

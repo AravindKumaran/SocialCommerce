@@ -7,6 +7,7 @@ import {
   View,
   ScrollView,
   Dimensions,
+  TouchableOpacity
 } from 'react-native';
 
 import {API, graphqlOperation} from 'aws-amplify';
@@ -16,6 +17,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 
 import LoadingIndicator from '../Common/LoadingIndicator';
 import AppText from '../Common/AppText';
+import { TextInput } from 'react-native-gesture-handler';
 
 const user = {
   __typename: 'User',
@@ -177,6 +179,17 @@ const Comments = ({postId}) => {
             );
           })}
       </View>
+
+      <View>
+        <TextInput
+          placeholder={'Enter your comments'}
+          style={styles.input} 
+        />
+        <TouchableOpacity>
+          <Text style={styles.com}>Post</Text>
+        </TouchableOpacity>
+      </View>
+
     </View>
   );
 };
@@ -287,11 +300,25 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 15,
   },
-
   comment: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  input: {
+    right: 220,
+    top: 200,
+    fontSize: 16,
+    fontFamily: 'Proxima Nova',
+    width: 250
+  },
+  com: {
+    fontSize: 16,
+    fontFamily: 'Proxima Nova',
+    color: '#20232A',
+    top: 165,
+    left: 50,
+    fontWeight: '700'
+  }
 });
 
 export default Comments;
