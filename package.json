@@ -51,6 +51,7 @@
     "react-native-timeago": "^0.5.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-video": "^5.1.0-alpha8",
+    "react-native-video-cache": "^2.0.5",
     "react-native-video-helper": "^1.5.0",
     "react-native-video-player": "^0.10.1",
     "react-native-video-processing": "^2.0.0",

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
@@ -7,17 +7,17 @@ import {
   View,
   ScrollView,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 import {API, graphqlOperation} from 'aws-amplify';
 import {getPost, listComments} from '../../graphql/queries';
-
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import TimeAgo from 'react-native-timeago';
 
 import LoadingIndicator from '../Common/LoadingIndicator';
 import AppText from '../Common/AppText';
-import { TextInput } from 'react-native-gesture-handler';
+import {TextInput} from 'react-native-gesture-handler';
+import CommentLikes from './commentLikes';
 
 const user = {
   __typename: 'User',
@@ -35,8 +35,6 @@ const Comments = ({postId}) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [isLiked, setIsLiked] = useState(false);
-
   useEffect(() => {
     const getComments = async () => {
       try {
@@ -46,13 +44,8 @@ const Comments = ({postId}) => {
             id: '633fc656-7c1f-4059-a97b-49a9d0c26671',
           }),
         );
-        const data = res.data.getPost.comments.items;
-        setComments(data);
-        if (data.likes.length > 0) {
-          const checkLiked = res.data.getPost.comments.items.likes.findIndex(
-            (id) => user.id === id,
-          );
-        }
+        // console.log('ress', res.data.getPost.comments.items);
+        setComments(res.data.getPost.comments.items);
 
         setLoading(false);
       } catch (err) {
@@ -111,6 +104,13 @@ const Comments = ({postId}) => {
                     }}>
                     {cm.text}
                   </AppText>
+                  <AppText
+                    style={{
+                      color: '#20232A',
+                      fontSize: 12,
+                    }}>
+                    <TimeAgo time={cm.createdAt} />
+                  </AppText>
                 </View>
                 {/*
                 <View style={{left: 50, bottom: 87}}>
@@ -146,19 +146,6 @@ const Comments = ({postId}) => {
                   </Text>
                 </View>
 
-                {/* <View style={{left: 90, bottom: 126}}>
-                  <Text
-                    style={{
-                      color: '#999999',
-                      right: 60,
-                      fontFamily: 'Proxima Nova',
-                      fontWeight: '700',
-                      fontSize: 12,
-                    }}>
-                    Reply
-                  </Text>
-                </View> */}
-
                 <View style={{left: 260, bottom: 140}}>
                   <Text
                     style={{
@@ -173,7 +160,7 @@ const Comments = ({postId}) => {
                 </View>
 
                 <View style={{left: 203, bottom: 180}}>
-                  <AntDesign name="heart" size={25} color="#000" />
+                  <CommentLikes likes={cm.likes} />
                 </View>
               </View>
             );
@@ -181,15 +168,11 @@ const Comments = ({postId}) => {
       </View>
 
       <View>
-        <TextInput
-          placeholder={'Enter your comments'}
-          style={styles.input} 
-        />
+        <TextInput placeholder={'Enter your comments'} style={styles.input} />
         <TouchableOpacity>
           <Text style={styles.com}>Post</Text>
         </TouchableOpacity>
       </View>
-
     </View>
   );
 };
@@ -309,7 +292,7 @@ const styles = StyleSheet.create({
     top: 200,
     fontSize: 16,
     fontFamily: 'Proxima Nova',
-    width: 250
+    width: 250,
   },
   com: {
     fontSize: 16,
@@ -317,8 +300,8 @@ const styles = StyleSheet.create({
     color: '#20232A',
     top: 165,
     left: 50,
-    fontWeight: '700'
-  }
+    fontWeight: '700',
+  },
 });
 
 export default Comments;

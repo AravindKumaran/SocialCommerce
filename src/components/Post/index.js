@@ -8,6 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {API, graphqlOperation, Storage} from 'aws-amplify';
+import convertToProxyURL from 'react-native-video-cache';
 
 // import Video from 'react-native-video';
 import styles from './styles';
@@ -99,7 +100,8 @@ const Post = (props) => {
             <VideoPlayer
               ref={vidRef}
               //  ref={ controls => controls = Video}
-              video={{uri: props.post.videoUri}}
+              // video={{uri: props.post.videoUri}}
+              video={{uri: convertToProxyURL(props.post.videoUri)}}
               thumbnail={{
                 uri:
                   'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1',
@@ -176,7 +178,7 @@ const Post = (props) => {
                 onPress={() => setLiked(!isLiked)} /*onPress={onLikePress}*/
               >
                 <>
-                  {!isLiked && !isTouched ? (
+                  {!isLiked ? (
                     <Image
                       source={require('../../assets/images/Like_icon.png')}
                       size={25}
