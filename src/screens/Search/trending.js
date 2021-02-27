@@ -31,7 +31,7 @@ const Trending = () => {
           // backgroundColor: 'red'
         }} >
         <Video
-        repeat={false}
+        // muted={true}
         // paused={true}
         // thumbnail={{ uri: 'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1' }}
         source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
@@ -51,6 +51,7 @@ const Trending = () => {
           // backgroundColor: 'pink'
         }} >
         <Video
+        // muted={true}
         source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -66,7 +67,8 @@ const Trending = () => {
           position: 'absolute',
           // backgroundColor: 'yellow'
         }} >
-        <Video 
+        <Video
+        // muted={true} 
         source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -86,7 +88,8 @@ const Trending = () => {
           position: 'absolute',
           // backgroundColor: 'orange'
         }} >
-        <Video 
+        <Video
+        // muted={true}
         source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -102,7 +105,8 @@ const Trending = () => {
           position: 'absolute',
           // backgroundColor: 'green'
         }} >
-        <Video 
+        <Video
+        // muted={true} 
         source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -119,7 +123,8 @@ const Trending = () => {
           position: 'absolute',
           
         }} >
-        <Video 
+        <Video
+        // muted={true} 
         source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -136,7 +141,8 @@ const Trending = () => {
           position: 'absolute',
           // backgroundColor: 'violet'
         }} >
-        <Video 
+        <Video
+        // muted={true} 
         source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -153,7 +159,8 @@ const Trending = () => {
           position: 'absolute',
           // backgroundColor: 'purple'
         }} >
-        <Video 
+        <Video
+        // muted={true} 
         source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -170,7 +177,8 @@ const Trending = () => {
           position: 'absolute',
           // backgroundColor: 'grey'
         }} >
-        <Video 
+        <Video
+        // muted={true} 
         source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}

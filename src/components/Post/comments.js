@@ -18,6 +18,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import LoadingIndicator from '../Common/LoadingIndicator';
 import AppText from '../Common/AppText';
 import { TextInput } from 'react-native-gesture-handler';
+// import Product from '../../screens/Product/index';
 
 const user = {
   __typename: 'User',
@@ -73,11 +74,15 @@ const Comments = ({postId}) => {
           size={25}
           style={{top: 280, left: 115, zIndex: 1}}
         />
-        <Image
-          source={require('../../assets/images/Lline.png')}
-          size={25}
-          style={{bottom: 240, right: 0, zIndex: 1}}
-        />
+        <TouchableOpacity>
+          <View>
+            <Image
+              source={require('../../assets/images/Lline.png')}
+              size={25}
+              style={{bottom: 240, right: 0, zIndex: 1}}
+            />
+        </View>
+        </TouchableOpacity>
         <Image
           source={require('../../assets/images/Tline.png')}
           size={25}

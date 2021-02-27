@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { StyleSheet, View, Text, TouchableOpacity, Image, Pressable } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -19,8 +18,8 @@ const Product = () => {
 
       
       <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#5e37f4', '#518bf9', '#21fffc']} style={styles.Rectangle1} >
-      <TouchableOpacity>
-        <Text style={styles.text3}>Buy Now</Text>
+        <TouchableOpacity>
+          <Text style={styles.text3}>Buy Now</Text>
         </TouchableOpacity>
       </LinearGradient>
       
