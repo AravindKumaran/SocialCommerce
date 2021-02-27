@@ -66,11 +66,15 @@ const Comments = ({postId}) => {
           size={25}
           style={{top: 280, left: 115, zIndex: 1}}
         />
-        <Image
-          source={require('../../assets/images/Lline.png')}
-          size={25}
-          style={{bottom: 240, right: 0, zIndex: 1}}
-        />
+        <TouchableOpacity>
+          <View>
+            <Image
+              source={require('../../assets/images/Lline.png')}
+              size={25}
+              style={{bottom: 240, right: 0, zIndex: 1}}
+            />
+          </View>
+        </TouchableOpacity>
         <Image
           source={require('../../assets/images/Tline.png')}
           size={25}

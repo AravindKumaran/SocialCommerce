@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     top: 100, left: 100,
   },
   type2:{
-    top: 78, right: -250,
+    top: 78, left: '64%',
   },
   type3:{
     top: 200, right: -150,
@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   },
   t3:{
     top: 0,
-    left: 172,
+    left:  '43.5%',
     zIndex: 1,
     position: 'absolute'
   },
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
   },
   t8:{
     top: -5,
-    left: 160,
+    left: '40.5%',
     zIndex: 1,
     position: 'absolute'
   },
