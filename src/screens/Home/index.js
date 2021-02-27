@@ -12,6 +12,7 @@ import {
 import Post from '../../components/Post';
 import {API, graphqlOperation} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
+import Feather from 'react-native-vector-icons/Feather';
 
 // import Product from '../../screens/Product/index';
 // import { Viewport } from '@skele/components';
@@ -60,21 +61,15 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
+
       <Image
         source={require('../../assets/images/Logo12.png')}
         size={15}
         style={styles.img1}
       />
-      <Image
-        source={require('../../assets/images/Livebox1.png')}
-        size={5}
-        style={styles.img2}
-      />
-      <Image
-        source={require('../../assets/images/Line1.png')}
-        size={5}
-        style={styles.img3}
-      />
+      <Text style={styles.text}>Livebox</Text>
+
+      <Feather style={styles.cart} name={'shopping-cart'} size={25} />
 
       <FlatList
         data={posts}
@@ -97,8 +92,8 @@ const styles = StyleSheet.create({
     padding: 10,
     width: '100%',
     height: '100%',
-    top: 55,
-    bottom: 55,
+    top: 34,
+    // bottom: 55,
     paddingLeft: 4,
     paddingRight: 4,
     marginRight: 4,
@@ -115,7 +110,7 @@ const styles = StyleSheet.create({
     paddingRight: 4,
     height: 80,
     width: '103%',
-    top: -75,
+    top: -48,
     position: 'absolute',
     borderBottomRightRadius: 0,
   },
@@ -141,6 +136,20 @@ const styles = StyleSheet.create({
     top: -30,
     position: 'absolute',
   },
+
+  text: {
+    fontWeight: '400',
+    fontSize: 30,
+    top: -20,
+    left: 20,
+    position: 'absolute',
+    fontFamily: 'LilyScriptOne-Regular'
+  }, 
+
+  cart: {
+    bottom: 20,
+    left: 350,
+  }
 });
 
 export default Home;

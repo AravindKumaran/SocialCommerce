@@ -7,7 +7,7 @@ import styles from '../../components/Post/styles';
 import VideoPlayer from 'react-native-video-player';
 import Video from 'react-native-video';
 
-const Trending = () => {
+const Brands = () => {
   const [paused, setPaused] = useState(false);
   const onPlayPausePress = () => {
     setPaused(!paused);
@@ -34,7 +34,7 @@ const Trending = () => {
         repeat={false}
         // paused={true}
         // thumbnail={{ uri: 'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1' }}
-        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -51,7 +51,7 @@ const Trending = () => {
           // backgroundColor: 'pink'
         }} >
         <Video
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -67,7 +67,7 @@ const Trending = () => {
           // backgroundColor: 'yellow'
         }} >
         <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -87,7 +87,7 @@ const Trending = () => {
           // backgroundColor: 'orange'
         }} >
         <Video 
-        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -103,7 +103,7 @@ const Trending = () => {
           // backgroundColor: 'green'
         }} >
         <Video 
-        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -117,10 +117,10 @@ const Trending = () => {
           left: 171,
           top: 115,
           position: 'absolute',
-          
+          // backgroundColor: 'black'
         }} >
         <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -137,7 +137,7 @@ const Trending = () => {
           // backgroundColor: 'violet'
         }} >
         <Video 
-        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
+        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -182,46 +182,4 @@ const Trending = () => {
   );
 };
 
-export default Trending;
-
-// import { coverer } from 'aws-amplify-react-native/dist/AmplifyUI';
-// import React, {Component} from 'react';
-// import {View, Image} from 'react-native';
-// import MasonryList from "react-native-masonry-list";
-// import Searchbar from '../Search/searchbar';
-
-// const Notification = () => {
-//     return (
-//       <MasonryList
-//       spacing={1}
-//             images={[
-//                 { source: require("../../assets/images/R1.png"),
-//                   completeCustomComponent: {left: 10},
-//                   dimensions: {height: 257, width: 166 }},
-                
-//                 { source: require("../../assets/images/R2.png"),
-//                   dimensions: {height: 173, width: 165 }},
-
-//                 { source: require("../../assets/images/R3.png"),
-//                   dimensions: {height: 125, width: 165 }},
-
-//                 { source: require("../../assets/images/R4.png"),
-//                   dimensions: {height: 108, width: 103 }},
-
-//                 { source: require("../../assets/images/R5.png"),
-//                   dimensions: {height: 108, width: 103 }},
-
-//                 { source: require("../../assets/images/R6.png"),
-//                   dimensions: {height: 108, width: 103 }},
-
-//                 { source: require("../../assets/images/R7.png"),
-//                   dimensions: {height: 108, width: 103 }},
-
-//                 { source: require("../../assets/images/R8.png"),
-//                   dimensions: {height: 257, width: 215 }}
-//             ]}
-//         />
-//     );
-// };
-
-// export default Notification;
+export default Brands;
