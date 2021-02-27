@@ -22,9 +22,16 @@ android:background="#292929">
     android:adjustViewBounds="true"
     android:scaleType="fitXY"/>
 
-<!-- <TextView
-    android:text="Livebox"
-    android:layout_width="195dp"
-    android:layout_height="68dp" /> -->
+<TextView
+    android:id="@+id/livebox"
+    android:fontFamily="@font/lilyscriptone_regular"
+    android:layout_width="500dp"
+    android:layout_height="48dp"
+    android:layout_marginTop="130dp"
+    android:layout_marginLeft="50.25dp"
+    android:text="@string/livebox"
+    android:textAppearance="@style/livebox"
+    android:gravity="top" />
+ 
 
 </RelativeLayout>

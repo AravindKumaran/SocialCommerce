@@ -6,4 +6,9 @@
         <item name="android:textColor">#ffffff</item>
     </style>
 
+    <style name="livebox">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
 </resources>

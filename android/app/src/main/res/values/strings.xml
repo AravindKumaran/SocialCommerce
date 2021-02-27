@@ -1,3 +1,7 @@
 <resources>
+
     <string name="app_name">LiveBox</string>
+
+    <string name="livebox">Livebox</string>
+
 </resources>
