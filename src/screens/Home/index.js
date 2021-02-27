@@ -27,7 +27,7 @@ const Home = ({navigation}) => {
     const fetchPost = async () => {
       try {
         const response = await API.graphql(graphqlOperation(listPosts));
-        // console.log('Ress', response.data.listPosts.items[0]);
+        // console.log('Ress', response.data.listPosts.items);
         setPosts(response.data.listPosts.items);
       } catch (e) {
         console.error(e);
@@ -61,7 +61,6 @@ const Home = ({navigation}) => {
 
   return (
     <View style={styles.mainContainer}>
-
       <Image
         source={require('../../assets/images/Logo12.png')}
         size={15}
@@ -143,13 +142,13 @@ const styles = StyleSheet.create({
     top: -20,
     left: 20,
     position: 'absolute',
-    fontFamily: 'LilyScriptOne-Regular'
-  }, 
+    fontFamily: 'LilyScriptOne-Regular',
+  },
 
   cart: {
     bottom: 20,
     left: 350,
-  }
+  },
 });
 
 export default Home;

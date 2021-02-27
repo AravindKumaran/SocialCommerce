@@ -52,34 +52,22 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       id
-      videoUri
-      description
-      likes
-      userID
-      user {
-        id
-        username
-        email
-        imageUri
-        posts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
       comments {
         items {
           id
           postId
           userID
+          user {
+            id
+            username
+            email
+            imageUri
+            posts {
+              nextToken
+            }
+            createdAt
+            updatedAt
+          }
           text
           likes
           createdAt
@@ -122,6 +110,15 @@ export const listPosts = /* GraphQL */ `
           updatedAt
         }
         comments {
+          items {
+            id
+            postId
+            userID
+            text
+            likes
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt

@@ -12,13 +12,11 @@ import {API, graphqlOperation, Storage} from 'aws-amplify';
 // import Video from 'react-native-video';
 import styles from './styles';
 import Product from '../../screens/Product/index';
-import List from '../Comments/list';
-import Comment from '../Comments/comment';
-import In from '../Comments/input';
 
 import {color} from 'react-native-reanimated';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-player';
+import Comments from './comments';
 
 // import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
 // import { Viewport } from '@skele/components';
@@ -321,7 +319,13 @@ const Post = (props) => {
                 onPress={() => setPressed(!isPressed)}></TouchableOpacity>
 
               <TouchableOpacity
-                style={{position: 'absolute', right: 20, bottom: 0, top: 160, zIndex: 1}}
+                style={{
+                  position: 'absolute',
+                  right: 20,
+                  bottom: 0,
+                  top: 160,
+                  zIndex: 1,
+                }}
                 onPress={() => setClicked(!isClicked)}>
                 {/* <Image
                   source={require('../../assets/images/Comment_icon.png')}
@@ -343,14 +347,11 @@ const Post = (props) => {
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                       // tintColor={isTouched ? '#31d9fc' : 'white'}
-                    /> 
+                    />
                   )}
                 </>
-                
-                {isClicked ? 
-                  <In /> : <></>
-                }
 
+                {isClicked ? <Comments postId={props.post.id} /> : <></>}
               </TouchableOpacity>
 
               {/* <View style={styles.iconContainer}>

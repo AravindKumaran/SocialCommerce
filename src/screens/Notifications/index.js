@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {Header} from 'react-native-elements';
-
 const Notifications = () => {
   const user = [
     {
@@ -53,7 +52,6 @@ const Notifications = () => {
       liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
     },
   ];
-
   return (
     <View style={styles.container}>
       <View style={{left: 0, top: 65}}>
