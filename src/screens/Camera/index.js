@@ -1,8 +1,8 @@
 import React, {useRef, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {RNCamera} from 'react-native-camera';
-// import RNVideoHelper from 'react-native-video-helper';
-// import {ProcessingManager} from 'react-native-video-processing';
+import RNVideoHelper from 'react-native-video-helper';
+import {ProcessingManager} from 'react-native-video-processing';
 
 import styles from './styles';
 import awaitAsyncGenerator from '@babel/runtime/helpers/esm/awaitAsyncGenerator';
@@ -28,10 +28,10 @@ const Camera = () => {
       ProcessingManager.compress(data.uri, options) // like VideoPlayer compress options
         .then((data) => {
           navigation.navigate('CreatePost', {videoUri: data.source});
-          // ProcessingManager.getVideoInfo(data.source).then((stats) =>
-          //   console.log('After', stats),
-          // );
-          // console.log(data);
+          ProcessingManager.getVideoInfo(data.source).then((stats) =>
+            console.log('After', stats),
+          );
+          console.log(data);
         });
     }
   };

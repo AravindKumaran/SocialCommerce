@@ -7,8 +7,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   textInput: {
-    margin: 10,
+    margin: 20,
     backgroundColor: 'white',
+    fontFamily: 'Proxima Nova',
+    fontSize: 10,
   },
   button: {
     alignItems: 'center',

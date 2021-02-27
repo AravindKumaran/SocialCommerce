@@ -51,7 +51,7 @@ const Trending = () => {
           // backgroundColor: 'pink'
         }} >
         <Video
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -67,7 +67,7 @@ const Trending = () => {
           // backgroundColor: 'yellow'
         }} >
         <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -103,7 +103,7 @@ const Trending = () => {
           // backgroundColor: 'green'
         }} >
         <Video 
-        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
+        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -120,7 +120,7 @@ const Trending = () => {
           
         }} >
         <Video 
-        source={{uri: "https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4"}} 
+        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -154,7 +154,7 @@ const Trending = () => {
           // backgroundColor: 'purple'
         }} >
         <Video 
-        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
+        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
@@ -171,7 +171,7 @@ const Trending = () => {
           // backgroundColor: 'grey'
         }} >
         <Video 
-        source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
+        source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
         />
