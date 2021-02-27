@@ -17,7 +17,6 @@ export const createUser = /* GraphQL */ `
           videoUri
           description
           likes
-          likedUsers
           userID
           songID
           createdAt
@@ -46,7 +45,6 @@ export const updateUser = /* GraphQL */ `
           videoUri
           description
           likes
-          likedUsers
           userID
           songID
           createdAt
@@ -75,7 +73,6 @@ export const deleteUser = /* GraphQL */ `
           videoUri
           description
           likes
-          likedUsers
           userID
           songID
           createdAt
@@ -98,7 +95,6 @@ export const createPost = /* GraphQL */ `
       videoUri
       description
       likes
-      likedUsers
       userID
       user {
         id
@@ -118,6 +114,18 @@ export const createPost = /* GraphQL */ `
         imageUri
         createdAt
         updatedAt
+      }
+      comments {
+        items {
+          id
+          postId
+          userID
+          text
+          likes
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -134,7 +142,6 @@ export const updatePost = /* GraphQL */ `
       videoUri
       description
       likes
-      likedUsers
       userID
       user {
         id
@@ -154,6 +161,18 @@ export const updatePost = /* GraphQL */ `
         imageUri
         createdAt
         updatedAt
+      }
+      comments {
+        items {
+          id
+          postId
+          userID
+          text
+          likes
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -170,7 +189,6 @@ export const deletePost = /* GraphQL */ `
       videoUri
       description
       likes
-      likedUsers
       userID
       user {
         id
@@ -188,6 +206,183 @@ export const deletePost = /* GraphQL */ `
         id
         name
         imageUri
+        createdAt
+        updatedAt
+      }
+      comments {
+        items {
+          id
+          postId
+          userID
+          text
+          likes
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createComment = /* GraphQL */ `
+  mutation CreateComment(
+    $input: CreateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    createComment(input: $input, condition: $condition) {
+      id
+      postId
+      userID
+      text
+      likes
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        userID
+        user {
+          id
+          username
+          email
+          imageUri
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateComment = /* GraphQL */ `
+  mutation UpdateComment(
+    $input: UpdateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    updateComment(input: $input, condition: $condition) {
+      id
+      postId
+      userID
+      text
+      likes
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        userID
+        user {
+          id
+          username
+          email
+          imageUri
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteComment = /* GraphQL */ `
+  mutation DeleteComment(
+    $input: DeleteCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    deleteComment(input: $input, condition: $condition) {
+      id
+      postId
+      userID
+      text
+      likes
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        userID
+        user {
+          id
+          username
+          email
+          imageUri
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
         createdAt
         updatedAt
       }

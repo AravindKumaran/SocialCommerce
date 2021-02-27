@@ -14,7 +14,6 @@ export const getUser = /* GraphQL */ `
           videoUri
           description
           likes
-          likedUsers
           userID
           songID
           createdAt
@@ -49,24 +48,6 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
-export const comments= /* GraphQL */ `
-query GetComments($id: ID!) {
-  getComments(id: $id) {
-    id
-    username
-    email
-    imageUri
-    comments{
-      id
-      username
-      email
-      imageUri
-      createdAt
-      updatedAt
-    }
-  }
-}
-`;
 export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
@@ -74,7 +55,6 @@ export const getPost = /* GraphQL */ `
       videoUri
       description
       likes
-      likedUsers
       userID
       user {
         id
@@ -95,6 +75,18 @@ export const getPost = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      comments {
+        items {
+          id
+          postId
+          userID
+          text
+          likes
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -112,7 +104,6 @@ export const listPosts = /* GraphQL */ `
         videoUri
         description
         likes
-        likedUsers
         userID
         user {
           id
@@ -127,6 +118,99 @@ export const listPosts = /* GraphQL */ `
           id
           name
           imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getComment = /* GraphQL */ `
+  query GetComment($id: ID!) {
+    getComment(id: $id) {
+      id
+      postId
+      userID
+      text
+      likes
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        userID
+        user {
+          id
+          username
+          email
+          imageUri
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listComments = /* GraphQL */ `
+  query ListComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        postId
+        userID
+        text
+        likes
+        user {
+          id
+          username
+          email
+          imageUri
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          videoUri
+          description
+          likes
+          userID
+          songID
           createdAt
           updatedAt
         }

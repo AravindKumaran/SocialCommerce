@@ -14,7 +14,6 @@ export const onCreateUser = /* GraphQL */ `
           videoUri
           description
           likes
-          likedUsers
           userID
           songID
           createdAt
@@ -40,7 +39,6 @@ export const onUpdateUser = /* GraphQL */ `
           videoUri
           description
           likes
-          likedUsers
           userID
           songID
           createdAt
@@ -66,7 +64,6 @@ export const onDeleteUser = /* GraphQL */ `
           videoUri
           description
           likes
-          likedUsers
           userID
           songID
           createdAt
@@ -86,7 +83,6 @@ export const onCreatePost = /* GraphQL */ `
       videoUri
       description
       likes
-      likedUsers
       userID
       user {
         id
@@ -106,6 +102,18 @@ export const onCreatePost = /* GraphQL */ `
         imageUri
         createdAt
         updatedAt
+      }
+      comments {
+        items {
+          id
+          postId
+          userID
+          text
+          likes
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -119,7 +127,6 @@ export const onUpdatePost = /* GraphQL */ `
       videoUri
       description
       likes
-      likedUsers
       userID
       user {
         id
@@ -139,6 +146,18 @@ export const onUpdatePost = /* GraphQL */ `
         imageUri
         createdAt
         updatedAt
+      }
+      comments {
+        items {
+          id
+          postId
+          userID
+          text
+          likes
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -152,7 +171,6 @@ export const onDeletePost = /* GraphQL */ `
       videoUri
       description
       likes
-      likedUsers
       userID
       user {
         id
@@ -170,6 +188,174 @@ export const onDeletePost = /* GraphQL */ `
         id
         name
         imageUri
+        createdAt
+        updatedAt
+      }
+      comments {
+        items {
+          id
+          postId
+          userID
+          text
+          likes
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateComment = /* GraphQL */ `
+  subscription OnCreateComment {
+    onCreateComment {
+      id
+      postId
+      userID
+      text
+      likes
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        userID
+        user {
+          id
+          username
+          email
+          imageUri
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateComment = /* GraphQL */ `
+  subscription OnUpdateComment {
+    onUpdateComment {
+      id
+      postId
+      userID
+      text
+      likes
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        userID
+        user {
+          id
+          username
+          email
+          imageUri
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteComment = /* GraphQL */ `
+  subscription OnDeleteComment {
+    onDeleteComment {
+      id
+      postId
+      userID
+      text
+      likes
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        userID
+        user {
+          id
+          username
+          email
+          imageUri
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
+          nextToken
+        }
         createdAt
         updatedAt
       }

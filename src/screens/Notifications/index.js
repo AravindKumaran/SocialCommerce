@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import { Header } from 'react-native-elements';
+import {Header} from 'react-native-elements';
 
 const Notifications = () => {
-
   const user = [
     {
       name: 'Tamil25',
@@ -54,35 +53,66 @@ const Notifications = () => {
       liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
     },
   ];
-  
-    return (
-      <View style={styles.container}>
 
-        <View style={{left: 0, top: 65}}>
+  return (
+    <View style={styles.container}>
+      <View style={{left: 0, top: 65}}>
         <Text style={styles.text1}>Notifications</Text>
-        <Image source={require('../../assets/images/Thinline.png')} size={25} style={{ bottom: 160, left: 0, zIndex: 1 }} />
+        <Image
+          source={require('../../assets/images/Thinline.png')}
+          size={25}
+          style={{bottom: 160, left: 0, zIndex: 1}}
+        />
         <Text style={styles.text2}>Today</Text>
-        </View>
+      </View>
 
-        <View>
+      <View>
         {user.map((v, i) => {
           return (
-            <View key={v.uid} style={{top: 30, margin: -30, left: 25}}>
-
+            <View key={i} style={{top: 30, margin: -30, left: 25}}>
               <View style={{right: 80, bottom: 65}}>
-                <Text style={{ color: '#FFFFFF', fontFamily: 'Proxima Nova' , fontWeight: '700', fontSize: 14 }}>{v.name}</Text>
+                <Text
+                  style={{
+                    color: '#FFFFFF',
+                    fontFamily: 'Proxima Nova',
+                    fontWeight: '700',
+                    fontSize: 14,
+                  }}>
+                  {v.name}
+                </Text>
               </View>
 
               <View style={{left: 50, bottom: 83}}>
-                <Text style={{ color: '#FFFFFF', right: 60, fontFamily: 'Proxima Nova' , fontWeight: '400', fontSize: 12}}>{v.comment}</Text>
+                <Text
+                  style={{
+                    color: '#FFFFFF',
+                    right: 60,
+                    fontFamily: 'Proxima Nova',
+                    fontWeight: '400',
+                    fontSize: 12,
+                  }}>
+                  {v.comment}
+                </Text>
               </View>
 
               <View style={{right: 130, bottom: 110, margin: 0}}>
-                <Image source={{ uri: v.photo }} style={{ height: 35, width: 35, borderRadius: 20}} />
+                <Image
+                  source={{uri: v.photo}}
+                  style={{height: 35, width: 35, borderRadius: 20}}
+                />
               </View>
 
               <View style={{left: 210, bottom: 135}}>
-                <Text style={{ color: '#5C5C5C', right: 60,fontFamily: 'Proxima Nova' , fontWeight: '400', fontSize: 12}}>{v.createdat}</Text>
+                <Text
+                  style={{
+                    color: '#5C5C5C',
+                    right: 60,
+                    fontFamily: 'Proxima Nova',
+                    fontWeight: '400',
+                    fontSize: 12,
+                  }}>
+                  {v.createdat}
+                </Text>
               </View>
 
               {/* <View style={{left: 90, bottom: 126}}>
@@ -90,20 +120,31 @@ const Notifications = () => {
               </View> */}
 
               <View style={{left: 260, bottom: 140}}>
-                <Text style={{ color: '#999999', right: 60,fontFamily: 'Proxima Nova' , fontWeight: '700', fontSize: 10}}>{v.likes}</Text>
+                <Text
+                  style={{
+                    color: '#999999',
+                    right: 60,
+                    fontFamily: 'Proxima Nova',
+                    fontWeight: '700',
+                    fontSize: 10,
+                  }}>
+                  {v.likes}
+                </Text>
               </View>
 
               <View style={{left: 200, bottom: 173}}>
-                <Image source={{ uri: v.liked }} style={{ height: 30, width: 30}} />
+                <Image
+                  source={{uri: v.liked}}
+                  style={{height: 30, width: 30}}
+                />
               </View>
-
             </View>
           );
         })}
-        </View>
       </View>
-    );
-  };
+    </View>
+  );
+};
 
 export default Notifications;
 
@@ -114,7 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-    top: 0
+    top: 0,
   },
   text1: {
     color: '#FFFFFF',
@@ -123,7 +164,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     bottom: 180,
     left: 10,
-    zIndex: 1
+    zIndex: 1,
   },
   text2: {
     color: '#51565D',
@@ -132,15 +173,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     bottom: 150,
     left: 170,
-    zIndex: 1
-
-  }
+    zIndex: 1,
+  },
 });
-
-
-
-
-
 
 // import React, { useState } from 'react';
 // import {StyleSheet, View, Text, Image, Dimensions, ScrollView, TextInput} from 'react-native';
@@ -155,28 +190,27 @@ const styles = StyleSheet.create({
 //     const userInfo = await Auth.currentAuthenticatedUser({bypassCache: true});
 //     if (!userInfo) {
 //       return;
-//     } 
+//     }
 
 //     const getUserResponse = await API.graphql(
 //       graphqlOperation(getUser, {id: userInfo.attributes.sub}),
-//     ); 
+//     );
 //   };
 
 //   const [comment, setComment] = useState('');
 //   const [post, setPost] = useState(props.post);
 
-  
 //   return (
 //     <View style={styles.coverer}>
 //       {/* <LinearGradient colors={["#EFFAFF", "#EDFDFF"]} style={styles.linearGradient}> */}
-        
+
 //         <View>
 //         <Image source={require('../../assets/images/Bline.png')} size={25} style={{ top: 250, left: 10 }} />
 //         <Image source={require('../../assets/images/Lline.png')} size={25} style={{ bottom: 290, right: 100 }} />
 //         <Image source={require('../../assets/images/Tline.png')} size={25} style={{ bottom: 320, left: 50 }} />
 //         <Image source={require('../../assets/images/Dline.png')} size={25} style={{ top: 200, left: 60 }} />
 //         <Text style={styles.text1}>Comments</Text>
-        
+
 //         <ScrollView>
 //         <TextInput
 //             value={comment}
@@ -189,7 +223,7 @@ const styles = StyleSheet.create({
 //         <Image style={styles.img}>{post.user.userimage}</Image>
 //         <Text style={styles.handle}>{post.user.username}</Text>
 //         <Text style={styles.statsLabel}>{post.comments}</Text>
-        
+
 //         </ScrollView>
 //         </View>
 //       {/* </LinearGradient>  */}

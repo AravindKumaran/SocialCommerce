@@ -10,14 +10,25 @@ type Post @model @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   videoUri: String!
   description: String!
-  likes: [Int]
-  likedUsers: [String]
+  likes: [ID]
 
   userID: ID!
   user: User @connection(fields: ["userID"])
 
   songID: ID!
   song: Song @connection(fields: ["songID"])
+
+  comments: [Comment] @connection(keyName: "commentsByPostId", fields: ["id"])
+}
+
+type Comment @model @key(name: "commentsByPostId", fields: ["postId"]) {
+  id: ID!
+  postId: ID!
+  userID: ID!
+  text: String!
+  likes: [ID]
+  user: User @connection(fields: ["userID"])
+  post: Post @connection(fields: ["postId"])
 }
 
 type Song @model {
