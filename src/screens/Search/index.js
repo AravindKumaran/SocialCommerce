@@ -36,7 +36,8 @@ const ActiveStyle = () => (
         bottom: 55,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
-        left: 125
+        left: 125, 
+        zIndex: 1
       }}>
     </View>
   </>
@@ -48,7 +49,7 @@ const ActiveStyle1 = () => (
       style={{
         position: 'absolute',
         bottom: 10,
-        right: 78,
+        right: 76,
         transform: [{
           rotate: '-180deg'
         }],
@@ -66,7 +67,8 @@ const ActiveStyle1 = () => (
         bottom: 53,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
-        right: 105
+        right: 105,
+        zIndex: 1
       }}>
     </View>
   </>
@@ -142,9 +144,9 @@ const Categories = (props) => {
           <Text style={styles.text5}>Beauty</Text>
         </TouchableOpacity>
 
-        <View>
+        {/* <View>
           <Trending />
-        </View>
+        </View> */}
 
       </View>
 
@@ -180,9 +182,9 @@ const Categories = (props) => {
           <Text style={styles.text10}>Hugo Boss</Text>
         </TouchableOpacity>
 
-        <View>
+        {/* <View>
           <Brands />
-        </View>
+        </View> */}
 
         {/* <Home /> */}
 
