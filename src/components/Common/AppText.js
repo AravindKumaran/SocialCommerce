@@ -8,7 +8,7 @@ const AppText = ({children, style}) => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 18,
+    fontSize: 16,
     margin: 5,
     fontWeight: '400',
     color: '#000',

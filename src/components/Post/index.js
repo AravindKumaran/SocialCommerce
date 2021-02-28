@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import {API, graphqlOperation, Storage} from 'aws-amplify';
 import convertToProxyURL from 'react-native-video-cache';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
-// import Video from 'react-native-video';
 import styles from './styles';
 import Product from '../../screens/Product/index';
 
@@ -18,18 +18,6 @@ import {color} from 'react-native-reanimated';
 import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-player';
 import Comments from './comments';
-
-// import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
-// import { Viewport } from '@skele/components';
-// import InViewPort from 'react-native-inviewport';
-// import InViewPort from './InViewPort';
-
-// import Entypo from 'react-native-vector-icons/Entypo';
-// import AntDesign from 'react-native-vector-icons/AntDesign';
-// import FontAwesome from 'react-native-vector-icons/FontAwesome';
-// import { updatePost } from '../../graphql/mutations';
-// import Fontisto from 'react-native-vector-icons/Fontisto';
-// import Fontisto from 'react-native-vector-icons/Fontisto';
 
 const Post = (props) => {
   const [post, setPost] = useState(props.post);
@@ -42,22 +30,15 @@ const Post = (props) => {
   const [isClicked, setClicked] = useState(false);
 
   const vidRef = useRef(null);
-
-  // console.log('vidRef', vidRef);
+  const refRBSheet = useRef();
 
   useEffect(() => {
-    // console.log('NoeW');
     if (props.currentIndex === props.currentVisibleIndex) {
-      // console.log('Res', vidRef.current);
       vidRef.current.resume();
     } else {
       vidRef.current.pause();
     }
   }, [props.currentVisibleIndex]);
-
-  const onPlayPausePress = () => {
-    // setPaused(!paused);
-  };
 
   // const tag = () => {
   //   setTouched(!isTouched);
@@ -77,18 +58,6 @@ const Post = (props) => {
   //   );
   //   setIsLiked(!isLiked);
   // };
-
-  const getVideoUri = async () => {
-    if (post.videoUri.startsWith('http')) {
-      setVideoUri(post.videoUri);
-      return;
-    }
-    setVideoUri(await Storage.get(post.videoUri));
-  };
-
-  useEffect(() => {
-    // getVideoUri();
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -328,15 +297,8 @@ const Post = (props) => {
                   top: 160,
                   zIndex: 1,
                 }}
-                onPress={() => setClicked(!isClicked)}>
-                {/* <Image
-                  source={require('../../assets/images/Comment_icon.png')}
-                  size={25}
-                /> */}
-                {/* <Fontisto name={'commenting'} size={25}  color="white" /> */}
-                {/* <Fontosio name={'heart'} size={40} color="white" /> */}
-                {/* <Text style={styles.statsLabel}>{post.comments}</Text> */}
-
+                // onPress={() => setClicked(!isClicked)}
+                onPress={() => refRBSheet.current.open()}>
                 <>
                   {!isTouched ? (
                     <Image
@@ -352,9 +314,29 @@ const Post = (props) => {
                     />
                   )}
                 </>
-
-                {isClicked ? <Comments postId={props.post.id} /> : <></>}
               </TouchableOpacity>
+
+              <RBSheet
+                ref={refRBSheet}
+                height={Dimensions.get('window').height - 180}
+                animationType="fade"
+                customStyles={{
+                  wrapper: {
+                    backgroundColor: 'rgba(0,0,0,.6)',
+                  },
+                  draggableIcon: {
+                    backgroundColor: '#000',
+                  },
+                  container: {
+                    backgroundColor: '#fff',
+                    borderTopRightRadius: 25,
+                    borderTopLeftRadius: 25,
+                  },
+                }}>
+                <Comments postId={props.post.id} />
+              </RBSheet>
+
+              {/* {isClicked ?  : <></>} */}
 
               {/* <View style={styles.iconContainer}>
                 <Fontisto name={'share-a'} size={35} color="white" />

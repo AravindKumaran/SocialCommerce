@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   textInput: {
-    fontSize: 18,
+    fontSize: 16,
     color: '#0c0c0c',
     flex: 1,
     textAlignVertical: 'top',
