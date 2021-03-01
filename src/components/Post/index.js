@@ -14,20 +14,26 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import styles from './styles';
 import Product from '../../screens/Product/index';
 
-import {color} from 'react-native-reanimated';
-import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-player';
 import Comments from './comments';
+import PostLike from './postLike';
+import {updatePost} from '../../graphql/mutations';
+
+const user = {
+  __typename: 'User',
+  createdAt: '2021-01-01T17:03:46.393Z',
+  email: 'asfiidarlachu@gmail.com',
+  id: '0914c457-106d-4937-b44f-f430e611a52a',
+  imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
+  updatedAt: '2021-01-01T17:03:46.393Z',
+  username: 'Asfiya begum',
+};
 
 const Post = (props) => {
   const [post, setPost] = useState(props.post);
-  const [isLiked, setLiked] = useState(false);
-  const [videoUri, setVideoUri] = useState('');
 
-  const [paused, setPaused] = useState(false);
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(false);
-  const [isClicked, setClicked] = useState(false);
 
   const vidRef = useRef(null);
   const refRBSheet = useRef();
@@ -40,36 +46,50 @@ const Post = (props) => {
     }
   }, [props.currentVisibleIndex]);
 
-  // const tag = () => {
-  //   setTouched(!isTouched);
-  // };
+  const handlePostLike = async (cPost) => {
+    if (cPost) {
+      cPost.likes.push(user.id);
+      const likes = cPost.likes;
+      try {
+        const res = await API.graphql(
+          graphqlOperation(updatePost, {
+            input: {id: cPost.id, likes},
+          }),
+        );
+        // console.log('ress', res.data);
+      } catch (err) {
+        console.log('Error', err);
+      }
+    }
+  };
 
-  // const [shouldShow, setShouldShow] = useState(true);
-
-  // const onLikePress  = async () => {
-  //   const likesToAdd = isLiked ? -1 : 1;
-  //   const postLikes = post.likes[0];
-  //   setPost({
-  //     ...post,
-  //     likes: [postLikes + likesToAdd],
-  //   });
-  //   const response = await API.graphql(
-  //     graphqlOperation(updatePost, { input: {likes: [postLikes + likesToAdd], id: post.id} }),
-  //   );
-  //   setIsLiked(!isLiked);
-  // };
+  const handlePostUnLike = async (cPost) => {
+    if (cPost?.likes?.length > 0) {
+      const likesIndex = cPost.likes.findIndex((lkId) => lkId === user.id);
+      if (likesIndex !== -1) {
+        cPost.likes.splice(likesIndex, 1);
+        const likes = cPost.likes;
+        try {
+          const res = await API.graphql(
+            graphqlOperation(updatePost, {
+              input: {id: cPost.id, likes},
+            }),
+          );
+          // console.log('ress', res.data);
+        } catch (err) {
+          console.log('Error', err);
+        }
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
-      {/* {shouldShow ? ( */}
       <TouchableWithoutFeedback>
         <View>
           <View style={styles.video}>
-            {/* <InViewPort onChange={this.handlePlaying}> */}
             <VideoPlayer
               ref={vidRef}
-              //  ref={ controls => controls = Video}
-              // video={{uri: props.post.videoUri}}
               video={{uri: convertToProxyURL(props.post.videoUri)}}
               thumbnail={{
                 uri:
@@ -80,36 +100,14 @@ const Post = (props) => {
               videoHeight={Dimensions.get('window').height * 2.3}
               loop={true}
               resizeMode="cover"
-              // style={styles.video}
               pauseOnPress={true}
-              // paused={true}
               disableControlsAutoHide={false}
               disableSeek={true}
-              // hideControlsOnStart={false}
-              // customStyles={wrapper}
-              // onError={(e) => console.log(e)}
-              // resizeMode={'cover'}
-              // repeat={true}
-              // paused={paused}
-              // playInBackground={false}
-              // onLoad={onLoad}
-              // onEnd={onEnd}
-              // onLoadStart={onLoadStart}
-              // controls={true}
-              // muted={true}
             />
-            {/* </InViewPort> */}
           </View>
 
           <View style={styles.uiContainer}>
             <View style={styles.rightContainer}>
-              {/* <Image
-              source={require('../../assets/images/Profile_icon.png')}
-              size={25}
-              /> */}
-
-              {/* {shouldShow ? ( */}
-
               <TouchableOpacity
                 style={{
                   position: 'absolute',
@@ -142,102 +140,13 @@ const Post = (props) => {
                 </>
               </TouchableOpacity>
 
-              <TouchableOpacity
-                style={{position: 'absolute', right: 20, bottom: 0, top: 50}}
-                onPress={() => setLiked(!isLiked)} /*onPress={onLikePress}*/
-              >
-                <>
-                  {!isLiked ? (
-                    <Image
-                      source={require('../../assets/images/Like_icon.png')}
-                      size={25}
-                    />
-                  ) : (
-                    <Image
-                      style={{top: 0, position: 'absolute', right: -60}}
-                      source={require('../../assets/images/Like_icon1.png')}
-                      size={25}
-                    />
-                  )}
-
-                  {!isLiked && isTouched ? (
-                    <Image
-                      style={{top: -110, position: 'absolute', right: 0}}
-                      source={require('../../assets/images/Like_icon.png')}
-                      size={25}
-                    />
-                  ) : isLiked && !isTouched ? (
-                    <Image
-                      style={{top: 0, position: 'absolute', right: 0}}
-                      source={require('../../assets/images/Like_icon1.png')}
-                      size={25}
-                    />
-                  ) : !isLiked && !isTouched ? (
-                    <Image
-                      style={{top: 0, position: 'absolute', right: -60}}
-                      source={require('../../assets/images/Like_icon.png')}
-                      size={25}
-                    />
-                  ) : isLiked && isTouched ? (
-                    <Image
-                      style={{top: -110, position: 'absolute', right: 0}}
-                      source={require('../../assets/images/Like_icon1.png')}
-                      size={25}
-                    />
-                  ) : (
-                    <View />
-                  )}
-
-                  {/* if ({isLiked===true && isTouched===false}) {
-                    <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
-                  }
-                  else if ({isLiked===false && isTouched===true}) {
-                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
-                  }
-                  else if ({isLiked===true && isTouched===true}) {
-                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
-                  }
-                  else if ({isLiked===false && isTouched===false}){
-                    <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
-                  }
-                  else{
-                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
-                  } */}
-
-                  {/* {!isLiked && isTouched ? (
-                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
-                    ) : (
-                    <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
-                    ) }
-
-                  {isLiked && !isTouched ? (
-                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
-                    ) : (
-                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
-                    ) }
-
-                  {!isLiked && !isTouched ? (
-                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
-                    ) : (
-                    <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
-                    ) }
-
-                  {isLiked && isTouched ? (
-                    <Image source={require('../../assets/images/Like_icon.png')}  size={25} />
-                    ) : (
-                    <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
-                    ) }  */}
-
-                  {/* {!isLiked && isTouched }
-                      <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
-                       {isLiked && !isTouched}
-                              <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} />
-                               {!isLiked && !isTouched}
-                                      <Image style={{top: 0, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon1.png')} size={25} />
-                                       {isLiked && isTouched}
-                                              <Image style={{top: -110, position: 'absolute', right: 0}} source={require('../../assets/images/Like_icon.png')} size={25} /> */}
-                </>
-              </TouchableOpacity>
+              <PostLike
+                isTouched={isTouched}
+                currentPost={post}
+                likes={post.likes}
+                onLike={handlePostLike}
+                onUnlike={handlePostUnLike}
+              />
 
               <TouchableOpacity
                 style={{
@@ -259,7 +168,6 @@ const Post = (props) => {
                       style={{top: -110, position: 'absolute', right: 0}}
                       source={require('../../assets/images/Product_icon1.png')}
                       size={25}
-                      // tintColor={isTouched ? '#31d9fc' : 'white'}
                     />
                   )}
                   {isTouched && <Product />}
@@ -297,7 +205,6 @@ const Post = (props) => {
                   top: 160,
                   zIndex: 1,
                 }}
-                // onPress={() => setClicked(!isClicked)}
                 onPress={() => refRBSheet.current.open()}>
                 <>
                   {!isTouched ? (
@@ -310,7 +217,6 @@ const Post = (props) => {
                       style={{top: 50, position: 'absolute', right: 0}}
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
-                      // tintColor={isTouched ? '#31d9fc' : 'white'}
                     />
                   )}
                 </>

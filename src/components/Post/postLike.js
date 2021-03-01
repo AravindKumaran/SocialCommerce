@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
-import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import {StyleSheet, Image, TouchableOpacity, View} from 'react-native';
+
 import AppText from '../Common/AppText';
 
 const user = {
@@ -13,7 +14,7 @@ const user = {
   username: 'Asfiya begum',
 };
 
-const CommentLikes = ({likes, onLike, onUnlike, id}) => {
+const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -29,43 +30,39 @@ const CommentLikes = ({likes, onLike, onUnlike, id}) => {
 
   const handleLike = () => {
     if (isLiked) {
-      onUnlike(id);
+      onUnlike(currentPost);
       setIsLiked(false);
     } else {
-      onLike(id);
+      onLike(currentPost);
       setIsLiked(true);
     }
   };
 
   return (
-    <View style={{paddingHorizontal: 8}}>
+    <View
+      style={[
+        {position: 'absolute', right: 20, bottom: 0, top: 50},
+        isTouched ? {top: -60} : '',
+      ]}>
       {isLiked ? (
-        <TouchableOpacity onPress={handleLike} style={styles.iconWrapper}>
+        <TouchableOpacity onPress={handleLike}>
           <Image
             source={require('../../assets/images/Like_icon1.png')}
             size={25}
           />
-          <AppText style={{fontSize: 16}}>{likes.length}</AppText>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity onPress={handleLike} style={styles.iconWrapper}>
+        <TouchableOpacity onPress={handleLike}>
           <Image
             source={require('../../assets/images/Like_icon.png')}
             size={25}
           />
-          <AppText style={{fontSize: 16}}>{likes.length}</AppText>
         </TouchableOpacity>
       )}
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  iconWrapper: {
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+const styles = StyleSheet.create({});
 
-export default CommentLikes;
+export default PostLike;
