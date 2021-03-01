@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     width: '100%',
     textAlign: 'center',
+    fontFamily: 'Proxima Nova'
   },
 });
 

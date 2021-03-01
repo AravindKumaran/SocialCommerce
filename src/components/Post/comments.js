@@ -286,20 +286,25 @@ const Comments = ({postId}) => {
                     style={{
                       textTransform: 'capitalize',
                       fontSize: 18,
-                      fontWeight: '500',
+                      fontWeight: '700',
+                      color: '#20232A'
                     }}>
                     {cm.user.username}
                   </AppText>
                   <AppText
                     style={{
                       color: '#030303',
+                      fontWeight: '400',
+                      color: '#20232A',
+                      fontSize: 14,
                     }}>
                     {cm.text}
                   </AppText>
                   <AppText
                     style={{
-                      color: '#606060',
+                      color: '#999999',
                       fontSize: 14,
+                      fontWeight: '400'
                     }}>
                     <TimeAgo time={cm.createdAt} />
                   </AppText>

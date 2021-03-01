@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlignVertical: 'top',
     width: '100%',
+    fontFamily: 'Proxima Nova'
   },
 });
 

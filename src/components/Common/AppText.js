@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     margin: 5,
     fontWeight: '400',
     color: '#000',
+    fontFamily: 'Proxima Nova'
   },
 });
 
