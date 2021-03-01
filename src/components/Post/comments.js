@@ -23,124 +23,6 @@ const user = {
   username: 'Asfiya begum',
 };
 
-const commentsa = [
-  {
-    createdAt: '2021-02-27T06:15:31.473Z',
-    id: '22ad6a5cb3c7032f4505219028b74649575fecf1',
-    likes: ['0914c457-106d-4937-b44f-f430e611a52a'],
-    postId: '633fc656-7c1f-4059-a97b-49a9d0c26671',
-    text:
-      'This is my first comment,This is my first comment,This is my first comment,This is my first comment,This is my first comment,This is my first comment,This is my first comment,This is my first comment,This is my first comment,This is my first comment,This is my first comment',
-    updatedAt: '2021-02-27T06:15:31.473Z',
-    user: {
-      createdAt: '2021-01-01T17:03:46.393Z',
-      email: 'asfiidarlachu@gmail.com',
-      id: '0914c457-106d-4937-b44f-f430e611a52a',
-      imageUri:
-        'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-      posts: [Object],
-      updatedAt: '2021-01-01T17:03:46.393Z',
-      username: 'Asfiya begum',
-    },
-    userID: '0914c457-106d-4937-b44f-f430e611a52a',
-  },
-  {
-    createdAt: '2021-02-27T06:15:31.473Z',
-    id: '22ad6a5cb3c7032f4505219028b74649575fecf2',
-    likes: ['0914c457-106d-4937-b44f-f430e611a52a'],
-    postId: '633fc656-7c1f-4059-a97b-49a9d0c26671',
-    text: 'This is my first comment',
-    updatedAt: '2021-02-27T06:15:31.473Z',
-    user: {
-      createdAt: '2021-01-01T17:03:46.393Z',
-      email: 'asfiidarlachu@gmail.com',
-      id: '0914c457-106d-4937-b44f-f430e611a52a',
-      imageUri:
-        'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-      posts: [Object],
-      updatedAt: '2021-01-01T17:03:46.393Z',
-      username: 'Asfiya begum',
-    },
-    userID: '0914c457-106d-4937-b44f-f430e611a52a',
-  },
-  {
-    createdAt: '2021-02-27T06:15:31.473Z',
-    id: '22ad6a5cb3c7032f4505219028b74649575fecf3',
-    likes: ['0914c457-106d-4937-b44f-f430e611a52a'],
-    postId: '633fc656-7c1f-4059-a97b-49a9d0c26671',
-    text: 'This is my first comment',
-    updatedAt: '2021-02-27T06:15:31.473Z',
-    user: {
-      createdAt: '2021-01-01T17:03:46.393Z',
-      email: 'asfiidarlachu@gmail.com',
-      id: '0914c457-106d-4937-b44f-f430e611a52a',
-      imageUri:
-        'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-      posts: [Object],
-      updatedAt: '2021-01-01T17:03:46.393Z',
-      username: 'Asfiya begum',
-    },
-    userID: '0914c457-106d-4937-b44f-f430e611a52a',
-  },
-  {
-    createdAt: '2021-02-27T06:15:31.473Z',
-    id: '22ad6a5cb3c7032f4505219028b74649575fecf4',
-    likes: ['0914c457-106d-4937-b44f-f430e611a52a'],
-    postId: '633fc656-7c1f-4059-a97b-49a9d0c26671',
-    text: 'This is my first comment',
-    updatedAt: '2021-02-27T06:15:31.473Z',
-    user: {
-      createdAt: '2021-01-01T17:03:46.393Z',
-      email: 'asfiidarlachu@gmail.com',
-      id: '0914c457-106d-4937-b44f-f430e611a52a',
-      imageUri:
-        'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-      posts: [Object],
-      updatedAt: '2021-01-01T17:03:46.393Z',
-      username: 'Asfiya begum',
-    },
-    userID: '0914c457-106d-4937-b44f-f430e611a52a',
-  },
-  {
-    createdAt: '2021-02-27T06:15:31.473Z',
-    id: '22ad6a5cb3c7032f4505219028b74649575fecf5',
-    likes: ['0914c457-106d-4937-b44f-f430e611a52a'],
-    postId: '633fc656-7c1f-4059-a97b-49a9d0c26671',
-    text: 'This is my first comment',
-    updatedAt: '2021-02-27T06:15:31.473Z',
-    user: {
-      createdAt: '2021-01-01T17:03:46.393Z',
-      email: 'asfiidarlachu@gmail.com',
-      id: '0914c457-106d-4937-b44f-f430e611a52a',
-      imageUri:
-        'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-      posts: [Object],
-      updatedAt: '2021-01-01T17:03:46.393Z',
-      username: 'Asfiya begum',
-    },
-    userID: '0914c457-106d-4937-b44f-f430e611a52a',
-  },
-  {
-    createdAt: '2021-02-27T06:15:31.473Z',
-    id: '22ad6a5cb3c7032f4505219028b74649575fecf6',
-    likes: ['0914c457-106d-4937-b44f-f430e611a53a'],
-    postId: '633fc656-7c1f-4059-a97b-49a9d0c26671',
-    text: 'This is my first comment',
-    updatedAt: '2021-02-27T06:15:31.473Z',
-    user: {
-      createdAt: '2021-01-01T17:03:46.393Z',
-      email: 'asfiidarlachu@gmail.com',
-      id: '0914c457-106d-4937-b44f-f430e611a52a',
-      imageUri:
-        'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-      posts: [Object],
-      updatedAt: '2021-01-01T17:03:46.393Z',
-      username: 'Asfiya begum',
-    },
-    userID: '0914c457-106d-4937-b44f-f430e611a52a',
-  },
-];
-
 const Comments = ({postId}) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -171,20 +53,22 @@ const Comments = ({postId}) => {
     const oldComment = comments.find((cmt) => cmt.id === commentId);
     if (oldComment && oldComment?.likes?.length > 0) {
       const likesIndex = oldComment.likes.findIndex((lkId) => lkId === user.id);
-      oldComment.likes.splice(likesIndex, 1);
-      const likes = oldComment.likes;
-      try {
-        const res = await API.graphql(
-          graphqlOperation(updateComment, {
-            input: {id: commentId, likes},
-          }),
-        );
-        // console.log('ress', res.data);
+      if (likesIndex !== -1) {
+        oldComment.likes.splice(likesIndex, 1);
+        const likes = oldComment.likes;
+        try {
+          const res = await API.graphql(
+            graphqlOperation(updateComment, {
+              input: {id: commentId, likes},
+            }),
+          );
+          // console.log('ress', res.data);
 
-        setLoading(false);
-      } catch (err) {
-        setLoading(false);
-        console.log('Error', err);
+          setLoading(false);
+        } catch (err) {
+          setLoading(false);
+          console.log('Error', err);
+        }
       }
     }
   };
