@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import AppText from '../Common/AppText';
 
+import Feather from 'react-native-vector-icons/Feather';
+
 const user = {
   __typename: 'User',
   createdAt: '2021-01-01T17:03:46.393Z',
@@ -42,18 +44,19 @@ const CommentLikes = ({likes, onLike, onUnlike, id}) => {
       {isLiked ? (
         <TouchableOpacity onPress={handleLike} style={styles.iconWrapper}>
           <Image
-            source={require('../../assets/images/Like_icon1.png')}
-            size={25}
+            source={require('../../assets/images/Cl3.png')}
+            size={20} style={{height: 25, width: 25, top: 8, left: 2}}
           />
-          <AppText style={{fontSize: 16}}>{likes.length}</AppText>
+          {/* <Feather name={'heart'} size={25} style={{color: '#999999'}}  /> */}
+          <AppText style={{fontSize: 12, left: 2}}>{likes.length}</AppText>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={handleLike} style={styles.iconWrapper}>
           <Image
-            source={require('../../assets/images/Like_icon.png')}
-            size={25}
+            source={require('../../assets/images/Cl1.png')}
+            size={20} style={{height: 20, width: 20, top: 10}}
           />
-          <AppText style={{fontSize: 16}}>{likes.length}</AppText>
+          <AppText style={{fontSize: 12, top: 5}}>{likes.length}</AppText>
         </TouchableOpacity>
       )}
     </View>

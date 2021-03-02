@@ -129,29 +129,6 @@ const Comments = ({postId}) => {
         Comments ({comments.length})
       </AppText>
 
-      <View style={styles.commentForm}>
-        <AppTextInput
-          placeholder="Add your comment"
-          autoCapitalize="none"
-          autoCorrect={false}
-          numberOfLines={3}
-          value={cmtText}
-          name={cmtText}
-          multiline={true}
-          maxLength={200}
-          onChangeText={(text) => setCmtText(text)}
-        />
-        <AppButton
-          btnStyle={{
-            width: 150,
-            marginHorizontal: 10,
-            marginVertical: 15,
-            alignSelf: 'flex-end',
-          }}
-          onPress={handleSumbit}
-          title="Submit"
-        />
-      </View>
       {loading && <LoadingIndicator visible={loading} />}
       <View style={styles.cmList}>
         {comments.length > 0 &&
@@ -161,7 +138,7 @@ const Comments = ({postId}) => {
                 <View style={{width: 40, padding: 5}}>
                   <Image
                     source={{uri: cm.user.imageUri}}
-                    style={{height: 30, width: 35, borderRadius: 20}}
+                    style={{height: 35, width: 35, borderRadius: 20, top: 5}}
                   />
                 </View>
 
@@ -169,7 +146,7 @@ const Comments = ({postId}) => {
                   <AppText
                     style={{
                       textTransform: 'capitalize',
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: '700',
                       color: '#20232A'
                     }}>
@@ -181,6 +158,8 @@ const Comments = ({postId}) => {
                       fontWeight: '400',
                       color: '#20232A',
                       fontSize: 14,
+                      left: 110,
+                      bottom: 30
                     }}>
                     {cm.text}
                   </AppText>
@@ -188,7 +167,8 @@ const Comments = ({postId}) => {
                     style={{
                       color: '#999999',
                       fontSize: 14,
-                      fontWeight: '400'
+                      fontWeight: '400',
+                      bottom: 40
                     }}>
                     <TimeAgo time={cm.createdAt} />
                   </AppText>
@@ -203,6 +183,29 @@ const Comments = ({postId}) => {
               </View>
             </View>
           ))}
+      </View>
+      <View style={styles.commentForm}>
+        <AppTextInput
+          placeholder="Type your comment here..."
+          autoCapitalize="none"
+          autoCorrect={false}
+          numberOfLines={3}
+          value={cmtText}
+          name={cmtText}
+          multiline={true}
+          maxLength={200}
+          onChangeText={(text) => setCmtText(text)}
+        />
+        <AppButton
+          btnStyle={{
+            width: 150,
+            marginHorizontal: 10,
+            marginVertical: 15,
+            alignSelf: 'center',
+          }}
+          onPress={handleSumbit}
+          title="Submit"
+        />
       </View>
     </ScrollView>
   );
@@ -220,9 +223,9 @@ const styles = StyleSheet.create({
   },
   cmCardContent: {
     flexDirection: 'row',
-    marginVertical: 8,
+    marginVertical: -10,
     borderBottomColor: '#ebe9e9',
-    borderBottomWidth: 2,
+    // borderBottomWidth: 2,
   },
   commentForm: {
     flexDirection: 'column',
