@@ -31,6 +31,7 @@ const Brands = () => {
           // backgroundColor: 'red'
         }} >
         <Video
+        muted={true}
         repeat={false}
         // paused={true}
         // thumbnail={{ uri: 'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1' }}
@@ -51,6 +52,7 @@ const Brands = () => {
           // backgroundColor: 'pink'
         }} >
         <Video
+        muted={true}
         source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -67,6 +69,7 @@ const Brands = () => {
           // backgroundColor: 'yellow'
         }} >
         <Video 
+        muted={true}
         source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -87,6 +90,7 @@ const Brands = () => {
           // backgroundColor: 'orange'
         }} >
         <Video 
+        muted={true}
         source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -103,6 +107,7 @@ const Brands = () => {
           // backgroundColor: 'green'
         }} >
         <Video 
+        muted={true}
         source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -120,6 +125,7 @@ const Brands = () => {
           // backgroundColor: 'black'
         }} >
         <Video 
+        muted={true}
         source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -137,6 +143,7 @@ const Brands = () => {
           // backgroundColor: 'violet'
         }} >
         <Video 
+        muted={true}
         source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -154,6 +161,7 @@ const Brands = () => {
           // backgroundColor: 'purple'
         }} >
         <Video 
+        muted={true}
         source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
@@ -171,6 +179,7 @@ const Brands = () => {
           // backgroundColor: 'grey'
         }} >
         <Video 
+        muted={true}
         source={{uri: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"}} 
         resizeMode='cover'
         style={StyleSheet.absoluteFill}
