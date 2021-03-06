@@ -9,6 +9,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 
 const ProfileScreen = () => {
   const refRBSheet = useRef();
+  const refRBSheet1 = useRef();
 
   const [images, setimages] = useState([
     require('../../assets/images/i1.png'),
@@ -81,12 +82,12 @@ const ProfileScreen = () => {
                   <EditProfile />
                 </RBSheet>
 
-                <TouchableOpacity style={{bottom: 50, left: 200, position: 'absolute'}} onPress={() => refRBSheet.current.open()} >
+                <TouchableOpacity style={{bottom: 50, left: 200, position: 'absolute'}} onPress={() => refRBSheet1.current.open()} >
                   <Feather style={styles.chart} name={'bar-chart'} size={25} />
                 </TouchableOpacity>
 
                 <RBSheet
-                  ref={refRBSheet}
+                  ref={refRBSheet1}
                   height={Dimensions.get('window').height - 140}
                   animationType="fade"
                   customStyles={{
