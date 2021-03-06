@@ -1,271 +1,162 @@
-// import React, {useEffect, useRef, useState, useCallback} from 'react';
-// import {
-//   View,
-//   Text,
-//   TextInput,
-//   TouchableOpacity,
-//   ActivityIndicator,
-//   StyleSheet
-// } from 'react-native';
-// import LinearGradient from 'react-native-linear-gradient';
-// import {v4 as uuidv4, v4} from 'uuid';
-
-// import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
-// import {useRoute, useNavigation} from '@react-navigation/native';
-// import {withAuthenticator} from 'aws-amplify-react-native';
-// import {createPost} from '../../graphql/mutations';
-// import {WebView} from 'react-native-webview';
-
-// const ProfileScreen = () => {
-//   const [user, setUser] = useState(null);
-
-//   return (
-//     <View style={styles.container}>
-//       <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#c1c1c1', '#ffffff']} style={styles.Rectangle} >
-//         <View />
-//       </LinearGradient>
-//       <Text>Profile</Text>
-//     </View>
-//   );
-// };
-
-// export default ProfileScreen;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#20232A',
-//     justifyContent: 'center',
-//     alignContent: 'center',
-//     alignItems: 'center',
-//     top: 0
-//   },
-//   text1: {
-//     color: '#FFFFFF',
-//     fontFamily: 'Proxima Nova',
-//     fontWeight: '700',
-//     fontSize: 24,
-//     bottom: 180,
-//     left: 10,
-//     zIndex: 1
-//   },
-//   text2: {
-//     color: '#51565D',
-//     fontFamily: 'Proxima Nova',
-//     fontWeight: '400',
-//     fontSize: 12,
-//     bottom: 150,
-//     left: 170,
-//     zIndex: 1
-//   },
-//   Rectangle: {
-//     bottom: 0,
-//     width: 370,
-//     height: 200,
-//     borderRadius: 10,
-//     left: 5,
-//     opacity: 0.8
-//   },
-// });
-
 import React, {useEffect, useRef, useState, useCallback} from 'react';
-import {v4 as uuidv4, v4} from 'uuid';
-
 import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
-import {useRoute, useNavigation} from '@react-navigation/native';
-import {withAuthenticator} from 'aws-amplify-react-native';
-// import styles from './styles';
-import {createPost} from '../../graphql/mutations';
-import {WebView} from 'react-native-webview';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  StyleSheet,
-  Image,
-  ImageBackground,
-} from 'react-native';
+import { View,Text,TextInput,TouchableOpacity,ActivityIndicator,StyleSheet, Image,ImageBackground,ScrollView,SafeAreaView,FlatList, ImageBase,Dimensions} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
+import EditProfile from '../../screens/Profile/editprofile';
+import Followers from '../../screens/Profile/followers';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 const ProfileScreen = () => {
-  const [user, setUser] = useState(null);
+  const refRBSheet = useRef();
 
-  // function signin() {
-  //   Auth.federatedSignIn({provider: 'google'});
-  // }
-
-  const signin = useCallback(() => {
-    Auth.federatedSignIn({provider: 'google'});
-    setUser(true);
-  }, []);
-
-  useEffect(() => {
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        console.log('USer', user);
-        user.getUserData((err, userData) => {
-          setUser({
-            email: user.attributes.email,
-          });
-        });
-      })
-      .catch((error) => {
-        setUser(null);
-      });
-  }, []);
+  const [images, setimages] = useState([
+    require('../../assets/images/i1.png'),
+    require('../../assets/images/i2.png'),
+    require('../../assets/images/i3.png'),
+    require('../../assets/images/i4.png'),
+    require('../../assets/images/i5.png'),
+    require('../../assets/images/i6.png'),
+    require('../../assets/images/i1.png'),
+    require('../../assets/images/i2.png'),
+    require('../../assets/images/i3.png'),
+    require('../../assets/images/i4.png'),
+    require('../../assets/images/i5.png'),
+    require('../../assets/images/i6.png'),
+  ]);
 
   return (
-    <View style={styles.container}>
-      <View>
-        <Image
-          style={styles.user}
-          source={require('../../assets/images/User.png')}
-        />
-      </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
 
-      <View style={styles.container1}>
-        <View style={styles.box}>
-          <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 0, y: 1}}
-            colors={['#141414', '#232323']}
-            style={styles.Rectangle}>
-            <View />
-          </LinearGradient>
+        <View style={{top: 0, height: 400}}>
 
+          <View style={{top: 80}}>
+
+            <View style={{left: 2}}>
+                <LinearGradient
+                start={{x: 0, y: 0}}
+                end={{x: 0, y: 0}}
+                colors={['#141414', '#232323']}
+                style={styles.Rectangle}>
+                <View />
+              </LinearGradient>
+
+              <Image
+                style={{top: 180, position: 'absolute', left: 5}}
+                source={require('../../assets/images/Pline.png')}
+              />
+              <Image
+                style={{top: 245, position: 'absolute', left: 5}}
+                source={require('../../assets/images/Pline.png')}
+              />
+            </View>
+
+
+            <View style={{alignItems: 'center'}}>
+
+              <View style={{top: 110, position: 'absolute'}}>
+                <TouchableOpacity style={{bottom: 0, right: 130}} onPress={() => refRBSheet.current.open()} >
+                  <Feather name={'edit'} size={25} />
+                </TouchableOpacity>  
+
+                <RBSheet
+                  ref={refRBSheet}
+                  height={Dimensions.get('window').height - 140}
+                  animationType="fade"
+                  customStyles={{
+                    wrapper: {
+                      backgroundColor: 'rgba(0,0,0,.6)',
+                      padding: 10
+                    },
+                    draggableIcon: {
+                      backgroundColor: '#000',
+                    },
+                    container: {
+                      backgroundColor: '#1A1A1A',
+                      borderRadius: 25,
+                      bottom: 85
+                    },
+                  }}>
+                  <EditProfile />
+                </RBSheet>
+
+                <TouchableOpacity style={{bottom: 50, left: 200, position: 'absolute'}} onPress={() => refRBSheet.current.open()} >
+                  <Feather style={styles.chart} name={'bar-chart'} size={25} />
+                </TouchableOpacity>
+
+                <RBSheet
+                  ref={refRBSheet}
+                  height={Dimensions.get('window').height - 140}
+                  animationType="fade"
+                  customStyles={{
+                    wrapper: {
+                      backgroundColor: 'rgba(0,0,0,.6)',
+                      padding: 10
+                    },
+                    draggableIcon: {
+                      backgroundColor: '#000',
+                    },
+                    container: {
+                      backgroundColor: '#1A1A1A',
+                      borderRadius: 25,
+                      bottom: 85
+                    },
+                  }}>
+                  <Followers />
+                </RBSheet>
+
+                <Text style={{color: '#FFFFFF' ,fontFamily: 'Proxima Nova' ,fontWeight: '700' ,fontSize: 18, bottom: 20}}>Username</Text>
+                <Text style={{color: '#FFFFFF' ,fontFamily: 'Proxima Nova' ,fontWeight: '400' ,fontSize: 16, left: 25, bottom: 20}}>Bio</Text>
+              </View>
+
+              <View style={{top: 70}}>
+                <TouchableOpacity style={{top: 120, right: 130}}>
+                  <Text style={{color: '#939495' ,fontFamily: 'Proxima Nova' ,fontWeight: '400' ,fontSize: 16}}>Followers</Text>
+                  <Text style={{color: '#FFFFFF' ,fontFamily: 'Proxima Nova' ,fontWeight: '700' ,fontSize: 18, left: 10}}>10K</Text>
+                </TouchableOpacity> 
+
+                <TouchableOpacity style={{top: 75}}>
+                  <Text style={{color: '#939495' ,fontFamily: 'Proxima Nova' ,fontWeight: '400' ,fontSize: 16}}>Following</Text>
+                  <Text style={{color: '#FFFFFF' ,fontFamily: 'Proxima Nova' ,fontWeight: '700' ,fontSize: 18, left: 20}}>1K</Text>
+                </TouchableOpacity> 
+
+                <TouchableOpacity style={{top: 30, left: 150}}>
+                  <Text style={{color: '#939495' ,fontFamily: 'Proxima Nova' ,fontWeight: '400' ,fontSize: 16}}>Posts</Text>
+                  <Text style={{color: '#FFFFFF' ,fontFamily: 'Proxima Nova' ,fontWeight: '700' ,fontSize: 18, left: 5}}>500</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View >
+                <TouchableOpacity style={{top: 95, left: 20}}>
+                  <Feather style={{top: 25, right: 35}} name={'activity'} size={25} />
+                  <Text style={{color: '#FFFFFF' ,fontFamily: 'Proxima Nova' ,fontWeight: '700' ,fontSize: 18}}>View Analytics</Text>
+                </TouchableOpacity> 
+              </View>
+
+            </View>
+
+          </View>
+
+          <View style={{zIndex: -1, position: 'absolute', bottom: 440}}>
           <Image
-            style={styles.img1}
-            source={require('../../assets/images/Pline.png')}
-          />
-          <Image
-            style={styles.img2}
-            source={require('../../assets/images/Pline.png')}
-          />
+              style={styles.user}
+              source={require('../../assets/images/User.png')}
+            />
+          </View>
+
         </View>
 
-        <View style={styles.icon}>
-          <TouchableOpacity style={styles.t1}>
-            <Feather style={styles.icon1} name={'activity'} size={25} />
+        <View style={{flexWrap: 'wrap', flexDirection: 'row',  }}>
+          {images.map((s) => (
+          <TouchableOpacity style={{aspectRatio: 0.7, width: '33.33%', }}>
+            <Image style={{flex: 1, resizeMode: 'contain', height: '100%', width: '100%', marginBottom: 10, }} source={s}></Image>             
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.t2}>
-            <Feather style={styles.icon2} name={'bar-chart'} size={25} />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.t3}>
-            <Feather style={styles.icon3} name={'edit'} size={25} />
-          </TouchableOpacity>
+          ))}
         </View>
 
-        <View
-          style={{
-            alignContent: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '700',
-              fontSize: 16,
-              bottom: 180,
-            }}>
-            Mikasa_45
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '400',
-              fontSize: 12,
-              bottom: 175,
-              right: 30,
-            }}>
-            Monster_Hunter
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '400',
-              fontSize: 12,
-              bottom: 190,
-              left: 40,
-            }}>
-            . Mar 15
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '400',
-              fontSize: 12,
-              bottom: 161,
-              right: 100,
-            }}>
-            Folowers
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '700',
-              fontSize: 16,
-              bottom: 155,
-              right: 100,
-            }}>
-            10k
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '400',
-              fontSize: 12,
-              bottom: 198,
-            }}>
-            Following
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '700',
-              fontSize: 16,
-              bottom: 192,
-            }}>
-            100
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '400',
-              fontSize: 12,
-              bottom: 235,
-              left: 100,
-            }}>
-            Posts
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '700',
-              fontSize: 16,
-              bottom: 230,
-              left: 100,
-            }}>
-            500
-          </Text>
-          <Text
-            style={{
-              fontFamily: 'Proxima Nova',
-              fontWeight: '700',
-              fontSize: 16,
-              bottom: 210,
-              left: 20,
-            }}>
-            View Analytics
-          </Text>
-        </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -275,95 +166,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#20232A',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    top: 0,
   },
-  container1: {
-    top: 10,
-    zIndex: 1,
-  },
-  box: {
-    right: 135,
-  },
-  user: {
-    height: 300,
-    width: 400,
-    bottom: 140,
-    borderRadius: 50,
-  },
-  text1: {
-    color: '#FFFFFF',
-    fontFamily: 'Proxima Nova',
-    fontWeight: '700',
-    fontSize: 24,
-    bottom: 180,
-    left: 10,
-    zIndex: 1,
-  },
-  text2: {
-    color: '#51565D',
-    fontFamily: 'Proxima Nova',
-    fontWeight: '400',
-    fontSize: 12,
-    bottom: 150,
-    left: 170,
-    zIndex: 1,
+  chart: {
+    transform: [{scaleX: -1}, {rotate: '90deg'}],
   },
   Rectangle: {
-    bottom: 0,
-    width: 370,
+    top: 100,
+    width: 380,
     height: 200,
     borderRadius: 10,
     left: 5,
     opacity: 0.8,
     position: 'absolute',
-    // zIndex: 1
   },
-  line1: {
-    height: 10,
-    width: 300,
-    color: 'red',
-    top: 200,
-  },
-  img1: {
-    bottom: 56,
-    position: 'absolute',
-  },
-  img2: {
-    bottom: 122,
-    position: 'absolute',
-  },
-  t1: {
-    position: 'absolute',
+  user: {
+    height: 300,
+    width: 400,
+    borderRadius: 50,
     zIndex: 1,
+    position: 'absolute'
   },
-  t2: {
-    position: 'absolute',
-    zIndex: 1,
-  },
-  t3: {
-    position: 'absolute',
-    zIndex: 1,
-  },
-  icon: {
-    left: 55,
-  },
-  icon1: {
-    position: 'absolute',
-    bottom: 20,
-    right: 40,
-  },
-  icon2: {
-    position: 'absolute',
-    bottom: 160,
-    left: 140,
-    transform: [{scaleX: -1}, {rotate: '90deg'}],
-  },
-  icon3: {
-    bottom: 160,
-    right: 140,
-    position: 'absolute',
-  },
+  mediaImageContainer: {
+    width: 180,
+    height: 200,
+    borderRadius: 12,
+    overflow: "hidden",
+    marginHorizontal: 10, 
+    padding: 10,
+    resizeMode: 'cover'
+},
 });
