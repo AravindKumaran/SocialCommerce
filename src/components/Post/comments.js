@@ -12,6 +12,7 @@ import AppTextInput from '../Common/AppTextInput';
 import AppButton from '../Common/AppButton';
 import CommentLikes from './commentLikes';
 import {updateComment, createComment} from '../../graphql/mutations';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const user = {
   __typename: 'User',
@@ -124,66 +125,77 @@ const Comments = ({postId}) => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <AppText style={{textAlign: 'center', fontSize: 20, marginVertical: 10}}>
+    <View style={styles.container}>
+      <AppText
+        style={{
+          textAlign: 'center',
+          fontSize: 16,
+          marginVertical: 10,
+          fontWeight: '700',
+        }}>
         Comments ({comments.length})
       </AppText>
 
-      {loading && <LoadingIndicator visible={loading} />}
-      <View style={styles.cmList}>
-        {comments.length > 0 &&
-          comments.map((cm) => (
-            <View styles={styles.cmCard} key={cm.id}>
-              <View style={styles.cmCardContent}>
-                <View style={{width: 40, padding: 5}}>
-                  <Image
-                    source={{uri: cm.user.imageUri}}
-                    style={{height: 35, width: 35, borderRadius: 20, top: 5}}
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        {loading && <LoadingIndicator visible={loading} />}
+        <View style={styles.cmList}>
+          {comments.length > 0 &&
+            comments.map((cm) => (
+              <View styles={styles.cmCard} key={cm.id}>
+                <View style={styles.cmCardContent}>
+                  <View style={{width: 40, padding: 5}}>
+                    <Image
+                      source={{uri: cm.user.imageUri}}
+                      style={{height: 35, width: 35, borderRadius: 20, top: 5}}
+                    />
+                  </View>
+
+                  <View style={{flex: 1}}>
+                    <AppText
+                      style={{
+                        textTransform: 'capitalize',
+                        fontSize: 12,
+                        fontWeight: '700',
+                        color: '#20232A',
+                        top: 5,
+                      }}>
+                      {cm.user.username}
+                    </AppText>
+                    <AppText
+                      style={{
+                        color: '#030303',
+                        fontWeight: '400',
+                        color: '#20232A',
+                        fontSize: 12,
+                        left: 80,
+                        bottom: 20,
+                      }}>
+                      {cm.text}
+                    </AppText>
+                    <AppText
+                      style={{
+                        color: '#999999',
+                        fontSize: 12,
+                        fontWeight: '400',
+                        marginBottom: 20,
+                        bottom: 25,
+                      }}>
+                      <TimeAgo time={cm.createdAt} />
+                    </AppText>
+                  </View>
+
+                  <CommentLikes
+                    likes={cm.likes}
+                    onLike={handleCommentLike}
+                    onUnlike={handleCommentUnLike}
+                    id={cm.id}
                   />
                 </View>
-
-                <View style={{flex: 1}}>
-                  <AppText
-                    style={{
-                      textTransform: 'capitalize',
-                      fontSize: 16,
-                      fontWeight: '700',
-                      color: '#20232A',
-                    }}>
-                    {cm.user.username}
-                  </AppText>
-                  <AppText
-                    style={{
-                      color: '#030303',
-                      fontWeight: '400',
-                      color: '#20232A',
-                      fontSize: 14,
-                      // left: 110,
-                      // bottom: 30,
-                    }}>
-                    {cm.text}
-                  </AppText>
-                  <AppText
-                    style={{
-                      color: '#999999',
-                      fontSize: 14,
-                      fontWeight: '400',
-                      marginBottom: 20,
-                    }}>
-                    <TimeAgo time={cm.createdAt} />
-                  </AppText>
-                </View>
-
-                <CommentLikes
-                  likes={cm.likes}
-                  onLike={handleCommentLike}
-                  onUnlike={handleCommentUnLike}
-                  id={cm.id}
-                />
               </View>
-            </View>
-          ))}
-      </View>
+            ))}
+        </View>
+      </ScrollView>
+
       <View style={styles.commentForm}>
         <AppTextInput
           placeholder="Type your comment here..."
@@ -199,6 +211,7 @@ const Comments = ({postId}) => {
         <AppButton
           btnStyle={{
             width: 150,
+            height: 30,
             marginHorizontal: 10,
             marginVertical: 15,
             alignSelf: 'center',
@@ -206,8 +219,13 @@ const Comments = ({postId}) => {
           onPress={handleSumbit}
           title="Submit"
         />
+        <Image
+          source={require('../../assets/images/Bline.png')}
+          size={25}
+          style={{alignSelf: 'center',}}
+        />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -216,19 +234,20 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#EFFAFF',
   },
   cmList: {
     marginTop: 5,
   },
   cmCardContent: {
     flexDirection: 'row',
-    marginVertical: -10,
+    marginVertical: -15,
     borderBottomColor: '#ebe9e9',
     // borderBottomWidth: 2,
   },
   commentForm: {
     flexDirection: 'column',
+    bottom: 10
   },
 });
 
