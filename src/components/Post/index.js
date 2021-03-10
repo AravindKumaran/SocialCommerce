@@ -161,7 +161,7 @@ const Post = (props) => {
                 resizeMode="cover"
                 // paused={paused}
                 // muted={muted}
-                // pauseOnPress={true}
+                pauseOnPress={true}
               />
               
               {/* <Video
