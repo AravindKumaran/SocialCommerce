@@ -1,5 +1,12 @@
 import React, {useEffect, useState, useRef} from 'react';
-import { View, TouchableWithoutFeedback, Text, Image, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  View,
+  TouchableWithoutFeedback,
+  Text,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import {API, graphqlOperation, Storage} from 'aws-amplify';
 import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -19,6 +26,15 @@ const user = {
   createdAt: '2021-01-01T17:03:46.393Z',
   email: 'asfiidarlachu@gmail.com',
   id: '0914c457-106d-4937-b44f-f430e611a52a',
+  imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
+  updatedAt: '2021-01-01T17:03:46.393Z',
+  username: 'Asfiya begum',
+};
+const user1 = {
+  __typename: 'User',
+  createdAt: '2021-01-01T17:03:46.393Z',
+  email: 'asfiilachu@gmail.com',
+  id: '0914c457-106d-4937-b44f-f430e611a52b',
   imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
   updatedAt: '2021-01-01T17:03:46.393Z',
   username: 'Asfiya begum',
@@ -52,12 +68,30 @@ const Post = (props) => {
       cPost.likes.push(user.id);
       const likes = cPost.likes;
       try {
-        const res = await API.graphql(
+        await API.graphql(
           graphqlOperation(updatePost, {
             input: {id: cPost.id, likes},
           }),
         );
-        // console.log('ress', res.data);
+        const res = await API.graphql(
+          graphqlOperation(createNotification, {
+            input: {
+              message: `${user.username} likes your post`,
+            },
+          }),
+        );
+        console.log('ress', res.data.createNotification.id);
+        const res2 = await API.graphql(
+          graphqlOperation(createUserNotification, {
+            input: {
+              userID: user.id,
+              notificationID: res.data.createNotification.id,
+              read: false,
+            },
+          }),
+        );
+
+        console.log('ress', res2.data);
       } catch (err) {
         console.log('Error', err);
       }
@@ -114,7 +148,7 @@ const Post = (props) => {
 
   return (
     <View style={styles.container}>
-      <DoubleClick singleTap={handleClick} doubleTap={handleDoubleClick} >
+      <DoubleClick singleTap={handleClick} doubleTap={handleDoubleClick}>
         <View>
           <View style={styles.video}>
               <VideoPlayer
@@ -327,14 +361,12 @@ const Post = (props) => {
             {/* </View> */}
           </View>
         </View>
-        </DoubleClick>
+      </DoubleClick>
     </View>
   );
 };
 
 export default Post;
-
-
 
 // function useSimpleAndDoubleClick(actionSimpleClick, actionDoubleClick, delay = 250) {
 //   const [click, setClick] = useState(0);
@@ -351,7 +383,7 @@ export default Post;
 //       if (click === 2) actionDoubleClick();
 
 //       return () => clearTimeout(timer);
-      
+
 //   }, [click]);
 
 //   return () => setClick(prev => prev + 1);

@@ -37,7 +37,7 @@ const Comments = ({postId}) => {
             id: postId,
           }),
         );
-        // console.log('ress', res.data.getPost.comments.items);
+        console.log('ress', res.data.getPost.comments.items);
         setComments(res.data.getPost.comments.items);
 
         setLoading(false);
@@ -148,7 +148,7 @@ const Comments = ({postId}) => {
                       textTransform: 'capitalize',
                       fontSize: 16,
                       fontWeight: '700',
-                      color: '#20232A'
+                      color: '#20232A',
                     }}>
                     {cm.user.username}
                   </AppText>
@@ -158,8 +158,8 @@ const Comments = ({postId}) => {
                       fontWeight: '400',
                       color: '#20232A',
                       fontSize: 14,
-                      left: 110,
-                      bottom: 30
+                      // left: 110,
+                      // bottom: 30,
                     }}>
                     {cm.text}
                   </AppText>
@@ -168,7 +168,7 @@ const Comments = ({postId}) => {
                       color: '#999999',
                       fontSize: 14,
                       fontWeight: '400',
-                      bottom: 40
+                      marginBottom: 20,
                     }}>
                     <TimeAgo time={cm.createdAt} />
                   </AppText>
