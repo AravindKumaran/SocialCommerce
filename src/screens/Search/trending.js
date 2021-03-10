@@ -192,44 +192,89 @@ const Trending = () => {
 
 export default Trending;
 
-// import { coverer } from 'aws-amplify-react-native/dist/AmplifyUI';
-// import React, {Component} from 'react';
-// import {View, Image} from 'react-native';
+
+
+
+
+
+
+
+// import React, {Component, useState} from 'react';
+// import {View, Image, StyleSheet, TouchableWithoutFeedback, FlatList, ScrollView, SafeAreaView, Text} from 'react-native';
+// import { Col, Row, Grid } from "react-native-easy-grid";
+// import VideoPlayer from 'react-native-video-player';
+// import Video from 'react-native-video';
+
+// // const Trending = () => {
+// //   const [paused, setPaused] = useState(false);
+// //   const onPlayPausePress = () => {
+// //     setPaused(!paused);
+// //   };
+
+// //   return (
+// //       <View style={{
+// //         flex: 1,
+// //         top: 150,
+// //         backgroundColor: '#20232A'
+// //       }}>
+// //           <View style={{left: 5, top: 5}}>
+// //             {/* <View style={{
+// //               flex: 1,
+// //               width: 166,
+// //               height: 257,
+// //               position: 'absolute',
+// //               }} >
+// //               <Video
+// //                 muted={true}
+// //                 source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}} 
+// //                 resizeMode='cover'
+// //                 style={StyleSheet.absoluteFill}
+// //               />
+// //             </View> */}
+// //         </View>
+// //       </View>
+// //   );
+// // };
+
+// // export default Trending;
+
+// // const styles = StyleSheet.create({
+// //   container: {
+// //     flex: 1
+// //   }
+// // });
+
+
 // import MasonryList from "react-native-masonry-list";
-// import Searchbar from '../Search/searchbar';
 
-// const Notification = () => {
+// const Trending = () => {
 //     return (
-//       <MasonryList
-//       spacing={1}
+//       <View style={styles.container}>
+//         <MasonryList
 //             images={[
-//                 { source: require("../../assets/images/R1.png"),
-//                   completeCustomComponent: {left: 10},
-//                   dimensions: {height: 257, width: 166 }},
-                
-//                 { source: require("../../assets/images/R2.png"),
-//                   dimensions: {height: 173, width: 165 }},
-
-//                 { source: require("../../assets/images/R3.png"),
-//                   dimensions: {height: 125, width: 165 }},
-
-//                 { source: require("../../assets/images/R4.png"),
-//                   dimensions: {height: 108, width: 103 }},
-
-//                 { source: require("../../assets/images/R5.png"),
-//                   dimensions: {height: 108, width: 103 }},
-
-//                 { source: require("../../assets/images/R6.png"),
-//                   dimensions: {height: 108, width: 103 }},
-
-//                 { source: require("../../assets/images/R7.png"),
-//                   dimensions: {height: 108, width: 103 }},
-
-//                 { source: require("../../assets/images/R8.png"),
-//                   dimensions: {height: 257, width: 215 }}
+//                 { uri: "https://luehangs.site/pic-chat-app-images/beautiful-blond-blonde-hair-478544.jpg", 
+//                 dimensions: { width: 200, height: 290 }},
+//                 { source: { uri: "https://luehangs.site/pic-chat-app-images/beautiful-beautiful-women-beauty-40901.jpg" } },
+//                 { uri: "https://luehangs.site/pic-chat-app-images/animals-avian-beach-760984.jpg",
+//                     dimensions: { width: 280, height: 220 } },
+//                 { URI: "https://luehangs.site/pic-chat-app-images/beautiful-blond-fishnet-stockings-48134.jpg",
+//                     id: "blpccx4cn" },
+//                 { url: "https://luehangs.site/pic-chat-app-images/beautiful-beautiful-woman-beauty-9763.jpg",
+//                 dimensions: { width: 290, height: 290 } },
+//                 { URL: "https://luehangs.site/pic-chat-app-images/attractive-balance-beautiful-186263.jpg",
+//                 dimensions: { width: 290, height: 290 } },
 //             ]}
 //         />
+//         </View>
 //     );
 // };
+// export default Trending;
 
-// export default Notification;
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     top: 200, 
+//     position: 'absolute'
+//   }
+// });
+
