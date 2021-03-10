@@ -24,6 +24,17 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      notifications {
+        items {
+          id
+          userID
+          notificationID
+          read
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -47,6 +58,17 @@ export const updateUser = /* GraphQL */ `
           likes
           userID
           songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      notifications {
+        items {
+          id
+          userID
+          notificationID
+          read
           createdAt
           updatedAt
         }
@@ -80,6 +102,17 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      notifications {
+        items {
+          id
+          userID
+          notificationID
+          read
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -102,6 +135,9 @@ export const createPost = /* GraphQL */ `
         email
         imageUri
         posts {
+          nextToken
+        }
+        notifications {
           nextToken
         }
         createdAt
@@ -151,6 +187,9 @@ export const updatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        notifications {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -198,6 +237,9 @@ export const deletePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        notifications {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -243,6 +285,9 @@ export const createComment = /* GraphQL */ `
         email
         imageUri
         posts {
+          nextToken
+        }
+        notifications {
           nextToken
         }
         createdAt
@@ -300,6 +345,9 @@ export const updateComment = /* GraphQL */ `
         posts {
           nextToken
         }
+        notifications {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -353,6 +401,9 @@ export const deleteComment = /* GraphQL */ `
         email
         imageUri
         posts {
+          nextToken
+        }
+        notifications {
           nextToken
         }
         createdAt
@@ -428,6 +479,150 @@ export const deleteSong = /* GraphQL */ `
       id
       name
       imageUri
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createNotification = /* GraphQL */ `
+  mutation CreateNotification(
+    $input: CreateNotificationInput!
+    $condition: ModelNotificationConditionInput
+  ) {
+    createNotification(input: $input, condition: $condition) {
+      id
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateNotification = /* GraphQL */ `
+  mutation UpdateNotification(
+    $input: UpdateNotificationInput!
+    $condition: ModelNotificationConditionInput
+  ) {
+    updateNotification(input: $input, condition: $condition) {
+      id
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteNotification = /* GraphQL */ `
+  mutation DeleteNotification(
+    $input: DeleteNotificationInput!
+    $condition: ModelNotificationConditionInput
+  ) {
+    deleteNotification(input: $input, condition: $condition) {
+      id
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createUserNotification = /* GraphQL */ `
+  mutation CreateUserNotification(
+    $input: CreateUserNotificationInput!
+    $condition: ModelUserNotificationConditionInput
+  ) {
+    createUserNotification(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      notificationID
+      notification {
+        id
+        message
+        createdAt
+        updatedAt
+      }
+      read
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateUserNotification = /* GraphQL */ `
+  mutation UpdateUserNotification(
+    $input: UpdateUserNotificationInput!
+    $condition: ModelUserNotificationConditionInput
+  ) {
+    updateUserNotification(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      notificationID
+      notification {
+        id
+        message
+        createdAt
+        updatedAt
+      }
+      read
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteUserNotification = /* GraphQL */ `
+  mutation DeleteUserNotification(
+    $input: DeleteUserNotificationInput!
+    $condition: ModelUserNotificationConditionInput
+  ) {
+    deleteUserNotification(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      notificationID
+      notification {
+        id
+        message
+        createdAt
+        updatedAt
+      }
+      read
       createdAt
       updatedAt
     }

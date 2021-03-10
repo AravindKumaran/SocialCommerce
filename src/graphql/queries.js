@@ -21,6 +21,17 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      notifications {
+        items {
+          id
+          userID
+          notificationID
+          read
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -41,6 +52,9 @@ export const listUsers = /* GraphQL */ `
         posts {
           nextToken
         }
+        notifications {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -52,6 +66,32 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       id
+      videoUri
+      description
+      likes
+      userID
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
       comments {
         items {
           id
@@ -62,9 +102,6 @@ export const getPost = /* GraphQL */ `
             username
             email
             imageUri
-            posts {
-              nextToken
-            }
             createdAt
             updatedAt
           }
@@ -110,15 +147,6 @@ export const listPosts = /* GraphQL */ `
           updatedAt
         }
         comments {
-          items {
-            id
-            postId
-            userID
-            text
-            likes
-            createdAt
-            updatedAt
-          }
           nextToken
         }
         createdAt
@@ -142,6 +170,9 @@ export const getComment = /* GraphQL */ `
         email
         imageUri
         posts {
+          nextToken
+        }
+        notifications {
           nextToken
         }
         createdAt
@@ -240,6 +271,102 @@ export const listSongs = /* GraphQL */ `
         id
         name
         imageUri
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getNotification = /* GraphQL */ `
+  query GetNotification($id: ID!) {
+    getNotification(id: $id) {
+      id
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listNotifications = /* GraphQL */ `
+  query ListNotifications(
+    $filter: ModelNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listNotifications(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        message
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserNotification = /* GraphQL */ `
+  query GetUserNotification($id: ID!) {
+    getUserNotification(id: $id) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      notificationID
+      notification {
+        id
+        message
+        createdAt
+        updatedAt
+      }
+      read
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUserNotifications = /* GraphQL */ `
+  query ListUserNotifications(
+    $filter: ModelUserNotificationFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserNotifications(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        user {
+          id
+          username
+          email
+          imageUri
+          createdAt
+          updatedAt
+        }
+        notificationID
+        notification {
+          id
+          message
+          createdAt
+          updatedAt
+        }
+        read
         createdAt
         updatedAt
       }

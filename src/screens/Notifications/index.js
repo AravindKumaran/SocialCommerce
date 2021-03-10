@@ -1,145 +1,135 @@
-import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
-import {Header} from 'react-native-elements';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import {API, graphqlOperation, Storage} from 'aws-amplify';
+import {listUserNotifications} from '../../graphql/queries';
+import AppText from '../../components/Common/AppText';
+import TimeAgo from 'react-native-timeago';
+
+const user = [
+  {
+    name: 'Tamil25',
+    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+    comment: 'commented on your photo.',
+    createdat: '11m',
+    reply: 'Reply',
+    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+  },
+  {
+    name: 'Eren45',
+    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+    comment: 'commented on your photo.',
+    createdat: '22m',
+    reply: 'Reply',
+    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+  },
+  {
+    name: 'Mikasa',
+    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+    comment: 'commented on your photo.',
+    createdat: '33m',
+    reply: 'Reply',
+    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+  },
+  {
+    name: 'Armin65',
+    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+    comment: 'commented on your photo.',
+    createdat: '44m',
+    reply: 'Reply',
+    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+  },
+  {
+    name: 'Levi75',
+    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+    comment: 'commented on your photo.',
+    createdat: '50m',
+    reply: 'Reply',
+    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+  },
+  {
+    name: 'Hange85',
+    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+    comment: 'commented on your photo.',
+    createdat: '56m',
+    reply: 'Reply',
+    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
+  },
+];
+
+const user1 = {
+  __typename: 'User',
+  createdAt: '2021-01-01T17:03:46.393Z',
+  email: 'asfiidarlachu@gmail.com',
+  id: '0914c457-106d-4937-b44f-f430e611a52a',
+  imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
+  updatedAt: '2021-01-01T17:03:46.393Z',
+  username: 'Asfiya begum',
+};
+
 const Notifications = () => {
-  const user = [
-    {
-      name: 'Tamil25',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-      comment: 'commented on your photo.',
-      createdat: '11m',
-      reply: 'Reply',
-      liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Eren45',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-      comment: 'commented on your photo.',
-      createdat: '22m',
-      reply: 'Reply',
-      liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Mikasa',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-      comment: 'commented on your photo.',
-      createdat: '33m',
-      reply: 'Reply',
-      liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Armin65',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-      comment: 'commented on your photo.',
-      createdat: '44m',
-      reply: 'Reply',
-      liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Levi75',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-      comment: 'commented on your photo.',
-      createdat: '50m',
-      reply: 'Reply',
-      liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Hange85',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-      comment: 'commented on your photo.',
-      createdat: '56m',
-      reply: 'Reply',
-      liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-  ];
+  const [notifications, setNotifications] = useState([]);
+
+  useEffect(() => {
+    const getAllNotifications = async () => {
+      try {
+        const res = await API.graphql(
+          graphqlOperation(listUserNotifications, {
+            filter: {
+              userID: {eq: user1.id},
+            },
+          }),
+        );
+        // console.log('ress', res.data.listUserNotifications.items);
+        setNotifications(res.data.listUserNotifications.items);
+      } catch (err) {
+        console.log('Error', err);
+      }
+    };
+    getAllNotifications();
+  }, []);
+
   return (
     <View style={styles.container}>
-      <View style={{left: 0, top: 65}}>
+      <View style={{marginBottom: 20, padding: 15}}>
         <Text style={styles.text1}>Notifications</Text>
         <Image
           source={require('../../assets/images/Thinline.png')}
           size={25}
-          style={{bottom: 160, left: 0, zIndex: 1}}
+          style={{width: '100%', paddingTop: 5}}
         />
-        <Text style={styles.text2}>Today</Text>
       </View>
-
-      <View>
-        {user.map((v, i) => {
+      <ScrollView>
+        {notifications.map((ntf, i) => {
           return (
-            <View key={i} style={{top: 30, margin: -30, left: 25}}>
-              <View style={{right: 80, bottom: 65}}>
-                <Text
-                  style={{
-                    color: '#FFFFFF',
-                    fontFamily: 'Proxima Nova',
-                    fontWeight: '700',
-                    fontSize: 14,
-                  }}>
-                  {v.name}
-                </Text>
-              </View>
-
-              <View style={{left: 50, bottom: 83}}>
-                <Text
-                  style={{
-                    color: '#FFFFFF',
-                    right: 60,
-                    fontFamily: 'Proxima Nova',
-                    fontWeight: '400',
-                    fontSize: 12,
-                  }}>
-                  {v.comment}
-                </Text>
-              </View>
-
-              <View style={{right: 130, bottom: 110, margin: 0}}>
+            <View key={ntf.id} style={styles.ntfCard}>
+              <View style={{width: 40, marginHorizontal: 10}}>
                 <Image
-                  source={{uri: v.photo}}
-                  style={{height: 35, width: 35, borderRadius: 20}}
+                  source={{uri: ntf.user.imageUri}}
+                  style={{
+                    height: 35,
+                    width: 35,
+                    borderRadius: 20,
+                    marginTop: 7,
+                  }}
                 />
               </View>
-
-              <View style={{left: 210, bottom: 135}}>
-                <Text
-                  style={{
-                    color: '#5C5C5C',
-                    right: 60,
-                    fontFamily: 'Proxima Nova',
-                    fontWeight: '400',
-                    fontSize: 12,
-                  }}>
-                  {v.createdat}
-                </Text>
-              </View>
-
-              {/* <View style={{left: 90, bottom: 126}}>
-                <Text style={{ color: '#999999', right: 60,fontFamily: 'Proxima Nova' , fontWeight: '700', fontSize: 12}}>{v.reply}</Text>
-              </View> */}
-
-              <View style={{left: 260, bottom: 140}}>
-                <Text
+              <View style={{flex: 1}}>
+                <AppText style={{color: '#fff'}}>
+                  {ntf.notification.message}
+                </AppText>
+                <AppText
                   style={{
                     color: '#999999',
-                    right: 60,
-                    fontFamily: 'Proxima Nova',
-                    fontWeight: '700',
-                    fontSize: 10,
+                    fontSize: 14,
+                    fontWeight: '400',
                   }}>
-                  {v.likes}
-                </Text>
-              </View>
-
-              <View style={{left: 200, bottom: 173}}>
-                <Image
-                  source={{uri: v.liked}}
-                  style={{height: 30, width: 30}}
-                />
+                  <TimeAgo time={ntf.createdAt} />
+                </AppText>
               </View>
             </View>
           );
         })}
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -150,27 +140,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#20232A',
-    justifyContent: 'center',
-    alignContent: 'center',
-    alignItems: 'center',
-    top: 0,
+    color: '#fff',
+  },
+
+  ntfCard: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginVertical: 10,
+    marginHorizontal: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc7c7',
+    padding: 10,
+    paddingBottom: 20,
   },
   text1: {
     color: '#FFFFFF',
     fontFamily: 'Proxima Nova',
     fontWeight: '700',
     fontSize: 24,
-    bottom: 180,
-    left: 10,
-    zIndex: 1,
-  },
-  text2: {
-    color: '#51565D',
-    fontFamily: 'Proxima Nova',
-    fontWeight: '400',
-    fontSize: 12,
-    bottom: 150,
-    left: 170,
+    textAlign: 'center',
     zIndex: 1,
   },
 });

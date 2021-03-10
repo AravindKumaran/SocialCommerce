@@ -17,13 +17,26 @@ import Product from '../../screens/Product/index';
 import VideoPlayer from 'react-native-video-player';
 import Comments from './comments';
 import PostLike from './postLike';
-import {updatePost} from '../../graphql/mutations';
+import {
+  createNotification,
+  createUserNotification,
+  updatePost,
+} from '../../graphql/mutations';
 
 const user = {
   __typename: 'User',
   createdAt: '2021-01-01T17:03:46.393Z',
   email: 'asfiidarlachu@gmail.com',
   id: '0914c457-106d-4937-b44f-f430e611a52a',
+  imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
+  updatedAt: '2021-01-01T17:03:46.393Z',
+  username: 'Asfiya begum',
+};
+const user1 = {
+  __typename: 'User',
+  createdAt: '2021-01-01T17:03:46.393Z',
+  email: 'asfiilachu@gmail.com',
+  id: '0914c457-106d-4937-b44f-f430e611a52b',
   imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
   updatedAt: '2021-01-01T17:03:46.393Z',
   username: 'Asfiya begum',
@@ -41,6 +54,7 @@ const Post = (props) => {
   useEffect(() => {
     if (props.currentIndex === props.currentVisibleIndex) {
       vidRef.current.resume();
+      // vidRef.current.muted = true;
     } else {
       vidRef.current.pause();
     }
@@ -51,12 +65,30 @@ const Post = (props) => {
       cPost.likes.push(user.id);
       const likes = cPost.likes;
       try {
-        const res = await API.graphql(
+        await API.graphql(
           graphqlOperation(updatePost, {
             input: {id: cPost.id, likes},
           }),
         );
-        // console.log('ress', res.data);
+        const res = await API.graphql(
+          graphqlOperation(createNotification, {
+            input: {
+              message: `${user.username} likes your post`,
+            },
+          }),
+        );
+        console.log('ress', res.data.createNotification.id);
+        const res2 = await API.graphql(
+          graphqlOperation(createUserNotification, {
+            input: {
+              userID: user.id,
+              notificationID: res.data.createNotification.id,
+              read: false,
+            },
+          }),
+        );
+
+        console.log('ress', res2.data);
       } catch (err) {
         console.log('Error', err);
       }
@@ -103,6 +135,7 @@ const Post = (props) => {
               pauseOnPress={true}
               disableControlsAutoHide={false}
               disableSeek={true}
+              // muted={vidRef.current.muted}
             />
           </View>
 

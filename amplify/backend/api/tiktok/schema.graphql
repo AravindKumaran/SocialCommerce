@@ -4,6 +4,8 @@ type User @model {
   email: String!
   imageUri: String
   posts: [Post] @connection(keyName: "byUser", fields: ["id"])
+  notifications: [UserNotification]
+    @connection(keyName: "byUser", fields: ["id"])
 }
 
 type Post @model @key(name: "byUser", fields: ["userID"]) {
@@ -35,4 +37,18 @@ type Song @model {
   id: ID!
   name: String!
   imageUri: String
+}
+
+type Notification @model {
+  id: ID!
+  message: String!
+}
+
+type UserNotification @model @key(name: "byUser", fields: ["userID"]) {
+  id: ID!
+  userID: ID!
+  user: User @connection(fields: ["userID"])
+  notificationID: ID!
+  notification: Notification @connection(fields: ["notificationID"])
+  read: Boolean!
 }

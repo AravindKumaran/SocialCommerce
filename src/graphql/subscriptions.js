@@ -21,6 +21,17 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
+      notifications {
+        items {
+          id
+          userID
+          notificationID
+          read
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -41,6 +52,17 @@ export const onUpdateUser = /* GraphQL */ `
           likes
           userID
           songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      notifications {
+        items {
+          id
+          userID
+          notificationID
+          read
           createdAt
           updatedAt
         }
@@ -71,6 +93,17 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      notifications {
+        items {
+          id
+          userID
+          notificationID
+          read
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -90,6 +123,9 @@ export const onCreatePost = /* GraphQL */ `
         email
         imageUri
         posts {
+          nextToken
+        }
+        notifications {
           nextToken
         }
         createdAt
@@ -136,6 +172,9 @@ export const onUpdatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        notifications {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -180,6 +219,9 @@ export const onDeletePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        notifications {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -222,6 +264,9 @@ export const onCreateComment = /* GraphQL */ `
         email
         imageUri
         posts {
+          nextToken
+        }
+        notifications {
           nextToken
         }
         createdAt
@@ -276,6 +321,9 @@ export const onUpdateComment = /* GraphQL */ `
         posts {
           nextToken
         }
+        notifications {
+          nextToken
+        }
         createdAt
         updatedAt
       }
@@ -326,6 +374,9 @@ export const onDeleteComment = /* GraphQL */ `
         email
         imageUri
         posts {
+          nextToken
+        }
+        notifications {
           nextToken
         }
         createdAt
@@ -392,6 +443,132 @@ export const onDeleteSong = /* GraphQL */ `
       id
       name
       imageUri
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateNotification = /* GraphQL */ `
+  subscription OnCreateNotification {
+    onCreateNotification {
+      id
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateNotification = /* GraphQL */ `
+  subscription OnUpdateNotification {
+    onUpdateNotification {
+      id
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteNotification = /* GraphQL */ `
+  subscription OnDeleteNotification {
+    onDeleteNotification {
+      id
+      message
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUserNotification = /* GraphQL */ `
+  subscription OnCreateUserNotification {
+    onCreateUserNotification {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      notificationID
+      notification {
+        id
+        message
+        createdAt
+        updatedAt
+      }
+      read
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserNotification = /* GraphQL */ `
+  subscription OnUpdateUserNotification {
+    onUpdateUserNotification {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      notificationID
+      notification {
+        id
+        message
+        createdAt
+        updatedAt
+      }
+      read
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserNotification = /* GraphQL */ `
+  subscription OnDeleteUserNotification {
+    onDeleteUserNotification {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        imageUri
+        posts {
+          nextToken
+        }
+        notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      notificationID
+      notification {
+        id
+        message
+        createdAt
+        updatedAt
+      }
+      read
       createdAt
       updatedAt
     }
