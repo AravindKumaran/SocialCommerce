@@ -10,18 +10,16 @@ import {
 import {API, graphqlOperation, Storage} from 'aws-amplify';
 import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
-
-import styles from './styles';
 import Product from '../../screens/Product/index';
-
 import VideoPlayer from 'react-native-video-player';
+import Video from 'react-native-video';
+import DoubleClick from 'react-native-double-tap';
 import Comments from './comments';
 import PostLike from './postLike';
-import {
-  createNotification,
-  createUserNotification,
-  updatePost,
-} from '../../graphql/mutations';
+import {updatePost} from '../../graphql/mutations';
+import styles from './styles';
+
+// import DoubleClick from 'react-native-single-double-click';
 
 const user = {
   __typename: 'User',
@@ -48,17 +46,20 @@ const Post = (props) => {
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(false);
 
-  const vidRef = useRef(null);
+  const [paused, setPaused] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const [videoUri, setVideoUri] = useState('');
+
+  const vidRef = useRef();
   const refRBSheet = useRef();
 
-  useEffect(() => {
-    if (props.currentIndex === props.currentVisibleIndex) {
-      vidRef.current.resume();
-      // vidRef.current.muted = true;
-    } else {
-      vidRef.current.pause();
-    }
-  }, [props.currentVisibleIndex]);
+  // useEffect(() => {
+  //   if (props.currentIndex === props.currentVisibleIndex) {
+  //     vidRef.current.resume();
+  //   } else {
+  //     vidRef.current.pause();
+  //   }
+  // }, [props.currentVisibleIndex]);
 
   const handlePostLike = async (cPost) => {
     if (cPost) {
@@ -115,27 +116,61 @@ const Post = (props) => {
     }
   };
 
+  const getVideoUri = async () => {
+    if (post.videoUri.startsWith('http')) {
+      setVideoUri(post.videoUri);
+      return;
+    }
+    setVideoUri(await Storage.get(post.videoUri));
+  };
+
+  useEffect(() => {
+    getVideoUri();
+  }, []);
+
+  const handleClick = () => {
+    setPaused(!paused);
+  };
+
+  const handleDoubleClick = () => {
+    setMuted(!muted);
+  };
+
+  // function handleClick() {
+  //   setPaused(!paused);
+  // };
+
+  // function handleDoubleClick() {
+  //   setMuted(!muted);
+  // };
+
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback>
+      <DoubleClick singleTap={handleClick} doubleTap={handleDoubleClick}>
         <View>
           <View style={styles.video}>
-            <VideoPlayer
+            {/* <VideoPlayer
+                ref={vidRef}
+                video={{uri: convertToProxyURL(props.post.videoUri)}}
+                autoplay={true}
+                videoWidth={1100}
+                videoHeight={Dimensions.get('window').height * 2.3}
+                loop={true}
+                resizeMode="cover"
+                paused={paused}
+                muted={muted}
+                pauseOnPress={true}
+              /> */}
+
+            <Video
+              // ref={ref => (vidRef = ref)}
               ref={vidRef}
-              video={{uri: convertToProxyURL(props.post.videoUri)}}
-              thumbnail={{
-                uri:
-                  'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1',
-              }}
-              autoplay={true}
-              videoWidth={1100}
-              videoHeight={Dimensions.get('window').height * 2.3}
-              loop={true}
-              resizeMode="cover"
-              pauseOnPress={true}
-              disableControlsAutoHide={false}
-              disableSeek={true}
-              // muted={vidRef.current.muted}
+              source={{uri: convertToProxyURL(props.post.videoUri)}}
+              style={styles.video}
+              resizeMode={'cover'}
+              repeat={true}
+              paused={paused}
+              muted={muted}
             />
           </View>
 
@@ -323,9 +358,30 @@ const Post = (props) => {
             {/* </View> */}
           </View>
         </View>
-      </TouchableWithoutFeedback>
+      </DoubleClick>
     </View>
   );
 };
 
 export default Post;
+
+// function useSimpleAndDoubleClick(actionSimpleClick, actionDoubleClick, delay = 250) {
+//   const [click, setClick] = useState(0);
+
+//   useEffect(() => {
+//       const timer = setTimeout(() => {
+//           // simple click
+//           if (click === 1) actionSimpleClick();
+//           setClick(0);
+//       }, delay);
+
+//       // the duration between this click and the previous one
+//       // is less than the value of delay = double-click
+//       if (click === 2) actionDoubleClick();
+
+//       return () => clearTimeout(timer);
+
+//   }, [click]);
+
+//   return () => setClick(prev => prev + 1);
+// }
