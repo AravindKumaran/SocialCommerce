@@ -37,13 +37,15 @@ const Post = (props) => {
   const vidRef = useRef();
   const refRBSheet = useRef();
 
-  // useEffect(() => {
-  //   if (props.currentIndex === props.currentVisibleIndex) {
-  //     vidRef.current.resume();
-  //   } else {
-  //     vidRef.current.pause();
-  //   } 
-  // }, [props.currentVisibleIndex]);
+  useEffect(() => {
+    if (props.currentIndex === props.currentVisibleIndex) {
+      vidRef.current.resume();
+    } else {
+      vidRef.current.pause();
+    } 
+  }, [props.currentVisibleIndex]);
+
+  // const onload = {() => {props.currentIndex === props.currentVisibleIndex}}
 
   const handlePostLike = async (cPost) => {
     if (cPost) {
@@ -82,24 +84,24 @@ const Post = (props) => {
     }
   };
 
-  const getVideoUri = async () => {
-    if (post.videoUri.startsWith('http')) {
-      setVideoUri(post.videoUri);
-      return;
-    }
-    setVideoUri(await Storage.get(post.videoUri));
-  };
+  // const getVideoUri = async () => {
+  //   if (post.videoUri.startsWith('http')) {
+  //     setVideoUri(post.videoUri);
+  //     return;
+  //   }
+  //   setVideoUri(await Storage.get(post.videoUri));
+  // };
 
-  useEffect(() => {
-    getVideoUri();
-  },[]);
+  // useEffect(() => {
+  //   getVideoUri();
+  // },[]);
 
   const handleClick = () => {
-    setPaused(!paused);
+    setMuted(!muted);
   };
 
   const handleDoubleClick = () => {
-    setMuted(!muted);
+    setPaused(!paused);
   };
 
   // function handleClick() {
@@ -115,7 +117,7 @@ const Post = (props) => {
       <DoubleClick singleTap={handleClick} doubleTap={handleDoubleClick} >
         <View>
           <View style={styles.video}>
-              {/* <VideoPlayer
+              <VideoPlayer
                 ref={vidRef}
                 video={{uri: convertToProxyURL(props.post.videoUri)}}
                 autoplay={true}
@@ -123,12 +125,12 @@ const Post = (props) => {
                 videoHeight={Dimensions.get('window').height * 2.3}
                 loop={true}
                 resizeMode="cover"
-                paused={paused}
-                muted={muted}
-                pauseOnPress={true}
-              /> */}
+                // paused={paused}
+                // muted={muted}
+                // pauseOnPress={true}
+              />
               
-              <Video
+              {/* <Video
                 // ref={ref => (vidRef = ref)}
                 ref={vidRef}
                 source={{uri: convertToProxyURL(props.post.videoUri)}}
@@ -137,7 +139,8 @@ const Post = (props) => {
                 repeat={true}
                 paused={paused}
                 muted={muted}
-              />
+                // controls={true}
+              /> */}
             </View>
             
           <View style={styles.uiContainer}>

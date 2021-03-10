@@ -7,6 +7,7 @@ import VideoPlayer from 'react-native-video-player';
 import Video from 'react-native-video';
 import { API, graphqlOperation, Storage } from 'aws-amplify';
 import Home from '../Home/index';
+import { SafeAreaView } from "react-native";
 
 // import Home from '../../screens/Home/index';
 // import Post from '../../components/Post/index';
@@ -95,128 +96,114 @@ const Categories = (props) => {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}> 
+      <ScrollView showsVerticalScrollIndicator={false}> 
+        <View style={styles.containers}>
 
-      <Searchbar />
-      
-      <View style={styles.cat}>
-        <Image style={{top: 80, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
-        <TouchableOpacity style={styles.type1} onPress={() => {setTouched(!isTouched); setPressed(!isPressed)}}>
-          <Text style={{color: !isTouched ? '#FFFFFF' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Categories</Text>
-        </TouchableOpacity>
+          <Searchbar />
+          
+          <View style={styles.cat}>
+            <Image style={{top: 80, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
+            <TouchableOpacity style={styles.type1} onPress={() => {setTouched(!isTouched); setPressed(!isPressed)}}>
+              <Text style={{color: !isTouched ? '#FFFFFF' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Categories</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity style={styles.type2} onPress={() => {setPressed(!isPressed); setTouched(!isTouched)}}>
-          <Text style={{color: !isPressed ? '#FFFFFF' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Brands</Text>
-        </TouchableOpacity>
-        <Image style={{top: 180, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
+            <TouchableOpacity style={styles.type2} onPress={() => {setPressed(!isPressed); setTouched(!isTouched)}}>
+              <Text style={{color: !isPressed ? '#FFFFFF' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16,}}>Brands</Text>
+            </TouchableOpacity>
+            <Image style={{top: 180, left: 15}} source={require('../../assets/images/Line2.png')} size={15} />
 
-        <TouchableOpacity style={styles.type3} onPress={() => setClicked(!isClicked)}>
-          <Text style={{color: !isClicked ? '#FFFFFF' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16}}>Top Trending</Text>
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity style={styles.type3} onPress={() => setClicked(!isClicked)}>
+              <Text style={{color: !isClicked ? '#FFFFFF' : '#21FFFC', fontWeight: '700', fontFamily: 'Proxima Nova', fontSize: 16}}>Top Trending</Text>
+            </TouchableOpacity>
+          </View>
 
 
-      {isTouched && isPressed==false ? (
-      <View style={styles.container1}>
-        <ActiveStyle />
-        <TouchableOpacity style={styles.t1}>
-          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image1.png')} size={15} /> 
-          <Text style={styles.text1}>Men</Text>
-        </TouchableOpacity>
+          {isTouched && isPressed==false ? (
+          <View style={styles.container1}>
+            <ActiveStyle />
+            <TouchableOpacity style={styles.t1}>
+              <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image1.png')} size={15} /> 
+              <Text style={styles.text1}>Men</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity style={styles.t2}>
-          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image2.png')} size={15} /> 
-          <Text style={styles.text2}>Women</Text>
-        </TouchableOpacity>
+            <TouchableOpacity style={styles.t2}>
+              <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image2.png')} size={15} /> 
+              <Text style={styles.text2}>Women</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity style={styles.t3}>
-          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image3.png')} size={15} /> 
-          <Text style={styles.text3}>Kids</Text>
-        </TouchableOpacity>
+            <TouchableOpacity style={styles.t3}>
+              <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image3.png')} size={15} /> 
+              <Text style={styles.text3}>Kids</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity style={styles.t4}>
-          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image4.png')} size={15} /> 
-          <Text style={styles.text4}>Apparels</Text>
-        </TouchableOpacity>
+            <TouchableOpacity style={styles.t4}>
+              <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image4.png')} size={15} /> 
+              <Text style={styles.text4}>Apparels</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity style={styles.t5}>
-          <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image5.png')} size={15} /> 
-          <Text style={styles.text5}>Beauty</Text>
-        </TouchableOpacity>
+            <TouchableOpacity style={styles.t5}>
+              <Image style={{height: 50, width: 50}} source={require('../../assets/images/Image5.png')} size={15} /> 
+              <Text style={styles.text5}>Beauty</Text>
+            </TouchableOpacity>
 
-        <View>
-          <Trending />
+            <View>
+              <Trending />
+            </View>
+
+          </View>
+
+
+
+          ) : (<></>) }
+
+          {isPressed && isTouched==false ? (
+          <View style={styles.container2}>
+            <ActiveStyle1 />
+            <TouchableOpacity style={styles.t6}>
+              <Image style={{height: 75, width: 75}} source={require('../../assets/images/L1.png')} size={15} /> 
+              <Text style={styles.text6}>Adidas</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.t7}>
+              <Image style={{height: 75, width: 75}} source={require('../../assets/images/L2.png')} size={15} /> 
+              <Text style={styles.text7}>Armani</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.t8}>
+              <Image style={{height: 75, width: 75}} source={require('../../assets/images/L3.png')} size={15} /> 
+              <Text style={styles.text8}>Beats</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.t9}>
+              <Image style={{height: 75, width: 75}} source={require('../../assets/images/L4.png')} size={15} /> 
+              <Text style={styles.text9}>Bose</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.t10}>
+              <Image style={{height: 75, width: 75}} source={require('../../assets/images/L5.png')} size={15} /> 
+              <Text style={styles.text10}>Hugo Boss</Text>
+            </TouchableOpacity>
+
+            <View>
+              <Brands />
+            </View>
+
+          </View>
+          ) : (<></>) }
+
         </View>
-
-      </View>
-
-
-
-      ) : (<></>) }
-
-      {isPressed && isTouched==false ? (
-      <View style={styles.container2}>
-        <ActiveStyle1 />
-        <TouchableOpacity style={styles.t6}>
-          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L1.png')} size={15} /> 
-          <Text style={styles.text6}>Adidas</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.t7}>
-          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L2.png')} size={15} /> 
-          <Text style={styles.text7}>Armani</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.t8}>
-          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L3.png')} size={15} /> 
-          <Text style={styles.text8}>Beats</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.t9}>
-          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L4.png')} size={15} /> 
-          <Text style={styles.text9}>Bose</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.t10}>
-          <Image style={{height: 75, width: 75}} source={require('../../assets/images/L5.png')} size={15} /> 
-          <Text style={styles.text10}>Hugo Boss</Text>
-        </TouchableOpacity>
-
-        <View>
-          <Brands />
-        </View>
-
-        {/* <Home /> */}
-
-        {/* <View style={styles.video}>
-          <VideoPlayer
-            video={{uri : videoUri }}
-            thumbnail={{ uri: 'https://th.bing.com/th/id/OPA.0wlIXou2gXpavQ474C474?w=160&h=220&rs=1&o=5&dpr=1.25&pid=21.1' }}
-            autoplay
-            videoWidth={1100}
-            videoHeight={Dimensions.get('window').height * 1.4}
-            loop={true}
-            resizeMode='cover'
-            pauseOnPress={true}
-            paused={false}
-            disableControlsAutoHide={false}
-          />
-      </View> */}
-
-      </View>
-      ) : (<></>) }
-      
-      {/* {isClicked ? 
-        <Trending />
-      : <></> } */}
-
-    </View>
+      </ScrollView> 
+    </SafeAreaView>
   );
 };
 
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  containers: {
     backgroundColor: '#20232A',
     height: 1000
     // zIndex: 1

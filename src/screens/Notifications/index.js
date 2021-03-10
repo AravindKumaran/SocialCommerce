@@ -274,3 +274,114 @@ const styles = StyleSheet.create({
 // });
 
 // export default Notification;
+
+// import React, {Component, useState} from 'react';
+// import {
+//   View,
+//   Image,
+//   StyleSheet,
+//   TouchableWithoutFeedback,
+//   FlatList,
+//   ScrollView,
+//   SafeAreaView,
+//   Text,
+// } from 'react-native';
+// import {Col, Row, Grid} from 'react-native-easy-grid';
+// import VideoPlayer from 'react-native-video-player';
+// import Video from 'react-native-video';
+
+// // const Trending = () => {
+// //   const [paused, setPaused] = useState(false);
+// //   const onPlayPausePress = () => {
+// //     setPaused(!paused);
+// //   };
+
+// //   return (
+// //       <View style={{
+// //         flex: 1,
+// //         top: 150,
+// //         backgroundColor: '#20232A'
+// //       }}>
+// //           <View style={{left: 5, top: 5}}>
+// //             {/* <View style={{
+// //               flex: 1,
+// //               width: 166,
+// //               height: 257,
+// //               position: 'absolute',
+// //               }} >
+// //               <Video
+// //                 muted={true}
+// //                 source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}}
+// //                 resizeMode='cover'
+// //                 style={StyleSheet.absoluteFill}
+// //               />
+// //             </View> */}
+// //         </View>
+// //       </View>
+// //   );
+// // };
+
+// // export default Trending;
+
+// // const styles = StyleSheet.create({
+// //   container: {
+// //     flex: 1
+// //   }
+// // });
+
+// import MasonryList from 'react-native-masonry-list';
+
+// const Notifications = () => {
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.container1}>
+//         <View style={styles.a1}></View>
+//         <View style={styles.a2}></View>
+//         <View style={styles.a3}></View>
+//       </View>
+//       <View style={styles.container2}>
+//           <View style={styles.b1}>
+
+//           </View>
+
+//       </View>
+//     </View>
+//   );
+// };
+// export default Notifications;
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 5,
+//     // flexDirection: 'row',
+//     // flexWrap: 'wrap'
+//   },
+//   container1: {
+//     flex: 1,
+//     flexDirection: 'column',
+//     // flexWrap: 'wrap'
+//   },
+//   a1: {
+//     height: '40%',
+//     width: '40%',
+//     backgroundColor: 'red',
+//   },
+//   a2: {
+//     height: '35%',
+//     width: '40%',
+//     backgroundColor: 'yellow',
+//   },
+//   a3: {
+//     height: '25%',
+//     width: '40%',
+//     backgroundColor: 'pink',
+//   },
+//   container2: {
+//     flexDirection: 'column',
+//     // flexWrap: 'wrap'
+//   },
+//   b1: {
+
+//   }
+// });
