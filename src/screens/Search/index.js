@@ -27,8 +27,8 @@ const ActiveStyle = () => (
     <Image
       style={{
         position: 'absolute',
-        bottom: 10,
-        left: 100,
+        top: -55,
+        right: 212,
         transform: [
           {
             rotate: '-180deg',
@@ -45,7 +45,7 @@ const ActiveStyle = () => (
         height: 4,
         borderRadius: 14,
         position: 'absolute',
-        bottom: 55,
+        bottom: 850,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
         left: 125,
@@ -294,8 +294,7 @@ const styles = StyleSheet.create({
   },
   containers: {
     backgroundColor: '#20232A',
-    height: 1000,
-    // zIndex: 1
+    height: 3000,
   },
   cat: {
     top: -80,
