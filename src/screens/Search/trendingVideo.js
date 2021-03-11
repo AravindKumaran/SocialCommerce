@@ -14,28 +14,30 @@ const TrendingVideo = ({videoUri, idx}) => {
 
   return (
     <View>
-      <Text>Helo</Text>
-      <DoubleClick singleTap={handleClick}>
-        <Video
-          //   ref={(ref) => (vidRef.current = ref)}
-          source={{uri: convertToProxyURL(videoUri)}}
-          style={[styles.video, idx % 2 !== 0 && {height: 200}]}
-          resizeMode={'cover'}
-          //   repeat={props.currentIndex === 0}
-          paused={paused}
-          //   muted={muted}
-          // controls={true}
-        />
-      </DoubleClick>
+        <DoubleClick singleTap={handleClick}>
+          <Video
+            //   ref={(ref) => (vidRef.current = ref)}
+            source={{uri: convertToProxyURL(videoUri)}}
+            style={styles.video}
+            resizeMode={'cover'}
+            //   repeat={props.currentIndex === 0}
+            paused={paused}
+            //   muted={muted}
+            // controls={true}
+          />
+        </DoubleClick>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   video: {
-    width: 150,
-    height: 100,
-    // marginTop: 10,
+    width: 123.5,
+    height: 150,
+    margin: 3,
+    left: 2,
+    marginBottom: 5
+    // marginEnd: -5
     // zIndex: -1
   },
 });

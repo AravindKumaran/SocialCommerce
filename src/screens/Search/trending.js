@@ -30,6 +30,46 @@ const videoUris = [
     id: 5,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
   },
+  {
+    id: 6,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
+  {
+    id: 7,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
+  {
+    id: 8,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
+  {
+    id: 9,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
+  {
+    id: 10,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
+  {
+    id: 11,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
+  {
+    id: 12,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
+  {
+    id: 13,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
+  {
+    id: 14,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
+  {
+    id: 15,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  },
 ];
 
 const Trending = () => {
@@ -43,7 +83,7 @@ const Trending = () => {
   );
 
   return (
-    <View >
+    <View>
       <View
         style={{
           flex: -1,
@@ -94,7 +134,7 @@ const Trending = () => {
             style={{
               // flex: 1,
               width: 166,
-              height: 120,
+              height: 218,
               top: 442,
               position: 'absolute',
             }}>
@@ -109,7 +149,6 @@ const Trending = () => {
               style={StyleSheet.absoluteFill}
             />
           </View>
-
         </View>
 
         <View style={{right: -5, top: 5}}>
@@ -182,7 +221,6 @@ const Trending = () => {
               left: 280,
               top: 115,
               position: 'absolute',
-
             }}>
             <Video
               muted={true}
@@ -239,9 +277,10 @@ const Trending = () => {
           </View>
         </View>
 
-        <View style={{top: 700}}>
+        <View style={{top: 670}}>
           <FlatList
             data={videoUris}
+            numColumns={3}
             renderItem={_renderItem}
             keyExtractor={(item) => item.id.toString()}
           />
