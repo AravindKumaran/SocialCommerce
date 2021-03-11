@@ -15,7 +15,7 @@ const TrendingVideo = ({videoUri, idx}) => {
   return (
     <View>
       <Text>Helo</Text>
-      {/* <DoubleClick singleTap={handleClick}>
+      <DoubleClick singleTap={handleClick}>
         <Video
           //   ref={(ref) => (vidRef.current = ref)}
           source={{uri: convertToProxyURL(videoUri)}}
@@ -26,7 +26,7 @@ const TrendingVideo = ({videoUri, idx}) => {
           //   muted={muted}
           // controls={true}
         />
-      </DoubleClick> */}
+      </DoubleClick>
     </View>
   );
 };
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 100,
     // marginTop: 10,
+    // zIndex: -1
   },
 });
 
