@@ -20,19 +20,20 @@ const Camera = () => {
     } else {
       const data = await camera.current.recordAsync();
       console.log('Data', data);
-      ProcessingManager.getVideoInfo(data.uri).then((stats) =>
-        console.log('Before', stats),
-      );
-      const options = {width: 720, height: 1280, bitrateMultiplier: 3};
-      const lat = '';
-      ProcessingManager.compress(data.uri, options) // like VideoPlayer compress options
-        .then((data) => {
-          navigation.navigate('CreatePost', {videoUri: data.source});
-          ProcessingManager.getVideoInfo(data.source).then((stats) =>
-            console.log('After', stats),
-          );
-          console.log(data);
-        });
+      navigation.navigate('CreatePost', {videoUri: data.uri});
+      // ProcessingManager.getVideoInfo(data.uri).then((stats) =>
+      //   console.log('Before', stats),
+      // );
+      // const options = {width: 720, height: 1280, bitrateMultiplier: 3};
+      // const lat = '';
+      // ProcessingManager.compress(data.uri, options) // like VideoPlayer compress options
+      //   .then((data) => {
+      //     navigation.navigate('CreatePost', {videoUri: data.source});
+      //     ProcessingManager.getVideoInfo(data.source).then((stats) =>
+      //       console.log('After', stats),
+      //     );
+      //     console.log(data);
+      //   });
     }
   };
 
