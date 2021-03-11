@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontFamily: 'Proxima Nova',
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 24,
     textAlign: 'center',
   },
 });
