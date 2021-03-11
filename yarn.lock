@@ -8334,10 +8334,10 @@ react-native-masonry-list@^2.16.1:
   dependencies:
     prop-types "^15.6.2"
 
-react-native-media-controls@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/react-native-media-controls/-/react-native-media-controls-2.2.0.tgz#7f97e9bcce31fca3194c204dcb6d2e1f9493d50e"
-  integrity sha512-cXAOg7LElN+9RGpmoD7qGG/EDnVlhNh6vRoom5+dzk9YCapy4pxy0FTHaNOlHbXUYhFjm7sD55Ejye/GbptwUQ==
+react-native-media-controls@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-media-controls/-/react-native-media-controls-2.3.0.tgz#c36e876a14d12982b7c6fb759201ff439117cbd0"
+  integrity sha512-N10i12ZO+GIXjmdA9hQk/HuBm5u9xWPIOydG/2SvLEZcnY3xg3D8d2IJXRolzSm2jBRgEGSO4rMgRBU6MpdNMg==
 
 react-native-orientation@^3.1.0:
   version "3.1.3"

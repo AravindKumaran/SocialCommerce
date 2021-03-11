@@ -18,6 +18,7 @@ import Comments from './comments';
 import PostLike from './postLike';
 import {updatePost} from '../../graphql/mutations';
 import styles from './styles';
+import Feather from 'react-native-vector-icons/Feather';
 
 // import DoubleClick from 'react-native-single-double-click';
 
@@ -45,20 +46,26 @@ const Post = (props) => {
 
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(false);
+  const [showMutedIcon, setShowMutedIcon] = useState(false);
+  const [showPauseIcon, setShowPauseIcon] = useState(false);
 
   const [paused, setPaused] = useState(false);
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
   const [videoUri, setVideoUri] = useState('');
 
   const vidRef = useRef();
   const refRBSheet = useRef();
+  const showRef = useRef();
+  const showPauseRef = useRef();
 
   useEffect(() => {
     if (props.currentIndex === props.currentVisibleIndex) {
-      vidRef.current.resume();
+      // vidRef.current.resume();
+      setPaused(false);
     } else {
-      vidRef.current.pause();
-    } 
+      // vidRef.current.pause();
+      setPaused(true);
+    }
   }, [props.currentVisibleIndex]);
 
   // const onload = {() => {props.currentIndex === props.currentVisibleIndex}}
@@ -118,32 +125,34 @@ const Post = (props) => {
     }
   };
 
-  // const getVideoUri = async () => {
-  //   if (post.videoUri.startsWith('http')) {
-  //     setVideoUri(post.videoUri);
-  //     return;
-  //   }
-  //   setVideoUri(await Storage.get(post.videoUri));
-  // };
-
-  // useEffect(() => {
-  //   getVideoUri();
-  // },[]);
-
   const handleClick = () => {
+    showPauseRef.current = null;
+    if (showRef.current) {
+      clearTimeout(showRef.current);
+    }
     setMuted(!muted);
+    setShowMutedIcon(true);
+    showRef.current = setTimeout(() => {
+      setShowMutedIcon(false);
+    }, 1000);
   };
 
   const handleDoubleClick = () => {
+    showRef.current = null;
+    if (showPauseRef.current) {
+      clearTimeout(showPauseRef.current);
+    }
     setPaused(!paused);
+    setShowPauseIcon(true);
+    showPauseRef.current = setTimeout(() => {
+      setShowPauseIcon(false);
+    }, 1000);
   };
 
-  // function handleClick() {
-  //   setPaused(!paused);
-  // };
-
-  // function handleDoubleClick() {
-  //   setMuted(!muted);
+  // const handleOnVideoEnd = (e) => {
+  //   if (props.currentIndex === 0) {
+  //     console.log('Ennd', vidRef.current.seek(100));
+  //   }
   // };
 
   return (
@@ -151,32 +160,80 @@ const Post = (props) => {
       <DoubleClick singleTap={handleClick} doubleTap={handleDoubleClick}>
         <View>
           <View style={styles.video}>
-              <VideoPlayer
-                ref={vidRef}
-                video={{uri: convertToProxyURL(props.post.videoUri)}}
-                autoplay={true}
-                videoWidth={1100}
-                videoHeight={Dimensions.get('window').height * 2.3}
-                loop={true}
-                resizeMode="cover"
-                // paused={paused}
-                // muted={muted}
-                // pauseOnPress={true}
-              />
-              
-              {/* <Video
-                // ref={ref => (vidRef = ref)}
-                ref={vidRef}
-                source={{uri: convertToProxyURL(props.post.videoUri)}}
-                style={styles.video}
-                resizeMode={'cover'}
-                repeat={true}
-                paused={paused}
-                muted={muted}
-                // controls={true}
-              /> */}
+            {/* <VideoPlayer
+              ref={vidRef}
+              video={{uri: convertToProxyURL(props.post.videoUri)}}
+              autoplay={true}
+              videoWidth={1100}
+              videoHeight={Dimensions.get('window').height * 2.3}
+              // loop={true}
+              resizeMode="cover"
+              // paused={paused}
+              // loop={props.currentIndex === 0}
+              // onEnd={handleOnVideoEnd}
+              // onEnd={(e) =>}
+              // paused={paused}
+              // muted={muted}
+              // pauseOnPress={true}
+              // fullScreenOnLongPress={true}
+            /> */}
+
+            <Video
+              ref={(ref) => (vidRef.current = ref)}
+              // ref={vidRef}
+              source={{uri: convertToProxyURL(props.post.videoUri)}}
+              style={styles.video}
+              resizeMode={'cover'}
+              repeat={props.currentIndex === 0}
+              paused={paused}
+              muted={muted}
+              // controls={true}
+            />
+          </View>
+
+          {showMutedIcon && (
+            <View
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '40%',
+                height: 80,
+                width: 80,
+                backgroundColor: `rgba(0, 0, 0, 0.3)`,
+                borderRadius: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 15,
+              }}>
+              {muted ? (
+                <Feather name="volume-x" size={50} color="#fff" />
+              ) : (
+                <Feather name="volume" size={75} color="#fff" />
+              )}
             </View>
-            
+          )}
+          {showPauseIcon && (
+            <View
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '40%',
+                height: 80,
+                width: 80,
+                backgroundColor: `rgba(0, 0, 0, 0.3)`,
+                borderRadius: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 15,
+              }}>
+              {paused ? (
+                <Feather name="play" size={60} color="#fff" />
+              ) : (
+                <Feather name="pause" size={50} color="#fff" />
+              )}
+            </View>
+          )}
+
           <View style={styles.uiContainer}>
             <View style={styles.rightContainer}>
               <TouchableOpacity
