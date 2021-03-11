@@ -20,7 +20,12 @@ import AppText from '../Common/AppText';
 import AppTextInput from '../Common/AppTextInput';
 import AppButton from '../Common/AppButton';
 import CommentLikes from './commentLikes';
-import {updateComment, createComment} from '../../graphql/mutations';
+import {
+  updateComment,
+  createComment,
+  createNotification,
+  createUserNotification,
+} from '../../graphql/mutations';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const user = {
@@ -95,6 +100,25 @@ const Comments = ({postId}) => {
           }),
         );
         // console.log('ress', res.data);
+        const res33 = await API.graphql(
+          graphqlOperation(createNotification, {
+            input: {
+              message: `${user.username} likes your comment`,
+            },
+          }),
+        );
+        console.log('ress33', res33.data.createNotification.id);
+        const res2 = await API.graphql(
+          graphqlOperation(createUserNotification, {
+            input: {
+              userID: user.id,
+              notificationID: res33.data.createNotification.id,
+              read: false,
+            },
+          }),
+        );
+
+        console.log('ress', res2.data);
 
         setLoading(false);
       } catch (err) {
@@ -122,8 +146,27 @@ const Comments = ({postId}) => {
             input: cmtt,
           }),
         );
-        console.log('ress', res.data.createComment);
+        // console.log('ress', res.data.createComment);
         setComments([res.data.createComment, ...comments]);
+        const res33 = await API.graphql(
+          graphqlOperation(createNotification, {
+            input: {
+              message: `${user.username} commented on your post`,
+            },
+          }),
+        );
+        console.log('ress33', res33.data.createNotification.id);
+        const res2 = await API.graphql(
+          graphqlOperation(createUserNotification, {
+            input: {
+              userID: user.id,
+              notificationID: res33.data.createNotification.id,
+              read: false,
+            },
+          }),
+        );
+
+        console.log('ress', res2.data);
         setCmtText('');
         setLoading(false);
       } catch (err) {

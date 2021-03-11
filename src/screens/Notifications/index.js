@@ -1,5 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  FlatList,
+} from 'react-native';
 import {API, graphqlOperation, Storage} from 'aws-amplify';
 import {listUserNotifications} from '../../graphql/queries';
 import AppText from '../../components/Common/AppText';
@@ -72,31 +79,75 @@ const Notifications = () => {
   const isFocused = useIsFocused();
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const getAllNotifications = async () => {
+    try {
+      setLoading(true);
+      const res = await API.graphql(
+        graphqlOperation(
+          listUserNotifications,
+          //   , {
+          //   filter: {
+          //     userID: {eq: user1.id},
+          //   },
+          // }
+        ),
+      );
+      // console.log('ress', res.data.listUserNotifications.items[0]);
+      const allItems = res.data.listUserNotifications.items;
+      const sortedItems = allItems.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      );
+      setNotifications(sortedItems);
+      setLoading(false);
+      setRefreshing(false);
+    } catch (err) {
+      setLoading(false);
+      setRefreshing(false);
+      console.log('Error', err);
+    }
+  };
 
   useEffect(() => {
-    const getAllNotifications = async () => {
-      try {
-        setLoading(true);
-        const res = await API.graphql(
-          graphqlOperation(
-            listUserNotifications,
-            //   , {
-            //   filter: {
-            //     userID: {eq: user1.id},
-            //   },
-            // }
-          ),
-        );
-        console.log('ress', res.data.listUserNotifications.items.length);
-        setNotifications(res.data.listUserNotifications.items);
-        setLoading(false);
-      } catch (err) {
-        setLoading(false);
-        console.log('Error', err);
-      }
-    };
     getAllNotifications();
   }, [isFocused === true]);
+
+  const _renderItem = ({item, index}) => (
+    <View
+      style={[
+        styles.ntfCard,
+        index === notifications.length - 1 ? {marginBottom: 100} : null,
+      ]}>
+      <View style={{width: 40, marginHorizontal: 10}}>
+        <Image
+          source={{uri: item.user.imageUri}}
+          style={{
+            height: 35,
+            width: 35,
+            borderRadius: 20,
+            marginTop: 7,
+          }}
+        />
+      </View>
+      <View style={{flex: 1}}>
+        <AppText style={{color: '#fff'}}>{item.notification.message}</AppText>
+        <AppText
+          style={{
+            color: '#999999',
+            fontSize: 14,
+            fontWeight: '400',
+          }}>
+          <TimeAgo time={item.createdAt} />
+        </AppText>
+      </View>
+    </View>
+  );
+
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true);
+    getAllNotifications();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -108,39 +159,13 @@ const Notifications = () => {
           style={{width: '100%', paddingTop: 5}}
         />
       </View>
-      <ScrollView>
-        {loading && <Text>Loading...</Text>}
-        {notifications.map((ntf, i) => {
-          return (
-            <View key={ntf.id} style={styles.ntfCard}>
-              <View style={{width: 40, marginHorizontal: 10}}>
-                <Image
-                  source={{uri: ntf.user.imageUri}}
-                  style={{
-                    height: 35,
-                    width: 35,
-                    borderRadius: 20,
-                    marginTop: 7,
-                  }}
-                />
-              </View>
-              <View style={{flex: 1}}>
-                <AppText style={{color: '#fff'}}>
-                  {ntf.notification.message}
-                </AppText>
-                <AppText
-                  style={{
-                    color: '#999999',
-                    fontSize: 14,
-                    fontWeight: '400',
-                  }}>
-                  <TimeAgo time={ntf.createdAt} />
-                </AppText>
-              </View>
-            </View>
-          );
-        })}
-      </ScrollView>
+      {loading && <Text>Loading...</Text>}
+      <FlatList
+        data={notifications}
+        renderItem={_renderItem}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+      />
     </View>
   );
 };
