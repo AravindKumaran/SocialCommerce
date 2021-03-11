@@ -4,6 +4,8 @@ import {API, graphqlOperation, Storage} from 'aws-amplify';
 import {listUserNotifications} from '../../graphql/queries';
 import AppText from '../../components/Common/AppText';
 import TimeAgo from 'react-native-timeago';
+import {useIsFocused} from '@react-navigation/native';
+import LoadingIndicator from '../../components/Common/LoadingIndicator';
 
 const user = [
   {
@@ -67,26 +69,34 @@ const user1 = {
 };
 
 const Notifications = () => {
+  const isFocused = useIsFocused();
   const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getAllNotifications = async () => {
       try {
+        setLoading(true);
         const res = await API.graphql(
-          graphqlOperation(listUserNotifications, {
-            filter: {
-              userID: {eq: user1.id},
-            },
-          }),
+          graphqlOperation(
+            listUserNotifications,
+            //   , {
+            //   filter: {
+            //     userID: {eq: user1.id},
+            //   },
+            // }
+          ),
         );
-        // console.log('ress', res.data.listUserNotifications.items);
+        console.log('ress', res.data.listUserNotifications.items.length);
         setNotifications(res.data.listUserNotifications.items);
+        setLoading(false);
       } catch (err) {
+        setLoading(false);
         console.log('Error', err);
       }
     };
     getAllNotifications();
-  }, []);
+  }, [isFocused === true]);
 
   return (
     <View style={styles.container}>
@@ -99,6 +109,7 @@ const Notifications = () => {
         />
       </View>
       <ScrollView>
+        {loading && <Text>Loading...</Text>}
         {notifications.map((ntf, i) => {
           return (
             <View key={ntf.id} style={styles.ntfCard}>

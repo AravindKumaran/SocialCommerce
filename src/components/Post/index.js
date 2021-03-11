@@ -16,7 +16,11 @@ import Video from 'react-native-video';
 import DoubleClick from 'react-native-double-tap';
 import Comments from './comments';
 import PostLike from './postLike';
-import {updatePost} from '../../graphql/mutations';
+import {
+  updatePost,
+  createNotification,
+  createUserNotification,
+} from '../../graphql/mutations';
 import styles from './styles';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -352,7 +356,7 @@ const Post = (props) => {
 
               <RBSheet
                 ref={refRBSheet}
-                height={Dimensions.get('window').height - 120}
+                height={Dimensions.get('window').height - 300}
                 animationType="fade"
                 closeOnDragDown={true}
                 customStyles={{
