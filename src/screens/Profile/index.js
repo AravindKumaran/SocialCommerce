@@ -45,7 +45,7 @@ const ProfileScreen = () => {
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{top: 0, height: 400}}>
           <View style={{top: 80}}>
-            <View style={{left: 2, alignItems: 'center'}}>
+            <View>
               <LinearGradient
                 start={{x: 0, y: 0}}
                 end={{x: 0, y: 0}}
@@ -212,7 +212,7 @@ const ProfileScreen = () => {
               </View>
 
               <View>
-                <TouchableOpacity style={{top: 95, left: 20}}>
+                <TouchableOpacity style={{top: '190%', left: 20}}>
                   <Feather
                     style={{top: 25, right: 35}}
                     name={'activity'}
@@ -232,7 +232,7 @@ const ProfileScreen = () => {
             </View>
           </View>
 
-          <View style={{zIndex: -1, position: 'absolute', bottom: 440}}>
+          <View style={{zIndex: -1, position: 'absolute', bottom: 440, width: '100%'}}>
             <Image
               style={styles.user}
               source={require('../../assets/images/User.png')}
@@ -272,21 +272,20 @@ const styles = StyleSheet.create({
   },
   Rectangle: {
     top: 100,
-    width: 380,
+    width: '100%',
     height: 200,
     borderRadius: 10,
-    left: 5,
     opacity: 0.8,
     position: 'absolute',
-    alignItems: 'center'
+    alignSelf: 'center',
   },
   user: {
     height: 300,
-    width: 400,
+    width: '100%',
     borderRadius: 50,
     zIndex: 1,
     position: 'absolute',
-    alignItems: 'center'
+    alignSelf: 'center'
   },
   mediaImageContainer: {
     width: 180,
