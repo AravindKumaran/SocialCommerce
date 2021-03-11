@@ -352,21 +352,31 @@ const Post = (props) => {
 
               <RBSheet
                 ref={refRBSheet}
-                height={Dimensions.get('window').height - 180}
+                height={Dimensions.get('window').height - 120}
                 animationType="fade"
+                closeOnDragDown={true}
                 customStyles={{
                   wrapper: {
                     backgroundColor: 'rgba(0,0,0,.6)',
                   },
                   draggableIcon: {
-                    backgroundColor: '#000',
+                    backgroundColor: '#C4C4C4',
                   },
                   container: {
-                    backgroundColor: '#fff',
+                    backgroundColor: '#EFFAFF',
                     borderTopRightRadius: 25,
                     borderTopLeftRadius: 25,
                   },
                 }}>
+                <Image
+                  source={require('../../assets/images/Comment.png')}
+                  style={{
+                    left: 300,
+                    bottom: 610,
+                    zIndex: 1,
+                    position: 'absolute',
+                  }}
+                />
                 <Comments postId={props.post.id} />
               </RBSheet>
 

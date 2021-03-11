@@ -1,7 +1,7 @@
 package com.tiktok;
 
 import com.proyecto26.inappbrowser.RNInAppBrowserPackage;
-// import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
+import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -15,6 +15,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
+// import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -30,7 +31,8 @@ public class MainApplication extends Application implements ReactApplication {
           @SuppressWarnings("UnnecessaryLocalVariable")
           List<ReactPackage> packages = new PackageList(this).getPackages();
           new RNInAppBrowserPackage();
-          // new CustomTabsPackage();
+          // new WebViewBridgePackage();
+          new CustomTabsPackage();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           return packages;
         }

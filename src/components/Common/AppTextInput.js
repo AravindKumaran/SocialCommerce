@@ -27,17 +27,20 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginRight: 5,
     overflow: 'hidden',
-    height: 70
+    height: 45,
+    color: '#EFFAFF',
+    top: 15
   },
   icon: {
     marginRight: 10,
   },
   textInput: {
-    fontSize: 16,
+    fontSize: 12,
     color: '#959595',
     flex: 1,
     textAlignVertical: 'top',
     width: '100%',
+    height: 40,
     fontFamily: 'Proxima Nova'
   },
 });
