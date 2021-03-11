@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
   },
   containers: {
     backgroundColor: '#20232A',
-    height: 3000,
+    height: 1800,
   },
   cat: {
     top: -80,
