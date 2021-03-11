@@ -160,11 +160,11 @@ const Notifications = () => {
   return (
     <View style={styles.container}>
       <View style={{marginBottom: 20, padding: 15}}>
-        <Text style={styles.text1}>Notifications</Text>
+        <Text style={styles.text}>Notifications</Text>
         <Image
-          source={require('../../assets/images/Thinline.png')}
+          source={require('../../assets/images/Line5.png')}
           size={25}
-          style={{width: '100%', paddingTop: 5}}
+          style={{width: '100%', paddingTop: 5, top: 10, }}
         />
       </View>
       {loading && <Text>Loading...</Text>}
@@ -174,7 +174,7 @@ const Notifications = () => {
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }>
         {todayNotif.length > 0 && (
-          <View style={{marginTop: 10, marginBottom: 40}}>
+          <View style={{marginTop: 10, marginBottom: 10}}>
             <Text style={styles.text1}>Today</Text>
             {todayNotif.map((item, index) => (
               <NotifItem item={item} />
@@ -182,7 +182,7 @@ const Notifications = () => {
           </View>
         )}
         {yesterdayNotif.length > 0 && (
-          <View style={{marginTop: 10, marginBottom: 40}}>
+          <View style={{marginTop: 10, marginBottom: 10}}>
             <Text style={styles.text1}>Yesterday</Text>
             {yesterdayNotif.map((item, index) => (
               <NotifItem item={item} />
@@ -190,7 +190,7 @@ const Notifications = () => {
           </View>
         )}
         {olderNotif.length > 0 && (
-          <View style={{marginTop: 10, marginBottom: 40}}>
+          <View style={{marginTop: 10, marginBottom: 10}}>
             <Text style={styles.text1}>Older</Text>
             {olderNotif.map((item, index) => (
               <NotifItem item={item} />
@@ -228,11 +228,18 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 20,
   },
-  text1: {
+  text: {
     color: '#FFFFFF',
     fontFamily: 'Proxima Nova',
     fontWeight: '700',
     fontSize: 24,
+    textAlign: 'left',
+  },
+  text1: {
+    color: '#51565D',
+    fontFamily: 'Proxima Nova',
+    fontWeight: '400',
+    fontSize: 12,
     textAlign: 'center',
   },
 });

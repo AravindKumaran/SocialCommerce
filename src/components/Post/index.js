@@ -372,15 +372,15 @@ const Post = (props) => {
                     borderTopLeftRadius: 25,
                   },
                 }}>
-                <Image
+                {/* <Image
                   source={require('../../assets/images/Comment.png')}
                   style={{
-                    left: 300,
-                    bottom: 610,
+                    left: 335,
+                    bottom: 410,
                     zIndex: 1,
                     position: 'absolute',
                   }}
-                />
+                /> */}
                 <Comments postId={props.post.id} />
               </RBSheet>
 

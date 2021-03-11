@@ -23,22 +23,34 @@ const NotifItem = ({item}) => {
           }}
         />
       </View>
-      <View style={{flex: 1}}>
-        <AppText style={{color: '#fff', fontSize: 18}}>
+      
+      <View style={{flex: 1, top: 5}}>
+        <AppText style={{color: '#fff', fontSize: 12, fontWeight: '700'}}>
           {item.user.username}
-          <AppText style={{fontSize: 12, color: '#fff'}}>
+          <AppText style={{fontSize: 12, color: '#fff', fontWeight: '400'}}>
             {item.notification.message}
           </AppText>
         </AppText>
 
         <AppText
           style={{
-            color: '#999999',
-            fontSize: 14,
+            color: '#5C5C5C',
+            fontSize: 12,
             fontWeight: '400',
+            bottom: 10
           }}>
           <TimeAgo time={item.createdAt} />
         </AppText>
+      </View>
+      <View style={{width: 40, marginHorizontal: 10}}>
+        <Image
+          source={require('../../assets/images/i6.png')}
+          style={{
+            height: 35,
+            width: 35,
+            marginTop: 7,
+          }}
+        />
       </View>
     </View>
   );
@@ -48,9 +60,9 @@ const styles = StyleSheet.create({
   ntfCard: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    marginVertical: 10,
+    marginVertical: 0,
     marginHorizontal: 10,
-    padding: 10,
+    padding: 5,
     // paddingBottom: 12,
   },
 });
