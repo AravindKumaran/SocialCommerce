@@ -1,11 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  FlatList,
+  RefreshControl,
+} from 'react-native';
 import {API, graphqlOperation, Storage} from 'aws-amplify';
 import {listUserNotifications} from '../../graphql/queries';
 import AppText from '../../components/Common/AppText';
-import TimeAgo from 'react-native-timeago';
 import {useIsFocused} from '@react-navigation/native';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import NotifItem from './NotifItem';
 
 const user = [
   {
@@ -68,35 +76,86 @@ const user1 = {
   username: 'Asfiya begum',
 };
 
+const checkYesterday = () => {
+  const today = new Date();
+  const yesterday = new Date(today);
+
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  return yesterday.getDate();
+};
+
 const Notifications = () => {
   const isFocused = useIsFocused();
-  const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  // const [notifications, setNotifications] = useState([]);
+
+  const [olderNotif, setOlderNotif] = useState([]);
+  const [todayNotif, setTodayNotif] = useState([]);
+  const [yesterdayNotif, setYesterdayNotif] = useState([]);
+
+  const getAllNotifications = async () => {
+    try {
+      setLoading(true);
+      const res = await API.graphql(
+        graphqlOperation(
+          listUserNotifications,
+          //   , {
+          //   filter: {
+          //     userID: {eq: user1.id},
+          //   },
+          // }
+        ),
+      );
+      console.log('ress', res.data.listUserNotifications.items[0]);
+      const allItems = res.data.listUserNotifications.items;
+      const sortedItems = allItems.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      );
+      const tod = [];
+      const yes = [];
+      const old = [];
+      sortedItems.forEach((item) => {
+        const today = new Date().getDate();
+        const cDate = new Date(item.createdAt).getDate();
+        if (cDate === today) {
+          tod.push(item);
+        } else if (cDate === checkYesterday()) {
+          yes.push(item);
+        } else {
+          old.push(item);
+        }
+      });
+      setTodayNotif(tod);
+      setYesterdayNotif(yes);
+      setOlderNotif(old);
+      // setNotifications(sortedItems);
+      setLoading(false);
+      setRefreshing(false);
+    } catch (err) {
+      setLoading(false);
+      setRefreshing(false);
+      console.log('Error', err);
+    }
+  };
 
   useEffect(() => {
-    const getAllNotifications = async () => {
-      try {
-        setLoading(true);
-        const res = await API.graphql(
-          graphqlOperation(
-            listUserNotifications,
-            //   , {
-            //   filter: {
-            //     userID: {eq: user1.id},
-            //   },
-            // }
-          ),
-        );
-        console.log('ress', res.data.listUserNotifications.items.length);
-        setNotifications(res.data.listUserNotifications.items);
-        setLoading(false);
-      } catch (err) {
-        setLoading(false);
-        console.log('Error', err);
-      }
-    };
     getAllNotifications();
+    return () => {
+      setTodayNotif([]);
+      setOlderNotif([]);
+      setYesterdayNotif([]);
+    };
   }, [isFocused === true]);
+
+  const handleRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTodayNotif([]);
+    setOlderNotif([]);
+    setYesterdayNotif([]);
+    getAllNotifications();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -108,39 +167,44 @@ const Notifications = () => {
           style={{width: '100%', paddingTop: 5}}
         />
       </View>
-      <ScrollView>
-        {loading && <Text>Loading...</Text>}
-        {notifications.map((ntf, i) => {
-          return (
-            <View key={ntf.id} style={styles.ntfCard}>
-              <View style={{width: 40, marginHorizontal: 10}}>
-                <Image
-                  source={{uri: ntf.user.imageUri}}
-                  style={{
-                    height: 35,
-                    width: 35,
-                    borderRadius: 20,
-                    marginTop: 7,
-                  }}
-                />
-              </View>
-              <View style={{flex: 1}}>
-                <AppText style={{color: '#fff'}}>
-                  {ntf.notification.message}
-                </AppText>
-                <AppText
-                  style={{
-                    color: '#999999',
-                    fontSize: 14,
-                    fontWeight: '400',
-                  }}>
-                  <TimeAgo time={ntf.createdAt} />
-                </AppText>
-              </View>
-            </View>
-          );
-        })}
+      {loading && <Text>Loading...</Text>}
+
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }>
+        {todayNotif.length > 0 && (
+          <View style={{marginTop: 10, marginBottom: 40}}>
+            <Text style={styles.text1}>Today</Text>
+            {todayNotif.map((item, index) => (
+              <NotifItem item={item} />
+            ))}
+          </View>
+        )}
+        {yesterdayNotif.length > 0 && (
+          <View style={{marginTop: 10, marginBottom: 40}}>
+            <Text style={styles.text1}>Yesterday</Text>
+            {yesterdayNotif.map((item, index) => (
+              <NotifItem item={item} />
+            ))}
+          </View>
+        )}
+        {olderNotif.length > 0 && (
+          <View style={{marginTop: 10, marginBottom: 40}}>
+            <Text style={styles.text1}>Older</Text>
+            {olderNotif.map((item, index) => (
+              <NotifItem item={item} />
+            ))}
+          </View>
+        )}
       </ScrollView>
+
+      {/* <FlatList
+        data={notifications}
+        renderItem={_renderItem}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+      /> */}
     </View>
   );
 };
@@ -170,7 +234,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 24,
     textAlign: 'center',
-    zIndex: 1,
   },
 });
 
