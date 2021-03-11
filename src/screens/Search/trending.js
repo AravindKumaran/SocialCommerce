@@ -100,6 +100,7 @@ const Trending = () => {
             }}>
             <Video
               muted={true}
+              loop={true}
               // paused={true}
               source={{
                 uri: convertToProxyURL(
@@ -120,6 +121,9 @@ const Trending = () => {
             }}>
             <Video
               muted={true}
+              paused={true}
+              poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
+              posterResizeMode="cover"
               source={{
                 uri: convertToProxyURL(
                   'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
@@ -140,6 +144,9 @@ const Trending = () => {
             }}>
             <Video
               muted={true}
+              paused={true}
+              poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
+              posterResizeMode="cover"
               source={{
                 uri: convertToProxyURL(
                   'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
@@ -162,6 +169,9 @@ const Trending = () => {
             }}>
             <Video
               muted={true}
+              paused={true}
+              poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
+              posterResizeMode="cover"
               source={{
                 uri: convertToProxyURL(
                   'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
@@ -182,6 +192,9 @@ const Trending = () => {
             }}>
             <Video
               muted={true}
+              paused={true}
+              poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
+              posterResizeMode="cover"
               source={{
                 uri: convertToProxyURL(
                   'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
@@ -203,6 +216,9 @@ const Trending = () => {
             }}>
             <Video
               muted={true}
+              paused={true}
+              poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
+              posterResizeMode="cover"
               source={{
                 uri: convertToProxyURL(
                   'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
@@ -224,6 +240,9 @@ const Trending = () => {
             }}>
             <Video
               muted={true}
+              paused={true}
+              poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
+              posterResizeMode="cover"
               source={{
                 uri: convertToProxyURL(
                   'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
@@ -245,6 +264,9 @@ const Trending = () => {
             }}>
             <Video
               muted={true}
+              paused={true}
+              poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
+              posterResizeMode="cover"
               source={{
                 uri: convertToProxyURL(
                   'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
@@ -266,6 +288,9 @@ const Trending = () => {
             }}>
             <Video
               muted={true}
+              paused={true}
+              poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
+              posterResizeMode="cover"
               source={{
                 uri: convertToProxyURL(
                   'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
