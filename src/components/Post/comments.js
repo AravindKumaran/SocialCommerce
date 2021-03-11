@@ -1,6 +1,15 @@
 import React, {useState, useEffect, useCallback} from 'react';
 
-import {StyleSheet, View, Text, ScrollView, Image} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  Image,
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
+} from 'react-native';
 
 import {API, graphqlOperation} from 'aws-amplify';
 import {getPost, listComments} from '../../graphql/queries';
@@ -38,7 +47,7 @@ const Comments = ({postId}) => {
             id: postId,
           }),
         );
-        console.log('ress', res.data.getPost.comments.items);
+        // console.log('ress', res.data.getPost.comments.items);
         setComments(res.data.getPost.comments.items);
 
         setLoading(false);
@@ -96,8 +105,9 @@ const Comments = ({postId}) => {
   };
 
   const handleSumbit = async () => {
+    console.log('Cliekd', cmtText);
+    // return;
     if (cmtText.length > 0) {
-      console.log('Cliekd', cmtText);
       const cmtt = {
         postId,
         userID: user.id,
@@ -126,6 +136,7 @@ const Comments = ({postId}) => {
 
   return (
     <View style={styles.container}>
+      {loading && <LoadingIndicator visible={loading} />}
       <AppText
         style={{
           textAlign: 'center',
@@ -137,7 +148,6 @@ const Comments = ({postId}) => {
       </AppText>
 
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        {loading && <LoadingIndicator visible={loading} />}
         <View style={styles.cmList}>
           {comments.length > 0 &&
             comments.map((cm) => (
@@ -146,7 +156,12 @@ const Comments = ({postId}) => {
                   <View style={{width: 40, padding: 5}}>
                     <Image
                       source={{uri: cm.user.imageUri}}
-                      style={{height: 35, width: 35, borderRadius: 20, top: 5}}
+                      style={{
+                        height: 35,
+                        width: 35,
+                        borderRadius: 20,
+                        top: 5,
+                      }}
                     />
                   </View>
 
@@ -197,18 +212,23 @@ const Comments = ({postId}) => {
       </ScrollView>
 
       <View style={styles.commentForm}>
-        <AppTextInput
-          placeholder="Type your comment here..."
-          autoCapitalize="none"
-          autoCorrect={false}
-          numberOfLines={3}
-          value={cmtText}
-          name={cmtText}
-          multiline={true}
-          maxLength={200}
-          onChangeText={(text) => setCmtText(text)}
-        />
-        <AppButton
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : null}
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
+          <AppTextInput
+            placeholder="Type your comment here..."
+            autoCapitalize="none"
+            autoCorrect={false}
+            // numberOfLines={3}
+            value={cmtText}
+            name={cmtText}
+            // multiline={true}
+            maxLength={200}
+            onChangeText={(text) => setCmtText(text)}
+            onSubmitEditing={handleSumbit}
+          />
+        </KeyboardAvoidingView>
+        {/* <AppButton
           btnStyle={{
             width: 150,
             height: 30,
@@ -218,12 +238,12 @@ const Comments = ({postId}) => {
           }}
           onPress={handleSumbit}
           title="Submit"
-        />
-        <Image
+        /> */}
+        {/* <Image
           source={require('../../assets/images/Bline.png')}
           size={25}
-          style={{alignSelf: 'center',}}
-        />
+          style={{alignSelf: 'center'}}
+        /> */}
       </View>
     </View>
   );
@@ -247,7 +267,7 @@ const styles = StyleSheet.create({
   },
   commentForm: {
     flexDirection: 'column',
-    bottom: 10
+    bottom: 10,
   },
 });
 
