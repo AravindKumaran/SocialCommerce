@@ -199,7 +199,7 @@ const Post = (props) => {
             <View
               style={{
                 position: 'absolute',
-                top: '50%',
+                bottom: '60%',
                 left: '40%',
                 height: 80,
                 width: 80,
@@ -220,7 +220,7 @@ const Post = (props) => {
             <View
               style={{
                 position: 'absolute',
-                top: '50%',
+                bottom: '60%',
                 left: '40%',
                 height: 80,
                 width: 80,

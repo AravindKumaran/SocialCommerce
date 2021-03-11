@@ -291,6 +291,7 @@ const Categories = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // height: Dimensions.get('window').height 
   },
   containers: {
     backgroundColor: '#20232A',
