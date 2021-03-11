@@ -53,7 +53,11 @@ const Comments = ({postId}) => {
           }),
         );
         // console.log('ress', res.data.getPost.comments.items);
-        setComments(res.data.getPost.comments.items);
+        const allItems = res.data.getPost.comments.items;
+        const sortedItems = allItems.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
+        setComments(sortedItems);
 
         setLoading(false);
       } catch (err) {
