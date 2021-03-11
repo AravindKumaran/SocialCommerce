@@ -67,7 +67,7 @@ const ProfileScreen = () => {
             <View style={{alignItems: 'center'}}>
               <View style={{top: 110, position: 'absolute'}}>
                 <TouchableOpacity
-                  style={{bottom: 0, right: 130}}
+                  style={{bottom: 0, right: '190%', alignSelf: 'center',}}
                   onPress={() => refRBSheet.current.open()}>
                   <Feather name={'edit'} size={25} />
                 </TouchableOpacity>
@@ -94,7 +94,7 @@ const ProfileScreen = () => {
                 </RBSheet>
 
                 <TouchableOpacity
-                  style={{bottom: 50, left: 200, position: 'absolute'}}
+                  style={{bottom: 50, left: '230%', position: 'absolute', alignSelf: 'center',}}
                   onPress={() => refRBSheet1.current.open()}>
                   <Feather style={styles.chart} name={'bar-chart'} size={25} />
                 </TouchableOpacity>
@@ -211,8 +211,8 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              <View>
-                <TouchableOpacity style={{top: '190%', left: 20}}>
+              <View style={{top: '50%'}}>
+                <TouchableOpacity style={{left: 20,  alignSelf: 'center',}}>
                   <Feather
                     style={{top: 25, right: 35}}
                     name={'activity'}
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
   },
   Rectangle: {
     top: 100,
-    width: '100%',
+    width: '98%',
     height: 200,
     borderRadius: 10,
     opacity: 0.8,
