@@ -103,7 +103,7 @@ const Comments = ({postId}) => {
         const res33 = await API.graphql(
           graphqlOperation(createNotification, {
             input: {
-              message: `${user.username} likes your comment`,
+              message: `liked your comment`,
             },
           }),
         );
@@ -151,7 +151,7 @@ const Comments = ({postId}) => {
         const res33 = await API.graphql(
           graphqlOperation(createNotification, {
             input: {
-              message: `${user.username} commented on your post`,
+              message: `commented on your video`,
             },
           }),
         );

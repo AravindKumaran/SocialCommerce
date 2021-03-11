@@ -6,13 +6,14 @@ import {
   Image,
   ScrollView,
   FlatList,
+  RefreshControl,
 } from 'react-native';
 import {API, graphqlOperation, Storage} from 'aws-amplify';
 import {listUserNotifications} from '../../graphql/queries';
 import AppText from '../../components/Common/AppText';
-import TimeAgo from 'react-native-timeago';
 import {useIsFocused} from '@react-navigation/native';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import NotifItem from './NotifItem';
 
 const user = [
   {
@@ -75,11 +76,24 @@ const user1 = {
   username: 'Asfiya begum',
 };
 
+const checkYesterday = () => {
+  const today = new Date();
+  const yesterday = new Date(today);
+
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  return yesterday.getDate();
+};
+
 const Notifications = () => {
   const isFocused = useIsFocused();
-  const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  // const [notifications, setNotifications] = useState([]);
+
+  const [olderNotif, setOlderNotif] = useState([]);
+  const [todayNotif, setTodayNotif] = useState([]);
+  const [yesterdayNotif, setYesterdayNotif] = useState([]);
 
   const getAllNotifications = async () => {
     try {
@@ -94,12 +108,29 @@ const Notifications = () => {
           // }
         ),
       );
-      // console.log('ress', res.data.listUserNotifications.items[0]);
+      console.log('ress', res.data.listUserNotifications.items[0]);
       const allItems = res.data.listUserNotifications.items;
       const sortedItems = allItems.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
       );
-      setNotifications(sortedItems);
+      const tod = [];
+      const yes = [];
+      const old = [];
+      sortedItems.forEach((item) => {
+        const today = new Date().getDate();
+        const cDate = new Date(item.createdAt).getDate();
+        if (cDate === today) {
+          tod.push(item);
+        } else if (cDate === checkYesterday()) {
+          yes.push(item);
+        } else {
+          old.push(item);
+        }
+      });
+      setTodayNotif(tod);
+      setYesterdayNotif(yes);
+      setOlderNotif(old);
+      // setNotifications(sortedItems);
       setLoading(false);
       setRefreshing(false);
     } catch (err) {
@@ -111,41 +142,18 @@ const Notifications = () => {
 
   useEffect(() => {
     getAllNotifications();
+    return () => {
+      setTodayNotif([]);
+      setOlderNotif([]);
+      setYesterdayNotif([]);
+    };
   }, [isFocused === true]);
-
-  const _renderItem = ({item, index}) => (
-    <View
-      style={[
-        styles.ntfCard,
-        index === notifications.length - 1 ? {marginBottom: 100} : null,
-      ]}>
-      <View style={{width: 40, marginHorizontal: 10}}>
-        <Image
-          source={{uri: item.user.imageUri}}
-          style={{
-            height: 35,
-            width: 35,
-            borderRadius: 20,
-            marginTop: 7,
-          }}
-        />
-      </View>
-      <View style={{flex: 1}}>
-        <AppText style={{color: '#fff'}}>{item.notification.message}</AppText>
-        <AppText
-          style={{
-            color: '#999999',
-            fontSize: 14,
-            fontWeight: '400',
-          }}>
-          <TimeAgo time={item.createdAt} />
-        </AppText>
-      </View>
-    </View>
-  );
 
   const handleRefresh = useCallback(() => {
     setRefreshing(true);
+    setTodayNotif([]);
+    setOlderNotif([]);
+    setYesterdayNotif([]);
     getAllNotifications();
   }, []);
 
@@ -160,12 +168,43 @@ const Notifications = () => {
         />
       </View>
       {loading && <Text>Loading...</Text>}
-      <FlatList
+
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }>
+        {todayNotif.length > 0 && (
+          <View style={{marginTop: 10, marginBottom: 40}}>
+            <Text style={styles.text1}>Today</Text>
+            {todayNotif.map((item, index) => (
+              <NotifItem item={item} />
+            ))}
+          </View>
+        )}
+        {yesterdayNotif.length > 0 && (
+          <View style={{marginTop: 10, marginBottom: 40}}>
+            <Text style={styles.text1}>Yesterday</Text>
+            {yesterdayNotif.map((item, index) => (
+              <NotifItem item={item} />
+            ))}
+          </View>
+        )}
+        {olderNotif.length > 0 && (
+          <View style={{marginTop: 10, marginBottom: 40}}>
+            <Text style={styles.text1}>Older</Text>
+            {olderNotif.map((item, index) => (
+              <NotifItem item={item} />
+            ))}
+          </View>
+        )}
+      </ScrollView>
+
+      {/* <FlatList
         data={notifications}
         renderItem={_renderItem}
         refreshing={refreshing}
         onRefresh={handleRefresh}
-      />
+      /> */}
     </View>
   );
 };
@@ -193,9 +232,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontFamily: 'Proxima Nova',
     fontWeight: '700',
-    fontSize: 24,
+    fontSize: 18,
     textAlign: 'center',
-    zIndex: 1,
   },
 });
 

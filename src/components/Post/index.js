@@ -87,7 +87,7 @@ const Post = (props) => {
         const res = await API.graphql(
           graphqlOperation(createNotification, {
             input: {
-              message: `${user.username} likes your post`,
+              message: `liked your video`,
             },
           }),
         );
