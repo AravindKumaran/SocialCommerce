@@ -42,23 +42,23 @@ const ActiveStyle = () => (
 
 const cat = [
   {
-    src: require('../../assets/images/Image1.png'),
+    src: require('../../assets/images/c1.png'),
     name: 'Men',
   },
   {
-    src: require('../../assets/images/Image2.png'),
+    src: require('../../assets/images/c2.png'),
     name: 'Women',
   },
   {
-    src: require('../../assets/images/Image3.png'),
+    src: require('../../assets/images/c3.png'),
     name: 'Kids',
   },
   {
-    src: require('../../assets/images/Image4.png'),
+    src: require('../../assets/images/c4.png'),
     name: 'Apparels',
   },
   {
-    src: require('../../assets/images/Image5.png'),
+    src: require('../../assets/images/c5.png'),
     name: 'Beauty',
   },
 ];
