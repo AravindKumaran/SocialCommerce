@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,10 @@ import {
   FlatList,
   RefreshControl,
 } from 'react-native';
-import {API, graphqlOperation, Storage} from 'aws-amplify';
-import {listUserNotifications} from '../../graphql/queries';
+import { API, graphqlOperation, Storage } from 'aws-amplify';
+import { listUserNotifications } from '../../graphql/queries';
 import AppText from '../../components/Common/AppText';
-import {useIsFocused} from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import NotifItem from './NotifItem';
 
@@ -159,13 +159,20 @@ const Notifications = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{marginBottom: 20, padding: 15}}>
+      <View style={{ marginBottom: 20, padding: 15 }}>
         <Text style={styles.text}>Notifications</Text>
-        <Image
+        <View
+          style={{
+            marginTop: '5%',
+            borderBottomColor: '#51565D',
+            borderBottomWidth: 1,
+          }}
+        />
+        {/* <Image
           source={require('../../assets/images/Line5.png')}
           size={25}
           style={{width: '100%', paddingTop: 5, top: 10, }}
-        />
+        /> */}
       </View>
       {loading && <Text>Loading...</Text>}
 
@@ -174,24 +181,42 @@ const Notifications = () => {
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }>
         {todayNotif.length > 0 && (
-          <View style={{marginTop: 10, marginBottom: 10}}>
-            <Text style={styles.text1}>Today</Text>
+          <View style={{ marginBottom: 10 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ marginLeft: '17%', flex: 1, height: 1, backgroundColor: '#51565D' }} />
+              <View>
+                <Text style={styles.text1}>Today</Text>
+              </View>
+              <View style={{ flex: 1, height: 1, backgroundColor: '#51565D', marginRight: '17%' }} />
+            </View>
             {todayNotif.map((item, index) => (
               <NotifItem item={item} />
             ))}
           </View>
         )}
         {yesterdayNotif.length > 0 && (
-          <View style={{marginTop: 10, marginBottom: 10}}>
-            <Text style={styles.text1}>Yesterday</Text>
+          <View style={{ marginTop: 10, marginBottom: 10 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ marginLeft: '17%', flex: 1, height: 1, backgroundColor: '#51565D' }} />
+              <View>
+                <Text style={styles.text1}>Yesterday</Text>
+              </View>
+              <View style={{ flex: 1, height: 1, backgroundColor: '#51565D', marginRight: '17%' }} />
+            </View>
             {yesterdayNotif.map((item, index) => (
               <NotifItem item={item} />
             ))}
           </View>
         )}
         {olderNotif.length > 0 && (
-          <View style={{marginTop: 10, marginBottom: 10}}>
-            <Text style={styles.text1}>Older</Text>
+          <View style={{ marginTop: 10, marginBottom: 10 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ marginLeft: '17%', flex: 1, height: 1, backgroundColor: '#51565D' }} />
+              <View>
+                <Text style={styles.text1}>Older</Text>
+              </View>
+              <View style={{ flex: 1, height: 1, backgroundColor: '#51565D', marginRight: '17%' }} />
+            </View>
             {olderNotif.map((item, index) => (
               <NotifItem item={item} />
             ))}
@@ -241,6 +266,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 12,
     textAlign: 'center',
+    paddingRight: '5%',
+    paddingLeft: '5%'
   },
 });
 
