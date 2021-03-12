@@ -35,7 +35,7 @@ const TrendingVideo = ({videoUri, idx, height, poster}) => {
         style={{
           width: vpWidth * 0.5 - 15,
           height: height,
-          margin: 6,
+          margin: 3,
           elevation: 5,
           borderRadius: 5,
         }}
