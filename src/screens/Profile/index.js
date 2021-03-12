@@ -44,7 +44,7 @@ const ProfileScreen = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{top: 0, height: 400}}>
-          <View style={{top: 80}}>
+          <View style={{top: 80, marginHorizontal: '4%'}}>
             <View>
               <LinearGradient
                 start={{x: 0, y: 0}}
@@ -143,7 +143,7 @@ const ProfileScreen = () => {
                 </Text>
               </View>
 
-              <View style={{top: 70}}>
+              <View style={{top: '40%'}}>
                 <TouchableOpacity style={{top: 120, right: 130}}>
                   <Text
                     style={{
@@ -211,7 +211,7 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              <View style={{marginVertical: 95}}>
+              <View style={{top: 102}}>
                 <TouchableOpacity style={{left: 20,  alignSelf: 'center',}}>
                   <Feather
                     style={{top: 25, right: 35}}
@@ -240,7 +240,7 @@ const ProfileScreen = () => {
           </View>
         </View>
 
-        <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
+        <View style={{flexWrap: 'wrap', flexDirection: 'row', marginHorizontal: '4%',}}>
           {images.map((s) => (
             <TouchableOpacity style={{aspectRatio: 0.7, width: '33.33%'}}>
               <Image
