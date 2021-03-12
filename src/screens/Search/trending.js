@@ -1,336 +1,568 @@
-import {coverer} from 'aws-amplify-react-native/dist/AmplifyUI';
-import React, {Component, useState} from 'react';
-import {View, Image, StyleSheet, TouchableWithoutFeedback} from 'react-native';
-import {FlatList, ScrollView} from 'react-native';
-import convertToProxyURL from 'react-native-video-cache';
-import styles from '../../components/Post/styles';
-// import Video from 'react-native-af-video-player'
-import VideoPlayer from 'react-native-video-player';
-import Video from 'react-native-video';
-import TrendingVideo from './trendingVideo';
+import React from 'react';
 
-const videoUris = [
+import {StyleSheet, View, Text, FlatList, Dimensions} from 'react-native';
+import TrendingVideo from './trendingVideo';
+import Masonry from 'react-native-infinite-masonry';
+
+const vpHeight = Dimensions.get('window').height;
+const vpWidth = Dimensions.get('window').width;
+
+const uris = [
   {
-    id: 1,
+    key: 1,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 2,
+    key: 2,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 3,
+    key: 3,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 4,
+    key: 4,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 5,
+    key: 5,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 6,
+    key: 6,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 7,
+    key: 7,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 8,
+    key: 8,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 9,
+    key: 9,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 10,
+    key: 10,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 11,
+    key: 11,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 12,
+    key: 12,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 13,
+    key: 13,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 14,
+    key: 14,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
   {
-    id: 15,
+    key: 15,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
   },
+  {
+    key: 16,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 17,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 18,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 19,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 20,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 21,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 22,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 23,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 24,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 25,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 26,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 27,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 28,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  {
+    key: 29,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  },
+  // {
+  //   key: 30,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 31,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 32,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 33,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 34,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 35,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 36,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 37,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 38,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 39,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 40,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 41,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 42,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 43,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 44,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 45,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 46,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 47,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 48,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 49,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 50,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 51,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 52,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 53,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 54,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 55,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 56,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 57,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 58,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 59,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 60,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 61,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 62,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 63,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 64,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 65,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 66,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 67,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 68,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 69,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 70,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 71,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 72,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 73,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 74,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 75,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 76,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 77,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 78,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 79,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 80,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 81,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 82,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 83,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 84,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 85,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 86,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 87,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 88,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 89,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 90,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 91,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 92,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 93,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 94,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 95,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 96,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 97,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 98,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 99,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 100,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
+  // {
+  //   key: 101,
+  //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+  //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  // },
 ];
 
 const Trending = () => {
-  const [paused, setPaused] = useState(true);
-  const [paused2, setPaused2] = useState(true);
-  const [paused3, setPaused3] = useState(true);
-  const [paused4, setPaused4] = useState(true);
-  const [paused5, setPaused5] = useState(true);
-  const [paused6, setPaused6] = useState(true);
-  const [paused7, setPaused7] = useState(true);
-  const [paused8, setPaused8] = useState(true);
-  const [paused9, setPaused9] = useState(true);
-  const onPlayPausePress = () => {
-    setPaused(!paused);
-  };
-
   const _renderItem = ({item, index}) => (
-    <TrendingVideo videoUri={item.uri} idx={index} />
+    <TrendingVideo videoUri={item.uri} idx={index} height={item.height} />
   );
 
+  const Item = (dataItem, key) => {
+    return (
+      <TrendingVideo
+        key={key}
+        videoUri={dataItem.uri}
+        idx={key}
+        height={dataItem.height}
+      />
+      // <View
+      //   key={key}
+      //   style={{
+      //     height: dataItem.height,
+      //   }}>
+      //   {/* <Image style={styles.img} source={{uri: dataItem.image_url}} /> */}
+      //   <Text>Hello</Text>
+
+      // </View>
+    );
+  };
   return (
-    <View>
-      <View
-        style={{
-          flex: -1,
-          top: 150,
-          backgroundColor: '#20232A',
-        }}>
-        <View style={{left: 5, top: 5}}>
-          <View
-            style={{
-              // flex: 1,
-              width: 166,
-              height: 257,
-              position: 'absolute',
-            }}>
-            <Video
-              muted={true}
-              loop={true}
-              // paused={true}
-              source={{
-                uri: convertToProxyURL(
-                  'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                ),
-              }}
-              resizeMode="cover"
-              style={StyleSheet.absoluteFill}
-            />
-          </View>
-          <TouchableWithoutFeedback onPress={() => setPaused2(!paused2)}>
-            <View
-              style={{
-                // flex: 1,
-                width: 166,
-                height: 173,
-                top: 262,
-                position: 'absolute',
-              }}>
-              <Video
-                muted={false}
-                paused={paused2}
-                poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
-                posterResizeMode="cover"
-                source={{
-                  uri: convertToProxyURL(
-                    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                  ),
-                }}
-                resizeMode="cover"
-                style={StyleSheet.absoluteFill}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => setPaused3(!paused3)}>
-            <View
-              style={{
-                // flex: 1,
-                width: 166,
-                height: 218,
-                top: 442,
-                position: 'absolute',
-              }}>
-              <Video
-                muted={false}
-                paused={paused3}
-                poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
-                posterResizeMode="cover"
-                source={{
-                  uri: convertToProxyURL(
-                    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                  ),
-                }}
-                resizeMode="cover"
-                style={StyleSheet.absoluteFill}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-
-        <View style={{right: -5, top: 5}}>
-          <TouchableWithoutFeedback onPress={() => setPaused4(!paused4)}>
-            <View
-              style={{
-                // flex: 1,
-                width: 103,
-                height: 108,
-                left: 171,
-                position: 'absolute',
-              }}>
-              <Video
-                muted={false}
-                paused={paused4}
-                poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
-                posterResizeMode="cover"
-                source={{
-                  uri: convertToProxyURL(
-                    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                  ),
-                }}
-                resizeMode="cover"
-                style={StyleSheet.absoluteFill}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => setPaused5(!paused5)}>
-            <View
-              style={{
-                // flex: 1,
-                width: 103,
-                height: 108,
-                left: 280,
-                position: 'absolute',
-              }}>
-              <Video
-                muted={false}
-                paused={paused5}
-                poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
-                posterResizeMode="cover"
-                source={{
-                  uri: convertToProxyURL(
-                    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                  ),
-                }}
-                resizeMode="cover"
-                style={StyleSheet.absoluteFill}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => setPaused6(!paused6)}>
-            <View
-              style={{
-                // flex: 1,
-                width: 103,
-                height: 108,
-                left: 171,
-                top: 115,
-                position: 'absolute',
-              }}>
-              <Video
-                muted={false}
-                paused={paused6}
-                poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
-                posterResizeMode="cover"
-                source={{
-                  uri: convertToProxyURL(
-                    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                  ),
-                }}
-                resizeMode="cover"
-                style={StyleSheet.absoluteFill}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => setPaused7(!paused7)}>
-            <View
-              style={{
-                // flex: 1,
-                width: 103,
-                height: 108,
-                left: 280,
-                top: 115,
-                position: 'absolute',
-              }}>
-              <Video
-                muted={false}
-                paused={paused7}
-                poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
-                posterResizeMode="cover"
-                source={{
-                  uri: convertToProxyURL(
-                    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                  ),
-                }}
-                resizeMode="cover"
-                style={StyleSheet.absoluteFill}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => setPaused8(!paused8)}>
-            <View
-              style={{
-                // flex: 1,
-                width: 215,
-                height: 257,
-                left: 171,
-                top: 230,
-                position: 'absolute',
-              }}>
-              <Video
-                muted={false}
-                paused={paused8}
-                poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
-                posterResizeMode="cover"
-                source={{
-                  uri: convertToProxyURL(
-                    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                  ),
-                }}
-                resizeMode="cover"
-                style={StyleSheet.absoluteFill}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback onPress={() => setPaused9(!paused9)}>
-            <View
-              style={{
-                // flex: 1,
-                width: 215,
-                height: 166,
-                left: 171,
-                top: 495,
-                position: 'absolute',
-              }}>
-              <Video
-                muted={false}
-                paused={paused9}
-                poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
-                posterResizeMode="cover"
-                source={{
-                  uri: convertToProxyURL(
-                    'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-                  ),
-                }}
-                resizeMode="cover"
-                style={StyleSheet.absoluteFill}
-              />
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-
-        <View style={{top: 670}}>
-          <FlatList
-            data={videoUris}
-            numColumns={3}
-            renderItem={_renderItem}
-            keyExtractor={(item) => item.id.toString()}
-          />
-        </View>
-      </View>
+    <View style={styles.container}>
+      {/* <FlatList
+        nestedScrollEnabled
+        style={styles.list}
+        data={uris}
+        numColumns={2}
+        renderItem={_renderItem}
+        keyExtractor={(item) => item.key.toString()}
+      /> */}
+      <Masonry
+        itemsProvider={(pageSize = 10) => uris}
+        renderItem={Item}
+        pageSize={10}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 70,
+    paddingTop: 20,
+  },
+});
 
 export default Trending;

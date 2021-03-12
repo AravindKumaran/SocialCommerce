@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: Dimensions.get('window').height + 10,
+    height: Dimensions.get('window').height + 20,
   },
   videPlayButton: {
     position: 'absolute',
@@ -19,11 +19,10 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 15,
     right: 0,
-    // borderRadius: 10,
     backgroundColor: '#292929',
-    // borderWidth: 10,
     width: '100%',
-    height: '90%'
+    height: '90%',
+    marginTop: -10
   },
   uiContainer: {
     height: '100%',

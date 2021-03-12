@@ -1,11 +1,26 @@
 import React, {useState} from 'react';
 
-import {StyleSheet, View, Text, TouchableWithoutFeedback} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  Dimensions,
+} from 'react-native';
 import Video from 'react-native-video';
 import DoubleClick from 'react-native-double-tap';
 import convertToProxyURL from 'react-native-video-cache';
 
-const TrendingVideo = ({videoUri, idx}) => {
+const vpHeight = Dimensions.get('window').height;
+const vpWidth = Dimensions.get('window').width;
+
+function randomIntFromInterval(min, max) {
+  //  const   width = parseInt(Math.max(0.3, Math.random()) * vpHeight),
+  //  const height = parseInt(Math.max(0.3, Math.random()) * vpWidth),
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const TrendingVideo = ({videoUri, idx, height, poster}) => {
   const [paused, setPaused] = useState(true);
 
   const handleClick = () => {
@@ -16,18 +31,25 @@ const TrendingVideo = ({videoUri, idx}) => {
   return (
     <DoubleClick singleTap={handleClick}>
       <Video
-        //   ref={(ref) => (vidRef.current = ref)}
         source={{uri: convertToProxyURL(videoUri)}}
-        style={styles.video}
+        style={{
+          width: vpWidth * 0.5 - 15,
+          height: height,
+          margin: 3,
+          elevation: 5,
+          borderRadius: 5,
+        }}
         resizeMode={'cover'}
-        poster="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png"
+        poster={
+          poster
+            ? poster
+            : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png'
+        }
         posterResizeMode="cover"
-        //   repeat={props.currentIndex === 0}
-        paused={paused}
+        repeat={idx === 0}
+        paused={idx === 0 ? false : paused}
         muted={false}
-
-        //   muted={muted}
-        // controls={true}
+        muted={idx === 0}
       />
     </DoubleClick>
   );
@@ -35,13 +57,9 @@ const TrendingVideo = ({videoUri, idx}) => {
 
 const styles = StyleSheet.create({
   video: {
-    width: 123.5,
+    width: 143.5,
     height: 150,
     margin: 3,
-    left: 2,
-    marginBottom: 5,
-    // marginEnd: -5
-    // zIndex: -1
   },
 });
 
