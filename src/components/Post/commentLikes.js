@@ -48,7 +48,7 @@ const CommentLikes = ({likes, onLike, onUnlike, id}) => {
             size={20} style={{height: 25, width: 25, top: 8, left: 2}}
           />
           {/* <Feather name={'heart'} size={25} style={{color: '#999999'}}  /> */}
-          <AppText style={{fontSize: 12, left: 2}}>{likes.length}</AppText>
+          <AppText style={{fontSize: 10, left: 2, color: '#999999'}}>{likes.length}</AppText>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={handleLike} style={styles.iconWrapper}>
@@ -56,7 +56,7 @@ const CommentLikes = ({likes, onLike, onUnlike, id}) => {
             source={require('../../assets/images/Cl1.png')}
             size={20} style={{height: 20, width: 20, top: 10}}
           />
-          <AppText style={{fontSize: 12, top: 5}}>{likes.length}</AppText>
+          <AppText style={{fontSize: 10, top: 5, color: '#999999'}}>{likes.length}</AppText>
         </TouchableOpacity>
       )}
     </View>

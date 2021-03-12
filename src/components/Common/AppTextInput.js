@@ -19,7 +19,7 @@ const AppTextInput = ({icon, numberOfLines = 1, width, ...rest}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
+    backgroundColor: '#FEFEFE',
     borderRadius: 30,
     flexDirection: 'row',
     alignItems: 'center',
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     overflow: 'hidden',
     height: 45,
-    color: '#EFFAFF',
+    color: '#FEFEFE',
     top: 15
   },
   icon: {
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 12,
+    fontWeight: '400',
     color: '#959595',
     flex: 1,
     textAlignVertical: 'top',

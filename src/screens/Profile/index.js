@@ -86,7 +86,10 @@ const ProfileScreen = () => {
                     },
                     container: {
                       backgroundColor: '#1A1A1A',
-                      borderRadius: 25,
+                      borderBottomLeftRadius: 10,
+                      borderBottomRightRadius: 10,
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
                       bottom: 85,
                     },
                   }}>
@@ -113,7 +116,10 @@ const ProfileScreen = () => {
                     },
                     container: {
                       backgroundColor: '#1A1A1A',
-                      borderRadius: 25,
+                      borderBottomLeftRadius: 10,
+                      borderBottomRightRadius: 10,
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
                       bottom: 85,
                     },
                   }}>
