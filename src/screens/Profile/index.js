@@ -44,8 +44,8 @@ const ProfileScreen = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={{top: 0, height: 400}}>
-          <View style={{top: 80}}>
-            <View style={{left: 2, alignItems: 'center'}}>
+          <View style={{top: 80, marginHorizontal: '4%'}}>
+            <View>
               <LinearGradient
                 start={{x: 0, y: 0}}
                 end={{x: 0, y: 0}}
@@ -67,7 +67,7 @@ const ProfileScreen = () => {
             <View style={{alignItems: 'center'}}>
               <View style={{top: 110, position: 'absolute'}}>
                 <TouchableOpacity
-                  style={{bottom: 0, right: 130}}
+                  style={{bottom: 0, right: '160%', }}
                   onPress={() => refRBSheet.current.open()}>
                   <Feather name={'edit'} size={25} />
                 </TouchableOpacity>
@@ -86,7 +86,10 @@ const ProfileScreen = () => {
                     },
                     container: {
                       backgroundColor: '#1A1A1A',
-                      borderRadius: 25,
+                      borderBottomLeftRadius: 10,
+                      borderBottomRightRadius: 10,
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
                       bottom: 85,
                     },
                   }}>
@@ -94,7 +97,7 @@ const ProfileScreen = () => {
                 </RBSheet>
 
                 <TouchableOpacity
-                  style={{bottom: 50, left: 200, position: 'absolute'}}
+                  style={{bottom: 45, left: '230%', position: 'absolute', }}
                   onPress={() => refRBSheet1.current.open()}>
                   <Feather style={styles.chart} name={'bar-chart'} size={25} />
                 </TouchableOpacity>
@@ -113,7 +116,10 @@ const ProfileScreen = () => {
                     },
                     container: {
                       backgroundColor: '#1A1A1A',
-                      borderRadius: 25,
+                      borderBottomLeftRadius: 10,
+                      borderBottomRightRadius: 10,
+                      borderTopLeftRadius: 10,
+                      borderTopRightRadius: 10,
                       bottom: 85,
                     },
                   }}>
@@ -143,7 +149,7 @@ const ProfileScreen = () => {
                 </Text>
               </View>
 
-              <View style={{top: 70}}>
+              <View style={{top: '40%'}}>
                 <TouchableOpacity style={{top: 120, right: 130}}>
                   <Text
                     style={{
@@ -211,8 +217,8 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              <View>
-                <TouchableOpacity style={{top: 95, left: 20}}>
+              <View style={{top: 102}}>
+                <TouchableOpacity style={{left: 20,  alignSelf: 'center',}}>
                   <Feather
                     style={{top: 25, right: 35}}
                     name={'activity'}
@@ -232,7 +238,7 @@ const ProfileScreen = () => {
             </View>
           </View>
 
-          <View style={{zIndex: -1, position: 'absolute', bottom: 440}}>
+          <View style={{zIndex: -1, position: 'absolute', bottom: 440, width: '100%'}}>
             <Image
               style={styles.user}
               source={require('../../assets/images/User.png')}
@@ -240,7 +246,7 @@ const ProfileScreen = () => {
           </View>
         </View>
 
-        <View style={{flexWrap: 'wrap', flexDirection: 'row'}}>
+        <View style={{flexWrap: 'wrap', flexDirection: 'row', marginHorizontal: '4%',}}>
           {images.map((s) => (
             <TouchableOpacity style={{aspectRatio: 0.7, width: '33.33%'}}>
               <Image
@@ -272,21 +278,20 @@ const styles = StyleSheet.create({
   },
   Rectangle: {
     top: 100,
-    width: 380,
+    width: '98%',
     height: 200,
     borderRadius: 10,
-    left: 5,
     opacity: 0.8,
     position: 'absolute',
-    alignItems: 'center'
+    alignSelf: 'center',
   },
   user: {
     height: 300,
-    width: 400,
+    width: '100%',
     borderRadius: 50,
     zIndex: 1,
     position: 'absolute',
-    alignItems: 'center'
+    alignSelf: 'center'
   },
   mediaImageContainer: {
     width: 180,

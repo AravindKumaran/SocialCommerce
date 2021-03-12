@@ -263,6 +263,7 @@ const Comments = ({postId}) => {
           behavior={Platform.OS === 'ios' ? 'padding' : null}
           keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
           <AppTextInput
+            // style={{color: '#FEFEFE'}}
             placeholder="Type your comment here..."
             autoCapitalize="none"
             autoCorrect={false}
@@ -301,7 +302,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#EFFAFF',
+    backgroundColor: '#EBEBEB',
   },
   cmList: {
     marginTop: 5,

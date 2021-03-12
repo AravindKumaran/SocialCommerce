@@ -367,7 +367,7 @@ const Post = (props) => {
                     backgroundColor: '#C4C4C4',
                   },
                   container: {
-                    backgroundColor: '#EFFAFF',
+                    backgroundColor: '#EBEBEB',
                     borderTopRightRadius: 25,
                     borderTopLeftRadius: 25,
                   },
