@@ -28,7 +28,7 @@ const ActiveStyle = () => (
       style={{
         position: 'absolute',
         top: -55,
-        right: '54%',
+        left: '25.5%',
         transform: [
           {
             rotate: '-180deg',
@@ -365,6 +365,7 @@ const styles = StyleSheet.create({
   },
   container1: {
     top: -10,
+    // alignItems: 'center'
     // backgroundColor: '#20232A',
     // zIndex: 1
   },
@@ -408,16 +409,18 @@ const styles = StyleSheet.create({
     left: 10,
     zIndex: 1,
     position: 'absolute',
+    
   },
   t2: {
     top: 0,
     left: 90,
     zIndex: 1,
     position: 'absolute',
+    
   },
   t3: {
     top: 0,
-    left: '43.5%',
+    right: '43%',
     zIndex: 1,
     position: 'absolute',
   },
