@@ -420,7 +420,7 @@ const styles = StyleSheet.create({
   },
   t3: {
     top: 0,
-    right: '43%',
+    right: '43.5%',
     zIndex: 1,
     position: 'absolute',
   },
