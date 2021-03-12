@@ -28,7 +28,7 @@ const ActiveStyle = () => (
       style={{
         position: 'absolute',
         top: -55,
-        right: 212,
+        right: '54%',
         transform: [
           {
             rotate: '-180deg',
@@ -45,7 +45,7 @@ const ActiveStyle = () => (
         height: 4,
         borderRadius: 14,
         position: 'absolute',
-        bottom: 850,
+        bottom: 845,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
         left: 125,
@@ -176,8 +176,15 @@ const Categories = (props) => {
               <ActiveStyle />
               <TouchableOpacity style={styles.t1}>
                 <Image
-                  style={{height: 50, width: 50}}
-                  source={require('../../assets/images/Image1.png')}
+                  style={{
+                    height: 50,
+                    width: 50,
+                    backgroundColor: '#282D34',
+                    borderRadius: 25,
+                    borderWidth: 0.5,
+                    borderColor: '#737373',
+                  }}
+                  source={require('../../assets/images/c1.png')}
                   size={15}
                 />
                 <Text style={styles.text1}>Men</Text>
@@ -185,8 +192,15 @@ const Categories = (props) => {
 
               <TouchableOpacity style={styles.t2}>
                 <Image
-                  style={{height: 50, width: 50}}
-                  source={require('../../assets/images/Image2.png')}
+                  style={{
+                    height: 50,
+                    width: 50,
+                    backgroundColor: '#282D34',
+                    borderRadius: 25,
+                    borderWidth: 0.5,
+                    borderColor: '#737373',
+                  }}
+                  source={require('../../assets/images/c2.png')}
                   size={15}
                 />
                 <Text style={styles.text2}>Women</Text>
@@ -194,8 +208,15 @@ const Categories = (props) => {
 
               <TouchableOpacity style={styles.t3}>
                 <Image
-                  style={{height: 50, width: 50}}
-                  source={require('../../assets/images/Image3.png')}
+                  style={{
+                    height: 50,
+                    width: 50,
+                    backgroundColor: '#282D34',
+                    borderRadius: 25,
+                    borderWidth: 0.5,
+                    borderColor: '#737373',
+                  }}
+                  source={require('../../assets/images/c3.png')}
                   size={15}
                 />
                 <Text style={styles.text3}>Kids</Text>
@@ -203,8 +224,15 @@ const Categories = (props) => {
 
               <TouchableOpacity style={styles.t4}>
                 <Image
-                  style={{height: 50, width: 50}}
-                  source={require('../../assets/images/Image4.png')}
+                  style={{
+                    height: 50,
+                    width: 50,
+                    backgroundColor: '#282D34',
+                    borderRadius: 25,
+                    borderWidth: 0.5,
+                    borderColor: '#737373',
+                  }}
+                  source={require('../../assets/images/c4.png')}
                   size={15}
                 />
                 <Text style={styles.text4}>Apparels</Text>
@@ -212,8 +240,15 @@ const Categories = (props) => {
 
               <TouchableOpacity style={styles.t5}>
                 <Image
-                  style={{height: 50, width: 50}}
-                  source={require('../../assets/images/Image5.png')}
+                  style={{
+                    height: 50,
+                    width: 50,
+                    backgroundColor: '#282D34',
+                    borderRadius: 25,
+                    borderWidth: 0.5,
+                    borderColor: '#737373',
+                  }}
+                  source={require('../../assets/images/c5.png')}
                   size={15}
                 />
                 <Text style={styles.text5}>Beauty</Text>
@@ -291,7 +326,7 @@ const Categories = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // height: Dimensions.get('window').height 
+    // height: Dimensions.get('window').height
   },
   containers: {
     backgroundColor: '#20232A',
