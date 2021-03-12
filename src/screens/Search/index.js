@@ -21,12 +21,15 @@ const ActiveStyle = () => (
       style={{
         width: 27,
         height: 4,
+        bottom: 20,
+        right: 2,
         borderRadius: 14,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
       }}></View>
     <Image
       style={{
+        bottom: 23,
         transform: [
           {
             rotate: '-180deg',
@@ -96,6 +99,12 @@ const Categories = () => {
     <ScrollView style={styles.container}>
       <Searchbar />
 
+      {/* <Image
+        style={{bottom: 0, left: 15}}
+        source={require('../../assets/images/Line2.png')}
+        size={15}
+      /> */}
+
       <View style={styles.choose}>
         <View>
           {active === 'categories' ? (
@@ -135,7 +144,18 @@ const Categories = () => {
         <View style={styles.cat}>
           {cat.map((c, i) => (
             <TouchableOpacity key={`${c.name}-${i}`} style={styles.catItem}>
-              <Image style={{height: 50, width: 50}} source={c.src} size={15} />
+              <Image
+                style={{
+                  height: 50,
+                  width: 50,
+                  borderWidth: 0.5,
+                  borderRadius: 25,
+                  borderColor: '#A1A1A1',
+                  backgroundColor: '#20232A',
+                }}
+                source={c.src}
+                size={15}
+              />
               <Text style={[styles.catItemText, {marginTop: 10}]}>
                 {c.name}
               </Text>
@@ -156,6 +176,12 @@ const Categories = () => {
           ))}
         </View>
       )}
+
+      <Image
+        style={{bottom: 20, left: 15}}
+        source={require('../../assets/images/Line2.png')}
+        size={15}
+      />
 
       <Text style={styles.text2}>Top Trending</Text>
 
@@ -185,6 +211,7 @@ const styles = StyleSheet.create({
   catItem: {
     flexDirection: 'column',
     alignItems: 'center',
+    bottom: 20,
   },
   catItemText: {
     color: '#FFFFFF',
@@ -196,15 +223,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Proxima Nova',
     fontSize: 16,
     marginHorizontal: 25,
-    marginTop: -35,
+    marginTop: -45,
   },
 
   text2: {
-    top: 10,
+    bottom: 5,
     left: 0,
     color: '#FFFFFF',
-    fontWeight: '400',
+    fontWeight: '700',
+    textAlign: 'center',
     fontFamily: 'Proxima Nova',
+    fontSize: 16,
   },
   text3: {
     top: 10,
@@ -232,14 +261,12 @@ const styles = StyleSheet.create({
     left: 10,
     zIndex: 1,
     position: 'absolute',
-    
   },
   t2: {
     top: 0,
     left: 90,
     zIndex: 1,
     position: 'absolute',
-    
   },
   t3: {
     top: 0,

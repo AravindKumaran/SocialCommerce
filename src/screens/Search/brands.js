@@ -577,6 +577,7 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: 70,
     paddingTop: 20,
+    paddingLeft: 10
   },
 });
 
