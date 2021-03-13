@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
     right: 0,
     backgroundColor: '#292929',
     width: '100%',
-    height: '90%',
-    marginTop: '-2%'
+    height: '91%',
+    // marginTop: '0%'
   },
   uiContainer: {
     height: '100%',
