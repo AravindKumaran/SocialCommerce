@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet, View, Text, FlatList, Dimensions} from 'react-native';
 import TrendingVideo from './trendingVideo';
 import Masonry from 'react-native-infinite-masonry';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -539,7 +540,7 @@ const Brands = () => {
       <TrendingVideo
         key={key}
         videoUri={dataItem.uri}
-        idx={key}
+        // idx={key}
         height={dataItem.height}
         poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
       />
@@ -556,6 +557,55 @@ const Brands = () => {
   };
   return (
     <View style={styles.container}>
+      <View style={styles.topVideos}>
+        <TrendingVideo videoUri={uris[0].uri} idx={0} height={200} />
+        <Grid>
+          <Col>
+            <Row>
+              <TrendingVideo
+                videoUri={uris[1].uri}
+                idx={1}
+                height={100}
+                style={{marginVertical: 3}}
+                width={90}
+                poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+              />
+            </Row>
+            <Row>
+              <TrendingVideo
+                videoUri={uris[2].uri}
+                idx={2}
+                height={100}
+                style={{marginVertical: 3}}
+                width={90}
+                poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+              />
+            </Row>
+          </Col>
+          <Col>
+            <Row>
+              <TrendingVideo
+                videoUri={uris[3].uri}
+                idx={3}
+                height={100}
+                style={{marginVertical: 3}}
+                width={80}
+                poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+              />
+            </Row>
+            <Row>
+              <TrendingVideo
+                videoUri={uris[4].uri}
+                idx={4}
+                height={100}
+                style={{marginVertical: 3}}
+                width={80}
+                poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+              />
+            </Row>
+          </Col>
+        </Grid>
+      </View>
       {/* <FlatList
         nestedScrollEnabled
         style={styles.list}
@@ -565,7 +615,7 @@ const Brands = () => {
         keyExtractor={(item) => item.key.toString()}
       /> */}
       <Masonry
-        itemsProvider={(pageSize = 10) => uris}
+        itemsProvider={(pageSize = 10) => uris.slice(6, pageSize)}
         renderItem={Item}
         pageSize={10}
       />
@@ -577,7 +627,13 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: 70,
     paddingTop: 20,
-    paddingLeft: 10
+    paddingLeft: 10,
+  },
+  topVideos: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    flex: 1,
+    // alignItems: 'center',
   },
 });
 
