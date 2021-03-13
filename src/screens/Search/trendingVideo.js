@@ -20,7 +20,7 @@ function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const TrendingVideo = ({videoUri, idx, height, poster}) => {
+const TrendingVideo = ({videoUri, idx, height, poster, width, style}) => {
   const [paused, setPaused] = useState(true);
 
   const handleClick = () => {
@@ -32,13 +32,16 @@ const TrendingVideo = ({videoUri, idx, height, poster}) => {
     <DoubleClick singleTap={handleClick}>
       <Video
         source={{uri: convertToProxyURL(videoUri)}}
-        style={{
-          width: vpWidth * 0.5 - 15,
-          height: height,
-          margin: 3,
-          elevation: 5,
-          borderRadius: 5,
-        }}
+        style={[
+          {
+            width: width || vpWidth * 0.5 - 15,
+            height: height,
+            margin: 3,
+            elevation: 5,
+            borderRadius: 5,
+          },
+          style,
+        ]}
         resizeMode={'cover'}
         poster={
           poster

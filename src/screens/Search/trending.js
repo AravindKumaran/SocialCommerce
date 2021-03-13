@@ -3,6 +3,7 @@ import React from 'react';
 import {StyleSheet, View, Text, FlatList, Dimensions} from 'react-native';
 import TrendingVideo from './trendingVideo';
 import Masonry from 'react-native-infinite-masonry';
+import {Col, Row, Grid} from 'react-native-easy-grid';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -525,7 +526,7 @@ const Trending = () => {
       <TrendingVideo
         key={key}
         videoUri={dataItem.uri}
-        idx={key}
+        // idx={key}
         height={dataItem.height}
       />
       // <View
@@ -541,6 +542,51 @@ const Trending = () => {
   };
   return (
     <View style={styles.container}>
+      <View style={styles.topVideos}>
+        <TrendingVideo videoUri={uris[0].uri} idx={0} height={200} />
+        <Grid>
+          <Col>
+            <Row>
+              <TrendingVideo
+                videoUri={uris[1].uri}
+                idx={1}
+                height={100}
+                style={{marginVertical: 3}}
+                width={90}
+              />
+            </Row>
+            <Row>
+              <TrendingVideo
+                videoUri={uris[2].uri}
+                idx={2}
+                height={100}
+                style={{marginVertical: 3}}
+                width={90}
+              />
+            </Row>
+          </Col>
+          <Col>
+            <Row>
+              <TrendingVideo
+                videoUri={uris[3].uri}
+                idx={3}
+                height={100}
+                style={{marginVertical: 3}}
+                width={80}
+              />
+            </Row>
+            <Row>
+              <TrendingVideo
+                videoUri={uris[4].uri}
+                idx={4}
+                height={100}
+                style={{marginVertical: 3}}
+                width={80}
+              />
+            </Row>
+          </Col>
+        </Grid>
+      </View>
       {/* <FlatList
         nestedScrollEnabled
         style={styles.list}
@@ -550,7 +596,7 @@ const Trending = () => {
         keyExtractor={(item) => item.key.toString()}
       /> */}
       <Masonry
-        itemsProvider={(pageSize = 10) => uris}
+        itemsProvider={(pageSize = 10) => uris.slice(6, pageSize)}
         renderItem={Item}
         pageSize={10}
       />
@@ -562,7 +608,13 @@ const styles = StyleSheet.create({
   container: {
     paddingBottom: 70,
     paddingTop: 20,
-    paddingLeft: 10
+    paddingLeft: 10,
+  },
+  topVideos: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    flex: 1,
+    // alignItems: 'center',
   },
 });
 
