@@ -48,18 +48,18 @@ const ProfileScreen = () => {
             <View>
               <LinearGradient
                 start={{x: 0, y: 0}}
-                end={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
                 colors={['#141414', '#232323']}
                 style={styles.Rectangle}>
                 <View />
               </LinearGradient>
 
               <Image
-                style={{top: 180, position: 'absolute', left: 5}}
+                style={{top: 180, position: 'absolute', left: 5, width: '98%'}}
                 source={require('../../assets/images/Pline.png')}
               />
               <Image
-                style={{top: 245, position: 'absolute', left: 5}}
+                style={{top: 245, position: 'absolute', left: 5, width: '98%'}}
                 source={require('../../assets/images/Pline.png')}
               />
             </View>
@@ -67,9 +67,9 @@ const ProfileScreen = () => {
             <View style={{alignItems: 'center'}}>
               <View style={{top: 110, position: 'absolute'}}>
                 <TouchableOpacity
-                  style={{bottom: 0, right: '160%', }}
+                  style={{bottom: 0, right: '150%', }}
                   onPress={() => refRBSheet.current.open()}>
-                  <Feather name={'edit'} size={25} />
+                  <Feather name={'edit'} size={20} />
                 </TouchableOpacity>
 
                 <RBSheet
@@ -97,9 +97,9 @@ const ProfileScreen = () => {
                 </RBSheet>
 
                 <TouchableOpacity
-                  style={{bottom: 45, left: '230%', position: 'absolute', }}
+                  style={{bottom: 40, left: '220%', position: 'absolute', }}
                   onPress={() => refRBSheet1.current.open()}>
-                  <Feather style={styles.chart} name={'bar-chart'} size={25} />
+                  <Feather style={styles.chart} name={'bar-chart'} size={20} />
                 </TouchableOpacity>
 
                 <RBSheet
@@ -131,32 +131,33 @@ const ProfileScreen = () => {
                     color: '#FFFFFF',
                     fontFamily: 'Proxima Nova',
                     fontWeight: '700',
-                    fontSize: 18,
-                    bottom: 20,
+                    fontSize: 16,
+                    bottom: 10,
                   }}>
-                  Username
+                  mark_3425
                 </Text>
                 <Text
                   style={{
                     color: '#FFFFFF',
                     fontFamily: 'Proxima Nova',
                     fontWeight: '400',
-                    fontSize: 16,
-                    left: 25,
-                    bottom: 20,
+                    fontSize: 12,
+                    // left: 25,
+                    bottom: 0,
+                    alignSelf: 'center'
                   }}>
-                  Bio
+                  Designer
                 </Text>
               </View>
 
               <View style={{top: '40%'}}>
-                <TouchableOpacity style={{top: 120, right: 130}}>
+                <TouchableOpacity style={{top: 135, right: 130}}>
                   <Text
                     style={{
                       color: '#939495',
                       fontFamily: 'Proxima Nova',
                       fontWeight: '400',
-                      fontSize: 16,
+                      fontSize: 12,
                     }}>
                     Followers
                   </Text>
@@ -165,20 +166,20 @@ const ProfileScreen = () => {
                       color: '#FFFFFF',
                       fontFamily: 'Proxima Nova',
                       fontWeight: '700',
-                      fontSize: 18,
+                      fontSize: 14,
                       left: 10,
                     }}>
                     10K
                   </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{top: 75}}>
+                <TouchableOpacity style={{top: 100}}>
                   <Text
                     style={{
                       color: '#939495',
                       fontFamily: 'Proxima Nova',
                       fontWeight: '400',
-                      fontSize: 16,
+                      fontSize: 12,
                     }}>
                     Following
                   </Text>
@@ -187,20 +188,20 @@ const ProfileScreen = () => {
                       color: '#FFFFFF',
                       fontFamily: 'Proxima Nova',
                       fontWeight: '700',
-                      fontSize: 18,
+                      fontSize: 14,
                       left: 20,
                     }}>
                     1K
                   </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{top: 30, left: 150}}>
+                <TouchableOpacity style={{top: 65, left: 150}}>
                   <Text
                     style={{
                       color: '#939495',
                       fontFamily: 'Proxima Nova',
                       fontWeight: '400',
-                      fontSize: 16,
+                      fontSize: 12,
                     }}>
                     Posts
                   </Text>
@@ -209,7 +210,7 @@ const ProfileScreen = () => {
                       color: '#FFFFFF',
                       fontFamily: 'Proxima Nova',
                       fontWeight: '700',
-                      fontSize: 18,
+                      fontSize: 14,
                       left: 5,
                     }}>
                     500
@@ -217,19 +218,19 @@ const ProfileScreen = () => {
                 </TouchableOpacity>
               </View>
 
-              <View style={{top: 102}}>
+              <View style={{top: 135}}>
                 <TouchableOpacity style={{left: 20,  alignSelf: 'center',}}>
                   <Feather
-                    style={{top: 25, right: 35}}
+                    style={{top: 20, right: 35}}
                     name={'activity'}
-                    size={25}
+                    size={20}
                   />
                   <Text
                     style={{
                       color: '#FFFFFF',
                       fontFamily: 'Proxima Nova',
                       fontWeight: '700',
-                      fontSize: 18,
+                      fontSize: 14,
                     }}>
                     View Analytics
                   </Text>
@@ -241,7 +242,7 @@ const ProfileScreen = () => {
           <View style={{zIndex: -1, position: 'absolute', bottom: 440, width: '100%'}}>
             <Image
               style={styles.user}
-              source={require('../../assets/images/User.png')}
+              source={require('../../assets/images/User2.png')}
             />
           </View>
         </View>
@@ -281,17 +282,23 @@ const styles = StyleSheet.create({
     width: '98%',
     height: 200,
     borderRadius: 10,
-    opacity: 0.8,
+    opacity: 0.5,
     position: 'absolute',
     alignSelf: 'center',
+    borderWidth: 0.6,
+    borderTopColor: '#FFFFFF',
+    borderLeftColor: '#FFFFFF',
+    borderRightColor: '#FFFFFF'
   },
   user: {
     height: 300,
     width: '100%',
-    borderRadius: 50,
+    // borderRadius: 200,
     zIndex: 1,
     position: 'absolute',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderBottomRightRadius: 350,
+    borderBottomLeftRadius: 350
   },
   mediaImageContainer: {
     width: 180,
