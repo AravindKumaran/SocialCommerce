@@ -176,7 +176,7 @@ const HomeBottomTabNavigator = () => {
           tabBarIcon: ({focused, color}) => (
             <>
               <Image
-                source={require('../assets/images/Home_icon.png')}
+                source={require('../assets/images/home1.png')}
                 width={25}
                 height={25}
                 tintColor={color}
@@ -194,7 +194,7 @@ const HomeBottomTabNavigator = () => {
           tabBarIcon: ({focused, color}) => (
             <>
               <Image
-                source={require('../assets/images/Search_icon.png')}
+                source={require('../assets/images/explore1.png')}
                 width={25}
                 height={25}
                 tintColor={color}
@@ -234,7 +234,7 @@ const HomeBottomTabNavigator = () => {
           tabBarIcon: ({focused, color}) => (
             <>
               <Image
-                source={require('../assets/images/Bell_icon.png')}
+                source={require('../assets/images/notification1.png')}
                 width={25}
                 height={25}
                 tintColor={color}
@@ -249,12 +249,15 @@ const HomeBottomTabNavigator = () => {
         name={'Profile'}
         component={ProfileScreen}
         options={{
-          tabBarIcon: ({tintColor}) => (
-            <Image
-              source={require('../assets/images/Profile_icon.png')}
-              size={25}
-              style={{bottom: 2}}
-            />
+          tabBarIcon: ({focused, tintColor}) => (
+            <>
+              <Image
+                source={require('../assets/images/Profile_icon.png')}
+                size={25}
+                style={{bottom: 2}}
+              />
+              {focused && <ActiveStyle />}
+            </>
           ),
         }}
       />
