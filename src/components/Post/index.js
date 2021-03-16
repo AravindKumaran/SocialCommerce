@@ -22,6 +22,7 @@ import {
   createUserNotification,
 } from '../../graphql/mutations';
 import styles from './styles';
+import Modal from 'react-native-modal';
 import Feather from 'react-native-vector-icons/Feather';
 
 // import DoubleClick from 'react-native-single-double-click';
@@ -52,6 +53,7 @@ const Post = (props) => {
   const [isPressed, setPressed] = useState(false);
   const [showMutedIcon, setShowMutedIcon] = useState(false);
   const [showPauseIcon, setShowPauseIcon] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [paused, setPaused] = useState(false);
   const [muted, setMuted] = useState(false);
@@ -135,9 +137,9 @@ const Post = (props) => {
       clearTimeout(showRef.current);
     }
     setMuted(!muted);
-    setShowMutedIcon(true);
+    // setShowMutedIcon(true);
     showRef.current = setTimeout(() => {
-      setShowMutedIcon(false);
+      // setShowMutedIcon(false);
     }, 1000);
   };
 
@@ -147,10 +149,14 @@ const Post = (props) => {
       clearTimeout(showPauseRef.current);
     }
     setPaused(!paused);
-    setShowPauseIcon(true);
+    // setShowPauseIcon(true);
     showPauseRef.current = setTimeout(() => {
-      setShowPauseIcon(false);
+      // setShowPauseIcon(false);
     }, 1000);
+  };
+
+  const click = () => {
+    setTouched(!isTouched);
   };
 
   // const handleOnVideoEnd = (e) => {
@@ -161,7 +167,9 @@ const Post = (props) => {
 
   return (
     <View style={styles.container}>
-      <DoubleClick singleTap={handleClick} doubleTap={handleDoubleClick}>
+      <DoubleClick
+        singleTap={isTouched ? click : handleClick}
+        doubleTap={handleDoubleClick}>
         <View>
           <View style={styles.video}>
             {/* <VideoPlayer
@@ -195,7 +203,7 @@ const Post = (props) => {
             />
           </View>
 
-          {showMutedIcon && (
+          {/* {showMutedIcon && (
             <View
               style={{
                 position: 'absolute',
@@ -236,7 +244,7 @@ const Post = (props) => {
                 <Feather name="pause" size={50} color="#fff" />
               )}
             </View>
-          )}
+          )} */}
 
           <View style={styles.uiContainer}>
             <View style={styles.rightContainer}>
@@ -288,10 +296,13 @@ const Post = (props) => {
                   zIndex: 1,
                   top: 105,
                 }}
-                onPress={() => setTouched(!isTouched)}>
+                onPress={() => {
+                  setTouched(!isTouched);
+                }}>
                 <>
                   {!isTouched ? (
                     <Image
+                      style={{}}
                       source={require('../../assets/images/Product_icon.png')}
                       size={25}
                     />
@@ -304,14 +315,8 @@ const Post = (props) => {
                   )}
                   {isTouched && <Product />}
                 </>
-
-                {/* <Image
-                      source={require('../../assets/images/Bucket.png')}
-                      size={25}
-                      tintColor={isTouched ? '#31d9fc' : 'white'}
-                      style={{ position: 'absolute', right: 11, bottom: 0, top: 8 }}
-                    /> */}
               </TouchableOpacity>
+              {/* </Modal> */}
 
               {/* ) : ( */}
               {/* top:` ${isPressed} ? " 20": "30" `  */}
@@ -326,6 +331,7 @@ const Post = (props) => {
                   bottom: 0,
                   top: 160,
                   zIndex: 1,
+                  backgroundColor: 'red',
                 }}
                 onPress={() => setPressed(!isPressed)}></TouchableOpacity>
 

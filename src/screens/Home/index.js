@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
 
   text: {
     fontWeight: '400',
-    fontSize: 24,
+    fontSize: 26,
     top: -25,
     left: 20,
     position: 'absolute',

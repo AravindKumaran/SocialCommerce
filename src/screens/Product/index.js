@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, Pressable } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, Pressable, Dimensions } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 const Product = () => {
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     // zIndex: 1,
     bottom: 550,
     right: 7,
+    // height: Dimensions.get('window').height + 1000
   },
   Rectangle: {
     bottom: -595,
