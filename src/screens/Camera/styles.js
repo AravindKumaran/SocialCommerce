@@ -33,6 +33,13 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: '#ff4343',
   },
+  gallery: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    justifyContent: 'flex-end',
+    top: '92.5%',
+    right: 30
+  }
 });
 
 export default styles;

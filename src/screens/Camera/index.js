@@ -7,6 +7,7 @@ import {ProcessingManager} from 'react-native-video-processing';
 import styles from './styles';
 import awaitAsyncGenerator from '@babel/runtime/helpers/esm/awaitAsyncGenerator';
 import {useNavigation} from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Camera = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -49,6 +50,9 @@ const Camera = () => {
         onPress={onRecord}
         style={isRecording ? styles.buttonStop : styles.buttonRecord}
       />
+      <TouchableOpacity style={styles.gallery}>
+        <Feather name="image" size={30} color="#fff" />
+      </TouchableOpacity>
     </View>
   );
 };
