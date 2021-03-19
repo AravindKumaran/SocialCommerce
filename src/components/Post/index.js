@@ -11,7 +11,6 @@ import {API, graphqlOperation, Storage} from 'aws-amplify';
 import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Product from '../../screens/Product/index';
-import VideoPlayer from 'react-native-video-player';
 import Video from 'react-native-video';
 import DoubleClick from 'react-native-double-tap';
 import Comments from './comments';
@@ -22,9 +21,13 @@ import {
   createUserNotification,
 } from '../../graphql/mutations';
 import styles from './styles';
-import Modal from 'react-native-modal';
-import Feather from 'react-native-vector-icons/Feather';
+import Slider from '@react-native-community/slider';
 
+// import Modal from 'react-native-modal';
+// import Feather from 'react-native-vector-icons/Feather';
+// import Controls from '../Post/controls';
+// import VideoPlayer from 'react-native-video-player';
+// import VideoPlayer from 'react-native-video-controls';
 // import DoubleClick from 'react-native-single-double-click';
 
 const user = {
@@ -199,8 +202,18 @@ const Post = (props) => {
               repeat={props.currentIndex === 0}
               paused={paused}
               muted={muted}
-              // controls={true}
+              controls={true}
             />
+            {/* <Slider
+              maximumValue={100}
+              minimumValue={0}
+              minimumTrackTintColor="#307ecc"
+              maximumTrackTintColor="#000000"
+              step={1}
+              // value={this.state.sliderValue}
+              // onValueChange={(sliderValue) => this.setState({sliderValue})}
+              style={{width: '100%', height: 40}}
+            /> */}
           </View>
 
           {/* {showMutedIcon && (
