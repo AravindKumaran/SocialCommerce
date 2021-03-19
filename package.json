@@ -61,6 +61,7 @@
     "react-native-video-player": "^0.10.1",
     "react-native-video-processing": "^2.0.0",
     "react-native-webview": "^11.0.3",
+    "react-navigation": "^4.4.4",
     "uuid": "^8.3.1"
   },
   "devDependencies": {
