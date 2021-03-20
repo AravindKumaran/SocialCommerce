@@ -8214,7 +8214,7 @@ react-native-af-video-player@^0.2.1:
     react-native-vector-icons "^4.4.2"
     react-native-video "^2.0.0"
 
-react-native-animatable@^1.3.3:
+react-native-animatable@1.3.3, react-native-animatable@^1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.3.tgz#a13a4af8258e3bb14d0a9d839917e9bb9274ec8a"
   integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
@@ -8307,7 +8307,7 @@ react-native-inappbrowser-reborn@^3.5.1:
     invariant "^2.2.4"
     opencollective-postinstall "^2.0.2"
 
-react-native-infinite-masonry@^0.0.3:
+react-native-infinite-masonry@0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/react-native-infinite-masonry/-/react-native-infinite-masonry-0.0.3.tgz#ec8f5cd49b70d1266c2b79f1a33cca20102c87ee"
   integrity sha512-cVgXYSVLLNZDsGanR6aeiMjuFYl77B37lpt1CMpox9aLHYVjbYcEdzEhcOFkS/XEbGXilSuVwd1D9rIIvwGJBg==
@@ -8343,6 +8343,14 @@ react-native-media-controls@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/react-native-media-controls/-/react-native-media-controls-2.3.0.tgz#c36e876a14d12982b7c6fb759201ff439117cbd0"
   integrity sha512-N10i12ZO+GIXjmdA9hQk/HuBm5u9xWPIOydG/2SvLEZcnY3xg3D8d2IJXRolzSm2jBRgEGSO4rMgRBU6MpdNMg==
+
+react-native-modal@^11.7.0:
+  version "11.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.7.0.tgz#6637d757eeac6eda85f7017a9dfdee0c0fe3a34c"
+  integrity sha512-0AeAugUrn12DaJK+k2XGmt8ZIUyWgl1nRdipfwHZDnzFSM8g1oqpf7rHxjOqhimHtmzSj4xJ//ZOn1DWe9aC5Q==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-animatable "1.3.3"
 
 react-native-orientation@^3.1.0:
   version "3.1.3"

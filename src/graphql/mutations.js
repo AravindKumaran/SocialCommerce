@@ -14,24 +14,6 @@ export const createUser = /* GraphQL */ `
       posts {
         items {
           id
-          videoUri
-          description
-          likes
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      notifications {
-        items {
-          id
-          userID
-          notificationID
-          read
-          createdAt
-          updatedAt
         }
         nextToken
       }

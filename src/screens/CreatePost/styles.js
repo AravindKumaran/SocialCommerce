@@ -1,10 +1,9 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
   },
   textInput: {
     margin: 20,
@@ -19,7 +18,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   buttonText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -27,8 +26,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 80
-  }
+    height: 80,
+  },
 });
 
 export default styles;

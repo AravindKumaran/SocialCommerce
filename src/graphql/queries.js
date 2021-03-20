@@ -21,6 +21,22 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      following {
+        items {
+          id
+          username
+          imageUri
+        }
+        nextToken
+      }
+      followers {
+        items {
+          id
+          username
+          imageUri
+        }
+        nextToken
+      }
       notifications {
         items {
           id

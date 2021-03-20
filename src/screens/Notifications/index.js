@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,13 @@ import {
   FlatList,
   RefreshControl,
 } from 'react-native';
-import { API, graphqlOperation, Storage } from 'aws-amplify';
-import { listUserNotifications } from '../../graphql/queries';
+import {API, graphqlOperation, Storage, Auth} from 'aws-amplify';
+import {listUserNotifications} from '../../graphql/queries';
 import AppText from '../../components/Common/AppText';
-import { useIsFocused } from '@react-navigation/native';
+import AppButton from '../../components/Common/AppButton';
+import {useIsFocused} from '@react-navigation/native';
+import {Linking} from 'react-native';
+import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import NotifItem from './NotifItem';
 
@@ -85,7 +88,7 @@ const checkYesterday = () => {
   return yesterday.getDate();
 };
 
-const Notifications = () => {
+const Notifications = ({navigation}) => {
   const isFocused = useIsFocused();
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -108,7 +111,7 @@ const Notifications = () => {
           // }
         ),
       );
-      console.log('ress', res.data.listUserNotifications.items[0]);
+      // console.log('ress', res.data.listUserNotifications.items[0]);
       const allItems = res.data.listUserNotifications.items;
       const sortedItems = allItems.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
@@ -149,6 +152,59 @@ const Notifications = () => {
     };
   }, [isFocused === true]);
 
+  const onGoogle = async () => {
+    // Auth.federatedSignIn({provider: 'Google'});
+    // await Auth.signOut();
+    console.log('Called');
+    // return;
+    Auth.federatedSignIn();
+
+    // const federatedInfo = await Cache.getItem('federatedInfo');
+    // console.log('Info', federatedInfo);
+
+    return;
+    try {
+      // const url = 'https://www.google.com';
+      const url =
+        'https://tiktok24dfe314-24dfe314-demo.auth.us-east-2.amazoncognito.com/login?redirect_uri=tiktok%3A%2F%2F&response_type=code&client_id=7dcbjoer98feb1f4spbn5p0g4l&identity_provider=google&scope=phone%20email%20openid%20profile%20aws.cognito.signin.user.admin&state=HcXprhpFinnP0yJWLg97AzKH0WvvD348&code_challenge=zyasMIpb4FzSb_x3T91xzwFKlQp_X5o3CV_L60nS1lM&code_challenge_method=S256&errorMessage=Login+option+is+not+available.+Please+try+another+one';
+      if (await InAppBrowser.isAvailable()) {
+        const result = await InAppBrowser.open(url, {
+          // iOS Properties
+          dismissButtonStyle: 'cancel',
+          preferredBarTintColor: '#453AA4',
+          preferredControlTintColor: 'white',
+          readerMode: false,
+          animated: true,
+          modalPresentationStyle: 'fullScreen',
+          modalTransitionStyle: 'coverVertical',
+          modalEnabled: true,
+          enableBarCollapsing: false,
+          // Android Properties
+          showTitle: true,
+          toolbarColor: '#6200EE',
+          secondaryToolbarColor: 'black',
+          enableUrlBarHiding: true,
+          enableDefaultShare: true,
+          forceCloseOnRedirection: false,
+          // Specify full animation resource identifier(package:anim/name)
+          // or only resource name(in case of animation bundled with app).
+          animations: {
+            startEnter: 'slide_in_right',
+            startExit: 'slide_out_left',
+            endEnter: 'slide_in_left',
+            endExit: 'slide_out_right',
+          },
+          headers: {
+            'my-custom-header': 'my custom header value',
+          },
+        });
+        Alert.alert(JSON.stringify(result));
+      } else Linking.openURL(url);
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
+
   const handleRefresh = useCallback(() => {
     setRefreshing(true);
     setTodayNotif([]);
@@ -159,7 +215,7 @@ const Notifications = () => {
 
   return (
     <View style={styles.container}>
-      <View style={{ marginBottom: 20, padding: 15 }}>
+      <View style={{marginBottom: 20, padding: 15}}>
         <Text style={styles.text}>Notifications</Text>
         <View
           style={{
@@ -174,51 +230,95 @@ const Notifications = () => {
           style={{width: '100%', paddingTop: 5, top: 10, }}
         /> */}
       </View>
-      {loading && <Text>Loading...</Text>}
+      {/* {loading && <Text>Loading...</Text>} */}
+      {loading && <LoadingIndicator visible={loading} />}
+      {/* <AppButton title="Google" onPress={onGoogle} /> */}
 
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }>
         {todayNotif.length > 0 && (
-          <View style={{ marginBottom: 10 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ marginLeft: '17%', flex: 1, height: 1, backgroundColor: '#51565D' }} />
+          <View style={{marginBottom: 10}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View
+                style={{
+                  marginLeft: '17%',
+                  flex: 1,
+                  height: 1,
+                  backgroundColor: '#51565D',
+                }}
+              />
               <View>
                 <Text style={styles.text1}>Today</Text>
               </View>
-              <View style={{ flex: 1, height: 1, backgroundColor: '#51565D', marginRight: '17%' }} />
+              <View
+                style={{
+                  flex: 1,
+                  height: 1,
+                  backgroundColor: '#51565D',
+                  marginRight: '17%',
+                }}
+              />
             </View>
             {todayNotif.map((item, index) => (
-              <NotifItem item={item} />
+              <NotifItem item={item} key={item.id} />
             ))}
           </View>
         )}
         {yesterdayNotif.length > 0 && (
-          <View style={{ marginTop: 10, marginBottom: 10 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ marginLeft: '17%', flex: 1, height: 1, backgroundColor: '#51565D' }} />
+          <View style={{marginTop: 10, marginBottom: 10}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View
+                style={{
+                  marginLeft: '17%',
+                  flex: 1,
+                  height: 1,
+                  backgroundColor: '#51565D',
+                }}
+              />
               <View>
                 <Text style={styles.text1}>Yesterday</Text>
               </View>
-              <View style={{ flex: 1, height: 1, backgroundColor: '#51565D', marginRight: '17%' }} />
+              <View
+                style={{
+                  flex: 1,
+                  height: 1,
+                  backgroundColor: '#51565D',
+                  marginRight: '17%',
+                }}
+              />
             </View>
             {yesterdayNotif.map((item, index) => (
-              <NotifItem item={item} />
+              <NotifItem item={item} key={item.id} />
             ))}
           </View>
         )}
         {olderNotif.length > 0 && (
-          <View style={{ marginTop: 10, marginBottom: 10 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <View style={{ marginLeft: '17%', flex: 1, height: 1, backgroundColor: '#51565D' }} />
+          <View style={{marginTop: 10, marginBottom: 10}}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View
+                style={{
+                  marginLeft: '17%',
+                  flex: 1,
+                  height: 1,
+                  backgroundColor: '#51565D',
+                }}
+              />
               <View>
                 <Text style={styles.text1}>Older</Text>
               </View>
-              <View style={{ flex: 1, height: 1, backgroundColor: '#51565D', marginRight: '17%' }} />
+              <View
+                style={{
+                  flex: 1,
+                  height: 1,
+                  backgroundColor: '#51565D',
+                  marginRight: '17%',
+                }}
+              />
             </View>
             {olderNotif.map((item, index) => (
-              <NotifItem item={item} />
+              <NotifItem item={item} key={item.id} />
             ))}
           </View>
         )}
@@ -267,217 +367,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     paddingRight: '5%',
-    paddingLeft: '5%'
+    paddingLeft: '5%',
   },
 });
-
-// import React, { useState } from 'react';
-// import {StyleSheet, View, Text, Image, Dimensions, ScrollView, TextInput} from 'react-native';
-// import LinearGradient from 'react-native-linear-gradient';
-// import Post from '../../components/Post';
-// import { API, graphqlOperation, Storage } from 'aws-amplify';
-// import {getComments} from './src/graphql/queries';
-
-// const Notification = (props) => {
-
-//   const fetchComments = async () => {
-//     const userInfo = await Auth.currentAuthenticatedUser({bypassCache: true});
-//     if (!userInfo) {
-//       return;
-//     }
-
-//     const getUserResponse = await API.graphql(
-//       graphqlOperation(getUser, {id: userInfo.attributes.sub}),
-//     );
-//   };
-
-//   const [comment, setComment] = useState('');
-//   const [post, setPost] = useState(props.post);
-
-//   return (
-//     <View style={styles.coverer}>
-//       {/* <LinearGradient colors={["#EFFAFF", "#EDFDFF"]} style={styles.linearGradient}> */}
-
-//         <View>
-//         <Image source={require('../../assets/images/Bline.png')} size={25} style={{ top: 250, left: 10 }} />
-//         <Image source={require('../../assets/images/Lline.png')} size={25} style={{ bottom: 290, right: 100 }} />
-//         <Image source={require('../../assets/images/Tline.png')} size={25} style={{ bottom: 320, left: 50 }} />
-//         <Image source={require('../../assets/images/Dline.png')} size={25} style={{ top: 200, left: 60 }} />
-//         <Text style={styles.text1}>Comments</Text>
-
-//         <ScrollView>
-//         <TextInput
-//             value={comment}
-//             onChangeText={setComment}
-//             numberOfLines={5}
-//             placeholder={'Comment'}
-//             style={styles.textInput}
-//           />
-//         <Text style={styles.text2}>Enter your comments</Text>
-//         <Image style={styles.img}>{post.user.userimage}</Image>
-//         <Text style={styles.handle}>{post.user.username}</Text>
-//         <Text style={styles.statsLabel}>{post.comments}</Text>
-
-//         </ScrollView>
-//         </View>
-//       {/* </LinearGradient>  */}
-
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   coverer: {
-//     flex: 1,
-//     borderRadius: 30,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     alignContent: 'center',
-//     width: '100%',
-//     backgroundColor: 'green'
-//   },
-//   linearGradient: {
-//     width: '100%',
-//     height: '100%',
-//     opacity: 0.95,
-//     justifyContent: 'center',
-//     alignItems: 'center'
-//   },
-//   text1: {
-//     color: '#20232A',
-//     position: 'absolute',
-//     fontFamily: 'Proxima Nova',
-//     fontWeight: '700',
-//     fontSize: 16,
-//     left: 30,
-//     bottom: 300,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     alignContent: 'center',
-//   },
-//   text2: {
-//     color: 'green'
-//   },
-//   text: {
-//     color: 'green'
-//   },
-//   statsLabel: {
-//     color: '#fff',
-//     fontSize: 16,
-//     fontWeight: '600',
-//     marginTop: 5,
-//   },
-// });
-
-// export default Notification;
-
-// import React, {Component, useState} from 'react';
-// import {
-//   View,
-//   Image,
-//   StyleSheet,
-//   TouchableWithoutFeedback,
-//   FlatList,
-//   ScrollView,
-//   SafeAreaView,
-//   Text,
-// } from 'react-native';
-// import {Col, Row, Grid} from 'react-native-easy-grid';
-// import VideoPlayer from 'react-native-video-player';
-// import Video from 'react-native-video';
-
-// // const Trending = () => {
-// //   const [paused, setPaused] = useState(false);
-// //   const onPlayPausePress = () => {
-// //     setPaused(!paused);
-// //   };
-
-// //   return (
-// //       <View style={{
-// //         flex: 1,
-// //         top: 150,
-// //         backgroundColor: '#20232A'
-// //       }}>
-// //           <View style={{left: 5, top: 5}}>
-// //             {/* <View style={{
-// //               flex: 1,
-// //               width: 166,
-// //               height: 257,
-// //               position: 'absolute',
-// //               }} >
-// //               <Video
-// //                 muted={true}
-// //                 source={{uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"}}
-// //                 resizeMode='cover'
-// //                 style={StyleSheet.absoluteFill}
-// //               />
-// //             </View> */}
-// //         </View>
-// //       </View>
-// //   );
-// // };
-
-// // export default Trending;
-
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1
-// //   }
-// // });
-
-// import MasonryList from 'react-native-masonry-list';
-
-// const Notifications = () => {
-//   return (
-//     <View style={styles.container}>
-//       <View style={styles.container1}>
-//         <View style={styles.a1}></View>
-//         <View style={styles.a2}></View>
-//         <View style={styles.a3}></View>
-//       </View>
-//       <View style={styles.container2}>
-//           <View style={styles.b1}>
-
-//           </View>
-
-//       </View>
-//     </View>
-//   );
-// };
-// export default Notifications;
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     padding: 5,
-//     // flexDirection: 'row',
-//     // flexWrap: 'wrap'
-//   },
-//   container1: {
-//     flex: 1,
-//     flexDirection: 'column',
-//     // flexWrap: 'wrap'
-//   },
-//   a1: {
-//     height: '40%',
-//     width: '40%',
-//     backgroundColor: 'red',
-//   },
-//   a2: {
-//     height: '35%',
-//     width: '40%',
-//     backgroundColor: 'yellow',
-//   },
-//   a3: {
-//     height: '25%',
-//     width: '40%',
-//     backgroundColor: 'pink',
-//   },
-//   container2: {
-//     flexDirection: 'column',
-//     // flexWrap: 'wrap'
-//   },
-//   b1: {
-
-//   }
-// });
