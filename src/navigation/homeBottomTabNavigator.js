@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,  useEffect,} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Camera from '../screens/Camera';
@@ -11,7 +11,7 @@ import {
   View,
   TouchableOpacity,
   BackHandler,
-  useEffect,
+  Keyboard,
 } from 'react-native';
 import {color} from 'react-native-reanimated';
 
@@ -29,7 +29,7 @@ import {color} from 'react-native-reanimated';
 // import Profileicon from '../assets/images/Profile_icon.png';
 // import Likeicon from '../assets/images/Like_icon.png';
 // import Plus from '../assets/images/Plus.png';
-// import Fontisto from 'react-native-vector-icons/Fontisto';
+// import Fontisto from 'react-native-vector-icons/Fontisto'; 
 // import { color } from 'react-native-reanimated';
 // import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 // import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -142,9 +142,30 @@ const Tab = createBottomTabNavigator();
 // backgroundColor: '#383734',
 
 const HomeBottomTabNavigator = () => {
+  const {keyboardHidesTabBars} = useState(true);
+  const [didKeyboardShow, setKeyboardShow] = useState(false);
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, []);
+
+  const _keyboardDidShow = () => {
+    setKeyboardShow(true);
+  };
+
+  const _keyboardDidHide = () => {
+    setKeyboardShow(false);
+  };
   return (
     <Tab.Navigator
       tabBarOptions={{
+        keyboardHidesTabBar: true,
         tabStyle: {
           backgroundColor: '#383734',
           height: 55,
@@ -211,7 +232,7 @@ const HomeBottomTabNavigator = () => {
         options={() => ({
           tabBarIcon: ({focused, color}) => (
             <>
-              <Image
+            {!didKeyboardShow && <Image
                 source={require('../assets/images/Plus.png')}
                 style={{
                   width: 65,
@@ -220,7 +241,7 @@ const HomeBottomTabNavigator = () => {
                   bottom: focused ? -20 : 20,
                   zIndex: 1,
                 }}
-              />
+              />}
             </>
           ),
           tabBarLabel: () => null,

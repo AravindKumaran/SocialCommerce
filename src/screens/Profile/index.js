@@ -15,6 +15,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import EditProfile from '../../screens/Profile/editprofile';
 import Followers from '../../screens/Profile/followers';
+import Following from '../../screens/Profile/following';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
@@ -39,6 +40,7 @@ const ProfileScreen = () => {
   const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const refRBSheet2 = useRef();
 
   const [images, setimages] = useState([
     require('../../assets/images/i1.png'),
@@ -190,13 +192,61 @@ const ProfileScreen = () => {
                   </RBSheet>
 
                   <TouchableOpacity
-                    style={{bottom: 40, left: '220%', position: 'absolute'}}
-                    onPress={() => refRBSheet1.current.open()}>
+                    style={{bottom: 40, left: '220%', position: 'absolute'}}>
                     <Feather
                       style={styles.chart}
                       name={'bar-chart'}
                       size={20}
                     />
+                  </TouchableOpacity>
+
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontFamily: 'Proxima Nova',
+                      fontWeight: '700',
+                      fontSize: 16,
+                      bottom: 10,
+                    }}>
+                    mark_3425
+                  </Text>
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontFamily: 'Proxima Nova',
+                      fontWeight: '400',
+                      fontSize: 12,
+                      // left: 25,
+                      bottom: 0,
+                      alignSelf: 'center',
+                    }}>
+                    Designer
+                  </Text>
+                </View>
+
+                <View style={{top: '40%'}}>
+                  <TouchableOpacity
+                    style={{top: 135, right: 130}}
+                    onPress={() => refRBSheet1.current.open()}>
+                    <Text
+                      style={{
+                        color: '#939495',
+                        fontFamily: 'Proxima Nova',
+                        fontWeight: '400',
+                        fontSize: 12,
+                      }}>
+                      Followers
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#FFFFFF',
+                        fontFamily: 'Proxima Nova',
+                        fontWeight: '700',
+                        fontSize: 14,
+                        left: 10,
+                      }}>
+                      10K
+                    </Text>
                   </TouchableOpacity>
 
                   <RBSheet
@@ -223,54 +273,9 @@ const ProfileScreen = () => {
                     <Followers />
                   </RBSheet>
 
-                  <Text
-                    style={{
-                      color: '#FFFFFF',
-                      fontFamily: 'Proxima Nova',
-                      fontWeight: '700',
-                      fontSize: 16,
-                      bottom: 10,
-                    }}>
-                    Avi
-                  </Text>
-                  <Text
-                    style={{
-                      color: '#FFFFFF',
-                      fontFamily: 'Proxima Nova',
-                      fontWeight: '400',
-                      fontSize: 12,
-                      // left: 25,
-                      bottom: 0,
-                      alignSelf: 'center',
-                    }}>
-                    Designer
-                  </Text>
-                </View>
-
-                <View style={{top: '40%'}}>
-                  <TouchableOpacity style={{top: 135, right: 130}}>
-                    <Text
-                      style={{
-                        color: '#939495',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '400',
-                        fontSize: 12,
-                      }}>
-                      Followers
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#FFFFFF',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '700',
-                        fontSize: 14,
-                        left: 10,
-                      }}>
-                      10K
-                    </Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style={{top: 100}}>
+                  <TouchableOpacity
+                    style={{top: 100}}
+                    onPress={() => refRBSheet2.current.open()}>
                     <Text
                       style={{
                         color: '#939495',
@@ -291,6 +296,30 @@ const ProfileScreen = () => {
                       1K
                     </Text>
                   </TouchableOpacity>
+
+                  <RBSheet
+                    ref={refRBSheet2}
+                    height={Dimensions.get('window').height - 140}
+                    animationType="fade"
+                    customStyles={{
+                      wrapper: {
+                        backgroundColor: 'rgba(0,0,0,.6)',
+                        padding: 10,
+                      },
+                      draggableIcon: {
+                        backgroundColor: '#000',
+                      },
+                      container: {
+                        backgroundColor: '#1A1A1A',
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        bottom: 85,
+                      },
+                    }}>
+                    <Following />
+                  </RBSheet>
 
                   <TouchableOpacity style={{top: 65, left: 150}}>
                     <Text
@@ -350,9 +379,8 @@ const ProfileScreen = () => {
             </View>
           </View>
           <View style={{margin: 20}}>
-            <AppButton title="Logout" onPress={handleLogout} />
+            <AppButton onPress={handleLogout} title="Logout" />
           </View>
-
           <View
             style={{
               flexWrap: 'wrap',

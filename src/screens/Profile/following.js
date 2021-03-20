@@ -81,9 +81,9 @@ const ActiveStyle1 = () => (
   </>
 );
 
-const Followers = () => {
-  const [isTouched, setTouched] = useState(true);
-  const [isPressed, setPressed] = useState(false);
+const Following = () => {
+  const [isTouched, setTouched] = useState(false);
+  const [isPressed, setPressed] = useState(true);
   const [isClicked, setClicked] = useState(false);
 
   const user = [
@@ -249,7 +249,7 @@ const Followers = () => {
     </SafeAreaView>
   );
 };
-export default Followers;
+export default Following;
 
 const styles = StyleSheet.create({
   container: {
