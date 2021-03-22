@@ -11,18 +11,13 @@ import React, {useEffect} from 'react';
 import {SafeAreaView, StatusBar} from 'react-native';
 
 import Navigation from './src/navigation';
-// import Product from './src/screens/Products';
 
 import {Auth, API, graphqlOperation} from 'aws-amplify';
-// import {withAuthenticator} from 'aws-amplify-react-native';
 
 import {createUser} from './src/graphql/mutations';
 import {getUser} from './src/graphql/queries';
 
 import SplashScreen from 'react-native-splash-screen';
-// import Toptab from './src/navigation/homeTopTabNavigator';
-
-
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -54,11 +49,6 @@ const App: () => React$Node = () => {
         console.log('User already exists in database');
         return;
       }
-
-      
-
-      // if it doesn't (it's newly registered user)
-      // then, create a new user in database
       const newUser = {
         id: userInfo.attributes.sub,
         username: userInfo.username,
@@ -69,18 +59,14 @@ const App: () => React$Node = () => {
       await API.graphql(graphqlOperation(createUser, {input: newUser}));
     };
 
-    fetchUser();
+    // fetchUser();
   }, []);
 
   return (
     <>
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
-        {/* <Toptab /> */}
         <Navigation />
-        {/* ? <Comments user={user} />
-        : <Login onLoggedIn={this.onLoggedIn} />; */}
-        {/* <Product /> */}
       </SafeAreaView>
     </>
   );
@@ -88,10 +74,7 @@ const App: () => React$Node = () => {
 
 export default App;
 class WelcomePage extends React.Component {
-
   componentDidMount() {
-    // do stuff while splash screen is shown
-      // After having done stuff (such as async tasks) hide the splash screen
-      SplashScreen.hide();
+    SplashScreen.hide();
   }
 }

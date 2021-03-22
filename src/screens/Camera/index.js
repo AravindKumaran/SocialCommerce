@@ -1,16 +1,16 @@
 import React, {useRef, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {RNCamera} from 'react-native-camera';
-import RNVideoHelper from 'react-native-video-helper';
 import {ProcessingManager} from 'react-native-video-processing';
 
 import styles from './styles';
-import awaitAsyncGenerator from '@babel/runtime/helpers/esm/awaitAsyncGenerator';
 import {useNavigation} from '@react-navigation/native';
+import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import Feather from 'react-native-vector-icons/Feather';
 
 const Camera = () => {
   const [isRecording, setIsRecording] = useState(false);
+  const [compressing, setCompressing] = useState(false);
   const camera = useRef();
 
   const navigation = useNavigation();
@@ -20,26 +20,27 @@ const Camera = () => {
       camera.current.stopRecording();
     } else {
       const data = await camera.current.recordAsync();
-      console.log('Data', data);
-      navigation.navigate('CreatePost', {videoUri: data.uri});
-      // ProcessingManager.getVideoInfo(data.uri).then((stats) =>
-      //   console.log('Before', stats),
-      // );
-      // const options = {width: 720, height: 1280, bitrateMultiplier: 3};
-      // const lat = '';
-      // ProcessingManager.compress(data.uri, options) // like VideoPlayer compress options
-      //   .then((data) => {
-      //     navigation.navigate('CreatePost', {videoUri: data.source});
-      //     ProcessingManager.getVideoInfo(data.source).then((stats) =>
-      //       console.log('After', stats),
-      //     );
-      //     console.log(data);
-      //   });
+      ProcessingManager.getVideoInfo(data.uri).then((stats) =>
+        console.log('Before', stats),
+      );
+      const options = {width: 360, height: 480};
+      setCompressing(true);
+      ProcessingManager.compress(data.uri, options).then((d) => {
+        ProcessingManager.getVideoInfo(d.source).then((stats) =>
+          console.log('After', stats),
+        );
+        console.log('data2', d.source);
+        setCompressing(false);
+        navigation.navigate('CreatePost', {
+          videoUri: d.source,
+        });
+      });
     }
   };
 
   return (
     <View style={styles.container}>
+      {compressing && <LoadingIndicator visible={compressing} />}
       <RNCamera
         ref={camera}
         onRecordingStart={() => setIsRecording(true)}

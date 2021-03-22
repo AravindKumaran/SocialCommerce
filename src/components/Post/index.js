@@ -79,6 +79,16 @@ const Post = (props) => {
   const videoPlayer = useRef();
 
   useEffect(() => {
+    if (!props.post.videoUri.startsWith('https')) {
+      setVideoUri(
+        `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${props.post.videoUri}`,
+      );
+    } else {
+      setVideoUri(props.post.videoUri);
+    }
+  }, []);
+
+  useEffect(() => {
     if (props.currentIndex === props.currentVisibleIndex) {
       // vidRef.current.resume();
       setPaused(false);
@@ -258,7 +268,7 @@ const Post = (props) => {
             <Video
               ref={(ref) => (vidRef.current = ref)}
               // ref={vidRef}
-              source={{uri: convertToProxyURL(props.post.videoUri)}}
+              source={{uri: convertToProxyURL(videoUri)}}
               style={styles.video}
               resizeMode={'cover'}
               repeat={props.currentIndex === 0}

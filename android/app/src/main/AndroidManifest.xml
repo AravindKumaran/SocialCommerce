@@ -3,14 +3,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- Required -->
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!-- Include this only if you are planning to use the camera roll -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <!-- Include this only if you are planning to use the microphone for video recording -->
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <application
@@ -30,12 +26,18 @@
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-        <intent-filter android:label="filter_react_native"> <!-- THE NEW INTENT -->
+        <!-- <intent-filter android:label="filter_react_native">
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:scheme="my-scheme" android:host="my-host" android:pathPrefix=""/>
-            </intent-filter>
+            </intent-filter> -->
+      <intent-filter>
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+          <data android:scheme="tiktok" />
+    </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>

@@ -14,10 +14,8 @@ import {withAuthenticator} from 'aws-amplify-react-native';
 import styles from './styles';
 import {createPost} from '../../graphql/mutations';
 import {WebView} from 'react-native-webview';
-// import WebViewBridge from 'react-native-webview-bridge';
-// import { CustomTabs } from 'react-native-custom-tabs';
-  
-
+import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import AppButton from '../../components/Common/AppButton';
 
 const CreatePost = () => {
   const [description, setDescription] = useState('');
@@ -26,131 +24,86 @@ const CreatePost = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const [user, setUser] = useState(null);
-  const [isNotLoading, setNotLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
   const signin = useCallback(() => {
     Auth.federatedSignIn({provider: 'google'});
     setUser(true);
   }, []);
 
-  const uploadToStorage = async (imagePath) => {
-    try {
-      const response = await fetch(imagePath);
-
-      const blob = await response.blob();
-      const random = Math.floor(Math.random() * 9000);
-      const filename = `${random}.mp4`;
-      const s3Response = await Storage.put(filename, blob);
-      console.log('s3Response', s3Response);
-      setVideoKey(s3Response.key);
-      setTimeout(() => {
-        console.log('video', videoKey);
-        onPublish(s3Response.key);
-      }, 1000);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  useEffect(() => {
-    console.log('route.params.videoUri', route.params.videoUri);
-    Auth.currentAuthenticatedUser()
-      .then((user) => {
-        console.log('USSS', user);
-        user.getUserData((err, userData) => {
-          setUser({
-            email: user.attributes.email,
-          });
-        });
-      })
-      .catch((error) => {
-        setUser(null);
-      });
-  }, []);
-
-  const onPublishButtonClick = async () => {
-    setNotLoading(false);
-    uploadToStorage(route.params.videoUri);
-  };
-
-  const onPublish = async (keyVideo) => {
-    // create post in the database (API)
-    if (!keyVideo) {
-      setNotLoading(true);
-      console.warn('Video is uploading! Please wait!');
+  const uploadToStorage = async () => {
+    if (!description || !route.params.videoUri) {
       return;
     }
-
     try {
-      const userInfo = await Auth.currentAuthenticatedUser();
-      console.log('df', userInfo);
+      setLoading(true);
+      const response1 = await fetch(route.params.videoUri);
+
+      const blob1 = await response1.blob();
+      console.log('Filename', blob1.data);
+      const s3Response = await Storage.put(blob1.data.name, blob1, {
+        contentType: blob1.data.type,
+      });
+      console.log('s3Response', s3Response);
       const newPost = {
-        videoUri: keyVideo,
+        videoUri: s3Response.key,
         description: description,
-        userID: userInfo.attributes.sub,
-        likes: 0,
+        userID: user.sub,
         songID: '20dee14b-39a9-4321-8ec7-c3380e2f5c27',
       };
 
-      const response = await API.graphql(
+      const posRes = await API.graphql(
         graphqlOperation(createPost, {input: newPost}),
       );
-      setNotLoading(true);
+      console.log('posRes', posRes);
+      setLoading(false);
       navigation.navigate('Home', {screen: 'Home'});
     } catch (e) {
       console.error(e);
     }
   };
 
+  const checkUser = async () => {
+    setLoading(true);
+    try {
+      const userInfo = await Auth.currentAuthenticatedUser({
+        bypassCache: true,
+      });
+      console.log('User', userInfo.attributes);
+      setUser(userInfo.attributes);
+      setLoading(false);
+    } catch (error) {
+      console.log('Error', error);
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    console.log('route.params.videoUri', route.params.videoUri);
+    checkUser();
+  }, []);
+
+  const handleSignIn = async () => {
+    await Auth.federatedSignIn();
+    checkUser();
+  };
+
   return (
     <View style={styles.container}>
-      {isNotLoading !== false ? (
-        <>
-          <TextInput
-            value={description}
-            onChangeText={setDescription}
-            numberOfLines={5}
-            placeholder={'Hashtag'}
-            style={styles.textInput}
-          />
-          {user === null ? (
-            // CustomTabs.openURL('https://tiktok24dfe314-24dfe314-demo.auth.us-east-2.amazoncognito.com/login?redirect_uri=tiktok%3A%2F%2F&response_type=code&client_id=7dcbjoer98feb1f4spbn5p0g4l&identity_provider=google&scope=phone%20email%20openid%20profile%20aws.cognito.signin.user.admin&state=HcXprhpFinnP0yJWLg97AzKH0WvvD348&code_challenge=zyasMIpb4FzSb_x3T91xzwFKlQp_X5o3CV_L60nS1lM&code_challenge_method=S256&errorMessage=Login+option+is+not+available.+Please+try+another+one', {
-            //   enableUrlBarHiding: true,
-            // })
-            <WebView
-              style={styles.button}
-              onPress={signin}
-              originWhitelist={['*']}
-              source={{
-                uri:
-                  'https://tiktok24dfe314-24dfe314-demo.auth.us-east-2.amazoncognito.com/login?redirect_uri=tiktok%3A%2F%2F&response_type=code&client_id=7dcbjoer98feb1f4spbn5p0g4l&identity_provider=google&scope=phone%20email%20openid%20profile%20aws.cognito.signin.user.admin&state=HcXprhpFinnP0yJWLg97AzKH0WvvD348&code_challenge=zyasMIpb4FzSb_x3T91xzwFKlQp_X5o3CV_L60nS1lM&code_challenge_method=S256&errorMessage=Login+option+is+not+available.+Please+try+another+one',
-              }}
-            />
-          ) : (
-            <>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={onPublishButtonClick}>
-                <Text style={styles.buttonText}>Publish</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  Auth.signOut();
-                  setUser(null);
-                }}>
-                <View style={styles.button}>
-                  <Text style={styles.buttonText}>Sign out</Text>
-                </View>
-              </TouchableOpacity>
-            </>
-          )}
-        </>
+      {loading && <LoadingIndicator visible={loading} />}
+      <TextInput
+        value={description}
+        onChangeText={(text) => setDescription(text)}
+        numberOfLines={5}
+        placeholder={'Hashtag'}
+        style={styles.textInput}
+      />
+      {user ? (
+        <View style={styles.button}>
+          <AppButton onPress={uploadToStorage} title="Publish Video" />
+        </View>
       ) : (
-        <ActivityIndicator
-          animating={true}
-          size="large"
-          color="#bc2b78"
-          style={styles.activityIndicator}
-        />
+        <View style={styles.button}>
+          <AppButton onPress={handleSignIn} title="Please sign in first" />
+        </View>
       )}
     </View>
   );
