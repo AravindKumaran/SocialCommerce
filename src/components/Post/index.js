@@ -21,8 +21,13 @@ import {
   createUserNotification,
 } from '../../graphql/mutations';
 import styles from './styles';
-import Slider from '@react-native-community/slider';
+import Slider from 'react-native-slider';
 
+// import Slider from '@react-native-community/slider';
+// import MediaControls, {PLAYER_STATES} from 'react-native-media-controls';
+// import {makeStyles, withStyles} from '@material-ui/core/styles';
+// import ProgressBar from '../Post/slider';
+// import { duration } from 'moment';
 // import Modal from 'react-native-modal';
 // import Feather from 'react-native-vector-icons/Feather';
 // import Controls from '../Post/controls';
@@ -62,10 +67,16 @@ const Post = (props) => {
   const [muted, setMuted] = useState(false);
   const [videoUri, setVideoUri] = useState('');
 
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
   const vidRef = useRef();
   const refRBSheet = useRef();
   const showRef = useRef();
   const showPauseRef = useRef();
+  const playerRef = useRef();
+  const videoPlayer = useRef();
 
   useEffect(() => {
     if (!props.post.videoUri.startsWith('https')) {
@@ -172,6 +183,63 @@ const Post = (props) => {
     setTouched(!isTouched);
   };
 
+  // const handleOnVideoEnd = (e) => {
+  //   if (props.currentIndex === 0) {
+  //     console.log('Ennd', vidRef.current.seek(100));
+  //   }
+  // };
+
+  // const onload = ({duration}) => this.setState({duration});
+  // const progress = ({currentTime}) => this.setState({currentTime});
+
+  const onProgress = (data) => {
+    if (!isLoading) {
+      setCurrentTime(data.currentTime);
+    }
+  };
+
+  const onLoad = (data) => {
+    setDuration(Math.round(data.duration));
+    setIsLoading(false);
+  };
+
+  const onLoadStart = () => setIsLoading(true);
+
+  const onSeek = (seek) => {
+    videoPlayer?.current.seek(seek);
+  };
+
+  const onSeeking = (currentVideoTime) => setCurrentTime(currentVideoTime);
+
+  const onSlide = (e, newValue) => {
+    console.log(newValue);
+    setState({
+      ...state,
+      seek: parseFloat(newValue * duration),
+      unseek: newValue === 0 ? true : false,
+    });
+  };
+
+  // function onSeek(data: OnSeekData) {
+  //   videoRef.current.seek(data.seekTime);
+  //   setState({...state, currentTime: data.seekTime});
+  // }
+
+  // onslide = slide => {
+  //   this.video.seek(slide * this.state.duration);
+  //   clearTimeout(this.overlayTimer);
+  //   this.overlayTimer = setTimeout(() => this.setState({ overlay: false}))
+  // }
+
+  // function ValueLabelComponent(props) {
+  //   const {children, open, value} = props;
+  // }
+
+  // const handleSeekChange = (e, newValue) => {
+  //   console.log({newValue});
+  //   setState({...state, played: parseFloat(newValue / 100)});
+  // };
+
   return (
     <View style={styles.container}>
       <DoubleClick
@@ -206,18 +274,29 @@ const Post = (props) => {
               repeat={props.currentIndex === 0}
               paused={paused}
               muted={muted}
-              // controls={true}
+              onProgress={onProgress}
+              onLoad={onLoad}
             />
-            {/* <Slider
-              maximumValue={100}
-              minimumValue={0}
-              minimumTrackTintColor="#307ecc"
-              maximumTrackTintColor="#000000"
-              step={1}
-              // value={this.state.sliderValue}
-              // onValueChange={(sliderValue) => this.setState({sliderValue})}
-              style={{width: '100%', height: 40}}
+
+            {/* <MediaControls
+              duration={duration}
+              isLoading={isLoading}
+              progress={currentTime}
+              onSeek={onSeek}
+              onSeeking={onSeeking}
+              mainColor={'red'}
             /> */}
+            <Slider
+              minimumValue={0}
+              maximumValue={duration}
+              minimumTrackTintColor="red"
+              maximumTrackTintColor="white"
+              thumbTintColor="white"
+              step={1}
+              value={currentTime}
+              onValueChange={onSeeking}
+              style={{width: '100%', top: '83%'}}
+            />
           </View>
 
           {/* {showMutedIcon && (
@@ -283,14 +362,21 @@ const Post = (props) => {
                 <>
                   {!isTouched ? (
                     <Image
-                      source={require('../../assets/images/Profile1_icon.png')}
-                      size={25}
+                      source={require('../../assets/images/p2.png')}
+                      size={35}
+                      style={{height: 55, width: 50}}
                     />
                   ) : (
                     <Image
-                      style={{top: -110, position: 'absolute', right: 0}}
-                      source={require('../../assets/images/Profile1_icon.png')}
-                      size={25}
+                      style={{
+                        top: -110,
+                        position: 'absolute',
+                        right: 0,
+                        height: 55,
+                        width: 50,
+                      }}
+                      source={require('../../assets/images/p2.png')}
+                      size={35}
                       // tintColor={isTouched ? '#31d9fc' : 'white'}
                     />
                   )}

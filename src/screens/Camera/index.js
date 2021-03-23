@@ -8,10 +8,14 @@ import {useNavigation} from '@react-navigation/native';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import Feather from 'react-native-vector-icons/Feather';
 
+import ImagePicker from 'react-native-image-crop-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+
 const Camera = () => {
   const [isRecording, setIsRecording] = useState(false);
   const [compressing, setCompressing] = useState(false);
   const camera = useRef();
+  const gallery = useRef();
 
   const navigation = useNavigation();
 
@@ -38,6 +42,63 @@ const Camera = () => {
     }
   };
 
+  const openImageLibrary = () => {
+    const options = {
+      mediaType: 'video',
+      videoQuality: 'low',
+      maxWidth: 360,
+      maxHeight: 480,
+    };
+    launchImageLibrary(options, (res) => {
+      if (res.fileSize <= 5000000) {
+        console.log(res.uri);
+        navigation.navigate('CreatePost', {
+          videoUri: res.uri,
+        });
+      } else {
+        setTimeout( () => {alert('Please select video of size less than 5mb')},200);
+      }
+    });
+  };
+
+  // const chooseVideoFromLibrary = async () => {
+  //   ImagePicker.openPicker({
+  //     mediaType: 'video',
+  //   }).then((video) => {
+  //     console.log(video);
+  //     navigation.navigate('CreatePost', {
+  //       videoUri: res.source,
+  //     });
+  //   });
+  // };
+
+  // const openImageLibrary = async () => {
+  //   const options = {
+  //     mediaType: 'video',
+  //     videoQuality: 'low',
+  //     maxWidth: 500,
+  //     maxHeight: 500,
+  //   };
+  //   launchImageLibrary(options, (res) => {
+  //     if (res.didCancel) return;
+
+  //     if (res.errorMessage) {
+  //       console.log('Error in Picking Video', res.errorMessage);
+  //       return;
+  //     }
+
+  //     if (res.fileSize <= 5000000) {
+  //       console.log(res.uri);
+  //       navigation.navigate('CreatePost', {
+  //         videoUri: d.source,
+  //       });
+  //       // onChangeImage(res.uri);
+  //     } else {
+  //       alert('Please select video of size less than 5mb');
+  //     }
+  //   });
+  // };
+
   return (
     <View style={styles.container}>
       {compressing && <LoadingIndicator visible={compressing} />}
@@ -51,7 +112,7 @@ const Camera = () => {
         onPress={onRecord}
         style={isRecording ? styles.buttonStop : styles.buttonRecord}
       />
-      <TouchableOpacity style={styles.gallery}>
+      <TouchableOpacity onPress={openImageLibrary} style={styles.gallery}>
         <Feather name="image" size={30} color="#fff" />
       </TouchableOpacity>
     </View>
