@@ -206,7 +206,7 @@ const Post = (props) => {
               repeat={props.currentIndex === 0}
               paused={paused}
               muted={muted}
-              controls={true}
+              // controls={true}
             />
             {/* <Slider
               maximumValue={100}
