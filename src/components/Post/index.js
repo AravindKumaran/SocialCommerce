@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import {API, graphqlOperation, Storage} from 'aws-amplify';
+import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
 import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Product from '../../screens/Product/index';
@@ -70,6 +70,44 @@ const Post = (props) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    Hub.listen('auth', ({payload: {event, data}}) => {
+      switch (event) {
+        case 'signIn':
+        case 'cognitoHostedUI':
+          console.log('Hub sign IN');
+          getUser().then((userData) => {
+            // console.log('User', userData);
+            if (userData?.attributes) {
+              setUser(userData.attributes);
+            }
+          });
+          break;
+        case 'signOut':
+          console.log('Hub sign out');
+          setUser(null);
+          break;
+        case 'signIn_failure':
+        case 'cognitoHostedUI_failure':
+          console.log('Sign in failure', data);
+          break;
+      }
+    });
+
+    getUser().then((userData) => {
+      if (userData?.attributes) {
+        setUser(userData.attributes);
+      }
+    });
+  }, []);
+
+  function getUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log('Not signed in'));
+  }
 
   const vidRef = useRef();
   const refRBSheet = useRef();
@@ -102,55 +140,81 @@ const Post = (props) => {
 
   const handlePostLike = async (cPost) => {
     if (cPost) {
-      cPost.likes.push(user.id);
-      const likes = cPost.likes;
-      try {
-        await API.graphql(
-          graphqlOperation(updatePost, {
-            input: {id: cPost.id, likes},
-          }),
-        );
-        const res = await API.graphql(
-          graphqlOperation(createNotification, {
-            input: {
-              message: `liked your video`,
-            },
-          }),
-        );
-        console.log('ress', res.data.createNotification.id);
-        const res2 = await API.graphql(
-          graphqlOperation(createUserNotification, {
-            input: {
-              userID: user.id,
-              notificationID: res.data.createNotification.id,
-              read: false,
-            },
-          }),
-        );
-
-        console.log('ress', res2.data);
-      } catch (err) {
-        console.log('Error', err);
+      if (cPost.likes === null) {
+        cPost.likes = [];
       }
+      // console.log('post', cPost.likes);
+      try {
+        // const userInfo = await Auth.currentAuthenticatedUser({
+        //   bypassCache: true,
+        // });
+        // const userId = userInfo.attributes.sub;
+        if (user) {
+          cPost.likes.push(user.sub);
+          const likes = cPost.likes;
+          await API.graphql(
+            graphqlOperation(updatePost, {
+              input: {id: cPost.id, likes},
+            }),
+          );
+          const res = await API.graphql(
+            graphqlOperation(createNotification, {
+              input: {
+                message: `liked your video`,
+              },
+            }),
+          );
+          // console.log('ress', res.data.createNotification.id);
+          const res2 = await API.graphql(
+            graphqlOperation(createUserNotification, {
+              input: {
+                userID: user.sub,
+                notificationID: res.data.createNotification.id,
+                read: false,
+                ownerID: cPost.user.id,
+              },
+            }),
+          );
+
+          console.log('ress', res2.data);
+        }
+      } catch (error) {
+        console.log('Please Login', error);
+        alert('Please sign in first');
+      }
+
+      // try {
+
+      // } catch (err) {
+      //   console.log('Error', err);
+      // }
     }
   };
 
   const handlePostUnLike = async (cPost) => {
     if (cPost?.likes?.length > 0) {
-      const likesIndex = cPost.likes.findIndex((lkId) => lkId === user.id);
-      if (likesIndex !== -1) {
-        cPost.likes.splice(likesIndex, 1);
-        const likes = cPost.likes;
-        try {
-          const res = await API.graphql(
-            graphqlOperation(updatePost, {
-              input: {id: cPost.id, likes},
-            }),
-          );
-          // console.log('ress', res.data);
-        } catch (err) {
-          console.log('Error', err);
+      try {
+        // const userInfo = await Auth.currentAuthenticatedUser({
+        //   bypassCache: true,
+        // });
+        // const userId = userInfo.attributes.sub;
+        if (user) {
+          const likesIndex = cPost.likes.findIndex((lkId) => lkId === user.sub);
+          if (likesIndex !== -1) {
+            cPost.likes.splice(likesIndex, 1);
+            const likes = cPost.likes;
+            const res = await API.graphql(
+              graphqlOperation(updatePost, {
+                input: {id: cPost.id, likes},
+              }),
+            );
+
+            console.log('Ress', res.data);
+          }
         }
+      } catch (err) {
+        console.log('Error', err);
+        alert('Please sign in first');
       }
     }
   };
@@ -389,6 +453,7 @@ const Post = (props) => {
                 likes={post.likes}
                 onLike={handlePostLike}
                 onUnlike={handlePostUnLike}
+                user={user}
               />
 
               <TouchableOpacity
@@ -490,7 +555,10 @@ const Post = (props) => {
                     position: 'absolute',
                   }}
                 /> */}
-                <Comments postId={props.post.id} />
+                <Comments
+                  postId={props.post.id}
+                  postUserId={props.post.user.id}
+                />
               </RBSheet>
 
               {/* {isClicked ?  : <></>} */}
@@ -505,7 +573,7 @@ const Post = (props) => {
               <>
                 {!isTouched ? (
                   <View>
-                    <Text style={styles.handle}>{post.user.username}</Text>
+                    <Text style={styles.handle}>{post?.user?.username}</Text>
                     <Image
                       source={require('../../assets/images/Dot.png')}
                       size={25}

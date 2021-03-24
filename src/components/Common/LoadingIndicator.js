@@ -1,12 +1,17 @@
 import React from 'react';
 import {View, StyleSheet, ActivityIndicator, Text} from 'react-native';
 
-function LoadingIndicator({visible = false}) {
+function LoadingIndicator({bgc, visible = false}) {
   if (!visible) return null;
 
   return (
-    <View style={styles.overlay}>
-      <ActivityIndicator animating={true} color="white" size="large" />
+    <View
+      style={[styles.overlay, bgc ? {backgroundColor: 'transparent'} : null]}>
+      <ActivityIndicator
+        animating={true}
+        color={bgc ? 'bgc' : 'white'}
+        size="large"
+      />
       {/* {title && (
         <Text style={{fontSize: 25, fontWeight: 'bold', color: '#333'}}>
           {title}

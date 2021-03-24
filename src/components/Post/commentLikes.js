@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import AppText from '../Common/AppText';
+import {Auth} from 'aws-amplify';
 
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -15,27 +16,39 @@ const user = {
   username: 'Asfiya begum',
 };
 
-const CommentLikes = ({likes, onLike, onUnlike, id}) => {
+const CommentLikes = ({likes, onLike, onUnlike, comment, user}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    if (likes?.length > 0) {
-      // console.log('Likes', likes, 'iddd', id);
-      const checkLiked = likes.findIndex((id) => user.id === id);
-      // console.log('checkLiked', checkLiked);
-      if (checkLiked !== -1) {
-        setIsLiked(true);
+    const loadLikes = async () => {
+      if (likes?.length > 0) {
+        try {
+          if (user) {
+            const checkLiked = likes.findIndex((id) => user.sub === id);
+            if (checkLiked !== -1) {
+              setIsLiked(true);
+            }
+          }
+        } catch (error) {
+          console.log('Error');
+        }
       }
-    }
+    };
+
+    loadLikes();
   }, []);
 
   const handleLike = () => {
     if (isLiked) {
-      onUnlike(id);
-      setIsLiked(false);
+      if (user) {
+        onUnlike(comment);
+        setIsLiked(false);
+      }
     } else {
-      onLike(id);
-      setIsLiked(true);
+      if (user) {
+        onLike(comment);
+        setIsLiked(true);
+      }
     }
   };
 
@@ -45,18 +58,24 @@ const CommentLikes = ({likes, onLike, onUnlike, id}) => {
         <TouchableOpacity onPress={handleLike} style={styles.iconWrapper}>
           <Image
             source={require('../../assets/images/Cl3.png')}
-            size={20} style={{height: 25, width: 25, top: 8, left: 2}}
+            size={20}
+            style={{height: 25, width: 25, top: 8, left: 2}}
           />
           {/* <Feather name={'heart'} size={25} style={{color: '#999999'}}  /> */}
-          <AppText style={{fontSize: 10, left: 2, color: '#999999'}}>{likes.length}</AppText>
+          <AppText style={{fontSize: 10, left: 2, color: '#999999'}}>
+            {likes.length}
+          </AppText>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity onPress={handleLike} style={styles.iconWrapper}>
           <Image
             source={require('../../assets/images/Cl1.png')}
-            size={20} style={{height: 20, width: 20, top: 10}}
+            size={20}
+            style={{height: 20, width: 20, top: 10}}
           />
-          <AppText style={{fontSize: 10, top: 5, color: '#999999'}}>{likes.length}</AppText>
+          <AppText style={{fontSize: 10, top: 5, color: '#999999'}}>
+            {likes.length}
+          </AppText>
         </TouchableOpacity>
       )}
     </View>

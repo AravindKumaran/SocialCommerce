@@ -10,13 +10,10 @@ import {
 } from 'react-native';
 import {API, graphqlOperation, Storage, Auth} from 'aws-amplify';
 import {listUserNotifications} from '../../graphql/queries';
-import AppText from '../../components/Common/AppText';
-import AppButton from '../../components/Common/AppButton';
 import {useIsFocused} from '@react-navigation/native';
-import {Linking} from 'react-native';
-import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import NotifItem from './NotifItem';
+import AppText from '../../components/Common/AppText';
 
 const user = [
   {
@@ -101,15 +98,18 @@ const Notifications = ({navigation}) => {
   const getAllNotifications = async () => {
     try {
       setLoading(true);
+      const userInfo = await Auth.currentAuthenticatedUser({
+        bypassCache: true,
+      });
+      if (!userInfo.attributes.sub) {
+        return;
+      }
       const res = await API.graphql(
-        graphqlOperation(
-          listUserNotifications,
-          //   , {
-          //   filter: {
-          //     userID: {eq: user1.id},
-          //   },
-          // }
-        ),
+        graphqlOperation(listUserNotifications, {
+          filter: {
+            ownerID: {eq: userInfo.attributes.sub},
+          },
+        }),
       );
       // console.log('ress', res.data.listUserNotifications.items[0]);
       const allItems = res.data.listUserNotifications.items;
@@ -152,59 +152,6 @@ const Notifications = ({navigation}) => {
     };
   }, [isFocused === true]);
 
-  const onGoogle = async () => {
-    // Auth.federatedSignIn({provider: 'Google'});
-    // await Auth.signOut();
-    console.log('Called');
-    // return;
-    Auth.federatedSignIn();
-
-    // const federatedInfo = await Cache.getItem('federatedInfo');
-    // console.log('Info', federatedInfo);
-
-    return;
-    try {
-      // const url = 'https://www.google.com';
-      const url =
-        'https://tiktok24dfe314-24dfe314-demo.auth.us-east-2.amazoncognito.com/login?redirect_uri=tiktok%3A%2F%2F&response_type=code&client_id=7dcbjoer98feb1f4spbn5p0g4l&identity_provider=google&scope=phone%20email%20openid%20profile%20aws.cognito.signin.user.admin&state=HcXprhpFinnP0yJWLg97AzKH0WvvD348&code_challenge=zyasMIpb4FzSb_x3T91xzwFKlQp_X5o3CV_L60nS1lM&code_challenge_method=S256&errorMessage=Login+option+is+not+available.+Please+try+another+one';
-      if (await InAppBrowser.isAvailable()) {
-        const result = await InAppBrowser.open(url, {
-          // iOS Properties
-          dismissButtonStyle: 'cancel',
-          preferredBarTintColor: '#453AA4',
-          preferredControlTintColor: 'white',
-          readerMode: false,
-          animated: true,
-          modalPresentationStyle: 'fullScreen',
-          modalTransitionStyle: 'coverVertical',
-          modalEnabled: true,
-          enableBarCollapsing: false,
-          // Android Properties
-          showTitle: true,
-          toolbarColor: '#6200EE',
-          secondaryToolbarColor: 'black',
-          enableUrlBarHiding: true,
-          enableDefaultShare: true,
-          forceCloseOnRedirection: false,
-          // Specify full animation resource identifier(package:anim/name)
-          // or only resource name(in case of animation bundled with app).
-          animations: {
-            startEnter: 'slide_in_right',
-            startExit: 'slide_out_left',
-            endEnter: 'slide_in_left',
-            endExit: 'slide_out_right',
-          },
-          headers: {
-            'my-custom-header': 'my custom header value',
-          },
-        });
-        Alert.alert(JSON.stringify(result));
-      } else Linking.openURL(url);
-    } catch (error) {
-      Alert.alert(error.message);
-    }
-  };
-
   const handleRefresh = useCallback(() => {
     setRefreshing(true);
     setTodayNotif([]);
@@ -233,6 +180,14 @@ const Notifications = ({navigation}) => {
       {/* {loading && <Text>Loading...</Text>} */}
       {loading && <LoadingIndicator visible={loading} />}
       {/* <AppButton title="Google" onPress={onGoogle} /> */}
+
+      {todayNotif.length === 0 &&
+        yesterdayNotif.length === 0 &&
+        olderNotif.length === 0 && (
+          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+            <AppText style={{color: '#fff'}}>No Notifications!</AppText>
+          </View>
+        )}
 
       <ScrollView
         refreshControl={

@@ -10,16 +10,17 @@ import Amplify from 'aws-amplify';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
 import config from './aws-exports';
 
-async function urlOpener(url) {
+async function urlOpener(url, redirectUrl) {
+  await InAppBrowser.closeAuth();
   await InAppBrowser.isAvailable();
-  const {type, url: newUrl} = await InAppBrowser.openAuth(url, {
+  const {type, url: newUrl} = await InAppBrowser.openAuth(url, redirectUrl, {
     showTitle: false,
     enableUrlBarHiding: true,
     enableDefaultShare: false,
     ephemeralWebSession: false,
   });
 
-  if (type === 'success') {
+  if (type === 'success' && newUrl) {
     Linking.openURL(newUrl);
   }
 }
