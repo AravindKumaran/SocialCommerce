@@ -11,9 +11,11 @@ import {
   ScrollView,
 } from 'react-native';
 
-import Searchbar from '../../screens/Search/searchbar';
+import Searchhbar from '../../screens/Search/searchbar';
 import Brands from './brands';
 import Trending from './trending';
+import {API, graphqlOperation} from 'aws-amplify';
+import {searchUsersList} from '../../graphql/queries';
 
 const ActiveStyle = () => (
   <View style={{alignItems: 'center'}}>
@@ -90,20 +92,37 @@ const brands = [
 
 const Categories = () => {
   const [active, setActive] = useState('categories');
+  const [usersList, setUsersList] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleActive = (value) => {
     setActive(value);
   };
 
+  const handleSearch = async (value) => {
+    console.log('Insider', value);
+    if (value.length > 3) {
+      try {
+        setLoading(true);
+        const res = await API.graphql(
+          graphqlOperation(searchUsersList, {
+            filter: {
+              username: {eq: value},
+            },
+          }),
+        );
+        console.log('ress', res.data.listUsers.items);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.log('Error', err);
+      }
+    }
+  };
+
   return (
     <ScrollView style={styles.container}>
-      <Searchbar />
-
-      {/* <Image
-        style={{bottom: 0, left: 15}}
-        source={require('../../assets/images/Line2.png')}
-        size={15}
-      /> */}
+      <Searchhbar onSearch={handleSearch} />
 
       <View style={styles.choose}>
         <View>
