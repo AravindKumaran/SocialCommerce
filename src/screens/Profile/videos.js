@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {StyleSheet, View, Text, FlatList, Dimensions} from 'react-native';
-import TrendingVideo from './trendingVideo';
+import TrendingVideo from '../Search/trendingVideo';
 import Masonry from 'react-native-infinite-masonry';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 
@@ -50,7 +50,7 @@ const vpWidth = Dimensions.get('window').width;
 //     height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 //   },
 //   {
-//     key: 8,
+//     key: 7,
 //     uri:
 //       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
 //     height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
@@ -61,7 +61,7 @@ const vpWidth = Dimensions.get('window').width;
 //     height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 //   },
 //   {
-//     key: 10,
+//     key: 7,
 //     uri:
 //       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
 //     height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
@@ -104,7 +104,7 @@ const vpWidth = Dimensions.get('window').width;
 //     height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 //   },
 //   {
-//     key: 18,
+//     key: 17,
 //     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //     height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 //   },
@@ -154,7 +154,7 @@ const vpWidth = Dimensions.get('window').width;
 //     height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 //   },
 //   {
-//     key: 28,
+//     key: 27,
 //     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //     height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 //   },
@@ -204,7 +204,7 @@ const vpWidth = Dimensions.get('window').width;
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 38,
+//   key: 37,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
@@ -254,7 +254,7 @@ const vpWidth = Dimensions.get('window').width;
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 48,
+//   key: 47,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
@@ -304,7 +304,7 @@ const vpWidth = Dimensions.get('window').width;
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 58,
+//   key: 57,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
@@ -354,7 +354,7 @@ const vpWidth = Dimensions.get('window').width;
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 68,
+//   key: 67,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
@@ -404,7 +404,7 @@ const vpWidth = Dimensions.get('window').width;
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 78,
+//   key: 77,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
@@ -414,52 +414,52 @@ const vpWidth = Dimensions.get('window').width;
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 80,
+//   key: 70,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 81,
+//   key: 71,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 82,
+//   key: 72,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 83,
+//   key: 73,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 84,
+//   key: 74,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 85,
+//   key: 75,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 86,
+//   key: 76,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 87,
+//   key: 77,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 88,
+//   key: 77,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 89,
+//   key: 79,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
@@ -504,7 +504,7 @@ const vpWidth = Dimensions.get('window').width;
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 98,
+//   key: 97,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
@@ -514,12 +514,12 @@ const vpWidth = Dimensions.get('window').width;
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 100,
+//   key: 70,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
 // {
-//   key: 101,
+//   key: 71,
 //   uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
 //   height: parseInt(Math.max(0.3, Math.random()) * vpWidth),
 // },
@@ -528,87 +528,108 @@ const vpWidth = Dimensions.get('window').width;
 const uris = [
   {
     key: 1,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
   },
   {
     key: 2,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
   },
   {
     key: 3,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
   },
   {
     key: 4,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
   },
   {
     key: 5,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
   },
   {
     key: 6,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
   },
   {
     key: 7,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
   },
   {
-    key: 8,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    key: 7,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
   },
   {
     key: 9,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
   },
   {
-    key: 10,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+    key: 7,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
   },
   {
     key: 11,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
   },
   {
     key: 12,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
   },
   {
     key: 13,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
   },
   {
     key: 14,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
   },
   {
     key: 15,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
   },
   {
     key: 16,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
   },
   {
     key: 17,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
   },
   {
-    key: 18,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+    key: 17,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
   },
   {
     key: 19,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
   },
   {
     key: 20,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
   },
   {
     key: 21,
-    uri: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
   },
   {
     key: 22,
@@ -635,7 +656,7 @@ const uris = [
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
   },
   {
-    key: 28,
+    key: 27,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
   },
   {
@@ -648,13 +669,13 @@ const uris = [
   },
 ];
 
-const Brands = () => {
+const Videos = () => {
   const _renderItem = ({item, index}) => (
     <TrendingVideo
       videoUri={item.uri}
       idx={index}
       height={item.height}
-      // poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+      // poster="https://i.picsum.photos/id/766/175/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
     />
   );
 
@@ -665,7 +686,7 @@ const Brands = () => {
         videoUri={dataItem.uri}
         // idx={key}
         height={dataItem.height}
-        // poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+        // poster="https://i.picsum.photos/id/766/175/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
       />
       // <View
       //   key={key}
@@ -681,97 +702,112 @@ const Brands = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topVideos}>
-        {/* <TrendingVideo videoUri={uris[0].uri} idx={0} height={200} /> */}
+        {/* <TrendingVideo videoUri={uris[0].uri} idx={0} height={175} /> */}
 
         <TrendingVideo
           videoUri={uris[0].uri}
           idx={0}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[1].uri}
           idx={1}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[2].uri}
           idx={2}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[3].uri}
           idx={3}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[4].uri}
           idx={4}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[5].uri}
           idx={5}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[6].uri}
           idx={6}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[7].uri}
           idx={7}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
-          videoUri={uris[8].uri}
-          idx={8}
-          height={200}
+          videoUri={uris[7].uri}
+          idx={7}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[9].uri}
           idx={9}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
-          videoUri={uris[10].uri}
+          videoUri={uris[7].uri}
           idx={9}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[11].uri}
-          idx={10}
-          height={200}
+          idx={7}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[12].uri}
           idx={9}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[13].uri}
           idx={9}
-          height={200}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
         <TrendingVideo
           videoUri={uris[14].uri}
-          idx={10}
-          height={200}
+          idx={7}
+          height={175}
           width="33.33%"
+          //   style={{marginBottom: 7, margin: 7, borderRadius: 0}}
         />
 
         {/* <Grid>
@@ -780,20 +816,20 @@ const Brands = () => {
               <TrendingVideo
                 videoUri={uris[1].uri}
                 idx={1}
-                height={100}
+                height={70}
                 style={{marginVertical: 3}}
                 width={90}
-                poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+                poster="https://i.picsum.photos/id/766/175/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
               />
             </Row>
             <Row>
               <TrendingVideo
                 videoUri={uris[2].uri}
                 idx={2}
-                height={100}
+                height={70}
                 style={{marginVertical: 3}}
                 width={90}
-                poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+                poster="https://i.picsum.photos/id/766/175/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
               />
             </Row>
           </Col>
@@ -802,20 +838,20 @@ const Brands = () => {
               <TrendingVideo
                 videoUri={uris[3].uri}
                 idx={3}
-                height={100}
+                height={70}
                 style={{marginVertical: 3}}
-                width={80}
-                poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+                width={70}
+                poster="https://i.picsum.photos/id/766/175/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
               />
             </Row>
             <Row>
               <TrendingVideo
                 videoUri={uris[4].uri}
                 idx={4}
-                height={100}
+                height={70}
                 style={{marginVertical: 3}}
-                width={80}
-                poster="https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
+                width={70}
+                poster="https://i.picsum.photos/id/766/175/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI"
               />
             </Row>
           </Col>
@@ -830,9 +866,9 @@ const Brands = () => {
         keyExtractor={(item) => item.key.toString()}
       /> */}
       {/* <Masonry
-        itemsProvider={(pageSize = 10) => uris.slice(6, pageSize)}
+        itemsProvider={(pageSize = 7) => uris.slice(6, pageSize)}
         renderItem={Item}
-        pageSize={10}
+        pageSize={7}
       /> */}
     </View>
   );
@@ -840,12 +876,13 @@ const Brands = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // paddingBottom: 70,
+    // paddingBottom: 20,
     // paddingTop: 20,
-    // paddingLeft: 10,
+    // paddingLeft: 7,
+    // margin: -25
+    // left: 5,
     flex: 1,
     padding: 5,
-    // left: 5,
   },
   topVideos: {
     // flexDirection: 'row',
@@ -856,7 +893,8 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     alignItems: 'center',
+    borderRadius: 0,
   },
 });
 
-export default Brands;
+export default Videos;

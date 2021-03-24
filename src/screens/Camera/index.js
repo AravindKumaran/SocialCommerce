@@ -50,13 +50,13 @@ const Camera = () => {
       maxHeight: 480,
     };
     launchImageLibrary(options, (res) => {
-      if (res.fileSize <= 5000000) {
+      if (res.fileSize <= 555000000) {
         console.log(res.uri);
         navigation.navigate('CreatePost', {
           videoUri: res.uri,
         });
       } else {
-        setTimeout( () => {alert('Please select video of size less than 5mb')},200);
+        setTimeout( () => {alert('Please select video of size less than 5mb')},1000);
       }
     });
   };
@@ -69,33 +69,6 @@ const Camera = () => {
   //     navigation.navigate('CreatePost', {
   //       videoUri: res.source,
   //     });
-  //   });
-  // };
-
-  // const openImageLibrary = async () => {
-  //   const options = {
-  //     mediaType: 'video',
-  //     videoQuality: 'low',
-  //     maxWidth: 500,
-  //     maxHeight: 500,
-  //   };
-  //   launchImageLibrary(options, (res) => {
-  //     if (res.didCancel) return;
-
-  //     if (res.errorMessage) {
-  //       console.log('Error in Picking Video', res.errorMessage);
-  //       return;
-  //     }
-
-  //     if (res.fileSize <= 5000000) {
-  //       console.log(res.uri);
-  //       navigation.navigate('CreatePost', {
-  //         videoUri: d.source,
-  //       });
-  //       // onChangeImage(res.uri);
-  //     } else {
-  //       alert('Please select video of size less than 5mb');
-  //     }
   //   });
   // };
 

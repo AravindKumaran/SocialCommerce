@@ -23,6 +23,7 @@ import {Linking} from 'react-native';
 import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {createUser} from '../../graphql/mutations';
 import {getUser} from '../../graphql/queries';
+import Videos from '../Profile/videos';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -381,7 +382,7 @@ const ProfileScreen = () => {
           <View style={{margin: 20}}>
             <AppButton onPress={handleLogout} title="Logout" />
           </View>
-          <View
+          {/* <View
             style={{
               flexWrap: 'wrap',
               flexDirection: 'row',
@@ -400,7 +401,8 @@ const ProfileScreen = () => {
                   source={s}></Image>
               </TouchableOpacity>
             ))}
-          </View>
+          </View> */}
+          <Videos />
         </ScrollView>
       )}
     </SafeAreaView>
