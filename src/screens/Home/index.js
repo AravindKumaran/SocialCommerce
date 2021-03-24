@@ -76,7 +76,7 @@ const Home = ({navigation}) => {
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}
         decelerationRate={'fast'}
-        snapToInterval={Dimensions.get('window').height + 20}
+        snapToInterval={Dimensions.get('window').height}
         borderRadius={50}
         viewabilityConfig={_viewabilityConfig.current}
         onViewableItemsChanged={_onViewableItemsChanged.current}

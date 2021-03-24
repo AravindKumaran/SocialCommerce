@@ -36,9 +36,10 @@ const TrendingVideo = ({videoUri, idx, height, poster, width, style}) => {
           {
             width: width || vpWidth * 0.5 - 15,
             height: height,
-            margin: 3,
+            margin: 0,
             elevation: 5,
-            borderRadius: 5,
+            borderRadius: 0,
+            // left: 8,
           },
           style,
         ]}

@@ -12,7 +12,7 @@ import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Product from '../../screens/Product/index';
 import Video from 'react-native-video';
-import DoubleClick from 'react-native-double-tap';
+// import DoubleClick from 'react-native-double-tap';
 import Comments from './comments';
 import PostLike from './postLike';
 import {
@@ -22,6 +22,7 @@ import {
 } from '../../graphql/mutations';
 import styles from './styles';
 import Slider from 'react-native-slider';
+import DoubleClick from '../Post/doubletap';
 
 // import Slider from '@react-native-community/slider';
 // import MediaControls, {PLAYER_STATES} from 'react-native-media-controls';
@@ -354,12 +355,12 @@ const Post = (props) => {
               minimumValue={0}
               maximumValue={duration}
               minimumTrackTintColor="red"
-              maximumTrackTintColor="white"
+              maximumTrackTintColor="#292929"
               thumbTintColor="white"
               step={1}
               value={currentTime}
               onValueChange={onSeeking}
-              style={{width: '100%', top: '83%'}}
+              style={{width: '100%', top: '87.5%'}}
             />
           </View>
 
@@ -428,17 +429,11 @@ const Post = (props) => {
                     <Image
                       source={require('../../assets/images/p2.png')}
                       size={35}
-                      style={{height: 55, width: 50}}
+                      style={{height: 65, width: 60, bottom: 5}}
                     />
                   ) : (
                     <Image
-                      style={{
-                        top: -110,
-                        position: 'absolute',
-                        right: 0,
-                        height: 55,
-                        width: 50,
-                      }}
+                      style={{top: -110, position: 'absolute', right: 0, height: 60, width: 60}}
                       source={require('../../assets/images/p2.png')}
                       size={35}
                       // tintColor={isTouched ? '#31d9fc' : 'white'}
@@ -470,13 +465,13 @@ const Post = (props) => {
                 <>
                   {!isTouched ? (
                     <Image
-                      style={{}}
+                      style={{height: 45, width: 45}}
                       source={require('../../assets/images/Product_icon.png')}
                       size={25}
                     />
                   ) : (
                     <Image
-                      style={{top: -110, position: 'absolute', right: 0}}
+                      style={{top: -110, position: 'absolute', right: 0, height: 45, width: 45}}
                       source={require('../../assets/images/Product_icon1.png')}
                       size={25}
                     />
@@ -515,12 +510,13 @@ const Post = (props) => {
                 <>
                   {!isTouched ? (
                     <Image
+                    style={{height: 45, width: 45}}
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                     />
                   ) : (
                     <Image
-                      style={{top: 50, position: 'absolute', right: 0}}
+                      style={{top: 50, position: 'absolute', right: 0, height: 45, width: 45}}
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                     />
