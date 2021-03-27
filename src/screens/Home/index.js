@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import Post from '../../components/Post';
-import {API, graphqlOperation} from 'aws-amplify';
+import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
 import Feather from 'react-native-vector-icons/Feather';
 
@@ -22,17 +22,16 @@ const Home = ({navigation}) => {
   const [posts, setPosts] = useState([]);
 
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
-
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await API.graphql(graphqlOperation(listPosts));
-        // console.log('Ress', response.data.listPosts.items[0]);
+        // console.log('Ress', response.data.listPosts.items[0].user.id);
         const allItems = response.data.listPosts.items;
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        console.log('sortedItems', sortedItems[0]);
+        // console.log('sortedItems', sortedItems[0]);
         setPosts(sortedItems);
       } catch (e) {
         console.error(e);
@@ -51,14 +50,10 @@ const Home = ({navigation}) => {
   );
 
   const _viewabilityConfig = useRef({
-    // waitForInteraction: true,
     viewAreaCoveragePercentThreshold: 75,
-    // itemVisiblePercentThreshold: 85,
   });
 
   const _onViewableItemsChanged = useRef(({viewableItems, changed}) => {
-    // console.log('viewableItems', viewableItems);
-    // console.log('changed', changed);
     if (viewableItems && viewableItems.length > 0) {
       setCurrentVisibleIndex(viewableItems[0].index);
     }

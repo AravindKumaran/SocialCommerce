@@ -12,7 +12,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-import {API, graphqlOperation} from 'aws-amplify';
+import {API, graphqlOperation, Hub, Auth} from 'aws-amplify';
 import {getPost, listComments} from '../../graphql/queries';
 import TimeAgo from 'react-native-timeago';
 
@@ -30,20 +30,58 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 
-const user = {
-  __typename: 'User',
-  createdAt: '2021-01-01T17:03:46.393Z',
-  email: 'asfiidarlachu@gmail.com',
-  id: '0914c457-106d-4937-b44f-f430e611a52a',
-  imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-  updatedAt: '2021-01-01T17:03:46.393Z',
-  username: 'Asfiya begum',
-};
+// const user = {
+//   __typename: 'User',
+//   createdAt: '2021-01-01T17:03:46.393Z',
+//   email: 'asfiidarlachu@gmail.com',
+//   id: '0914c457-106d-4937-b44f-f430e611a52a',
+//   imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
+//   updatedAt: '2021-01-01T17:03:46.393Z',
+//   username: 'Asfiya begum',
+// };
 
-const Comments = ({postId}) => {
+const Comments = ({postId, postUserId}) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cmtText, setCmtText] = useState('');
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    Hub.listen('auth', ({payload: {event, data}}) => {
+      switch (event) {
+        case 'signIn':
+        case 'cognitoHostedUI':
+          console.log('Hub sign IN');
+          getUser().then((userData) => {
+            // console.log('User', userData);
+            if (userData?.attributes) {
+              setUser(userData.attributes);
+            }
+          });
+          break;
+        case 'signOut':
+          console.log('Hub sign out');
+          setUser(null);
+          break;
+        case 'signIn_failure':
+        case 'cognitoHostedUI_failure':
+          console.log('Sign in failure', data);
+          break;
+      }
+    });
+
+    getUser().then((userData) => {
+      if (userData?.attributes) {
+        setUser(userData.attributes);
+      }
+    });
+  }, []);
+
+  function getUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log('Not signed in'));
+  }
 
   const navigation = useNavigation();
 
@@ -56,7 +94,7 @@ const Comments = ({postId}) => {
             id: postId,
           }),
         );
-        // console.log('ress', res.data.getPost.comments.items);
+        console.log('ress', res.data.getPost.comments.items[0]);
         const allItems = res.data.getPost.comments.items;
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
@@ -72,17 +110,23 @@ const Comments = ({postId}) => {
     getComments();
   }, []);
 
-  const handleCommentUnLike = async (commentId) => {
-    const oldComment = comments.find((cmt) => cmt.id === commentId);
+  const handleCommentUnLike = async (comment) => {
+    if (!user) {
+      alert('Please login first');
+      return;
+    }
+    const oldComment = comments.find((cmt) => cmt.id === comment.id);
     if (oldComment && oldComment?.likes?.length > 0) {
-      const likesIndex = oldComment.likes.findIndex((lkId) => lkId === user.id);
+      const likesIndex = oldComment.likes.findIndex(
+        (lkId) => lkId === user.sub,
+      );
       if (likesIndex !== -1) {
         oldComment.likes.splice(likesIndex, 1);
         const likes = oldComment.likes;
         try {
           const res = await API.graphql(
             graphqlOperation(updateComment, {
-              input: {id: commentId, likes},
+              input: {id: comment.id, likes},
             }),
           );
           // console.log('ress', res.data);
@@ -96,15 +140,19 @@ const Comments = ({postId}) => {
     }
   };
 
-  const handleCommentLike = async (commentId) => {
-    const oldComment = comments.find((cmt) => cmt.id === commentId);
+  const handleCommentLike = async (comment) => {
+    if (!user) {
+      alert('Please login first');
+      return;
+    }
+    const oldComment = comments.find((cmt) => cmt.id === comment.id);
     if (oldComment) {
-      oldComment.likes.push(user.id);
+      oldComment.likes.push(user.sub);
       const likes = oldComment.likes;
       try {
         const res = await API.graphql(
           graphqlOperation(updateComment, {
-            input: {id: commentId, likes},
+            input: {id: comment.id, likes},
           }),
         );
         // console.log('ress', res.data);
@@ -119,9 +167,10 @@ const Comments = ({postId}) => {
         const res2 = await API.graphql(
           graphqlOperation(createUserNotification, {
             input: {
-              userID: user.id,
+              userID: user.sub,
               notificationID: res33.data.createNotification.id,
               read: false,
+              ownerID: comment.user.id,
             },
           }),
         );
@@ -137,16 +186,21 @@ const Comments = ({postId}) => {
   };
 
   const handleSumbit = async () => {
-    console.log('Cliekd', cmtText);
+    // console.log('Cliekd', cmtText);
     // return;
+
+    if (!user) {
+      alert('Please login first');
+      return;
+    }
+
     if (cmtText.length > 0) {
       const cmtt = {
         postId,
-        userID: user.id,
+        userID: user.sub,
         text: cmtText,
         likes: [],
       };
-
       try {
         setLoading(true);
         const res = await API.graphql(
@@ -167,9 +221,10 @@ const Comments = ({postId}) => {
         const res2 = await API.graphql(
           graphqlOperation(createUserNotification, {
             input: {
-              userID: user.id,
+              userID: user.sub,
               notificationID: res33.data.createNotification.id,
               read: false,
+              ownerID: postUserId,
             },
           }),
         );
@@ -195,7 +250,7 @@ const Comments = ({postId}) => {
 
   return (
     <View style={styles.container}>
-      {loading && <LoadingIndicator visible={loading} />}
+      {loading && <LoadingIndicator visible={loading} bgc="blue" />}
       <AppText
         style={{
           textAlign: 'center',
@@ -270,7 +325,8 @@ const Comments = ({postId}) => {
                     likes={cm.likes}
                     onLike={handleCommentLike}
                     onUnlike={handleCommentUnLike}
-                    id={cm.id}
+                    comment={cm}
+                    user={user}
                   />
                 </View>
               </View>

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState, useCallback} from 'react';
-import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
+import {Storage, API, graphqlOperation, Auth, Hub} from 'aws-amplify';
 import {
   View,
   Text,
@@ -19,8 +19,6 @@ import Following from '../../screens/Profile/following';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
-import {Linking} from 'react-native';
-import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {createUser} from '../../graphql/mutations';
 import {getUser} from '../../graphql/queries';
 import Videos from '../Profile/videos';
@@ -60,6 +58,7 @@ const ProfileScreen = () => {
 
   const checkUser = async () => {
     setLoading(true);
+    // console.log('Im calling');
     try {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
@@ -68,6 +67,8 @@ const ProfileScreen = () => {
       const userRes = await API.graphql(
         graphqlOperation(getUser, {id: userInfo.attributes.sub}),
       );
+
+      // console.log('UserRes', userRes);
 
       if (!userRes.data.getUser) {
         const newUser = {
@@ -86,30 +87,46 @@ const ProfileScreen = () => {
     } catch (error) {
       console.log('Error', error);
       setLoading(false);
+      setUser(null);
     }
   };
-
-  useEffect(() => {
-    checkUser();
-  }, []);
 
   const handleLogin = async () => {
     if (!user) {
       try {
         await Auth.federatedSignIn();
+        setTimeout(() => {
+          checkUser();
+        }, 5000);
       } catch (error) {
         console.log('Error', error);
       }
-
-      // Auth.federatedSignIn({provider: 'Facebook'});
-      checkUser();
     }
   };
 
   const handleLogout = async () => {
-    await Auth.signOut();
+    Auth.signOut();
     setUser(null);
   };
+
+  useEffect(() => {
+    Hub.listen('auth', ({payload: {event, data}}) => {
+      switch (event) {
+        case 'signIn':
+        case 'cognitoHostedUI':
+          checkUser();
+          break;
+        case 'signOut':
+          setUser(null);
+          break;
+        case 'signIn_failure':
+        case 'cognitoHostedUI_failure':
+          console.log('Sign in failure', data);
+          break;
+      }
+    });
+    checkUser();
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -388,8 +405,10 @@ const ProfileScreen = () => {
               flexDirection: 'row',
               marginHorizontal: '4%',
             }}>
-            {images.map((s) => (
-              <TouchableOpacity style={{aspectRatio: 0.7, width: '33.33%'}}>
+            {images.map((s, i) => (
+              <TouchableOpacity
+                key={i}
+                style={{aspectRatio: 0.7, width: '33.33%'}}>
                 <Image
                   style={{
                     flex: 1,

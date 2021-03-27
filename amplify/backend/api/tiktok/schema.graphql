@@ -47,6 +47,7 @@ type Notification @model {
 type UserNotification @model @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   userID: ID!
+  ownerID: ID!
   user: User @connection(fields: ["userID"])
   notificationID: ID!
   notification: Notification @connection(fields: ["notificationID"])
