@@ -20,7 +20,7 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
 import {createUser} from '../../graphql/mutations';
-import {getUser} from '../../graphql/queries';
+import {getUser, getUserByEmail, listUsers} from '../../graphql/queries';
 import Videos from '../Profile/videos';
 
 const randomImages = [
@@ -63,14 +63,17 @@ const ProfileScreen = () => {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      // console.log('USerInfo', userInfo);
       const userRes = await API.graphql(
-        graphqlOperation(getUser, {id: userInfo.attributes.sub}),
+        graphqlOperation(listUsers, {
+          filter: {
+            email: {eq: userInfo.attributes.email},
+          },
+        }),
       );
 
-      // console.log('UserRes', userRes);
+      // console.log('USer', userRes.data.listUsers.items.length);
 
-      if (!userRes.data.getUser) {
+      if (userRes.data.listUsers.items.length === 0) {
         const newUser = {
           id: userInfo.attributes.sub,
           username: userInfo.attributes.email.split('@')[0],
@@ -82,7 +85,7 @@ const ProfileScreen = () => {
         );
         setUser(res?.data?.createUser);
       }
-      setUser(userRes?.data?.getUser);
+      setUser(userRes.data.listUsers.items[0]);
       setLoading(false);
     } catch (error) {
       console.log('Error', error);
@@ -105,6 +108,7 @@ const ProfileScreen = () => {
   };
 
   const handleLogout = async () => {
+    // console.log('USer', user);
     Auth.signOut();
     setUser(null);
   };

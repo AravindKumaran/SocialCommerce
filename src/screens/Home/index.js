@@ -26,7 +26,7 @@ const Home = ({navigation}) => {
     const fetchPost = async () => {
       try {
         const response = await API.graphql(graphqlOperation(listPosts));
-        // console.log('Ress', response.data.listPosts.items[0].user.id);
+        // console.log('Ress', response.data.listPosts.items[0]);
         const allItems = response.data.listPosts.items;
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
@@ -34,6 +34,7 @@ const Home = ({navigation}) => {
         // console.log('sortedItems', sortedItems[0]);
         setPosts(sortedItems);
       } catch (e) {
+        console.log('Caledd');
         console.error(e);
       }
     };

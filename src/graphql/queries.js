@@ -21,10 +21,21 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      following {
+        userId
+        userName
+        imgUri
+      }
+      followers {
+        userId
+        userName
+        imgUri
+      }
       notifications {
         items {
           id
           userID
+          ownerID
           notificationID
           read
           createdAt
@@ -52,6 +63,16 @@ export const listUsers = /* GraphQL */ `
         posts {
           nextToken
         }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
+        }
         notifications {
           nextToken
         }
@@ -62,6 +83,7 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
+
 export const searchUsersList = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput
@@ -95,6 +117,16 @@ export const getPost = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -189,6 +221,16 @@ export const getComment = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -328,6 +370,7 @@ export const getUserNotification = /* GraphQL */ `
     getUserNotification(id: $id) {
       id
       userID
+      ownerID
       user {
         id
         username
@@ -335,6 +378,16 @@ export const getUserNotification = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -369,6 +422,7 @@ export const listUserNotifications = /* GraphQL */ `
       items {
         id
         userID
+        ownerID
         user {
           id
           username

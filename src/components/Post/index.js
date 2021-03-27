@@ -78,7 +78,6 @@ const Post = (props) => {
       switch (event) {
         case 'signIn':
         case 'cognitoHostedUI':
-          console.log('Hub sign IN');
           getUser().then((userData) => {
             // console.log('User', userData);
             if (userData?.attributes) {
@@ -87,7 +86,7 @@ const Post = (props) => {
           });
           break;
         case 'signOut':
-          console.log('Hub sign out');
+          // console.log('Hub sign out');
           setUser(null);
           break;
         case 'signIn_failure':
@@ -433,7 +432,13 @@ const Post = (props) => {
                     />
                   ) : (
                     <Image
-                      style={{top: -110, position: 'absolute', right: 0, height: 60, width: 60}}
+                      style={{
+                        top: -110,
+                        position: 'absolute',
+                        right: 0,
+                        height: 60,
+                        width: 60,
+                      }}
                       source={require('../../assets/images/p2.png')}
                       size={35}
                       // tintColor={isTouched ? '#31d9fc' : 'white'}
@@ -471,7 +476,13 @@ const Post = (props) => {
                     />
                   ) : (
                     <Image
-                      style={{top: -110, position: 'absolute', right: 0, height: 45, width: 45}}
+                      style={{
+                        top: -110,
+                        position: 'absolute',
+                        right: 0,
+                        height: 45,
+                        width: 45,
+                      }}
                       source={require('../../assets/images/Product_icon1.png')}
                       size={25}
                     />
@@ -510,13 +521,19 @@ const Post = (props) => {
                 <>
                   {!isTouched ? (
                     <Image
-                    style={{height: 45, width: 45}}
+                      style={{height: 45, width: 45}}
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                     />
                   ) : (
                     <Image
-                      style={{top: 50, position: 'absolute', right: 0, height: 45, width: 45}}
+                      style={{
+                        top: 50,
+                        position: 'absolute',
+                        right: 0,
+                        height: 45,
+                        width: 45,
+                      }}
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                     />
