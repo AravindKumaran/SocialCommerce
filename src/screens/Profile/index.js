@@ -72,6 +72,7 @@ const ProfileScreen = () => {
       );
 
       // console.log('USer', userRes.data.listUsers.items.length);
+      console.log('USer', userRes.data.listUsers.items[0]);
 
       if (userRes.data.listUsers.items.length === 0) {
         const newUser = {
@@ -108,7 +109,8 @@ const ProfileScreen = () => {
   };
 
   const handleLogout = async () => {
-    // console.log('USer', user);
+    console.log('USer', user);
+    return;
     Auth.signOut();
     setUser(null);
   };
@@ -267,7 +269,7 @@ const ProfileScreen = () => {
                         fontSize: 14,
                         left: 10,
                       }}>
-                      10K
+                      {user?.followers?.length || 0}
                     </Text>
                   </TouchableOpacity>
 
@@ -292,7 +294,7 @@ const ProfileScreen = () => {
                         bottom: 85,
                       },
                     }}>
-                    <Followers />
+                    <Followers data={user.followers} />
                   </RBSheet>
 
                   <TouchableOpacity
@@ -315,7 +317,7 @@ const ProfileScreen = () => {
                         fontSize: 14,
                         left: 20,
                       }}>
-                      1K
+                      {user?.following?.length || 0}
                     </Text>
                   </TouchableOpacity>
 
@@ -340,7 +342,7 @@ const ProfileScreen = () => {
                         bottom: 85,
                       },
                     }}>
-                    <Following />
+                    <Following data={user.following} />
                   </RBSheet>
 
                   <TouchableOpacity style={{top: 65, left: 150}}>

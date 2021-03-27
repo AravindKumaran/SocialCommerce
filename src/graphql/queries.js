@@ -185,6 +185,16 @@ export const listPosts = /* GraphQL */ `
           username
           email
           imageUri
+          following {
+            userId
+            userName
+            imgUri
+          }
+          followers {
+            userId
+            userName
+            imgUri
+          }
           createdAt
           updatedAt
         }

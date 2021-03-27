@@ -31,7 +31,7 @@ const Home = ({navigation}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        // console.log('sortedItems', sortedItems[0]);
+        console.log('sortedItems', sortedItems[0]);
         setPosts(sortedItems);
       } catch (e) {
         console.log('Caledd');

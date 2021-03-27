@@ -18,10 +18,13 @@ import {
   updatePost,
   createNotification,
   createUserNotification,
+  updateUser,
 } from '../../graphql/mutations';
+import {getUser} from '../../graphql/queries';
 import styles from './styles';
 import Slider from 'react-native-slider';
 import DoubleClick from '../Post/doubletap';
+import Follow from './Follow';
 
 // import DoubleClick from 'react-native-double-tap';
 // import Slider from '@react-native-community/slider';
@@ -78,7 +81,7 @@ const Post = (props) => {
       switch (event) {
         case 'signIn':
         case 'cognitoHostedUI':
-          getUser().then((userData) => {
+          getCurrentUser().then((userData) => {
             // console.log('User', userData);
             if (userData?.attributes) {
               setUser(userData.attributes);
@@ -96,14 +99,14 @@ const Post = (props) => {
       }
     });
 
-    getUser().then((userData) => {
+    getCurrentUser().then((userData) => {
       if (userData?.attributes) {
         setUser(userData.attributes);
       }
     });
   }, []);
 
-  function getUser() {
+  function getCurrentUser() {
     return Auth.currentAuthenticatedUser()
       .then((userData) => userData)
       .catch(() => console.log('Not signed in'));
@@ -182,22 +185,12 @@ const Post = (props) => {
         console.log('Please Login', error);
         alert('Please sign in first');
       }
-
-      // try {
-
-      // } catch (err) {
-      //   console.log('Error', err);
-      // }
     }
   };
 
   const handlePostUnLike = async (cPost) => {
     if (cPost?.likes?.length > 0) {
       try {
-        // const userInfo = await Auth.currentAuthenticatedUser({
-        //   bypassCache: true,
-        // });
-        // const userId = userInfo.attributes.sub;
         if (user) {
           const likesIndex = cPost.likes.findIndex((lkId) => lkId === user.sub);
           if (likesIndex !== -1) {
@@ -214,6 +207,106 @@ const Post = (props) => {
         }
       } catch (err) {
         console.log('Error', err);
+        alert('Please sign in first');
+      }
+    }
+  };
+
+  const handleFollow = async (postUser) => {
+    if (post) {
+      if (post.user.followers === null) {
+        post.user.followers = [];
+      }
+
+      try {
+        if (user) {
+          const userRes = await API.graphql(
+            graphqlOperation(getUser, {
+              id: user.sub,
+            }),
+          );
+          if (userRes.data.getUser.followers === null) {
+            userRes.data.getUser.followers = [];
+          }
+          if (userRes.data.getUser.following === null) {
+            userRes.data.getUser.following = [];
+          }
+          const fw = {
+            userId: userRes.data.getUser.id,
+            userName: userRes.data.getUser.username,
+            imgUri: userRes.data.getUser.imageUri,
+          };
+          post.user.followers.push(fw);
+          const updatedFollowers = post.user.followers;
+          await API.graphql(
+            graphqlOperation(updateUser, {
+              input: {id: postUser.id, followers: updatedFollowers},
+            }),
+          );
+          const fr = {
+            userId: postUser.id,
+            userName: postUser.username,
+            imgUri: postUser.imageUri,
+          };
+          userRes.data.getUser.following.push(fr);
+          const updatedFollowing = userRes.data.getUser.following;
+          await API.graphql(
+            graphqlOperation(updateUser, {
+              input: {id: user.sub, following: updatedFollowing},
+            }),
+          );
+          console.log('FollowDone');
+        }
+      } catch (error) {
+        console.log('Please Login', error);
+        alert('Please sign in first');
+      }
+    }
+  };
+
+  const handleUnFollow = async (postUser) => {
+    if (post?.user?.followers.length > 0) {
+      try {
+        if (user) {
+          const frIndex = post.user.followers.findIndex(
+            (f) => f.userId === user.sub,
+          );
+          if (frIndex !== -1) {
+            post.user.followers.splice(frIndex, 1);
+            const updatedFollowers = post.user.followers;
+            await API.graphql(
+              graphqlOperation(updateUser, {
+                input: {id: postUser.id, followers: updatedFollowers},
+              }),
+            );
+
+            const userRes = await API.graphql(
+              graphqlOperation(getUser, {
+                id: user.sub,
+              }),
+            );
+            if (userRes.data.getUser?.following?.length > 0) {
+              const fwIndex = userRes.data.getUser.following.findIndex(
+                (f) => f.userId === postUser.id,
+              );
+              if (fwIndex !== -1) {
+                userRes.data.getUser.following.splice(fwIndex, 1);
+                const updatedFollowing = userRes.data.getUser.following;
+                await API.graphql(
+                  graphqlOperation(updateUser, {
+                    input: {
+                      id: user.sub,
+                      following: updatedFollowing,
+                    },
+                  }),
+                );
+              }
+            }
+          }
+          console.log('UnfollowDone');
+        }
+      } catch (error) {
+        console.log('Please Login', error);
         alert('Please sign in first');
       }
     }
@@ -408,21 +501,14 @@ const Post = (props) => {
 
           <View style={styles.uiContainer}>
             <View style={styles.rightContainer}>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={{
                   position: 'absolute',
                   right: 15,
                   bottom: 0,
                   top: -20,
-                }} /*onPress={onLikePress}*/
-              >
-                {/* {shouldShow ? ( */}
-                {/* <Image
-                  source={require('../../assets/images/Profile1_icon.png')}
-                  size={25}
-                /> */}
-                {/* <Fontisto name={'heart'} size={25} color={isLiked ? 'red' : 'white'} /> */}
-                {/* <Text style={styles.statsLabel}>{post.likes || 0}</Text> */}
+                }}
+                onPress={() => console.log('Herlo')}>
                 <>
                   {!isTouched ? (
                     <Image
@@ -445,7 +531,15 @@ const Post = (props) => {
                     />
                   )}
                 </>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+
+              <Follow
+                isTouched={isTouched}
+                onFollow={handleFollow}
+                onUnFollow={handleUnFollow}
+                user={user}
+                currentPost={post}
+              />
 
               <PostLike
                 isTouched={isTouched}
