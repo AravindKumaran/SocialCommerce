@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Platform,
+  TouchableOpacity
 } from 'react-native';
 
 import {API, graphqlOperation} from 'aws-amplify';
@@ -26,7 +27,8 @@ import {
   createNotification,
   createUserNotification,
 } from '../../graphql/mutations';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
 
 const user = {
   __typename: 'User',
@@ -42,6 +44,8 @@ const Comments = ({postId}) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cmtText, setCmtText] = useState('');
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     const getComments = async () => {
@@ -181,6 +185,14 @@ const Comments = ({postId}) => {
     }
   };
 
+  // const goBackSafe = () => {
+  //   let parent = navigation;
+  //   while (parent.dangerouslyGetState()?.index === 0 && parent.dangerouslyGetParent()) {
+  //     parent = parent.dangerouslyGetParent();
+  //   }
+  //   parent?.goBack();
+  // };
+
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
@@ -193,6 +205,14 @@ const Comments = ({postId}) => {
         }}>
         Comments ({comments.length})
       </AppText>
+
+      {/* <TouchableOpacity
+        // onPress={() => {
+        //   navigation.goBack()
+        // }}
+        style={{bottom: 35, left: 5}}>
+        <Feather name="chevron-left" size={30} color="#000000" />
+      </TouchableOpacity> */}
 
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.cmList}>

@@ -67,13 +67,15 @@ const Home = ({navigation}) => {
   return (
     <View style={styles.mainContainer}>
       <Image
-        source={require('../../assets/images/Logo12.png')}
+        source={require('../../assets/images/Logo13.png')}
         size={15}
         style={styles.img1}
       />
       <Text style={styles.text}>Livebox</Text>
 
-      <Feather style={styles.cart} name={'shopping-cart'} size={20} />
+      <TouchableOpacity style={styles.cart}>
+        <Feather name={'shopping-cart'} size={20} />
+      </TouchableOpacity>
 
       <FlatList
         data={posts}
@@ -103,12 +105,12 @@ const styles = StyleSheet.create({
     paddingRight: 4,
     marginRight: 4,
     paddingBottom: 30,
-    backgroundColor: '#292929',
+    backgroundColor: '#20232A',
   },
 
   img1: {
-    overlayColor: '#292929',
-    backgroundColor: '#292929',
+    overlayColor: '#20232A',
+    backgroundColor: '#20232A',
     right: 0,
     left: 0,
     paddingLeft: 4,

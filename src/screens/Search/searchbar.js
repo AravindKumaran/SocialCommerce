@@ -17,7 +17,7 @@ const SearchhBar = ({onSearch}) => {
           backgroundColor: '#20232A',
           top: -1,
         }}
-        inputContainerStyle={{borderRadius: 30, color: '#20232A'}}
+        inputContainerStyle={{borderRadius: 30, color: '#20232A', backgroundColor: '#282D34'}}
         inputStyle={{
           fontFamily: 'Proxima Nova',
           fontSize: 15,

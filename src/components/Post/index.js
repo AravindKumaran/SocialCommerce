@@ -12,7 +12,6 @@ import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Product from '../../screens/Product/index';
 import Video from 'react-native-video';
-// import DoubleClick from 'react-native-double-tap';
 import Comments from './comments';
 import PostLike from './postLike';
 import {
@@ -24,6 +23,7 @@ import styles from './styles';
 import Slider from 'react-native-slider';
 import DoubleClick from '../Post/doubletap';
 
+// import DoubleClick from 'react-native-double-tap';
 // import Slider from '@react-native-community/slider';
 // import MediaControls, {PLAYER_STATES} from 'react-native-media-controls';
 // import {makeStyles, withStyles} from '@material-ui/core/styles';
@@ -369,7 +369,13 @@ const Post = (props) => {
                     />
                   ) : (
                     <Image
-                      style={{top: -110, position: 'absolute', right: 0, height: 60, width: 60}}
+                      style={{
+                        top: -110,
+                        position: 'absolute',
+                        right: 0,
+                        height: 60,
+                        width: 60,
+                      }}
                       source={require('../../assets/images/p2.png')}
                       size={35}
                       // tintColor={isTouched ? '#31d9fc' : 'white'}
@@ -406,7 +412,13 @@ const Post = (props) => {
                     />
                   ) : (
                     <Image
-                      style={{top: -110, position: 'absolute', right: 0, height: 45, width: 45}}
+                      style={{
+                        top: -110,
+                        position: 'absolute',
+                        right: 0,
+                        height: 45,
+                        width: 45,
+                      }}
                       source={require('../../assets/images/Product_icon1.png')}
                       size={25}
                     />
@@ -445,13 +457,19 @@ const Post = (props) => {
                 <>
                   {!isTouched ? (
                     <Image
-                    style={{height: 45, width: 45}}
+                      style={{height: 45, width: 45}}
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                     />
                   ) : (
                     <Image
-                      style={{top: 50, position: 'absolute', right: 0, height: 45, width: 45}}
+                      style={{
+                        top: 50,
+                        position: 'absolute',
+                        right: 0,
+                        height: 45,
+                        width: 45,
+                      }}
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                     />

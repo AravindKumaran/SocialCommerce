@@ -1,4 +1,4 @@
-import React, {useState,  useEffect,} from 'react';
+import React, {useState, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import Camera from '../screens/Camera';
@@ -14,7 +14,10 @@ import {
   Keyboard,
 } from 'react-native';
 import {color} from 'react-native-reanimated';
+import LinearGradient from 'react-native-linear-gradient';
+import Container from '../navigation/container';
 
+// import {BlurView, VibrancyView} from '@react-native-community/blur';
 // import post from '../components/Post';
 // import Entypo from 'react-native-vector-icons/Entypo';
 // import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -29,7 +32,7 @@ import {color} from 'react-native-reanimated';
 // import Profileicon from '../assets/images/Profile_icon.png';
 // import Likeicon from '../assets/images/Like_icon.png';
 // import Plus from '../assets/images/Plus.png';
-// import Fontisto from 'react-native-vector-icons/Fontisto'; 
+// import Fontisto from 'react-native-vector-icons/Fontisto';
 // import { color } from 'react-native-reanimated';
 // import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 // import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
@@ -41,7 +44,7 @@ const ActiveStyle = () => (
     <Image
       style={{
         position: 'absolute',
-        bottom: -2,
+        bottom: 13,
       }}
       source={require('../assets/images/blur.png')}
       width={15}
@@ -54,7 +57,7 @@ const ActiveStyle = () => (
         height: 4,
         borderRadius: 14,
         position: 'absolute',
-        bottom: 1,
+        bottom: 10,
         borderBottomColor: '#21FFFC',
         borderBottomWidth: 4,
       }}></View>
@@ -122,7 +125,6 @@ const Tab = createBottomTabNavigator();
 
 // function Color() {
 //   const isClicked = true;
-
 // }
 
 // class constructor {
@@ -162,13 +164,25 @@ const HomeBottomTabNavigator = () => {
   const _keyboardDidHide = () => {
     setKeyboardShow(false);
   };
+
+  const TabBar = (props) => {
+    return (
+      <LinearGradient
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}
+        colors={['red', 'yellow']}
+      />
+    );
+  };
+
   return (
+    // <Container>
     <Tab.Navigator
       tabBarOptions={{
         keyboardHidesTabBar: true,
         tabStyle: {
-          backgroundColor: '#383734',
-          height: 55,
+          backgroundColor: '#20232A',
+          height: 65,
           bottom: 10,
           borderTopEndRadius: 20,
           borderTopStartRadius: 20,
@@ -182,13 +196,16 @@ const HomeBottomTabNavigator = () => {
         },
         style: {
           borderRadius: 20,
-          backgroundColor: '#383734',
+          backgroundColor: '#20232A',
           position: 'absolute',
-          bottom: 0,
+          bottom: -10,
           padding: 10,
-          height: 55,
+          height: 65,
           zIndex: 8,
         },
+      }}
+      tabBarComponent={(props) => {
+        return <TabBar {...props} />;
       }}>
       <Tab.Screen
         name={'Home'}
@@ -201,7 +218,7 @@ const HomeBottomTabNavigator = () => {
                 width={25}
                 height={25}
                 tintColor={color}
-                style={{bottom: 5}}
+                style={{bottom: 5, width: 20, height: 20}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -219,7 +236,7 @@ const HomeBottomTabNavigator = () => {
                 width={25}
                 height={25}
                 tintColor={color}
-                style={{bottom: 5}}
+                style={{bottom: 5, width: 20, height: 20}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -232,16 +249,18 @@ const HomeBottomTabNavigator = () => {
         options={() => ({
           tabBarIcon: ({focused, color}) => (
             <>
-            {!didKeyboardShow && <Image
-                source={require('../assets/images/Plus.png')}
-                style={{
-                  width: 65,
-                  height: 65,
-                  borderRadius: 37,
-                  bottom: focused ? -20 : 20,
-                  zIndex: 1,
-                }}
-              />}
+              {!didKeyboardShow && (
+                <Image
+                  source={require('../assets/images/Plus.png')}
+                  style={{
+                    width: 65,
+                    height: 65,
+                    borderRadius: 37,
+                    bottom: focused ? -20 : 20,
+                    zIndex: 1,
+                  }}
+                />
+              )}
             </>
           ),
           tabBarLabel: () => null,
@@ -259,7 +278,7 @@ const HomeBottomTabNavigator = () => {
                 width={25}
                 height={25}
                 tintColor={color}
-                style={{bottom: 5}}
+                style={{bottom: 5, width: 20, height: 20}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -275,7 +294,7 @@ const HomeBottomTabNavigator = () => {
               <Image
                 source={require('../assets/images/Profile_icon.png')}
                 size={25}
-                style={{bottom: 2}}
+                style={{bottom: 2, width: 25, height: 25}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -283,6 +302,7 @@ const HomeBottomTabNavigator = () => {
         }}
       />
     </Tab.Navigator>
+    // </Container>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import {ProcessingManager} from 'react-native-video-processing';
 
@@ -56,7 +56,9 @@ const Camera = () => {
           videoUri: res.uri,
         });
       } else {
-        setTimeout( () => {alert('Please select video of size less than 5mb')},1000);
+        setTimeout(() => {
+          alert('Please select video of size less than 5mb');
+        }, 1000);
       }
     });
   };
@@ -81,6 +83,42 @@ const Camera = () => {
         onRecordingEnd={() => setIsRecording(false)}
         style={styles.preview}
       />
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+        style={{position: 'absolute', top: 10, left: 10}}>
+        <Feather name="x" size={30} color="#fff" />
+      </TouchableOpacity>
+      <View style={styles.right}>
+        <TouchableOpacity style={{position: 'absolute', alignItems: 'center'}}>
+          <Image
+            source={require('../../assets/images/flip.png')}
+            size={15}
+            style={{}}
+          />
+          <Text>Flip</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{position: 'absolute', top: 80, alignItems: 'center'}}>
+          <Image
+            source={require('../../assets/images/timer.png')}
+            size={15}
+            style={{}}
+          />
+          <Text>Timer</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{position: 'absolute', top: 160, alignItems: 'center'}}>
+          <Feather name="zap-off" size={30} color="#fff" />
+          <Text>Flash</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{position: 'absolute', top: 230, alignItems: 'center'}}>
+          <Feather name="volume-2" size={30} color="#fff" />
+          <Text>Volume</Text>
+        </TouchableOpacity>
+      </View>
       <TouchableOpacity
         onPress={onRecord}
         style={isRecording ? styles.buttonStop : styles.buttonRecord}

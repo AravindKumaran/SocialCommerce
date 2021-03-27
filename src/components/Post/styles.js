@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 15,
     right: 0,
-    backgroundColor: '#292929',
+    backgroundColor: '#20232A',
     width: '100%',
     height: '90%',
     // marginTop: '0%'
@@ -65,7 +65,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginLeft: 5,
   },
-
   songImage: {
     width: 50,
     height: 50,
