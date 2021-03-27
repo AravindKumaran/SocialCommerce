@@ -12,8 +12,8 @@ import {
 } from 'react-native';
 
 import Searchhbar from '../../screens/Search/searchbar';
-import Brands from './brands';
-import Trending from './trending';
+import Brands from './brands3';
+import Trending from './trending3';
 import {API, graphqlOperation} from 'aws-amplify';
 import {searchUsersList} from '../../graphql/queries';
 
