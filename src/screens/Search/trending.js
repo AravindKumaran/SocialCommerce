@@ -584,66 +584,6 @@ const uris = [
     key: 15,
     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
   },
-  {
-    key: 16,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 17,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 18,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 19,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 20,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 21,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 22,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 23,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 24,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 25,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 26,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 27,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 28,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 29,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
-  {
-    key: 30,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-  },
 ];
 
 const Trending = () => {
