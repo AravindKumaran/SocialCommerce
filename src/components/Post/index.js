@@ -78,7 +78,6 @@ const Post = (props) => {
       switch (event) {
         case 'signIn':
         case 'cognitoHostedUI':
-          console.log('Hub sign IN');
           getUser().then((userData) => {
             // console.log('User', userData);
             if (userData?.attributes) {
@@ -87,7 +86,7 @@ const Post = (props) => {
           });
           break;
         case 'signOut':
-          console.log('Hub sign out');
+          // console.log('Hub sign out');
           setUser(null);
           break;
         case 'signIn_failure':

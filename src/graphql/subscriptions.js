@@ -21,10 +21,21 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
+      following {
+        userId
+        userName
+        imgUri
+      }
+      followers {
+        userId
+        userName
+        imgUri
+      }
       notifications {
         items {
           id
           userID
+          ownerID
           notificationID
           read
           createdAt
@@ -57,10 +68,21 @@ export const onUpdateUser = /* GraphQL */ `
         }
         nextToken
       }
+      following {
+        userId
+        userName
+        imgUri
+      }
+      followers {
+        userId
+        userName
+        imgUri
+      }
       notifications {
         items {
           id
           userID
+          ownerID
           notificationID
           read
           createdAt
@@ -93,10 +115,21 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      following {
+        userId
+        userName
+        imgUri
+      }
+      followers {
+        userId
+        userName
+        imgUri
+      }
       notifications {
         items {
           id
           userID
+          ownerID
           notificationID
           read
           createdAt
@@ -124,6 +157,16 @@ export const onCreatePost = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -172,6 +215,16 @@ export const onUpdatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
+        }
         notifications {
           nextToken
         }
@@ -219,6 +272,16 @@ export const onDeletePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
+        }
         notifications {
           nextToken
         }
@@ -265,6 +328,16 @@ export const onCreateComment = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -321,6 +394,16 @@ export const onUpdateComment = /* GraphQL */ `
         posts {
           nextToken
         }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
+        }
         notifications {
           nextToken
         }
@@ -375,6 +458,16 @@ export const onDeleteComment = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -483,6 +576,7 @@ export const onCreateUserNotification = /* GraphQL */ `
     onCreateUserNotification {
       id
       userID
+      ownerID
       user {
         id
         username
@@ -490,6 +584,16 @@ export const onCreateUserNotification = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -515,6 +619,7 @@ export const onUpdateUserNotification = /* GraphQL */ `
     onUpdateUserNotification {
       id
       userID
+      ownerID
       user {
         id
         username
@@ -522,6 +627,16 @@ export const onUpdateUserNotification = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -547,6 +662,7 @@ export const onDeleteUserNotification = /* GraphQL */ `
     onDeleteUserNotification {
       id
       userID
+      ownerID
       user {
         id
         username
@@ -554,6 +670,16 @@ export const onDeleteUserNotification = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken

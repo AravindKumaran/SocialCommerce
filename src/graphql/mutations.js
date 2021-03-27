@@ -14,6 +14,35 @@ export const createUser = /* GraphQL */ `
       posts {
         items {
           id
+          videoUri
+          description
+          likes
+          userID
+          songID
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      following {
+        userId
+        userName
+        imgUri
+      }
+      followers {
+        userId
+        userName
+        imgUri
+      }
+      notifications {
+        items {
+          id
+          userID
+          ownerID
+          notificationID
+          read
+          createdAt
+          updatedAt
         }
         nextToken
       }
@@ -45,10 +74,21 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
+      following {
+        userId
+        userName
+        imgUri
+      }
+      followers {
+        userId
+        userName
+        imgUri
+      }
       notifications {
         items {
           id
           userID
+          ownerID
           notificationID
           read
           createdAt
@@ -84,10 +124,21 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      following {
+        userId
+        userName
+        imgUri
+      }
+      followers {
+        userId
+        userName
+        imgUri
+      }
       notifications {
         items {
           id
           userID
+          ownerID
           notificationID
           read
           createdAt
@@ -118,6 +169,16 @@ export const createPost = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -169,6 +230,16 @@ export const updatePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
+        }
         notifications {
           nextToken
         }
@@ -219,6 +290,16 @@ export const deletePost = /* GraphQL */ `
         posts {
           nextToken
         }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
+        }
         notifications {
           nextToken
         }
@@ -268,6 +349,16 @@ export const createComment = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -327,6 +418,16 @@ export const updateComment = /* GraphQL */ `
         posts {
           nextToken
         }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
+        }
         notifications {
           nextToken
         }
@@ -384,6 +485,16 @@ export const deleteComment = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -513,6 +624,7 @@ export const createUserNotification = /* GraphQL */ `
     createUserNotification(input: $input, condition: $condition) {
       id
       userID
+      ownerID
       user {
         id
         username
@@ -520,6 +632,16 @@ export const createUserNotification = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -548,6 +670,7 @@ export const updateUserNotification = /* GraphQL */ `
     updateUserNotification(input: $input, condition: $condition) {
       id
       userID
+      ownerID
       user {
         id
         username
@@ -555,6 +678,16 @@ export const updateUserNotification = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken
@@ -583,6 +716,7 @@ export const deleteUserNotification = /* GraphQL */ `
     deleteUserNotification(input: $input, condition: $condition) {
       id
       userID
+      ownerID
       user {
         id
         username
@@ -590,6 +724,16 @@ export const deleteUserNotification = /* GraphQL */ `
         imageUri
         posts {
           nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
         }
         notifications {
           nextToken

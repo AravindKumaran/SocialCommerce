@@ -4,8 +4,16 @@ type User @model {
   email: String!
   imageUri: String
   posts: [Post] @connection(keyName: "byUser", fields: ["id"])
+  following: [Follow]
+  followers: [Follow]
   notifications: [UserNotification]
     @connection(keyName: "byUser", fields: ["id"])
+}
+
+type Follow {
+  userId: ID!
+  userName: String!
+  imgUri: String!
 }
 
 type Post @model @key(name: "byUser", fields: ["userID"]) {
