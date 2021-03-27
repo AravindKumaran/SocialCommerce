@@ -22,6 +22,7 @@ import AppButton from '../../components/Common/AppButton';
 import {createUser} from '../../graphql/mutations';
 import {getUser, getUserByEmail, listUsers} from '../../graphql/queries';
 import Videos from '../Profile/videos';
+import {useIsFocused} from '@react-navigation/native';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -40,6 +41,8 @@ const ProfileScreen = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const refRBSheet2 = useRef();
+
+  const isFocused = useIsFocused();
 
   const [images, setimages] = useState([
     require('../../assets/images/i1.png'),
@@ -129,8 +132,11 @@ const ProfileScreen = () => {
           break;
       }
     });
-    checkUser();
   }, []);
+
+  useEffect(() => {
+    checkUser();
+  }, [isFocused === true]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -230,7 +236,7 @@ const ProfileScreen = () => {
                       fontSize: 16,
                       bottom: 10,
                     }}>
-                    mark_3425
+                    {user.username}
                   </Text>
                   <Text
                     style={{
@@ -400,9 +406,9 @@ const ProfileScreen = () => {
               />
             </View>
           </View>
-          <View style={{margin: 20}}>
+          {/* <View style={{margin: 20}}>
             <AppButton onPress={handleLogout} title="Logout" />
-          </View>
+          </View> */}
           {/* <View
             style={{
               flexWrap: 'wrap',
