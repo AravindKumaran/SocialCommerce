@@ -1,5 +1,12 @@
-import React from 'react';
-import {StyleSheet, View, FlatList, Dimensions} from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Dimensions,
+  Modal,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import TrendingVideo from './trendingVideo';
 
 const vpHeight = Dimensions.get('window').height;
@@ -99,6 +106,7 @@ const uris = [
 ];
 
 const Trending = () => {
+  const [modalVisible, setModalVisible] = useState(false);
   const _renderItem = ({item, index}) => (
     <TrendingVideo
       videoUri={item.uri}
@@ -111,6 +119,24 @@ const Trending = () => {
   const Item = (dataItem, key) => {
     return <TrendingVideo key={key} videoUri={dataItem.uri} />;
   };
+
+  const click = (dataItem, index) => {
+    return (
+      <Modal
+        style={styles.modal}
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.modal}>
+          <TrendingVideo idx={index === 0} videoUri={dataItem.uri} />
+        </View>
+      </Modal>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -127,6 +153,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
+  },
+  modal: {
+    flex: 1,
+    padding: 30,
   },
 });
 

@@ -6,6 +6,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   Dimensions,
+  Modal,
 } from 'react-native';
 import Video from 'react-native-video';
 import DoubleClick from 'react-native-double-tap';
@@ -22,6 +23,7 @@ function randomIntFromInterval(min, max) {
 
 const TrendingVideo = ({videoUri, idx, height, poster, width, style}) => {
   const [paused, setPaused] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleClick = () => {
     console.log('Clicked');
@@ -64,6 +66,10 @@ const styles = StyleSheet.create({
     width: 143.5,
     height: 150,
     margin: 3,
+  },
+  modal: {
+    flex: 1,
+    padding: 30,
   },
 });
 

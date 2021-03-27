@@ -20,7 +20,7 @@ import {
   createUserNotification,
 } from '../../graphql/mutations';
 import styles from './styles';
-import Slider from 'react-native-slider';
+import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
 
 // import DoubleClick from 'react-native-double-tap';
