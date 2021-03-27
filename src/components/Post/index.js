@@ -12,7 +12,6 @@ import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Product from '../../screens/Product/index';
 import Video from 'react-native-video';
-// import DoubleClick from 'react-native-double-tap';
 import Comments from './comments';
 import PostLike from './postLike';
 import {
@@ -24,6 +23,7 @@ import styles from './styles';
 import Slider from 'react-native-slider';
 import DoubleClick from '../Post/doubletap';
 
+// import DoubleClick from 'react-native-double-tap';
 // import Slider from '@react-native-community/slider';
 // import MediaControls, {PLAYER_STATES} from 'react-native-media-controls';
 // import {makeStyles, withStyles} from '@material-ui/core/styles';
