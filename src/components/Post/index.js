@@ -236,25 +236,37 @@ const Post = (props) => {
             userName: userRes.data.getUser.username,
             imgUri: userRes.data.getUser.imageUri,
           };
-          post.user.followers.push(fw);
-          const updatedFollowers = post.user.followers;
-          await API.graphql(
-            graphqlOperation(updateUser, {
-              input: {id: postUser.id, followers: updatedFollowers},
-            }),
+          const frIndex = post.user.followers.findIndex(
+            (f) => f.userId === userRes.data.getUser.id,
           );
+          if (frIndex === -1) {
+            post.user.followers.push(fw);
+            const updatedFollowers = post.user.followers;
+            await API.graphql(
+              graphqlOperation(updateUser, {
+                input: {id: postUser.id, followers: updatedFollowers},
+              }),
+            );
+          }
+
           const fr = {
             userId: postUser.id,
             userName: postUser.username,
             imgUri: postUser.imageUri,
           };
-          userRes.data.getUser.following.push(fr);
-          const updatedFollowing = userRes.data.getUser.following;
-          await API.graphql(
-            graphqlOperation(updateUser, {
-              input: {id: user.sub, following: updatedFollowing},
-            }),
+          const fwIndex = userRes.data.getUser.following.findIndex(
+            (f) => f.userId === postUser.id,
           );
+          if (fwIndex === -1) {
+            userRes.data.getUser.following.push(fr);
+            const updatedFollowing = userRes.data.getUser.following;
+            await API.graphql(
+              graphqlOperation(updateUser, {
+                input: {id: user.sub, following: updatedFollowing},
+              }),
+            );
+          }
+
           console.log('FollowDone');
         }
       } catch (error) {
