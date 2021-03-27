@@ -81,7 +81,8 @@ const ActiveStyle1 = () => (
   </>
 );
 
-const Followers = () => {
+const Followers = ({data}) => {
+  console.log('Data', data);
   const [isTouched, setTouched] = useState(true);
   const [isPressed, setPressed] = useState(false);
   const [isClicked, setClicked] = useState(false);
@@ -187,57 +188,58 @@ const Followers = () => {
         <View style={{padding: 20}}>
           <ScrollView showsVerticalScrollIndicator={false} style={{top: 50}}>
             <View>
-              {user.map((v, i) => {
-                return (
-                  <View key={i}>
-                    <View>
-                      <Image
-                        source={{uri: v.photo}}
-                        style={{height: 35, width: 35, borderRadius: 20}}
-                      />
+              {data?.length > 0 &&
+                data.map((v, i) => {
+                  return (
+                    <View key={`${v.userId}-${i}`}>
+                      <View>
+                        <Image
+                          source={{uri: v.imgUri}}
+                          style={{height: 35, width: 35, borderRadius: 20}}
+                        />
+                      </View>
+                      <View>
+                        <Text
+                          style={{
+                            color: '#FFFFFF',
+                            fontFamily: 'Proxima Nova',
+                            fontWeight: '700',
+                            fontSize: 14,
+                            left: 60,
+                            bottom: 25,
+                          }}>
+                          {v.userName}
+                        </Text>
+                      </View>
+                      <View>
+                        <Feather
+                          style={{bottom: 50, left: 310}}
+                          name={'more-vertical'}
+                          size={25}
+                        />
+                      </View>
+                      <View style={{margin: -25}}>
+                        <LinearGradient
+                          start={{x: 0, y: 0}}
+                          end={{x: 1, y: 0}}
+                          colors={['#252525', '#252525', '#252525']}
+                          style={styles.Rectangle1}>
+                          <TouchableOpacity>
+                            <Text
+                              style={{
+                                color: '#FFFFFF',
+                                fontFamily: 'Proxima Nova',
+                                fontWeight: '400',
+                                fontSize: 14,
+                              }}>
+                              Following
+                            </Text>
+                          </TouchableOpacity>
+                        </LinearGradient>
+                      </View>
                     </View>
-                    <View>
-                      <Text
-                        style={{
-                          color: '#FFFFFF',
-                          fontFamily: 'Proxima Nova',
-                          fontWeight: '700',
-                          fontSize: 14,
-                          left: 60,
-                          bottom: 25,
-                        }}>
-                        {v.name}
-                      </Text>
-                    </View>
-                    <View>
-                      <Feather
-                        style={{bottom: 50, left: 310}}
-                        name={'more-vertical'}
-                        size={25}
-                      />
-                    </View>
-                    <View style={{margin: -25}}>
-                      <LinearGradient
-                        start={{x: 0, y: 0}}
-                        end={{x: 1, y: 0}}
-                        colors={['#252525', '#252525', '#252525']}
-                        style={styles.Rectangle1}>
-                        <TouchableOpacity>
-                          <Text
-                            style={{
-                              color: '#FFFFFF',
-                              fontFamily: 'Proxima Nova',
-                              fontWeight: '400',
-                              fontSize: 14,
-                            }}>
-                            Following
-                          </Text>
-                        </TouchableOpacity>
-                      </LinearGradient>
-                    </View>
-                  </View>
-                );
-              })}
+                  );
+                })}
             </View>
           </ScrollView>
         </View>
