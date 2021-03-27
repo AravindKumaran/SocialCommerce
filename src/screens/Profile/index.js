@@ -109,8 +109,6 @@ const ProfileScreen = () => {
   };
 
   const handleLogout = async () => {
-    console.log('USer', user);
-    return;
     Auth.signOut();
     setUser(null);
   };
