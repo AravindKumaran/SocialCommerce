@@ -304,7 +304,7 @@ const Comments = ({postId, postUserId}) => {
                         fontWeight: '400',
                         color: '#20232A',
                         fontSize: 12,
-                        left: 80,
+                        left: 110,
                         bottom: 20,
                       }}>
                       {cm.text}
