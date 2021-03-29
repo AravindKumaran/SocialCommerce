@@ -7,27 +7,55 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
   Modal,
+  Image,
 } from 'react-native';
 import Video from 'react-native-video';
 import DoubleClick from 'react-native-double-tap';
 import convertToProxyURL from 'react-native-video-cache';
+import Slider from '../../components/Post/slider';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
 function randomIntFromInterval(min, max) {
-  //  const   width = parseInt(Math.max(0.3, Math.random()) * vpHeight),
-  //  const height = parseInt(Math.max(0.3, Math.random()) * vpWidth),
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const TrendingVideo = ({videoUri, idx, height, poster, width, style}) => {
+const TrendingVideo = ({
+  videoUri,
+  idx,
+  height,
+  poster,
+  width,
+  style,
+  fullScreen,
+  onFullScreen,
+  curIdx,
+}) => {
   const [paused, setPaused] = useState(true);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const onSeeking = (currentVideoTime) => setCurrentTime(currentVideoTime);
 
   const handleClick = () => {
     console.log('Clicked');
     setPaused(!paused);
+    if (!fullScreen) {
+      onFullScreen(idx);
+    }
+  };
+
+  const onProgress = (data) => {
+    if (!isLoading) {
+      setCurrentTime(data.currentTime);
+    }
+  };
+
+  const onLoad = (data) => {
+    setDuration(Math.round(data.duration));
+    setIsLoading(false);
   };
 
   return (
@@ -36,12 +64,18 @@ const TrendingVideo = ({videoUri, idx, height, poster, width, style}) => {
         source={{uri: convertToProxyURL(videoUri)}}
         style={[
           {
-            width: width || vpWidth * 0.5 - 15,
-            height: height,
-            margin: 0,
+            width: fullScreen ? vpWidth - 10 : vpWidth * 0.33,
+            height: fullScreen ? vpHeight - 80 : height,
+            margin: 2.5,
             elevation: 5,
-            borderRadius: 0,
-            // left: 8,
+            marginLeft: fullScreen ? 5 : 0,
+            marginBottom: fullScreen ? 5 : 0,
+            borderRadius: fullScreen ? 10 : 4,
+            // position: 'absolute',
+            // top: 0,
+            // left: 0,
+            // right: 0,
+            // bottom: 0,
           },
           style,
         ]}
@@ -52,24 +86,51 @@ const TrendingVideo = ({videoUri, idx, height, poster, width, style}) => {
             : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png'
         }
         posterResizeMode="cover"
-        repeat={idx === 0}
-        paused={idx === 0 ? false : paused}
-        muted={false}
-        muted={idx === 0}
+        repeat={!fullScreen ? idx === 0 : false}
+        paused={
+          fullScreen
+            ? idx === curIdx
+              ? !paused
+              : paused
+            : idx === 0
+            ? false
+            : paused
+        }
+        muted={!fullScreen ? idx === 0 : false}
+        onProgress={onProgress}
+        onLoad={onLoad}
       />
+
+      <Text
+        style={{
+          color: '#000',
+          position: 'absolute',
+          top: 30,
+          zIndex: 1,
+        }}>
+        Hello
+      </Text>
+
+      {fullScreen ? (
+        <Slider
+          minimumValue={0}
+          maximumValue={duration}
+          minimumTrackTintColor="red"
+          maximumTrackTintColor="#292929"
+          thumbTintColor="white"
+          step={1}
+          value={currentTime}
+          onValueChange={onSeeking}
+          style={styles.slider}
+        />
+      ) : null}
     </DoubleClick>
   );
 };
 
 const styles = StyleSheet.create({
-  video: {
-    width: 143.5,
-    height: 150,
-    margin: 3,
-  },
-  modal: {
-    flex: 1,
-    padding: 30,
+  slider: {
+    marginHorizontal: 10,
   },
 });
 

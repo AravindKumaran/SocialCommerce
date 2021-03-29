@@ -1,10 +1,16 @@
-import React, {useState, useCallback} from 'react';
-import {StyleSheet, View, FlatList, Dimensions, Modal} from 'react-native';
-import TrendingVideo from './trendingVideo';
-import BrandFullScreenVideo from './fullScreenVideo';
+import React, {useEffect, useRef, useState} from 'react';
 
-const vpHeight = Dimensions.get('window').height;
-const vpWidth = Dimensions.get('window').width;
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  Dimensions,
+  Modal,
+} from 'react-native';
+
+import TrendingVideo from './trendingVideo';
+import AppButton from '../../components/Common/AppButton';
 
 const uris = [
   {
@@ -108,21 +114,16 @@ const uris = [
   },
 ];
 
-const Brands = () => {
-  const [fullScreen, setFullScreen] = useState(false);
-  const [curIdx, setCurIdx] = useState(0);
+const vpHeight = Dimensions.get('window').height;
+const vpWidth = Dimensions.get('window').width;
 
-  const handleFullScreen = useCallback(
-    (idx, btn) => {
-      if (btn) {
-        setFullScreen(false);
-        return;
-      }
-      setFullScreen(true);
-      setCurIdx(idx);
-    },
-    [fullScreen],
-  );
+const BrandFullScreenVideo = ({fullScreen, handleFullScreen, idx}) => {
+  const flatListRef = useRef(null);
+  useEffect(() => {
+    console.log('I am called', idx);
+    flatListRef.current.scrollToIndex({index: idx});
+  }, [idx]);
+
   const _renderItem = ({item, index}) => (
     <TrendingVideo
       videoUri={item.uri}
@@ -130,28 +131,26 @@ const Brands = () => {
       height={item.height}
       fullScreen={fullScreen}
       onFullScreen={handleFullScreen}
+      curIdx={idx}
     />
   );
 
-  if (fullScreen) {
-    return (
-      <Modal>
-        <BrandFullScreenVideo
-          data={uris}
-          fullScreen={fullScreen}
-          handleFullScreen={handleFullScreen}
-          idx={curIdx}
-        />
-      </Modal>
-    );
-  }
-
   return (
-    <View style={styles.container}>
+    <View>
+      <AppButton
+        btnStyle={{margin: 20, width: 300}}
+        title="Close"
+        onPress={() => handleFullScreen(1, true)}
+      />
       <FlatList
+        ref={flatListRef}
+        getItemLayout={(data, index) => ({
+          length: vpHeight - 80,
+          offset: vpHeight * 0.9 * index,
+          index,
+        })}
         nestedScrollEnabled={true}
         data={uris}
-        numColumns={3}
         renderItem={_renderItem}
         keyExtractor={(item) => item.key.toString()}
       />
@@ -159,12 +158,6 @@ const Brands = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 5,
-    marginBottom: 100,
-  },
-});
+const styles = StyleSheet.create({});
 
-export default Brands;
+export default BrandFullScreenVideo;
