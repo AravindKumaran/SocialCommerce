@@ -98,75 +98,81 @@ const EditProfile = ({user, saveUser}) => {
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
-      <View style={{padding: 20}}>
-        <View style={{alignItems: 'center'}}>
-          <ImagePickerBottomSheet
-            imageUri={userImageUri}
-            onChangeImage={(uri) => setUserImageUri(uri)}
-          />
-        </View>
-      </View>
-
-      <View style={{padding: 30, alignItems: 'center'}}>
-        <View style={{top: 20}}>
-          <Text
-            style={{
-              color: '#FFFFFF',
-              fontFamily: 'Proxima Nova',
-              fontWeight: '700',
-              fontSize: 12,
-              left: 10,
-            }}>
-            Name
-          </Text>
-          <TextInput
-            style={styles.input}
-            // value={username}
-            defaultValue={username}
-            onChangeText={(e) => setUsername(e)}
-          />
+      {/* <LinearGradient
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}
+        colors={['#1A1A1A', '#232323']}
+        style={styles.container}> */}
+        <View style={{padding: 30}}>
+          <View style={{alignItems: 'center'}}>
+            <ImagePickerBottomSheet
+              imageUri={userImageUri}
+              onChangeImage={(uri) => setUserImageUri(uri)}
+            />
+          </View>
         </View>
 
-        <View style={{top: 40}}>
-          <Text
-            style={{
-              color: '#FFFFFF',
-              fontFamily: 'Proxima Nova',
-              fontWeight: '700',
-              fontSize: 12,
-              left: 10,
-            }}>
-            Bio
-          </Text>
-          <TextInput
-            style={styles.input1}
-            // value={bio}
-            defaultValue={bio}
-            onChangeText={(e) => setBio(e)}
-            maxLength={50}
-          />
-        </View>
-      </View>
-
-      <View style={{alignItems: 'center', top: 40}}>
-        <LinearGradient
-          start={{x: 0, y: 0}}
-          end={{x: 1, y: 0}}
-          colors={['#21FFFC', '#518bf9', '#5E37F4']}
-          style={styles.Rectangle1}>
-          <TouchableOpacity onPress={handleRevert}>
+        <View style={{padding: 0, alignItems: 'center'}}>
+          <View style={{top: 20}}>
             <Text
               style={{
                 color: '#FFFFFF',
                 fontFamily: 'Proxima Nova',
-                fontWeight: '700',
-                fontSize: 14,
+                fontWeight: '400',
+                fontSize: 12,
+                left: 10,
               }}>
-              Revert Changes
+              Name
             </Text>
-          </TouchableOpacity>
-        </LinearGradient>
-      </View>
+            <TextInput
+              style={styles.input}
+              // value={username}
+              defaultValue={username}
+              onChangeText={(e) => setUsername(e)}
+            />
+          </View>
+
+          <View style={{top: 50}}>
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Proxima Nova',
+                fontWeight: '400',
+                fontSize: 12,
+                left: 10,
+              }}>
+              Bio
+            </Text>
+            <TextInput
+              style={styles.input1}
+              // value={bio}
+              defaultValue={bio}
+              onChangeText={(e) => setBio(e)}
+              maxLength={50}
+            />
+          </View>
+        </View>
+
+        <View style={{alignItems: 'center', top: 100}}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            colors={['#21FFFC', '#518bf9', '#5E37F4']}
+            style={styles.Rectangle1}>
+            <TouchableOpacity onPress={handleRevert}>
+              <Text
+                style={{
+                  color: '#FFFFFF',
+                  fontFamily: 'Proxima Nova',
+                  fontWeight: '700',
+                  fontSize: 14,
+                }}>
+                Revert Changes
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
+        </View>
+      {/* </LinearGradient> */}
     </View>
   );
 };
@@ -186,10 +192,10 @@ const styles = StyleSheet.create({
   },
   input: {
     width: 300,
-    height: 40,
+    height: 50,
     padding: 10,
     top: 10,
-    backgroundColor: '#181818',
+    backgroundColor: '#1A1A1A',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -197,16 +203,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: '#FFFFFF',
     fontWeight: '400',
-    fontSize: 12,
-    borderTopWidth: 0.5,
-    borderTopColor: '#737373',
+    fontSize: 14,
+    borderWidth: 0.5,
+    borderColor: '#737373',
   },
   input1: {
     width: 300,
-    height: 100,
+    height: 120,
     padding: 10,
     top: 10,
-    backgroundColor: '#181818',
+    backgroundColor: '#1A1A1A',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -214,9 +220,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: '#FFFFFF',
     fontWeight: '400',
-    fontSize: 12,
-    borderTopWidth: 0.5,
-    borderTopColor: '#737373',
+    fontSize: 14,
+    borderWidth: 0.5,
+    borderColor: '#737373',
   },
   Rectangle1: {
     width: 300,

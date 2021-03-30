@@ -197,7 +197,7 @@ const ProfileScreen = () => {
               <View style={{alignItems: 'center'}}>
                 <View style={{top: 110, position: 'absolute'}}>
                   <TouchableOpacity
-                    style={{bottom: 0, right: '150%'}}
+                    style={{bottom: 0, right: '70%'}}
                     onPress={() => refRBSheet.current.open()}>
                     <Feather name={'edit'} size={20} />
                   </TouchableOpacity>
@@ -227,7 +227,7 @@ const ProfileScreen = () => {
                   </RBSheet>
 
                   <TouchableOpacity
-                    style={{bottom: 40, left: '220%', position: 'absolute'}}>
+                    style={{bottom: 40, left: '155%', position: 'absolute'}}>
                     <Feather
                       style={styles.chart}
                       name={'bar-chart'}
@@ -279,7 +279,7 @@ const ProfileScreen = () => {
                         fontFamily: 'Proxima Nova',
                         fontWeight: '700',
                         fontSize: 14,
-                        left: 10,
+                        left: 20,
                       }}>
                       {user?.followers?.length || 0}
                     </Text>
@@ -379,7 +379,7 @@ const ProfileScreen = () => {
                         fontFamily: 'Proxima Nova',
                         fontWeight: '700',
                         fontSize: 14,
-                        left: 5,
+                        left: 3,
                       }}>
                       500
                     </Text>
