@@ -15,8 +15,8 @@ import {listUsers} from '../../graphql/queries';
 import {updateUser} from '../../graphql/mutations';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 
-const EditProfile = ({user}) => {
-  console.log('UUSer', user.id);
+const EditProfile = ({user, saveUser}) => {
+  console.log('UUSer', user.id, saveUser);
   const [username, setUsername] = useState(user.username);
   const [userImageUri, setUserImageUri] = useState(
     user.imageUri.startsWith('https')
@@ -85,6 +85,7 @@ const EditProfile = ({user}) => {
       user.username = username;
 
       console.log('Ress', res3);
+      saveUser(res3?.data?.updateUser);
       setLoading(false);
     } catch (error) {
       console.log('Error', error);
