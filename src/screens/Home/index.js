@@ -18,9 +18,20 @@ import Feather from 'react-native-vector-icons/Feather';
 // import { Viewport } from '@skele/components';
 // import {inViewPort} from 'react-native-inviewport';
 
-const Home = ({navigation}) => {
-  const [posts, setPosts] = useState([]);
+const vpHeight = Dimensions.get('window').height;
+const vpWidth = Dimensions.get('window').width;
 
+const Home = ({navigation, route}) => {
+  const [posts, setPosts] = useState([]);
+  const flatListRef = useRef(null);
+  useEffect(() => {
+    console.log('I am called', route?.params?.idx);
+    // flatListRef.current.scrollToIndex({index: 2});
+    if (route?.params?.idx) {
+      flatListRef.current.scrollToIndex({index: route?.params?.idx});
+      setCurrentVisibleIndex(route?.params?.idx);
+    }
+  }, [route?.params?.idx]);
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   useEffect(() => {
     const fetchPost = async () => {
@@ -76,6 +87,12 @@ const Home = ({navigation}) => {
 
       <FlatList
         data={posts}
+        ref={flatListRef}
+        getItemLayout={(data, index) => ({
+          length: vpHeight + 135,
+          offset: vpHeight * 0.83 * index,
+          index,
+        })}
         renderItem={_renderItem}
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}
