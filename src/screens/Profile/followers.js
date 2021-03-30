@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState, useCallback} from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -81,70 +81,19 @@ const ActiveStyle1 = () => (
   </>
 );
 
-const Followers = ({data}) => {
-  console.log('Data', data);
+const Followers = ({ data, followingData }) => {
   const [isTouched, setTouched] = useState(true);
   const [isPressed, setPressed] = useState(false);
-  const [isClicked, setClicked] = useState(false);
-
-  const user = [
-    {
-      name: 'Tamil25',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Eren45',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Mikasa',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Armin65',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Levi75',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Hange85',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Tamil25',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Eren45',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Mikasa',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Armin65',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Levi75',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-    {
-      name: 'Hange85',
-      photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    },
-  ];
+  const [actualData, setData] = useState(data);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <View style={{alignItems: 'center', padding: 5}}>
-          <View style={{top: 20, right: 80}}>
+        <View style={{ alignItems: 'center', padding: 5 }}>
+          <View style={{ top: 20, right: 80 }}>
             <TouchableOpacity
               onPress={() => {
+                setData(data)
                 setTouched(!isTouched);
                 setPressed(!isPressed);
               }}>
@@ -159,9 +108,12 @@ const Followers = ({data}) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={{left: 80}}>
+          <View style={{ left: 80 }}>
             <TouchableOpacity
               onPress={() => {
+                if (isTouched === true) {
+                  setData(followingData)
+                }
                 setPressed(!isPressed);
                 setTouched(!isTouched);
               }}>
@@ -176,26 +128,26 @@ const Followers = ({data}) => {
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={{top: 10}}>
+          <View style={{ top: 10 }}>
             <Image source={require('../../assets/images/Pline.png')} />
           </View>
         </View>
 
-        <View style={{top: 10}}>
+        <View style={{ top: 10 }}>
           <Searchbar />
         </View>
 
-        <View style={{padding: 20}}>
-          <ScrollView showsVerticalScrollIndicator={false} style={{top: 50}}>
+        <View style={{ padding: 20 }}>
+          <ScrollView showsVerticalScrollIndicator={false} style={{ top: 50 }}>
             <View>
-              {data?.length > 0 &&
-                data.map((v, i) => {
+              {actualData?.length > 0 &&
+                actualData.map((v, i) => {
                   return (
                     <View key={`${v.userId}-${i}`}>
                       <View>
                         <Image
-                          source={{uri: v.imgUri}}
-                          style={{height: 35, width: 35, borderRadius: 20}}
+                          source={{ uri: v.imgUri }}
+                          style={{ height: 35, width: 35, borderRadius: 20 }}
                         />
                       </View>
                       <View>
@@ -213,15 +165,15 @@ const Followers = ({data}) => {
                       </View>
                       <View>
                         <Feather
-                          style={{bottom: 50, left: 310}}
+                          style={{ bottom: 50, left: 310 }}
                           name={'more-vertical'}
                           size={25}
                         />
                       </View>
-                      <View style={{margin: -25}}>
+                      <View style={{ margin: -25 }}>
                         <LinearGradient
-                          start={{x: 0, y: 0}}
-                          end={{x: 1, y: 0}}
+                          start={{ x: 0, y: 0 }}
+                          end={{ x: 1, y: 0 }}
                           colors={['#252525', '#252525', '#252525']}
                           style={styles.Rectangle1}>
                           <TouchableOpacity>
