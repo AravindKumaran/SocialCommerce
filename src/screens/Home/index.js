@@ -80,7 +80,7 @@ const Home = ({navigation}) => {
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}
         decelerationRate={'fast'}
-        snapToInterval={Dimensions.get('window').height + 20}
+        snapToInterval={Dimensions.get('window').height - 135}
         borderRadius={50}
         viewabilityConfig={_viewabilityConfig.current}
         onViewableItemsChanged={_onViewableItemsChanged.current}
@@ -94,9 +94,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     padding: 10,
     width: '100%',
-    height: '100%',
+    height: '91.7%',
     top: 34,
-    // bottom: 55,
     paddingTop: -10,
     paddingLeft: 4,
     paddingRight: 4,
