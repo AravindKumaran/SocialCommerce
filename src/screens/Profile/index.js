@@ -138,6 +138,13 @@ const ProfileScreen = () => {
     checkUser();
   }, [isFocused === true]);
 
+  console.log('Called');
+
+  const handleUpdateUser = (user) => {
+    console.log('I am called');
+    setUser(user);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
@@ -216,7 +223,7 @@ const ProfileScreen = () => {
                         bottom: 85,
                       },
                     }}>
-                    <EditProfile user={user} />
+                    <EditProfile user={user} saveUser={handleUpdateUser} />
                   </RBSheet>
 
                   <TouchableOpacity
@@ -249,7 +256,7 @@ const ProfileScreen = () => {
                       bottom: 0,
                       alignSelf: 'center',
                     }}>
-                    Designer
+                    {user.bio}
                   </Text>
                 </View>
 
@@ -409,7 +416,12 @@ const ProfileScreen = () => {
               }}>
               <Image
                 style={styles.user}
-                source={require('../../assets/images/User2.png')}
+                // source={require('../../assets/images/User2.png')}
+                source={{
+                  uri: user.imageUri.startsWith('https')
+                    ? user.imageUri
+                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
+                }}
               />
             </View>
           </View>
