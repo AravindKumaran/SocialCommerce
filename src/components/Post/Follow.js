@@ -50,9 +50,9 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
       {isFollow ? (
         <TouchableOpacity onPress={handleFollow} style={{bottom: 5}}>
           <Image
-            source={require('../../assets/images/p2.png')}
+            source={require('../../assets/images/Profile1_icon.png')}
             size={35}
-            style={{height: 65, width: 60}}
+            style={{height: 60, width: 60}}
           />
         </TouchableOpacity>
       ) : (

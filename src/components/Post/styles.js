@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     // marginTop: '0%'
   },
   uiContainer: {
-    height: '97.5%',
+    height: Dimensions.get('window').height,
     justifyContent: 'flex-end',
     marginBottom: 7, 
     // position: 'absolute',

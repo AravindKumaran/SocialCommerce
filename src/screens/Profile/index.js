@@ -298,7 +298,7 @@ const ProfileScreen = () => {
                         bottom: 85,
                       },
                     }}>
-                    <Followers data={user.followers} />
+                    <Followers data={user.followers} followingData={user.following}/>
                   </RBSheet>
 
                   <TouchableOpacity
@@ -346,7 +346,7 @@ const ProfileScreen = () => {
                         bottom: 85,
                       },
                     }}>
-                    <Following data={user.following} />
+                    <Following data={user.following} followerData={user.followers} />
                   </RBSheet>
 
                   <TouchableOpacity style={{top: 65, left: 150}}>
