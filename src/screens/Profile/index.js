@@ -197,7 +197,7 @@ const ProfileScreen = () => {
               <View style={{alignItems: 'center'}}>
                 <View style={{top: 110, position: 'absolute'}}>
                   <TouchableOpacity
-                    style={{bottom: 0, right: '70%'}}
+                    style={{bottom: 0, right: '800%'}}
                     onPress={() => refRBSheet.current.open()}>
                     <Feather name={'edit'} size={20} />
                   </TouchableOpacity>
@@ -227,7 +227,7 @@ const ProfileScreen = () => {
                   </RBSheet>
 
                   <TouchableOpacity
-                    style={{bottom: 40, left: '155%', position: 'absolute'}}>
+                    style={{bottom: 0, left: '750%', position: 'absolute'}}>
                     <Feather
                       style={styles.chart}
                       name={'bar-chart'}
@@ -235,16 +235,19 @@ const ProfileScreen = () => {
                     />
                   </TouchableOpacity>
 
-                  <Text
+                  {/* <Text
                     style={{
                       color: '#FFFFFF',
                       fontFamily: 'Proxima Nova',
                       fontWeight: '700',
                       fontSize: 16,
                       bottom: 10,
+                      maxWidth: '100%',
+                      position: 'absolute',
+                      zIndex: 1
                     }}>
                     {user.username}
-                    {/* Avi */}
+                    
                   </Text>
                   <Text
                     style={{
@@ -255,6 +258,41 @@ const ProfileScreen = () => {
                       // left: 25,
                       bottom: 0,
                       alignSelf: 'center',
+                      position: 'absolute',
+                      zIndex: 1
+                    }}>
+                    {user.bio}
+                  </Text> */}
+                </View>
+
+                <View style={{bottom: 0, position: 'absolute', zIndex: 1, alignSelf: 'center', alignContent: 'center'}}>
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontFamily: 'Proxima Nova',
+                      fontWeight: '700',
+                      fontSize: 16,
+                      bottom: 10,
+                      position: 'absolute',
+                      zIndex: 1,
+                      alignItems: 'center',
+                      right: -70
+                    }}>
+                    {user.username}
+                  </Text>
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontFamily: 'Proxima Nova',
+                      fontWeight: '400',
+                      fontSize: 12,
+                      // left: 25,
+                      bottom: 0,
+                      alignSelf: 'center',
+                      position: 'absolute',
+                      zIndex: 1,
+                      alignItems: 'center',
+                      right: -70
                     }}>
                     {user.bio}
                   </Text>
