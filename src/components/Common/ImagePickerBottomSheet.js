@@ -100,7 +100,7 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
           flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
-          marginTop: 10,
+          marginTop: 15,
         }}>
         <Feather name={'edit'} size={15} style={{marginRight: 10}} />
         <Text
@@ -170,9 +170,9 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     justifyContent: 'center',
     alignItems: 'center',
-    height: 150,
+    height: 140,
     overflow: 'hidden',
-    width: 150,
+    width: 140,
   },
   image: {
     width: '100%',
