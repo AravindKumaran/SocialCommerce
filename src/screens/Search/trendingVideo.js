@@ -13,6 +13,7 @@ import Video from 'react-native-video';
 import DoubleClick from 'react-native-double-tap';
 import convertToProxyURL from 'react-native-video-cache';
 import Slider from '../../components/Post/slider';
+import {useNavigation} from '@react-navigation/native';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -36,14 +37,17 @@ const TrendingVideo = ({
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const navigation = useNavigation();
+  // console.log('Video', videoUri);
 
   const onSeeking = (currentVideoTime) => setCurrentTime(currentVideoTime);
 
   const handleClick = () => {
-    console.log('Clicked');
-    setPaused(!paused);
+    // console.log('Clicked');
+    // setPaused(!paused);
     if (!fullScreen) {
-      onFullScreen(idx);
+      // onFullScreen(idx);
+      navigation.navigate('Home', {idx});
     }
   };
 
@@ -61,11 +65,18 @@ const TrendingVideo = ({
   return (
     <DoubleClick singleTap={handleClick}>
       <Video
-        source={{uri: convertToProxyURL(videoUri)}}
+        source={{
+          uri: convertToProxyURL(
+            videoUri.startsWith('https')
+              ? videoUri
+              : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${videoUri}`,
+          ),
+        }}
         style={[
           {
             width: fullScreen ? vpWidth - 10 : vpWidth * 0.33,
-            height: fullScreen ? vpHeight - 80 : height,
+            // height: fullScreen ? vpHeight - 80 : height,
+            height: 200,
             margin: 2.5,
             elevation: 5,
             marginLeft: fullScreen ? 5 : 0,
