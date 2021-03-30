@@ -464,7 +464,7 @@ const Post = (props) => {
               step={1}
               value={currentTime}
               onValueChange={onSeeking}
-              style={{width: '100%', top: '96.5%'}}
+              style={{width: '100%', top: '95%'}}
             />
           </View>
 
