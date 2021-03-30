@@ -30,22 +30,22 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
       results['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
     ) {
       const options = {
-        mediaType: 'photo',
-        saveToPhotos: true,
-        quality: 0.5,
-        maxWidth: 500,
-        maxHeight: 500,
+        // mediaType: 'photo',
+        // saveToPhotos: true,
+        // quality: 0.5,
+        // maxWidth: 300,
+        // maxHeight: 300,
       };
       launchCamera(options, (res) => {
+        console.log('Res', res);
         if (res.didCancel) return;
-
         if (res.errorMessage) {
           console.log('Error in Picking Image', res.errorMessage);
           return;
         }
 
         if (res.fileSize <= 1000000) {
-          //  console.log(res.uri)
+          console.log(res.uri);
           onChangeImage(res.uri);
         } else {
           alert('Please select image of size less than 1mb');
