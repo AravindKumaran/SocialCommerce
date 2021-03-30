@@ -406,9 +406,9 @@ const ProfileScreen = () => {
               />
             </View>
           </View>
-          {/* <View style={{margin: 20}}>
+          <View style={{margin: 20}}>
             <AppButton onPress={handleLogout} title="Logout" />
-          </View> */}
+          </View>
           {/* <View
             style={{
               flexWrap: 'wrap',
