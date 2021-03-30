@@ -61,6 +61,7 @@ export const updateUser = /* GraphQL */ `
       username
       email
       imageUri
+      bio
       posts {
         items {
           id

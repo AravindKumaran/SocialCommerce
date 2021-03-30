@@ -8,6 +8,7 @@ export const getUser = /* GraphQL */ `
       username
       email
       imageUri
+      bio
       posts {
         items {
           id
@@ -60,6 +61,7 @@ export const listUsers = /* GraphQL */ `
         username
         email
         imageUri
+        bio
         posts {
           nextToken
         }

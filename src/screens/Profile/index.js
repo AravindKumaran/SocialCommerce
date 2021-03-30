@@ -216,7 +216,7 @@ const ProfileScreen = () => {
                         bottom: 85,
                       },
                     }}>
-                    <EditProfile />
+                    <EditProfile user={user} />
                   </RBSheet>
 
                   <TouchableOpacity
@@ -236,7 +236,8 @@ const ProfileScreen = () => {
                       fontSize: 16,
                       bottom: 10,
                     }}>
-                    {user.username}
+                    {/* {user.username} */}
+                    Avi
                   </Text>
                   <Text
                     style={{
@@ -298,7 +299,10 @@ const ProfileScreen = () => {
                         bottom: 85,
                       },
                     }}>
-                    <Followers data={user.followers} followingData={user.following}/>
+                    <Followers
+                      data={user.followers}
+                      followingData={user.following}
+                    />
                   </RBSheet>
 
                   <TouchableOpacity
@@ -346,7 +350,10 @@ const ProfileScreen = () => {
                         bottom: 85,
                       },
                     }}>
-                    <Following data={user.following} followerData={user.followers} />
+                    <Following
+                      data={user.following}
+                      followerData={user.followers}
+                    />
                   </RBSheet>
 
                   <TouchableOpacity style={{top: 65, left: 150}}>
