@@ -9,7 +9,8 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: 'white',
     fontFamily: 'Proxima Nova',
-    fontSize: 10,
+    fontSize: 15,
+    borderRadius: 5,
   },
   button: {
     alignItems: 'center',

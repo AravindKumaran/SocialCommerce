@@ -22,6 +22,7 @@ type Post @model @key(name: "byUser", fields: ["userID"]) {
   videoUri: String!
   description: String!
   likes: [ID]
+  thumbnail: String
 
   userID: ID!
   user: User @connection(fields: ["userID"])

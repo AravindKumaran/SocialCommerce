@@ -16,9 +16,11 @@ import {createPost} from '../../graphql/mutations';
 import {WebView} from 'react-native-webview';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
+import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomSheet';
 
 const CreatePost = () => {
   const [description, setDescription] = useState('');
+  const [thumbnail, setThumbnail] = useState(null);
   const [videoKey, setVideoKey] = useState(null);
 
   const route = useRoute();
@@ -31,22 +33,31 @@ const CreatePost = () => {
   }, []);
 
   const uploadToStorage = async () => {
-    if (!description || !route.params.videoUri) {
+    if (!description || !route.params.videoUri || !thumbnail) {
+      alert('Please provide all details');
       return;
     }
+    console.log('gdf', description, thumbnail);
     try {
       setLoading(true);
       const response1 = await fetch(route.params.videoUri);
-
       const blob1 = await response1.blob();
+      const response2 = await fetch(thumbnail);
+      const blob2 = await response2.blob();
+
       console.log('Filename', blob1.data);
+      console.log('Thumbnail', blob2.data);
       const s3Response = await Storage.put(blob1.data.name, blob1, {
         contentType: blob1.data.type,
       });
       console.log('s3Response', s3Response);
+      const s3Response2 = await Storage.put(blob2.data.name, blob2, {
+        contentType: blob2.data.type,
+      });
       const newPost = {
         videoUri: s3Response.key,
         description: description,
+        thumbnail: s3Response2.key,
         userID: user.sub,
         songID: '20dee14b-39a9-4321-8ec7-c3380e2f5c27',
       };
@@ -96,6 +107,24 @@ const CreatePost = () => {
         placeholder={'Hashtag'}
         style={styles.textInput}
       />
+
+      <View style={{padding: 30}}>
+        <View style={{alignItems: 'center'}}>
+          <ImagePickerBottomSheet
+            imageUri={thumbnail}
+            onChangeImage={(uri) => setThumbnail(uri)}
+            title="Add Thumbnail"
+            tStyle={{color: '#000'}}
+            cStyle={{
+              width: 250,
+              height: 250,
+              borderRadius: 25,
+              backgroundColor: '#333',
+            }}
+          />
+        </View>
+      </View>
+
       {user ? (
         <View style={styles.button}>
           <AppButton onPress={uploadToStorage} title="Publish Video" />

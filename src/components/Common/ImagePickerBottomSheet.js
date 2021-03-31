@@ -17,7 +17,13 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import AppText from './AppText';
 import AppButton from './AppButton';
 
-const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
+const ImagePickerBottomSheet = ({
+  imageUri,
+  onChangeImage,
+  title,
+  cStyle,
+  tStyle,
+}) => {
   const refRBSheet = useRef();
 
   const openCamera = async () => {
@@ -90,7 +96,7 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
 
   return (
     <View>
-      <View style={styles.container}>
+      <View style={[styles.container, cStyle]}>
         {imageUri && (
           <Image
             source={{uri: imageUri}}
@@ -108,15 +114,27 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
           alignItems: 'center',
           marginTop: 15,
         }}>
-        <Feather name={'edit'} size={15} style={{marginRight: 10}} />
+        {!title && (
+          <Feather name={'edit'} size={15} style={{marginRight: 10}} />
+        )}
+        {title && (
+          <Feather
+            name={'camera'}
+            size={25}
+            style={{marginRight: 10, color: '#000'}}
+          />
+        )}
         <Text
-          style={{
-            color: '#FFFFFF',
-            fontFamily: 'Proxima Nova',
-            fontWeight: '400',
-            fontSize: 14,
-          }}>
-          Edit Profile Picture
+          style={[
+            {
+              color: '#FFFFFF',
+              fontFamily: 'Proxima Nova',
+              fontWeight: '400',
+              fontSize: 14,
+            },
+            tStyle,
+          ]}>
+          {title ? title : 'Edit Profile Picture'}
         </Text>
       </TouchableOpacity>
 
