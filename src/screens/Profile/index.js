@@ -279,7 +279,7 @@ const ProfileScreen = ({navigation}) => {
               <View style={{alignItems: 'center'}}>
                 <View style={{top: 110, position: 'absolute'}}>
                   <TouchableOpacity
-                    style={{bottom: 0, right: '70%'}}
+                    style={{bottom: 0, right: '750%'}}
                     onPress={() => refRBSheet.current.open()}>
                     <Feather name={'edit'} size={20} />
                   </TouchableOpacity>
@@ -309,14 +309,16 @@ const ProfileScreen = ({navigation}) => {
                   </RBSheet>
 
                   <TouchableOpacity
-                    style={{bottom: 40, left: '155%', position: 'absolute'}}>
+                    style={{bottom: 0, left: '750%', position: 'absolute'}}>
                     <Feather
                       style={styles.chart}
                       name={'bar-chart'}
                       size={20}
                     />
                   </TouchableOpacity>
+                </View>
 
+                <View style={{position: 'absolute', zIndex: 1, top: '90%'}}>
                   <Text
                     style={{
                       color: '#FFFFFF',
@@ -326,7 +328,6 @@ const ProfileScreen = ({navigation}) => {
                       bottom: 10,
                     }}>
                     {user.username}
-                    {/* Avi */}
                   </Text>
                   <Text
                     style={{
