@@ -38,15 +38,17 @@ const CommentLikes = ({likes, onLike, onUnlike, comment, user}) => {
     loadLikes();
   }, []);
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (isLiked) {
       if (user) {
-        onUnlike(comment);
+        await onUnlike(comment);
+        console.log('I am called1');
         setIsLiked(false);
       }
     } else {
       if (user) {
-        onLike(comment);
+        await onLike(comment);
+        console.log('I am called2');
         setIsLiked(true);
       }
     }

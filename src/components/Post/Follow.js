@@ -8,9 +8,9 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
 
   useEffect(() => {
     const checkFollowings = async () => {
-      if (currentPost?.user?.following?.length > 0) {
+      if (currentPost?.user?.followers?.length > 0) {
         if (user) {
-          const checkFollow = currentPost?.user?.following.findIndex(
+          const checkFollow = currentPost?.user?.followers.findIndex(
             (f) => user.sub === f.userId,
           );
           if (checkFollow !== -1) {
@@ -23,12 +23,18 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   }, []);
 
   const handleFollow = async () => {
+    if (user.sub === currentPost.user.id) {
+      alert("You can't follow yourself");
+      return;
+    }
     if (user) {
       if (isFollow) {
         await onUnFollow(currentPost.user);
+        console.log('I am called1');
         setIsFollow(false);
       } else if (!isFollow) {
         await onFollow(currentPost.user);
+        console.log('I am called2');
         setIsFollow(true);
       }
     } else {
@@ -50,25 +56,37 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
       {isFollow ? (
         <TouchableOpacity onPress={handleFollow} style={{bottom: 5}}>
           <Image
-            source={require('../../assets/images/Profile1_icon.png')}
+            // source={require('../../assets/images/Profile1_icon.png')}
+            source={{
+              uri: currentPost.user?.imageUri.startsWith('https')
+                ? currentPost.user?.imageUri
+                : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${currentPost.user?.imageUri}`,
+            }}
             size={35}
-            style={{height: 60, width: 60}}
+            style={{height: 60, width: 60, borderRadius: 30}}
           />
         </TouchableOpacity>
       ) : (
         <>
           <TouchableOpacity onPress={handleFollow} style={{bottom: 5}}>
             <Image
-              source={require('../../assets/images/Profile1_icon.png')}
+              // source={require('../../assets/images/Profile1_icon.png')}
+              source={{
+                uri: currentPost.user?.imageUri.startsWith('https')
+                  ? currentPost.user?.imageUri
+                  : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${currentPost.user?.imageUri}`,
+              }}
               size={35}
-              style={{height: 60, width: 60}}
+              style={{height: 60, width: 60, borderRadius: 30}}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleFollow} style={{bottom: 17, left: 18, height: 20, width: 40}}>
+          <TouchableOpacity
+            onPress={handleFollow}
+            style={{bottom: 17, left: 18, height: 20, width: 40}}>
             <Image
               source={require('../../assets/images/profplus.png')}
               size={35}
-              style={{ height: 17, width: 24}}
+              style={{height: 17, width: 24}}
             />
           </TouchableOpacity>
         </>
