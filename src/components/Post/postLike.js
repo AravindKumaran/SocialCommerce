@@ -23,12 +23,14 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
   const handleLike = async () => {
     if (isLiked) {
       if (user) {
-        onUnlike(currentPost);
+        await onUnlike(currentPost);
+        console.log('I am called1');
         setIsLiked(false);
       }
     } else {
       if (user) {
-        onLike(currentPost);
+        await onLike(currentPost);
+        console.log('I am called2');
         setIsLiked(true);
       }
     }

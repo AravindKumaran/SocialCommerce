@@ -15,6 +15,7 @@ export const getUser = /* GraphQL */ `
           videoUri
           description
           likes
+          thumbnail
           userID
           songID
           createdAt
@@ -110,6 +111,7 @@ export const getPost = /* GraphQL */ `
       id
       videoUri
       description
+      thumbnail
       likes
       userID
       user {
@@ -180,6 +182,7 @@ export const listPosts = /* GraphQL */ `
         id
         videoUri
         description
+        thumbnail
         likes
         userID
         user {
@@ -254,6 +257,7 @@ export const getComment = /* GraphQL */ `
         id
         videoUri
         description
+        thumbnail
         likes
         userID
         user {
@@ -309,6 +313,7 @@ export const listComments = /* GraphQL */ `
           videoUri
           description
           likes
+          thumbnail
           userID
           songID
           createdAt

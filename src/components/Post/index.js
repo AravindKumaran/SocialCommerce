@@ -442,6 +442,12 @@ const Post = (props) => {
               // ref={vidRef}
               source={{uri: convertToProxyURL(videoUri)}}
               style={styles.video}
+              poster={
+                props.post?.thumbnail
+                  ? `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${props.post?.thumbnail}`
+                  : ''
+              }
+              posterResizeMode="cover"
               resizeMode={'cover'}
               repeat={props.currentIndex === 0}
               paused={paused}
