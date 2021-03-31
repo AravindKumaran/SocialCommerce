@@ -30,7 +30,7 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
       results['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
     ) {
       const options = {
-        // mediaType: 'photo',
+        mediaType: 'photo',
         // saveToPhotos: true,
         // quality: 0.5,
         // maxWidth: 300,
@@ -43,13 +43,15 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
           console.log('Error in Picking Image', res.errorMessage);
           return;
         }
+        console.log(res.uri);
+        onChangeImage(res.uri);
 
-        if (res.fileSize <= 1000000) {
-          console.log(res.uri);
-          onChangeImage(res.uri);
-        } else {
-          alert('Please select image of size less than 1mb');
-        }
+        // if (res.fileSize <= 1000000) {
+        //   console.log(res.uri);
+        //   onChangeImage(res.uri);
+        // } else {
+        //   alert('Please select image of size less than 1mb');
+        // }
       });
     } else {
       console.log('Please Provide Permissions ');
@@ -59,7 +61,9 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
   };
 
   const openImageLibrary = () => {
-    const options = {};
+    const options = {
+      mediaType: 'photo',
+    };
     launchImageLibrary(options, (res) => {
       if (res.didCancel) return;
 
@@ -68,12 +72,14 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
         return;
       }
 
-      if (res.fileSize <= 1000000) {
-        console.log(res.uri);
-        onChangeImage(res.uri);
-      } else {
-        alert('Please select image of size less than 1mb');
-      }
+      console.log(res.uri);
+      onChangeImage(res.uri);
+      // if (res.fileSize <= 1000000) {
+      //   console.log(res.uri);
+      //   onChangeImage(res.uri);
+      // } else {
+      //   alert('Please select image of size less than 1mb');
+      // }
     });
     refRBSheet.current.close();
   };

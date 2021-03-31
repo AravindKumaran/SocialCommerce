@@ -35,7 +35,6 @@ const EditProfile = ({user, saveUser}) => {
     console.log('bio', bio);
     console.log('uri', userImageUri);
 
-    return;
     try {
       setLoading(true);
       if (username !== user.username) {
@@ -103,75 +102,75 @@ const EditProfile = ({user, saveUser}) => {
         end={{x: 1, y: 0}}
         colors={['#1A1A1A', '#232323']}
         style={styles.container}> */}
-        <View style={{padding: 30}}>
-          <View style={{alignItems: 'center'}}>
-            <ImagePickerBottomSheet
-              imageUri={userImageUri}
-              onChangeImage={(uri) => setUserImageUri(uri)}
-            />
-          </View>
+      <View style={{padding: 30}}>
+        <View style={{alignItems: 'center'}}>
+          <ImagePickerBottomSheet
+            imageUri={userImageUri}
+            onChangeImage={(uri) => setUserImageUri(uri)}
+          />
+        </View>
+      </View>
+
+      <View style={{padding: 0, alignItems: 'center'}}>
+        <View style={{top: 20}}>
+          <Text
+            style={{
+              color: '#FFFFFF',
+              fontFamily: 'Proxima Nova',
+              fontWeight: '400',
+              fontSize: 12,
+              left: 10,
+            }}>
+            Name
+          </Text>
+          <TextInput
+            style={styles.input}
+            // value={username}
+            defaultValue={username}
+            onChangeText={(e) => setUsername(e)}
+          />
         </View>
 
-        <View style={{padding: 0, alignItems: 'center'}}>
-          <View style={{top: 20}}>
+        <View style={{top: 50}}>
+          <Text
+            style={{
+              color: '#FFFFFF',
+              fontFamily: 'Proxima Nova',
+              fontWeight: '400',
+              fontSize: 12,
+              left: 10,
+            }}>
+            Bio
+          </Text>
+          <TextInput
+            style={styles.input1}
+            // value={bio}
+            defaultValue={bio}
+            onChangeText={(e) => setBio(e)}
+            maxLength={50}
+          />
+        </View>
+      </View>
+
+      <View style={{alignItems: 'center', top: 100}}>
+        <LinearGradient
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 0}}
+          colors={['#21FFFC', '#518bf9', '#5E37F4']}
+          style={styles.Rectangle1}>
+          <TouchableOpacity onPress={handleRevert}>
             <Text
               style={{
                 color: '#FFFFFF',
                 fontFamily: 'Proxima Nova',
-                fontWeight: '400',
-                fontSize: 12,
-                left: 10,
+                fontWeight: '700',
+                fontSize: 14,
               }}>
-              Name
+              Revert Changes
             </Text>
-            <TextInput
-              style={styles.input}
-              // value={username}
-              defaultValue={username}
-              onChangeText={(e) => setUsername(e)}
-            />
-          </View>
-
-          <View style={{top: 50}}>
-            <Text
-              style={{
-                color: '#FFFFFF',
-                fontFamily: 'Proxima Nova',
-                fontWeight: '400',
-                fontSize: 12,
-                left: 10,
-              }}>
-              Bio
-            </Text>
-            <TextInput
-              style={styles.input1}
-              // value={bio}
-              defaultValue={bio}
-              onChangeText={(e) => setBio(e)}
-              maxLength={50}
-            />
-          </View>
-        </View>
-
-        <View style={{alignItems: 'center', top: 100}}>
-          <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}
-            colors={['#21FFFC', '#518bf9', '#5E37F4']}
-            style={styles.Rectangle1}>
-            <TouchableOpacity onPress={handleRevert}>
-              <Text
-                style={{
-                  color: '#FFFFFF',
-                  fontFamily: 'Proxima Nova',
-                  fontWeight: '700',
-                  fontSize: 14,
-                }}>
-                Revert Changes
-              </Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        </View>
+          </TouchableOpacity>
+        </LinearGradient>
+      </View>
       {/* </LinearGradient> */}
     </View>
   );
