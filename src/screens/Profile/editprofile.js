@@ -167,7 +167,7 @@ const EditProfile = ({user, saveUser}) => {
                   fontWeight: '700',
                   fontSize: 14,
                 }}>
-                Revert Changes
+                Update
               </Text>
             </TouchableOpacity>
           </LinearGradient>
