@@ -10,6 +10,7 @@ import {
   Keyboard,
   Platform,
   TouchableOpacity,
+  ToastAndroid
 } from 'react-native';
 
 import {API, graphqlOperation, Hub, Auth} from 'aws-amplify';
@@ -45,6 +46,7 @@ const Comments = ({postId, postUserId}) => {
   const [loading, setLoading] = useState(false);
   const [cmtText, setCmtText] = useState('');
   const [user, setUser] = useState(null);
+  const [message] = useState('Please login first')
 
   useEffect(() => {
     Hub.listen('auth', ({payload: {event, data}}) => {
@@ -112,7 +114,8 @@ const Comments = ({postId, postUserId}) => {
 
   const handleCommentUnLike = async (comment) => {
     if (!user) {
-      alert('Please login first');
+      ToastAndroid.show(message, ToastAndroid.SHORT)
+
       return;
     }
     const oldComment = comments.find((cmt) => cmt.id === comment.id);
@@ -142,7 +145,7 @@ const Comments = ({postId, postUserId}) => {
 
   const handleCommentLike = async (comment) => {
     if (!user) {
-      alert('Please login first');
+      ToastAndroid.show(message, ToastAndroid.SHORT)
       return;
     }
     const oldComment = comments.find((cmt) => cmt.id === comment.id);
@@ -190,7 +193,7 @@ const Comments = ({postId, postUserId}) => {
     // return;
 
     if (!user) {
-      alert('Please login first');
+      ToastAndroid.show(message, ToastAndroid.SHORT)
       return;
     }
 

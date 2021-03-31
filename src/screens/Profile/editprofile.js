@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  ToastAndroid,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
@@ -26,9 +27,13 @@ const EditProfile = ({user, saveUser}) => {
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
 
+  const [message] = useState('Please enter required values!');
+  const [message1] = useState('Username already exists!');
+
   const handleRevert = async () => {
     if (!username || !userImageUri) {
-      alert('Please enter required values!');
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+
       return;
     }
     console.log('username', username);
@@ -47,7 +52,8 @@ const EditProfile = ({user, saveUser}) => {
         );
         if (userRes.data.listUsers.items.length >= 1) {
           setLoading(false);
-          alert('Username already exists!');
+          ToastAndroid.show(message1, ToastAndroid.SHORT);
+
           return;
         }
       }
