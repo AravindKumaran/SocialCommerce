@@ -9,7 +9,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 
 import {API, graphqlOperation, Hub, Auth} from 'aws-amplify';
@@ -282,40 +282,42 @@ const Comments = ({postId, postUserId}) => {
                         height: 35,
                         width: 35,
                         borderRadius: 20,
-                        top: 5,
+                        top: 20,
                       }}
                     />
                   </View>
 
                   <View style={{flex: 1}}>
-                    <AppText
-                      style={{
-                        textTransform: 'capitalize',
-                        fontSize: 12,
-                        fontWeight: '700',
-                        color: '#20232A',
-                        top: 5,
-                      }}>
-                      {cm.user.username}
-                    </AppText>
-                    <AppText
-                      style={{
-                        color: '#030303',
-                        fontWeight: '400',
-                        color: '#20232A',
-                        fontSize: 12,
-                        left: 110,
-                        bottom: 20,
-                      }}>
-                      {cm.text}
-                    </AppText>
+                    <Text style={{top: 20, marginBottom: 15, margin: 5}}>
+                      <AppText
+                        style={{
+                          textTransform: 'capitalize',
+                          fontSize: 12,
+                          fontWeight: '700',
+                          color: '#20232A',
+                          // top: 5,
+                        }}>
+                        {cm.user.username}
+                      </AppText>{' '}
+                      <AppText
+                        style={{
+                          color: '#030303',
+                          fontWeight: '400',
+                          color: '#20232A',
+                          fontSize: 12,
+                          // left: 110,
+                          // bottom: 20,
+                        }}>
+                        {cm.text}
+                      </AppText>
+                    </Text>
                     <AppText
                       style={{
                         color: '#999999',
                         fontSize: 12,
                         fontWeight: '400',
                         marginBottom: 20,
-                        bottom: 25,
+                        top: 0,
                       }}>
                       <TimeAgo time={cm.createdAt} />
                     </AppText>

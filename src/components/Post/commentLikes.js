@@ -53,7 +53,7 @@ const CommentLikes = ({likes, onLike, onUnlike, comment, user}) => {
   };
 
   return (
-    <View style={{paddingHorizontal: 8}}>
+    <View style={{paddingHorizontal: 8, top: 20}}>
       {isLiked ? (
         <TouchableOpacity onPress={handleLike} style={styles.iconWrapper}>
           <Image

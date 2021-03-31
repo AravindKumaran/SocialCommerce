@@ -47,23 +47,23 @@ const ActiveStyle = () => (
 
 const cat = [
   {
-    src: require('../../assets/images/c1.png'),
+    src: require('../../assets/images/Men1.png'),
     name: 'Men',
   },
   {
-    src: require('../../assets/images/c2.png'),
+    src: require('../../assets/images/Women1.png'),
     name: 'Women',
   },
   {
-    src: require('../../assets/images/c3.png'),
+    src: require('../../assets/images/Jewel1.png'),
     name: 'Kids',
   },
   {
-    src: require('../../assets/images/c4.png'),
+    src: require('../../assets/images/Gym1.png'),
     name: 'Apparels',
   },
   {
-    src: require('../../assets/images/c5.png'),
+    src: require('../../assets/images/Beauty1.png'),
     name: 'Beauty',
   },
 ];
@@ -165,17 +165,18 @@ const Categories = () => {
             <TouchableOpacity key={`${c.name}-${i}`} style={styles.catItem}>
               <Image
                 style={{
-                  height: 50,
-                  width: 50,
-                  borderWidth: 0.5,
-                  borderRadius: 25,
-                  borderColor: '#A1A1A1',
-                  backgroundColor: '#20232A',
+                  // height: 50,
+                  // width: 50,
+                  // borderWidth: 0.5,
+                  // borderRadius: 25,
+                  // borderColor: '#A1A1A1',
+                  // backgroundColor: '#20232A',
                 }}
                 source={c.src}
                 size={15}
+                style={{height: 75, width: 75}}
               />
-              <Text style={[styles.catItemText, {marginTop: 10}]}>
+              <Text style={[styles.catItemText, {marginTop: -10}]}>
                 {c.name}
               </Text>
             </TouchableOpacity>
