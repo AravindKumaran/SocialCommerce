@@ -32,7 +32,7 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
       results['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
     ) {
       const options = {
-        // mediaType: 'photo',
+        mediaType: 'photo',
         // saveToPhotos: true,
         // quality: 0.5,
         // maxWidth: 300,
@@ -45,6 +45,8 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
           console.log('Error in Picking Image', res.errorMessage);
           return;
         }
+        console.log(res.uri);
+        onChangeImage(res.uri);
 
         if (res.fileSize <= 1000000) {
           console.log(res.uri);
@@ -61,7 +63,9 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
   };
 
   const openImageLibrary = () => {
-    const options = {};
+    const options = {
+      mediaType: 'photo',
+    };
     launchImageLibrary(options, (res) => {
       if (res.didCancel) return;
 

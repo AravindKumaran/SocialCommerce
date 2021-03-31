@@ -40,7 +40,6 @@ const EditProfile = ({user, saveUser}) => {
     console.log('bio', bio);
     console.log('uri', userImageUri);
 
-    return;
     try {
       setLoading(true);
       if (username !== user.username) {

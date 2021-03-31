@@ -35,7 +35,33 @@ const getRandomImage = () => {
   return randomImages[Math.floor(Math.random() * randomImages.length)];
 };
 
-const ProfileScreen = () => {
+const ActiveStyle = () => (
+  <>
+    <Image
+      style={{
+        position: 'absolute',
+        bottom: 13,
+      }}
+      source={require('../..//assets/images/blur.png')}
+      width={15}
+      height={15}
+      // tintColor={color}
+    />
+    <View
+      style={{
+        width: 27,
+        height: 4,
+        borderRadius: 14,
+        position: 'absolute',
+        bottom: 10,
+        borderBottomColor: '#21FFFC',
+        borderBottomWidth: 4,
+      }}></View>
+  </>
+);
+
+const ProfileScreen = ({navigation}) => {
+  // console.log('Naviagtion', );
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
@@ -43,6 +69,10 @@ const ProfileScreen = () => {
   const refRBSheet2 = useRef();
 
   const isFocused = useIsFocused();
+
+  // useEffect(() => {
+
+  // }, [user]);
 
   const [images, setimages] = useState([
     require('../../assets/images/i1.png'),
@@ -88,9 +118,46 @@ const ProfileScreen = () => {
           graphqlOperation(createUser, {input: newUser}),
         );
         setUser(res?.data?.createUser);
+        navigation.setOptions({
+          tabBarIcon: ({focused, tintColor}) => (
+            <>
+              <Image
+                // source={require('../assets/images/Profile_icon.png')}
+                source={{
+                  uri: res?.data?.createUser.imageUri.startsWith('https')
+                    ? res?.data?.createUser.imageUri
+                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
+                }}
+                size={25}
+                style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+              />
+              {focused && <ActiveStyle />}
+            </>
+          ),
+        });
       }
       setUser(userRes.data.listUsers.items[0]);
+      // console.log('fgfdg', userRes.data.listUsers.items[0]);
       setLoading(false);
+      navigation.setOptions({
+        tabBarIcon: ({focused, tintColor}) => (
+          <>
+            <Image
+              // source={require('../assets/images/Profile_icon.png')}
+              source={{
+                uri: userRes.data.listUsers.items[0].imageUri.startsWith(
+                  'https',
+                )
+                  ? userRes.data.listUsers.items[0].imageUri
+                  : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${userRes.data.listUsers.items[0].imageUri}`,
+              }}
+              size={25}
+              style={{bottom: 2, width: 25, height: 25}}
+            />
+            {focused && <ActiveStyle />}
+          </>
+        ),
+      });
     } catch (error) {
       console.log('Error', error);
       setLoading(false);
@@ -138,10 +205,25 @@ const ProfileScreen = () => {
     checkUser();
   }, [isFocused === true]);
 
-  console.log('Called');
-
   const handleUpdateUser = (user) => {
     console.log('I am called');
+    navigation.setOptions({
+      tabBarIcon: ({focused, tintColor}) => (
+        <>
+          <Image
+            // source={require('../assets/images/Profile_icon.png')}
+            source={{
+              uri: userRes.data.listUsers.items[0].imageUri.startsWith('https')
+                ? userRes.data.listUsers.items[0].imageUri
+                : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
+            }}
+            size={25}
+            style={{bottom: 2, width: 25, height: 25}}
+          />
+          {focused && <ActiveStyle />}
+        </>
+      ),
+    });
     setUser(user);
   };
 
@@ -425,9 +507,9 @@ const ProfileScreen = () => {
               />
             </View>
           </View>
-          <View style={{margin: 20}}>
+          {/* <View style={{margin: 20}}>
             <AppButton onPress={handleLogout} title="Logout" />
-          </View>
+          </View> */}
           {/* <View
             style={{
               flexWrap: 'wrap',
