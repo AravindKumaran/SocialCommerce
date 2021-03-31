@@ -8,6 +8,7 @@ import {
   Image,
   Alert,
   TouchableOpacity,
+  ToastAndroid,
 } from 'react-native';
 
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -19,6 +20,7 @@ import AppButton from './AppButton';
 
 const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
   const refRBSheet = useRef();
+  const [message] = useState('Please select image of size less than 1mb');
 
   const openCamera = async () => {
     const results = await PermissionsAndroid.requestMultiple([
@@ -48,7 +50,7 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
           console.log(res.uri);
           onChangeImage(res.uri);
         } else {
-          alert('Please select image of size less than 1mb');
+          ToastAndroid.show(message, ToastAndroid.SHORT);
         }
       });
     } else {
@@ -72,7 +74,7 @@ const ImagePickerBottomSheet = ({imageUri, onChangeImage}) => {
         console.log(res.uri);
         onChangeImage(res.uri);
       } else {
-        alert('Please select image of size less than 1mb');
+        ToastAndroid.show(message, ToastAndroid.SHORT);
       }
     });
     refRBSheet.current.close();

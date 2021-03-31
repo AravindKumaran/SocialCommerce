@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Image,
+  ToastAndroid,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
@@ -26,9 +27,13 @@ const EditProfile = ({user, saveUser}) => {
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
 
+  const [message] = useState('Please enter required values!');
+  const [message1] = useState('Username already exists!');
+
   const handleRevert = async () => {
     if (!username || !userImageUri) {
-      alert('Please enter required values!');
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+
       return;
     }
     console.log('username', username);
@@ -48,7 +53,8 @@ const EditProfile = ({user, saveUser}) => {
         );
         if (userRes.data.listUsers.items.length >= 1) {
           setLoading(false);
-          alert('Username already exists!');
+          ToastAndroid.show(message1, ToastAndroid.SHORT);
+
           return;
         }
       }
@@ -103,75 +109,75 @@ const EditProfile = ({user, saveUser}) => {
         end={{x: 1, y: 0}}
         colors={['#1A1A1A', '#232323']}
         style={styles.container}> */}
-        <View style={{padding: 30}}>
-          <View style={{alignItems: 'center'}}>
-            <ImagePickerBottomSheet
-              imageUri={userImageUri}
-              onChangeImage={(uri) => setUserImageUri(uri)}
-            />
-          </View>
+      <View style={{padding: 30}}>
+        <View style={{alignItems: 'center'}}>
+          <ImagePickerBottomSheet
+            imageUri={userImageUri}
+            onChangeImage={(uri) => setUserImageUri(uri)}
+          />
+        </View>
+      </View>
+
+      <View style={{padding: 0, alignItems: 'center'}}>
+        <View style={{top: 20}}>
+          <Text
+            style={{
+              color: '#FFFFFF',
+              fontFamily: 'Proxima Nova',
+              fontWeight: '400',
+              fontSize: 12,
+              left: 10,
+            }}>
+            Name
+          </Text>
+          <TextInput
+            style={styles.input}
+            // value={username}
+            defaultValue={username}
+            onChangeText={(e) => setUsername(e)}
+          />
         </View>
 
-        <View style={{padding: 0, alignItems: 'center'}}>
-          <View style={{top: 20}}>
+        <View style={{top: 50}}>
+          <Text
+            style={{
+              color: '#FFFFFF',
+              fontFamily: 'Proxima Nova',
+              fontWeight: '400',
+              fontSize: 12,
+              left: 10,
+            }}>
+            Bio
+          </Text>
+          <TextInput
+            style={styles.input1}
+            // value={bio}
+            defaultValue={bio}
+            onChangeText={(e) => setBio(e)}
+            maxLength={50}
+          />
+        </View>
+      </View>
+
+      <View style={{alignItems: 'center', top: 100}}>
+        <LinearGradient
+          start={{x: 0, y: 0}}
+          end={{x: 1, y: 0}}
+          colors={['#21FFFC', '#518bf9', '#5E37F4']}
+          style={styles.Rectangle1}>
+          <TouchableOpacity onPress={handleRevert}>
             <Text
               style={{
                 color: '#FFFFFF',
                 fontFamily: 'Proxima Nova',
-                fontWeight: '400',
-                fontSize: 12,
-                left: 10,
+                fontWeight: '700',
+                fontSize: 14,
               }}>
-              Name
+              Update
             </Text>
-            <TextInput
-              style={styles.input}
-              // value={username}
-              defaultValue={username}
-              onChangeText={(e) => setUsername(e)}
-            />
-          </View>
-
-          <View style={{top: 50}}>
-            <Text
-              style={{
-                color: '#FFFFFF',
-                fontFamily: 'Proxima Nova',
-                fontWeight: '400',
-                fontSize: 12,
-                left: 10,
-              }}>
-              Bio
-            </Text>
-            <TextInput
-              style={styles.input1}
-              // value={bio}
-              defaultValue={bio}
-              onChangeText={(e) => setBio(e)}
-              maxLength={50}
-            />
-          </View>
-        </View>
-
-        <View style={{alignItems: 'center', top: 100}}>
-          <LinearGradient
-            start={{x: 0, y: 0}}
-            end={{x: 1, y: 0}}
-            colors={['#21FFFC', '#518bf9', '#5E37F4']}
-            style={styles.Rectangle1}>
-            <TouchableOpacity onPress={handleRevert}>
-              <Text
-                style={{
-                  color: '#FFFFFF',
-                  fontFamily: 'Proxima Nova',
-                  fontWeight: '700',
-                  fontSize: 14,
-                }}>
-                Update
-              </Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        </View>
+          </TouchableOpacity>
+        </LinearGradient>
+      </View>
       {/* </LinearGradient> */}
     </View>
   );

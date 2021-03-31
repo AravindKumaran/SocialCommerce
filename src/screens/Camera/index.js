@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, ToastAndroid} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import {ProcessingManager} from 'react-native-video-processing';
 
@@ -18,6 +18,8 @@ const Camera = () => {
   const gallery = useRef();
 
   const navigation = useNavigation();
+
+  const [message] = useState('Please select video of size less than 5mb')
 
   const onRecord = async () => {
     if (isRecording) {
@@ -57,7 +59,8 @@ const Camera = () => {
         });
       } else {
         setTimeout(() => {
-          alert('Please select video of size less than 5mb');
+          ToastAndroid.show(message, ToastAndroid.SHORT)
+
         }, 1000);
       }
     });

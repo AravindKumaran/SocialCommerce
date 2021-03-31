@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Dimensions,
+  ToastAndroid,
 } from 'react-native';
 import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
 import convertToProxyURL from 'react-native-video-cache';
@@ -75,6 +76,8 @@ const Post = (props) => {
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
+
+  const [message] = useState('Please sign in first');
 
   useEffect(() => {
     Hub.listen('auth', ({payload: {event, data}}) => {
@@ -183,7 +186,7 @@ const Post = (props) => {
         }
       } catch (error) {
         console.log('Please Login', error);
-        alert('Please sign in first');
+        ToastAndroid.show(message, ToastAndroid.SHORT);
       }
     }
   };
@@ -207,7 +210,7 @@ const Post = (props) => {
         }
       } catch (err) {
         console.log('Error', err);
-        alert('Please sign in first');
+        ToastAndroid.show(message, ToastAndroid.SHORT);
       }
     }
   };
@@ -271,7 +274,7 @@ const Post = (props) => {
         }
       } catch (error) {
         console.log('Please Login', error);
-        alert('Please sign in first');
+        ToastAndroid.show(message, ToastAndroid.SHORT);
       }
     }
   };
@@ -319,7 +322,7 @@ const Post = (props) => {
         }
       } catch (error) {
         console.log('Please Login', error);
-        alert('Please sign in first');
+        ToastAndroid.show(message, ToastAndroid.SHORT);
       }
     }
   };

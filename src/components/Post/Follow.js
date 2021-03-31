@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, Alert, ToastAndroid} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   const [isFollow, setIsFollow] = useState(false);
+  const [message] = useState('Please login!')
 
   useEffect(() => {
     const checkFollowings = async () => {
@@ -32,7 +33,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
         setIsFollow(true);
       }
     } else {
-      alert('Please login!');
+      ToastAndroid.show(message, ToastAndroid.SHORT)
     }
   };
 
@@ -64,11 +65,13 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
               style={{height: 60, width: 60}}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleFollow} style={{bottom: 17, left: 18, height: 20, width: 40}}>
+          <TouchableOpacity
+            onPress={handleFollow}
+            style={{bottom: 17, left: 18, height: 20, width: 40}}>
             <Image
               source={require('../../assets/images/profplus.png')}
               size={35}
-              style={{ height: 17, width: 24}}
+              style={{height: 17, width: 24}}
             />
           </TouchableOpacity>
         </>
