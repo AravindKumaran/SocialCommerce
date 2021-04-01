@@ -19,12 +19,12 @@ import AppButton from '../../components/Common/AppButton';
 import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomSheet';
 
 const CreatePost = () => {
-  const [description, setDescription] = useState('');
-  const [thumbnail, setThumbnail] = useState(null);
-  const [videoKey, setVideoKey] = useState(null);
-
   const route = useRoute();
   const navigation = useNavigation();
+  const [description, setDescription] = useState('');
+  const [thumbnail, setThumbnail] = useState(route.params.thumbnailUri);
+  const [videoKey, setVideoKey] = useState(null);
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const signin = useCallback(() => {

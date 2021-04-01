@@ -36,15 +36,6 @@ export const createUser = /* GraphQL */ `
         imgUri
       }
       notifications {
-        items {
-          id
-          userID
-          ownerID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt
@@ -88,15 +79,6 @@ export const updateUser = /* GraphQL */ `
         imgUri
       }
       notifications {
-        items {
-          id
-          userID
-          ownerID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
         nextToken
       }
       createdAt

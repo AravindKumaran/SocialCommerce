@@ -10,7 +10,7 @@ import {
   Keyboard,
   Platform,
   TouchableOpacity,
-  ToastAndroid
+  ToastAndroid,
 } from 'react-native';
 
 import {API, graphqlOperation, Hub, Auth} from 'aws-amplify';
@@ -41,49 +41,49 @@ import Feather from 'react-native-vector-icons/Feather';
 //   username: 'Asfiya begum',
 // };
 
-const Comments = ({postId, postUserId}) => {
+const Comments = ({postId, postUserId, curUser}) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cmtText, setCmtText] = useState('');
-  const [user, setUser] = useState(null);
-  const [message] = useState('Please login first')
+  const [user, setUser] = useState(curUser);
+  const [message] = useState('Please login first');
 
-  useEffect(() => {
-    Hub.listen('auth', ({payload: {event, data}}) => {
-      switch (event) {
-        case 'signIn':
-        case 'cognitoHostedUI':
-          console.log('Hub sign IN');
-          getUser().then((userData) => {
-            // console.log('User', userData);
-            if (userData?.attributes) {
-              setUser(userData.attributes);
-            }
-          });
-          break;
-        case 'signOut':
-          console.log('Hub sign out');
-          setUser(null);
-          break;
-        case 'signIn_failure':
-        case 'cognitoHostedUI_failure':
-          console.log('Sign in failure', data);
-          break;
-      }
-    });
+  // useEffect(() => {
+  //   Hub.listen('auth', ({payload: {event, data}}) => {
+  //     switch (event) {
+  //       case 'signIn':
+  //       case 'cognitoHostedUI':
+  //         console.log('Hub sign IN');
+  //         getUser().then((userData) => {
+  //           // console.log('User', userData);
+  //           if (userData?.attributes) {
+  //             setUser(userData.attributes);
+  //           }
+  //         });
+  //         break;
+  //       case 'signOut':
+  //         console.log('Hub sign out');
+  //         setUser(null);
+  //         break;
+  //       case 'signIn_failure':
+  //       case 'cognitoHostedUI_failure':
+  //         console.log('Sign in failure', data);
+  //         break;
+  //     }
+  //   });
 
-    getUser().then((userData) => {
-      if (userData?.attributes) {
-        setUser(userData.attributes);
-      }
-    });
-  }, []);
+  //   getUser().then((userData) => {
+  //     if (userData?.attributes) {
+  //       setUser(userData.attributes);
+  //     }
+  //   });
+  // }, []);
 
-  function getUser() {
-    return Auth.currentAuthenticatedUser()
-      .then((userData) => userData)
-      .catch(() => console.log('Not signed in'));
-  }
+  // function getUser() {
+  //   return Auth.currentAuthenticatedUser()
+  //     .then((userData) => userData)
+  //     .catch(() => console.log('Not signed in'));
+  // }
 
   const navigation = useNavigation();
 
@@ -114,7 +114,7 @@ const Comments = ({postId, postUserId}) => {
 
   const handleCommentUnLike = async (comment) => {
     if (!user) {
-      ToastAndroid.show(message, ToastAndroid.SHORT)
+      ToastAndroid.show(message, ToastAndroid.SHORT);
 
       return;
     }
@@ -145,7 +145,7 @@ const Comments = ({postId, postUserId}) => {
 
   const handleCommentLike = async (comment) => {
     if (!user) {
-      ToastAndroid.show(message, ToastAndroid.SHORT)
+      ToastAndroid.show(message, ToastAndroid.SHORT);
       return;
     }
     const oldComment = comments.find((cmt) => cmt.id === comment.id);
@@ -193,7 +193,7 @@ const Comments = ({postId, postUserId}) => {
     // return;
 
     if (!user) {
-      ToastAndroid.show(message, ToastAndroid.SHORT)
+      ToastAndroid.show(message, ToastAndroid.SHORT);
       return;
     }
 

@@ -13,26 +13,27 @@ import Post from '../../components/Post';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
 import Feather from 'react-native-vector-icons/Feather';
-
-// import Product from '../../screens/Product/index';
-// import { Viewport } from '@skele/components';
-// import {inViewPort} from 'react-native-inviewport';
+import LoadingIndicator from '../../components/Common/LoadingIndicator';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
 const Home = ({navigation, route}) => {
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
   const flatListRef = useRef(null);
+
   useEffect(() => {
-    console.log('I am called', route?.params?.idx);
-    // flatListRef.current.scrollToIndex({index: 2});
+    // console.log('I am called', route?.params?.idx);
     if (route?.params?.idx) {
       flatListRef.current.scrollToIndex({index: route?.params?.idx});
       setCurrentVisibleIndex(route?.params?.idx);
     }
   }, [route?.params?.idx]);
+
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -42,9 +43,10 @@ const Home = ({navigation, route}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        console.log('sortedItems', sortedItems[0]);
 
         setPosts(sortedItems);
+
+        console.log('sortedItems', sortedItems[0]);
       } catch (e) {
         console.log('Caledd');
         console.error(e);
@@ -54,11 +56,30 @@ const Home = ({navigation, route}) => {
     fetchPost();
   }, [navigation]);
 
+  useEffect(() => {
+    const getUser = async () => {
+      setLoading(true);
+      try {
+        const userInfo = await Auth.currentAuthenticatedUser({
+          bypassCache: true,
+        });
+        // console.log('UserInfio', userInfo.attributes);
+        setUser(userInfo.attributes);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error', error);
+        setLoading(false);
+      }
+    };
+    getUser();
+  }, [navigation]);
+
   const _renderItem = ({item, index}) => (
     <Post
       post={item}
       currentIndex={index}
       currentVisibleIndex={currentVisibleIndex}
+      user={user}
     />
   );
 
@@ -74,6 +95,7 @@ const Home = ({navigation, route}) => {
 
   return (
     <View style={styles.mainContainer}>
+      {loading && <LoadingIndicator visible={loading} />}
       <Image
         source={require('../../assets/images/Logo13.png')}
         size={15}

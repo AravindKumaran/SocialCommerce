@@ -107,13 +107,13 @@ const uris = [
   },
 ];
 
-const Videos = () => {
+const Videos = ({post}) => {
   const _renderItem = ({item, index}) => (
     <TrendingVideo
-      videoUri={item.uri}
+      videoUri={item.videoUri}
       idx={index}
-      height={item.height}
-      width={item.width}
+      // height={item.height}
+      // width={item.width}
     />
   );
 
@@ -123,10 +123,10 @@ const Videos = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={uris}
+        data={post}
         numColumns={3}
         renderItem={_renderItem}
-        keyExtractor={(item) => item.key.toString()}
+        keyExtractor={(item) => item.id.toString()}
       />
     </View>
   );

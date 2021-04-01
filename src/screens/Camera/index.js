@@ -7,6 +7,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import Feather from 'react-native-vector-icons/Feather';
+import {createThumbnail} from 'react-native-create-thumbnail';
 
 import ImagePicker from 'react-native-image-crop-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
@@ -19,7 +20,7 @@ const Camera = () => {
 
   const navigation = useNavigation();
 
-  const [message] = useState('Please select video of size less than 5mb')
+  const [message] = useState('Please select video of size less than 5mb');
 
   const onRecord = async () => {
     if (isRecording) {
@@ -36,10 +37,22 @@ const Camera = () => {
           console.log('After', stats),
         );
         console.log('data2', d.source);
-        setCompressing(false);
-        navigation.navigate('CreatePost', {
-          videoUri: d.source,
-        });
+        createThumbnail({
+          url: d.source,
+          timeStamp: 10000,
+        })
+          .then((response) => {
+            console.log({response});
+            setCompressing(false);
+            navigation.navigate('CreatePost', {
+              videoUri: d.source,
+              thumbnailUri: response.path,
+            });
+          })
+          .catch((err) => {
+            setCompressing(false);
+            console.log({err});
+          });
       });
     }
   };
@@ -59,8 +72,7 @@ const Camera = () => {
         });
       } else {
         setTimeout(() => {
-          ToastAndroid.show(message, ToastAndroid.SHORT)
-
+          ToastAndroid.show(message, ToastAndroid.SHORT);
         }, 1000);
       }
     });
