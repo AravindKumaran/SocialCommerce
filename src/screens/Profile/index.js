@@ -96,7 +96,8 @@ const ProfileScreen = ({navigation}) => {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      // console.log('UserInfio', userInfo.attributes);
+      console.log('UserInfio', userInfo.attributes);
+
       const userRes = await API.graphql(
         graphqlOperation(getUser, {
           id: userInfo.attributes.sub,
@@ -105,13 +106,26 @@ const ProfileScreen = ({navigation}) => {
 
       // console.log('USer', userRes.data.listUsers.items.length);
       if (!userRes.data.getUser) {
+        const identity = JSON.parse(userInfo.attributes.identities);
+        const provider = identity[0].providerName;
+        let uri;
+        if (userInfo.attributes?.picture) {
+          if (provider === 'Facebook') {
+            const pic = JSON.parse(userInfo.attributes.picture);
+            uri = pic.data.url;
+          } else {
+            uri = userInfo.attributes.picture;
+          }
+        } else {
+          uri = getRandomImage();
+        }
         const newUser = {
           id: userInfo.attributes.sub,
           username:
             userInfo.attributes.email.split('@')[0] +
             userInfo.attributes.sub.slice(-4),
           email: userInfo.attributes.email,
-          imageUri: getRandomImage(),
+          imageUri: uri,
         };
         const res = await API.graphql(
           graphqlOperation(createUser, {input: newUser}),
@@ -178,14 +192,13 @@ const ProfileScreen = ({navigation}) => {
       );
 
       // console.log('USer', userRes.data.listUsers.items.length);
-      console.log('USer', userRes.data.listUsers.items[0]);
+      // console.log('USer', userRes.data.listUsers.items[0]);
 
       if (userRes.data.listUsers.items.length === 0) {
         const newUser = {
           id: userInfo.attributes.sub,
           username: userInfo.attributes.email.split('@')[0],
           email: userInfo.attributes.email,
-          imageUri: getRandomImage(),
         };
         const res = await API.graphql(
           graphqlOperation(createUser, {input: newUser}),
