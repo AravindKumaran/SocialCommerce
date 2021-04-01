@@ -7,9 +7,11 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
 
   useEffect(() => {
     const loadLikes = async () => {
+      // console.log('FirstCall', user);
       if (likes?.length > 0) {
         if (user) {
           const checkLiked = likes.findIndex((id) => user.sub === id);
+          // console.log('Check Liked', checkLiked, user);
           if (checkLiked !== -1) {
             setIsLiked(true);
           }

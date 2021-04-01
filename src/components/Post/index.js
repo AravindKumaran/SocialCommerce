@@ -75,45 +75,45 @@ const Post = (props) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(props.user);
 
   const [message] = useState('Please sign in first');
 
-  useEffect(() => {
-    Hub.listen('auth', ({payload: {event, data}}) => {
-      switch (event) {
-        case 'signIn':
-        case 'cognitoHostedUI':
-          getCurrentUser().then((userData) => {
-            // console.log('User', userData);
-            if (userData?.attributes) {
-              setUser(userData.attributes);
-            }
-          });
-          break;
-        case 'signOut':
-          // console.log('Hub sign out');
-          setUser(null);
-          break;
-        case 'signIn_failure':
-        case 'cognitoHostedUI_failure':
-          console.log('Sign in failure', data);
-          break;
-      }
-    });
+  // useEffect(() => {
+  //   Hub.listen('auth', ({payload: {event, data}}) => {
+  //     switch (event) {
+  //       case 'signIn':
+  //       case 'cognitoHostedUI':
+  //         getCurrentUser().then((userData) => {
+  //           // console.log('User', userData);
+  //           if (userData?.attributes) {
+  //             setUser(userData.attributes);
+  //           }
+  //         });
+  //         break;
+  //       case 'signOut':
+  //         // console.log('Hub sign out');
+  //         setUser(null);
+  //         break;
+  //       case 'signIn_failure':
+  //       case 'cognitoHostedUI_failure':
+  //         console.log('Sign in failure', data);
+  //         break;
+  //     }
+  //   });
 
-    getCurrentUser().then((userData) => {
-      if (userData?.attributes) {
-        setUser(userData.attributes);
-      }
-    });
-  }, []);
+  //   getCurrentUser().then((userData) => {
+  //     if (userData?.attributes) {
+  //       setUser(userData.attributes);
+  //     }
+  //   });
+  // }, []);
 
-  function getCurrentUser() {
-    return Auth.currentAuthenticatedUser()
-      .then((userData) => userData)
-      .catch(() => console.log('Not signed in'));
-  }
+  // function getCurrentUser() {
+  //   return Auth.currentAuthenticatedUser()
+  //     .then((userData) => userData)
+  //     .catch(() => console.log('Not signed in'));
+  // }
 
   const vidRef = useRef();
   const refRBSheet = useRef();
@@ -686,6 +686,7 @@ const Post = (props) => {
                 <Comments
                   postId={props.post.id}
                   postUserId={props.post.user.id}
+                  curUser={user}
                 />
               </RBSheet>
 
