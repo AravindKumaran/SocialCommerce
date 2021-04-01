@@ -93,7 +93,9 @@ const TrendingVideo = ({
         resizeMode={'cover'}
         poster={
           poster
-            ? poster
+            ? poster.startsWith('https')
+              ? poster
+              : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${poster}`
             : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png'
         }
         posterResizeMode="cover"
