@@ -5,7 +5,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   const [isFollow, setIsFollow] = useState(false);
-  const [message] = useState('Please login!')
+  const [message] = useState('Please login!');
 
   useEffect(() => {
     const checkFollowings = async () => {
@@ -21,7 +21,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
       }
     };
     checkFollowings();
-  }, []);
+  }, [user]);
 
   const handleFollow = async () => {
     if (user.sub === currentPost.user.id) {
@@ -39,7 +39,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
         setIsFollow(true);
       }
     } else {
-      ToastAndroid.show(message, ToastAndroid.SHORT)
+      ToastAndroid.show(message, ToastAndroid.SHORT);
     }
   };
 
@@ -59,7 +59,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
           <Image
             // source={require('../../assets/images/Profile1_icon.png')}
             source={{
-              uri: currentPost.user?.imageUri.startsWith('https')
+              uri: currentPost.user?.imageUri?.startsWith('https')
                 ? currentPost.user?.imageUri
                 : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${currentPost.user?.imageUri}`,
             }}
@@ -73,7 +73,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
             <Image
               // source={require('../../assets/images/Profile1_icon.png')}
               source={{
-                uri: currentPost.user?.imageUri.startsWith('https')
+                uri: currentPost.user?.imageUri?.startsWith('https')
                   ? currentPost.user?.imageUri
                   : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${currentPost.user?.imageUri}`,
               }}

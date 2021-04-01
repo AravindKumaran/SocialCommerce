@@ -34,6 +34,24 @@ const Home = ({navigation, route}) => {
 
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
 
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     setLoading(true);
+  //     try {
+  //       const userInfo = await Auth.currentAuthenticatedUser({
+  //         bypassCache: true,
+  //       });
+  //       console.log('UserInfio');
+  //       setUser(userInfo.attributes);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error('Error', error);
+  //       setLoading(false);
+  //     }
+  //   };
+  //   getUser();
+  // }, [navigation]);
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -43,7 +61,6 @@ const Home = ({navigation, route}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-
         setPosts(sortedItems);
 
         console.log('sortedItems', sortedItems[0]);
@@ -54,24 +71,6 @@ const Home = ({navigation, route}) => {
     };
 
     fetchPost();
-  }, [navigation]);
-
-  useEffect(() => {
-    const getUser = async () => {
-      setLoading(true);
-      try {
-        const userInfo = await Auth.currentAuthenticatedUser({
-          bypassCache: true,
-        });
-        // console.log('UserInfio', userInfo.attributes);
-        setUser(userInfo.attributes);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error', error);
-        setLoading(false);
-      }
-    };
-    getUser();
   }, [navigation]);
 
   const _renderItem = ({item, index}) => (

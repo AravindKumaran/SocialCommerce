@@ -88,7 +88,7 @@ const ProfileScreen = ({navigation}) => {
       // console.log('UserRews', userRes.data.getUser.posts.items);
 
       // console.log('USer', userRes.data.listUsers.items.length);
-      if (!userRes.data.getUser) {
+      if (!userRes?.data?.getUser) {
         const identity = JSON.parse(userInfo.attributes.identities);
         const provider = identity[0].providerName;
         let uri;
@@ -132,16 +132,16 @@ const ProfileScreen = ({navigation}) => {
           ),
         });
       } else {
-        setUser(userRes.data?.getUser);
+        setUser(userRes?.data?.getUser);
         navigation.setOptions({
           tabBarIcon: ({focused, tintColor}) => (
             <>
               <Image
                 // source={require('../assets/images/Profile_icon.png')}
                 source={{
-                  uri: userRes.data?.getUser.imageUri.startsWith('https')
-                    ? userRes.data?.getUser.imageUri
-                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${userRes.data?.getUser.imageUri}`,
+                  uri: userRes.data?.getUser?.imageUri.startsWith('https')
+                    ? userRes.data?.getUser?.imageUri
+                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
                 }}
                 size={25}
                 style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}

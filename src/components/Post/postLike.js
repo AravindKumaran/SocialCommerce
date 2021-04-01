@@ -9,9 +9,13 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
     const loadLikes = async () => {
       // console.log('FirstCall', user);
       if (likes?.length > 0) {
+        console.log('Likes', likes);
         if (user) {
-          const checkLiked = likes.findIndex((id) => user.sub === id);
-          // console.log('Check Liked', checkLiked, user);
+          const checkLiked = likes.findIndex((id) => {
+            console.log('id', id);
+            return user.sub === id;
+          });
+          console.log('Check Liked', checkLiked, user.sub);
           if (checkLiked !== -1) {
             setIsLiked(true);
           }
@@ -20,19 +24,20 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
     };
 
     loadLikes();
-  }, []);
+  }, [user]);
 
   const handleLike = async () => {
+    // console.log('Clicked', user.sub);
     if (isLiked) {
       if (user) {
-        await onUnlike(currentPost);
         console.log('I am called1');
+        await onUnlike(currentPost);
         setIsLiked(false);
       }
     } else {
       if (user) {
-        await onLike(currentPost);
         console.log('I am called2');
+        await onLike(currentPost);
         setIsLiked(true);
       }
     }

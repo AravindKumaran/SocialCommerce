@@ -40,25 +40,6 @@ import Follow from './Follow';
 // import VideoPlayer from 'react-native-video-controls';
 // import DoubleClick from 'react-native-single-double-click';
 
-const user = {
-  __typename: 'User',
-  createdAt: '2021-01-01T17:03:46.393Z',
-  email: 'asfiidarlachu@gmail.com',
-  id: '0914c457-106d-4937-b44f-f430e611a52a',
-  imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-  updatedAt: '2021-01-01T17:03:46.393Z',
-  username: 'Asfiya begum',
-};
-const user1 = {
-  __typename: 'User',
-  createdAt: '2021-01-01T17:03:46.393Z',
-  email: 'asfiilachu@gmail.com',
-  id: '0914c457-106d-4937-b44f-f430e611a52b',
-  imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-  updatedAt: '2021-01-01T17:03:46.393Z',
-  username: 'Asfiya begum',
-};
-
 const Post = (props) => {
   const [post, setPost] = useState(props.post);
 
@@ -75,45 +56,45 @@ const Post = (props) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState(props.user);
+  const [user, setUser] = useState(null);
 
   const [message] = useState('Please sign in first');
 
-  // useEffect(() => {
-  //   Hub.listen('auth', ({payload: {event, data}}) => {
-  //     switch (event) {
-  //       case 'signIn':
-  //       case 'cognitoHostedUI':
-  //         getCurrentUser().then((userData) => {
-  //           // console.log('User', userData);
-  //           if (userData?.attributes) {
-  //             setUser(userData.attributes);
-  //           }
-  //         });
-  //         break;
-  //       case 'signOut':
-  //         // console.log('Hub sign out');
-  //         setUser(null);
-  //         break;
-  //       case 'signIn_failure':
-  //       case 'cognitoHostedUI_failure':
-  //         console.log('Sign in failure', data);
-  //         break;
-  //     }
-  //   });
+  useEffect(() => {
+    Hub.listen('auth', ({payload: {event, data}}) => {
+      switch (event) {
+        case 'signIn':
+        case 'cognitoHostedUI':
+          getCurrentUser().then((userData) => {
+            // console.log('User', userData);
+            if (userData?.attributes) {
+              setUser(userData.attributes);
+            }
+          });
+          break;
+        case 'signOut':
+          // console.log('Hub sign out');
+          setUser(null);
+          break;
+        case 'signIn_failure':
+        case 'cognitoHostedUI_failure':
+          console.log('Sign in failure', data);
+          break;
+      }
+    });
 
-  //   getCurrentUser().then((userData) => {
-  //     if (userData?.attributes) {
-  //       setUser(userData.attributes);
-  //     }
-  //   });
-  // }, []);
+    getCurrentUser().then((userData) => {
+      if (userData?.attributes) {
+        setUser(userData.attributes);
+      }
+    });
+  }, []);
 
-  // function getCurrentUser() {
-  //   return Auth.currentAuthenticatedUser()
-  //     .then((userData) => userData)
-  //     .catch(() => console.log('Not signed in'));
-  // }
+  function getCurrentUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log('Not signed in'));
+  }
 
   const vidRef = useRef();
   const refRBSheet = useRef();
@@ -156,6 +137,7 @@ const Post = (props) => {
         // });
         // const userId = userInfo.attributes.sub;
         if (user) {
+          console.log('Cpost.likes', cPost.likes);
           cPost.likes.push(user.sub);
           const likes = cPost.likes;
           await API.graphql(

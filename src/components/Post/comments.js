@@ -45,45 +45,45 @@ const Comments = ({postId, postUserId, curUser}) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cmtText, setCmtText] = useState('');
-  const [user, setUser] = useState(curUser);
+  const [user, setUser] = useState(null);
   const [message] = useState('Please login first');
 
-  // useEffect(() => {
-  //   Hub.listen('auth', ({payload: {event, data}}) => {
-  //     switch (event) {
-  //       case 'signIn':
-  //       case 'cognitoHostedUI':
-  //         console.log('Hub sign IN');
-  //         getUser().then((userData) => {
-  //           // console.log('User', userData);
-  //           if (userData?.attributes) {
-  //             setUser(userData.attributes);
-  //           }
-  //         });
-  //         break;
-  //       case 'signOut':
-  //         console.log('Hub sign out');
-  //         setUser(null);
-  //         break;
-  //       case 'signIn_failure':
-  //       case 'cognitoHostedUI_failure':
-  //         console.log('Sign in failure', data);
-  //         break;
-  //     }
-  //   });
+  useEffect(() => {
+    Hub.listen('auth', ({payload: {event, data}}) => {
+      switch (event) {
+        case 'signIn':
+        case 'cognitoHostedUI':
+          console.log('Hub sign IN');
+          getUser().then((userData) => {
+            // console.log('User', userData);
+            if (userData?.attributes) {
+              setUser(userData.attributes);
+            }
+          });
+          break;
+        case 'signOut':
+          console.log('Hub sign out');
+          setUser(null);
+          break;
+        case 'signIn_failure':
+        case 'cognitoHostedUI_failure':
+          console.log('Sign in failure', data);
+          break;
+      }
+    });
 
-  //   getUser().then((userData) => {
-  //     if (userData?.attributes) {
-  //       setUser(userData.attributes);
-  //     }
-  //   });
-  // }, []);
+    getUser().then((userData) => {
+      if (userData?.attributes) {
+        setUser(userData.attributes);
+      }
+    });
+  }, []);
 
-  // function getUser() {
-  //   return Auth.currentAuthenticatedUser()
-  //     .then((userData) => userData)
-  //     .catch(() => console.log('Not signed in'));
-  // }
+  function getUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log('Not signed in'));
+  }
 
   const navigation = useNavigation();
 

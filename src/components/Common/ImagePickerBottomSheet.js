@@ -26,8 +26,6 @@ const ImagePickerBottomSheet = ({
   tStyle,
 }) => {
   const refRBSheet = useRef();
-  const [message] = useState('Please select image of size less than 1mb');
-
   const openCamera = async () => {
     const results = await PermissionsAndroid.requestMultiple([
       PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -53,13 +51,6 @@ const ImagePickerBottomSheet = ({
         }
         console.log(res.uri);
         onChangeImage(res.uri);
-
-        if (res.fileSize <= 1000000) {
-          console.log(res.uri);
-          onChangeImage(res.uri);
-        } else {
-          ToastAndroid.show(message, ToastAndroid.SHORT);
-        }
       });
     } else {
       console.log('Please Provide Permissions ');
@@ -80,12 +71,8 @@ const ImagePickerBottomSheet = ({
         return;
       }
 
-      if (res.fileSize <= 1000000) {
-        console.log(res.uri);
-        onChangeImage(res.uri);
-      } else {
-        ToastAndroid.show(message, ToastAndroid.SHORT);
-      }
+      console.log(res.uri);
+      onChangeImage(res.uri);
     });
     refRBSheet.current.close();
   };

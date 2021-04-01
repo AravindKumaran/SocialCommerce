@@ -36,7 +36,7 @@ const CommentLikes = ({likes, onLike, onUnlike, comment, user}) => {
     };
 
     loadLikes();
-  }, []);
+  }, [user]);
 
   const handleLike = async () => {
     if (isLiked) {
