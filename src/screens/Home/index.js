@@ -37,29 +37,41 @@ const Home = ({navigation, route}) => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        setLoading(true);
         const response = await API.graphql(graphqlOperation(listPosts));
         // console.log('Ress', response.data.listPosts.items[0]);
         const allItems = response.data.listPosts.items;
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
+
+        setPosts(sortedItems);
+
+        console.log('sortedItems', sortedItems[0]);
+      } catch (e) {
+        console.log('Caledd');
+        console.error(e);
+      }
+    };
+
+    fetchPost();
+  }, [navigation]);
+
+  useEffect(() => {
+    const getUser = async () => {
+      setLoading(true);
+      try {
         const userInfo = await Auth.currentAuthenticatedUser({
           bypassCache: true,
         });
         // console.log('UserInfio', userInfo.attributes);
         setUser(userInfo.attributes);
-        setPosts(sortedItems);
         setLoading(false);
-        console.log('sortedItems', sortedItems[0]);
-      } catch (e) {
-        console.log('Caledd');
-        console.error(e);
+      } catch (error) {
+        console.error('Error', error);
         setLoading(false);
       }
     };
-
-    fetchPost();
+    getUser();
   }, [navigation]);
 
   const _renderItem = ({item, index}) => (
