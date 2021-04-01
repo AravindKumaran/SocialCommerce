@@ -20,7 +20,9 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     bottom: 0,
     backgroundColor: '#ff4343',
-    zIndex: 1
+    zIndex: 1,
+    borderWidth: 2,
+    borderColor: 'white'
   },
   buttonStop: {
     alignSelf: 'center',
@@ -30,6 +32,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     borderRadius: 3,
     backgroundColor: '#ff4343',
+    borderWidth: 2,
+    borderColor: 'white'
   },
   gallery: {
     position: 'absolute',
