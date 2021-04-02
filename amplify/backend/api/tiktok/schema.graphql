@@ -58,7 +58,9 @@ type UserNotification @model @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   userID: ID!
   ownerID: ID!
+  postID: ID!
   user: User @connection(fields: ["userID"])
+  post: Post @connection(fields: ["postID"])
   notificationID: ID!
   notification: Notification @connection(fields: ["notificationID"])
   read: Boolean!

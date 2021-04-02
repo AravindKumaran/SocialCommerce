@@ -439,12 +439,24 @@ export const listUserNotifications = /* GraphQL */ `
       items {
         id
         userID
+        postID
         ownerID
         user {
           id
           username
           email
           imageUri
+          createdAt
+          updatedAt
+        }
+        post {
+          id
+          videoUri
+          description
+          likes
+          thumbnail
+          userID
+          songID
           createdAt
           updatedAt
         }

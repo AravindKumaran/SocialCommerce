@@ -160,6 +160,7 @@ const Post = (props) => {
                 notificationID: res.data.createNotification.id,
                 read: false,
                 ownerID: cPost.user.id,
+                postID: cPost.id,
               },
             }),
           );
