@@ -253,6 +253,7 @@ const HomeBottomTabNavigator = () => {
                 <Image
                   source={require('../assets/images/Plus.png')}
                   style={{
+                    top: -30,
                     width: 65,
                     height: 65,
                     borderRadius: 37,

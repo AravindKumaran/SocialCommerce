@@ -110,7 +110,7 @@ const Home = ({navigation, route}) => {
         data={posts}
         ref={flatListRef}
         getItemLayout={(data, index) => ({
-          length: vpHeight + 135,
+          length: vpHeight + 45,
           offset: vpHeight * 0.83 * index,
           index,
         })}
@@ -118,7 +118,7 @@ const Home = ({navigation, route}) => {
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}
         decelerationRate={'fast'}
-        snapToInterval={Dimensions.get('window').height}
+        snapToInterval={Dimensions.get('window').height + 45}
         borderRadius={50}
         viewabilityConfig={_viewabilityConfig.current}
         onViewableItemsChanged={_onViewableItemsChanged.current}
@@ -132,11 +132,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     padding: 10,
     width: '100%',
-    height: '90%',
+    height: '100%',
     top: 34,
     paddingTop: 0,
     paddingLeft: 4,
     paddingRight: 4,
+    paddingBottom: 0,
     marginRight: 4,
     backgroundColor: '#20232A',
   },

@@ -446,7 +446,7 @@ const Post = (props) => {
               onSeeking={onSeeking}
               mainColor={'red'}
             /> */}
-            <Slider
+            {/* <Slider
               minimumValue={0}
               maximumValue={duration}
               minimumTrackTintColor="red"
@@ -456,7 +456,7 @@ const Post = (props) => {
               value={currentTime}
               onValueChange={onSeeking}
               style={{width: '100%', top: '87.5%'}}
-            />
+            /> */}
           </View>
 
           {/* {showMutedIcon && (
