@@ -617,27 +617,23 @@ export const createUserNotification = /* GraphQL */ `
       id
       userID
       ownerID
+      postID
       user {
         id
         username
         email
         imageUri
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        thumbnail
+        userID
+        songID
         createdAt
         updatedAt
       }
@@ -663,27 +659,23 @@ export const updateUserNotification = /* GraphQL */ `
       id
       userID
       ownerID
+      postID
       user {
         id
         username
         email
         imageUri
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        thumbnail
+        userID
+        songID
         createdAt
         updatedAt
       }
@@ -709,27 +701,23 @@ export const deleteUserNotification = /* GraphQL */ `
       id
       userID
       ownerID
+      postID
       user {
         id
         username
         email
         imageUri
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        thumbnail
+        userID
+        songID
         createdAt
         updatedAt
       }

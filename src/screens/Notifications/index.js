@@ -104,6 +104,7 @@ const Notifications = ({navigation}) => {
       if (!userInfo.attributes.sub) {
         return;
       }
+      console.log(userInfo.attributes.sub);
       const res = await API.graphql(
         graphqlOperation(listUserNotifications, {
           filter: {
@@ -111,7 +112,7 @@ const Notifications = ({navigation}) => {
           },
         }),
       );
-      // console.log('ress', res.data.listUserNotifications.items[0]);
+      console.log('ress', res.data.listUserNotifications.items[0]);
       const allItems = res.data.listUserNotifications.items;
       const sortedItems = allItems.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt),

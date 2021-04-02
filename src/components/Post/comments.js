@@ -29,17 +29,6 @@ import {
   createUserNotification,
 } from '../../graphql/mutations';
 import {useNavigation} from '@react-navigation/native';
-import Feather from 'react-native-vector-icons/Feather';
-
-// const user = {
-//   __typename: 'User',
-//   createdAt: '2021-01-01T17:03:46.393Z',
-//   email: 'asfiidarlachu@gmail.com',
-//   id: '0914c457-106d-4937-b44f-f430e611a52a',
-//   imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-//   updatedAt: '2021-01-01T17:03:46.393Z',
-//   username: 'Asfiya begum',
-// };
 
 const Comments = ({postId, postUserId, curUser}) => {
   const [comments, setComments] = useState([]);
@@ -174,6 +163,7 @@ const Comments = ({postId, postUserId, curUser}) => {
               notificationID: res33.data.createNotification.id,
               read: false,
               ownerID: comment.user.id,
+              postID: postId,
             },
           }),
         );
@@ -228,6 +218,7 @@ const Comments = ({postId, postUserId, curUser}) => {
               notificationID: res33.data.createNotification.id,
               read: false,
               ownerID: postUserId,
+              postID: postId,
             },
           }),
         );
