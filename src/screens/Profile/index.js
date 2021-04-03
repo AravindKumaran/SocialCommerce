@@ -22,7 +22,11 @@ import AppButton from '../../components/Common/AppButton';
 import {createUser} from '../../graphql/mutations';
 import {getUser, getUserByEmail, listUsers} from '../../graphql/queries';
 import Videos from '../Profile/videos';
-import {useIsFocused} from '@react-navigation/native';
+import {
+  useIsFocused,
+  useNavigationState,
+  CommonActions,
+} from '@react-navigation/native';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -60,8 +64,10 @@ const ActiveStyle = () => (
   </>
 );
 
-const ProfileScreen = ({navigation}) => {
-  // console.log('Naviagtion', );
+const ProfileScreen = ({navigation, route}) => {
+  // const state = useNavigationState((state) => state);
+  // console.log('State', state);
+  // console.log('Route', route);
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
@@ -179,26 +185,59 @@ const ProfileScreen = ({navigation}) => {
   };
 
   useEffect(() => {
-    Hub.listen('auth', ({payload: {event, data}}) => {
-      switch (event) {
-        case 'signIn':
-        case 'cognitoHostedUI':
-          checkUser();
-          break;
-        case 'signOut':
-          setUser(null);
-          break;
-        case 'signIn_failure':
-        case 'cognitoHostedUI_failure':
-          console.log('Sign in failure', data);
-          break;
-      }
-    });
+    if (!route?.params?.postUser) {
+      Hub.listen('auth', ({payload: {event, data}}) => {
+        switch (event) {
+          case 'signIn':
+          case 'cognitoHostedUI':
+            checkUser();
+            break;
+          case 'signOut':
+            setUser(null);
+            break;
+          case 'signIn_failure':
+          case 'cognitoHostedUI_failure':
+            console.log('Sign in failure', data);
+            break;
+        }
+      });
+    }
   }, []);
 
   useEffect(() => {
-    checkUser();
+    if (!route?.params?.postUser) {
+      checkUser();
+    } else {
+      setUser(route?.params?.postUser);
+      navigation.setOptions({
+        tabBarIcon: ({focused, tintColor}) => (
+          <>
+            <Image
+              // source={require('../assets/images/Profile_icon.png')}
+              source={{
+                uri: route?.params?.postUser.imageUri.startsWith('https')
+                  ? route?.params?.postUser.imageUri
+                  : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${route?.params?.postUser.imageUri}`,
+              }}
+              size={25}
+              style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+            />
+            {focused && <ActiveStyle />}
+          </>
+        ),
+      });
+    }
   }, [isFocused === true]);
+
+  useEffect(() => {
+    if (isFocused === false) {
+      navigation.dispatch({
+        ...CommonActions.setParams({postUser: null}),
+        source: route.key,
+      });
+      // console.log('I am called', isFocused, route?.params?.postUser);
+    }
+  }, [!isFocused === false]);
 
   const handleUpdateUser = (user) => {
     console.log('I am called');
@@ -273,11 +312,13 @@ const ProfileScreen = ({navigation}) => {
 
               <View style={{alignItems: 'center'}}>
                 <View style={{top: 110, position: 'absolute'}}>
-                  <TouchableOpacity
-                    style={{bottom: 0, right: '750%'}}
-                    onPress={() => refRBSheet.current.open()}>
-                    <Feather name={'edit'} size={20} />
-                  </TouchableOpacity>
+                  {!route?.params?.postUser && (
+                    <TouchableOpacity
+                      style={{bottom: 0, right: '750%'}}
+                      onPress={() => refRBSheet.current.open()}>
+                      <Feather name={'edit'} size={20} />
+                    </TouchableOpacity>
+                  )}
 
                   <RBSheet
                     ref={refRBSheet}
@@ -503,9 +544,12 @@ const ProfileScreen = ({navigation}) => {
               />
             </View>
           </View>
-          <View style={{margin: 20}}>
-            <AppButton onPress={handleLogout} title="Logout" />
-          </View>
+          {!route?.params?.postUser && (
+            <View style={{margin: 20}}>
+              <AppButton onPress={handleLogout} title="Logout" />
+            </View>
+          )}
+
           {/* <View
             style={{
               flexWrap: 'wrap',

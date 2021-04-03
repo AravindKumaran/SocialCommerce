@@ -190,6 +190,22 @@ export const listPosts = /* GraphQL */ `
           username
           email
           imageUri
+          posts {
+            items {
+              id
+              videoUri
+              description
+              thumbnail
+              likes
+              userID
+              user {
+                id
+                username
+                email
+                imageUri
+              }
+            }
+          }
           following {
             userId
             userName

@@ -8,6 +8,7 @@ import {
   Dimensions,
   ToastAndroid,
 } from 'react-native';
+import {useRoute, useNavigation} from '@react-navigation/native';
 import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
 import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -42,6 +43,7 @@ import Follow from './Follow';
 
 const Post = (props) => {
   const [post, setPost] = useState(props.post);
+  const navigation = useNavigation();
 
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(false);
@@ -685,7 +687,14 @@ const Post = (props) => {
               <>
                 {!isTouched ? (
                   <View>
-                    <Text style={styles.handle}>{post?.user?.username}</Text>
+                    <TouchableOpacity
+                      onPress={() =>
+                        navigation.navigate('Profile', {
+                          postUser: props.post.user,
+                        })
+                      }>
+                      <Text style={styles.handle}>{post?.user?.username}</Text>
+                    </TouchableOpacity>
                     <Image
                       source={require('../../assets/images/Dot.png')}
                       size={25}
