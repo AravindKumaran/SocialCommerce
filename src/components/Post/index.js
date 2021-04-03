@@ -686,22 +686,21 @@ const Post = (props) => {
             <View style={styles.bottomContainer}>
               <>
                 {!isTouched ? (
-                  <View>
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate('Profile', {
-                          postUser: props.post.user,
-                        })
-                      }>
-                      <Text style={styles.handle}>{post?.user?.username}</Text>
-                    </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() =>
+                      navigation.navigate('Profile', {
+                        postUser: props.post.user,
+                      })
+                    }>
+                    <Text style={styles.handle}>{post?.user?.username}</Text>
+
                     <Image
                       source={require('../../assets/images/Dot.png')}
                       size={25}
                       style={{bottom: 15, left: 10}}
                     />
                     <Text style={styles.description}>{post.description}</Text>
-                  </View>
+                  </TouchableOpacity>
                 ) : (
                   <View />
                 )}

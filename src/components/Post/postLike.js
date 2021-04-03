@@ -12,10 +12,8 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
         console.log('Likes', likes);
         if (user) {
           const checkLiked = likes.findIndex((id) => {
-            console.log('id', id);
             return user.sub === id;
           });
-          console.log('Check Liked', checkLiked, user.sub);
           if (checkLiked !== -1) {
             setIsLiked(true);
           }
