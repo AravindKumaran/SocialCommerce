@@ -27,30 +27,22 @@ const Home = ({navigation, route}) => {
   useEffect(() => {
     // console.log('I am called', route?.params?.idx);
     if (route?.params?.idx) {
+      // console.log('Routeeitem', route?.params?.item);
+      // setPosts((post) => [route?.params?.item, ...post]);
+
       flatListRef.current.scrollToIndex({index: route?.params?.idx});
       setCurrentVisibleIndex(route?.params?.idx);
     }
   }, [route?.params?.idx]);
 
-  const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
-
   // useEffect(() => {
-  //   const getUser = async () => {
-  //     setLoading(true);
-  //     try {
-  //       const userInfo = await Auth.currentAuthenticatedUser({
-  //         bypassCache: true,
-  //       });
-  //       console.log('UserInfio');
-  //       setUser(userInfo.attributes);
-  //       setLoading(false);
-  //     } catch (error) {
-  //       console.error('Error', error);
-  //       setLoading(false);
-  //     }
-  //   };
-  //   getUser();
-  // }, [navigation]);
+  //   if (route?.params?.idx) {
+  //     flatListRef.current.scrollToIndex({index: 0});
+  //     setCurrentVisibleIndex(0);
+  //   }
+  // }, [posts]);
+
+  const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -102,15 +94,15 @@ const Home = ({navigation, route}) => {
       <Text style={styles.text}>Livebox</Text>
 
       <TouchableOpacity style={styles.cart}>
-        <Feather name={'shopping-cart'} size={20} />
+        <Feather name={'shopping-cart'} size={20} color="transparent" />
       </TouchableOpacity>
 
       <FlatList
         data={posts}
         ref={flatListRef}
         getItemLayout={(data, index) => ({
-          length: vpHeight + 45,
-          offset: vpHeight * 0.83 * index,
+          length: vpHeight + 10,
+          offset: vpHeight * 1.07 * index,
           index,
         })}
         renderItem={_renderItem}

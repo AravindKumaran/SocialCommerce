@@ -112,6 +112,7 @@ const Videos = ({post}) => {
     <TrendingVideo
       videoUri={item.videoUri}
       idx={index}
+      item={item}
       // height={item.height}
       // width={item.width}
     />

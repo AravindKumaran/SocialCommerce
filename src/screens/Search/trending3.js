@@ -148,6 +148,7 @@ const Trending = () => {
       fullScreen={fullScreen}
       onFullScreen={handleFullScreen}
       poster={item?.thumbnail}
+      item={item}
     />
   );
 

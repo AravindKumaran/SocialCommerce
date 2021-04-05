@@ -24,6 +24,7 @@ function randomIntFromInterval(min, max) {
 
 const TrendingVideo = ({
   videoUri,
+  item,
   idx,
   height,
   poster,
@@ -47,7 +48,8 @@ const TrendingVideo = ({
     // setPaused(!paused);
     if (!fullScreen) {
       // onFullScreen(idx);
-      navigation.navigate('Home', {idx});
+      // console.log('IDxxx', idx, item);
+      navigation.navigate('Home', {idx, item});
     }
   };
 

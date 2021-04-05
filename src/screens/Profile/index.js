@@ -83,7 +83,7 @@ const ProfileScreen = ({navigation, route}) => {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      // console.log('UserInfio', userInfo.attributes);
+      // console.log('UserInfio', userInfo.attributes.picture);
 
       const userRes = await API.graphql(
         graphqlOperation(getUser, {
@@ -606,9 +606,10 @@ const styles = StyleSheet.create({
     height: 300,
     width: '100%',
     // borderRadius: 200,
+    resizeMode: 'cover',
     zIndex: 1,
     position: 'absolute',
-    alignSelf: 'center',
+    // alignSelf: 'center',
     borderBottomRightRadius: 350,
     borderBottomLeftRadius: 350,
   },
