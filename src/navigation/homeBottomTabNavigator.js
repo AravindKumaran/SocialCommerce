@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
+import React, { useState, useEffect } from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Camera from '../screens/Camera';
 import Search from '../screens/Search';
@@ -14,7 +14,7 @@ import {
   BackHandler,
   Keyboard,
 } from 'react-native';
-import {color} from 'react-native-reanimated';
+import { color } from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 import Container from '../navigation/container';
 import ProfileVideoList from '../screens/Profile/ProfileVideoList';
@@ -46,17 +46,17 @@ const ActiveStyle = () => (
 
 const Stack = createStackNavigator();
 
-const ProfileNavigator = ({navigation}) => (
+const ProfileNavigator = ({ navigation }) => (
   <Stack.Navigator>
     <Stack.Screen
       name="Profile"
       component={ProfileScreen}
-      options={{headerShown: false}}
+      options={{ headerShown: false }}
     />
     <Stack.Screen
       name="ProfileVideoList"
       component={ProfileVideoList}
-      options={{headerShown: false}}
+      options={{ headerShown: false }}
     />
   </Stack.Navigator>
 );
@@ -84,7 +84,7 @@ const Tab = createBottomTabNavigator();
 // backgroundColor: '#383734',
 
 const HomeBottomTabNavigator = () => {
-  const {keyboardHidesTabBars} = useState(true);
+  const { keyboardHidesTabBars } = useState(true);
   const [didKeyboardShow, setKeyboardShow] = useState(false);
 
   useEffect(() => {
@@ -108,8 +108,8 @@ const HomeBottomTabNavigator = () => {
   const TabBar = (props) => {
     return (
       <LinearGradient
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 0}}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
         colors={['red', 'yellow']}
       />
     );
@@ -151,14 +151,14 @@ const HomeBottomTabNavigator = () => {
         name={'Home'}
         component={Home}
         options={{
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ focused, color }) => (
             <>
               <Image
                 source={require('../assets/images/home1.png')}
                 width={25}
                 height={25}
                 tintColor={color}
-                style={{bottom: 5, width: 20, height: 20}}
+                style={{ bottom: 5, width: 20, height: 20 }}
               />
               {focused && <ActiveStyle />}
             </>
@@ -169,14 +169,14 @@ const HomeBottomTabNavigator = () => {
         name={'Search'}
         component={Search}
         options={{
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ focused, color }) => (
             <>
               <Image
                 source={require('../assets/images/explore1.png')}
                 width={25}
                 height={25}
                 tintColor={color}
-                style={{bottom: 5, width: 20, height: 20}}
+                style={{ bottom: 5, width: 20, height: 20 }}
               />
               {focused && <ActiveStyle />}
             </>
@@ -187,13 +187,13 @@ const HomeBottomTabNavigator = () => {
         name={'Upload'}
         component={Camera}
         options={() => ({
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ focused, color }) => (
             <>
               {!didKeyboardShow && (
                 <Image
                   source={require('../assets/images/Plus.png')}
                   style={{
-                    top: -30,
+                    top: focused ? 0 : -30,
                     width: 65,
                     height: 65,
                     borderRadius: 37,
@@ -212,14 +212,14 @@ const HomeBottomTabNavigator = () => {
         name={'Notification'}
         component={Notifications}
         options={{
-          tabBarIcon: ({focused, color}) => (
+          tabBarIcon: ({ focused, color }) => (
             <>
               <Image
                 source={require('../assets/images/notification1.png')}
                 width={25}
                 height={25}
                 tintColor={color}
-                style={{bottom: 5, width: 20, height: 20}}
+                style={{ bottom: 5, width: 20, height: 20 }}
               />
               {focused && <ActiveStyle />}
             </>
@@ -230,12 +230,12 @@ const HomeBottomTabNavigator = () => {
         name={'Profile'}
         component={ProfileNavigator}
         options={{
-          tabBarIcon: ({focused, tintColor}) => (
+          tabBarIcon: ({ focused, tintColor }) => (
             <>
               <Image
                 source={require('../assets/images/Profile_icon.png')}
                 size={25}
-                style={{bottom: 2, width: 25, height: 25}}
+                style={{ bottom: 2, width: 25, height: 25 }}
               />
               {focused && <ActiveStyle />}
             </>
