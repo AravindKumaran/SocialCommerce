@@ -6,6 +6,7 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       username
+      name
       imageUri
       bio
       posts {

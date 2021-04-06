@@ -22,6 +22,7 @@ const Home = ({navigation, route}) => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [curLimit, setCurLimit] = useState(10);
   const flatListRef = useRef(null);
   useEffect(() => {
     if (route?.params?.idx) {
@@ -41,17 +42,25 @@ const Home = ({navigation, route}) => {
   // }, [posts]);
 
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
+  const [nextToken, setNextToken] = useState(undefined);
+  const [nextNextToken, setNextNextToken] = useState();
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await API.graphql(graphqlOperation(listPosts));
-        // console.log('Ress', response.data.listPosts.items[0]);
+        const response = await API.graphql(
+          graphqlOperation(listPosts, {
+            limit: curLimit,
+            nextToken,
+          }),
+        );
         const allItems = response.data.listPosts.items;
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
         console.log('sortedItems', sortedItems.length);
+        console.log('sortedItems', allItems[0].videoUri);
+        setNextToken(allItems.nextToken);
         setPosts(sortedItems);
       } catch (e) {
         console.log('Caledd');
@@ -62,12 +71,33 @@ const Home = ({navigation, route}) => {
     fetchPost();
   }, [navigation]);
 
+  const getMorePosts = async () => {
+    // try {
+    //   const response = await API.graphql(
+    //     graphqlOperation(listPosts, {
+    //       limit: curLimit + 1,
+    //       nextToken,
+    //     }),
+    //   );
+    //   const allItems = response.data.listPosts.items;
+    //   console.log('AllItems', allItems.length);
+    //   console.log('AllItems', allItems[0]?.videoUri);
+    //   console.log('AllItems', allItems.nextToken);
+    //   setCurLimit((lim) => lim + 1);
+    //   setPosts((post) => [...post, allItems]);
+    //   setNextToken(allItems.nextToken);
+    // } catch (error) {
+    //   console.log('Pagination Error', error);
+    // }
+  };
+
   const _renderItem = ({item, index}) => (
     <Post
       post={item}
       currentIndex={index}
       currentVisibleIndex={currentVisibleIndex}
       user={user}
+      navigation={navigation}
     />
   );
 
@@ -111,6 +141,9 @@ const Home = ({navigation, route}) => {
         borderRadius={50}
         viewabilityConfig={_viewabilityConfig.current}
         onViewableItemsChanged={_onViewableItemsChanged.current}
+        onEndReached={getMorePosts}
+        onEndReachedThreshold={0.5}
+        // keyExtractor={(item) => item?.id.toString()}
       />
     </View>
   );

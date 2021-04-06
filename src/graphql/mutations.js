@@ -9,6 +9,7 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       username
+      name
       imageUri
       bio
       posts {

@@ -28,7 +28,9 @@ import {
   CommonActions,
   useNavigation,
   useRoute,
+  getFocusedRouteNameFromRoute,
 } from '@react-navigation/native';
+import {getTabBarIcon} from '../../navigation/homeBottomTabNavigator';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -66,11 +68,9 @@ const ActiveStyle = () => (
   </>
 );
 
-const ProfileScreen = () => {
-  const state = useNavigationState((state) => state);
-  const route = useRoute();
-  const navigation = useNavigation();
-  console.log('Route', route);
+const ProfileScreen = ({navigation, route}) => {
+  // const state = useNavigationState((state) => state);
+  // console.log('State', state);
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
@@ -79,6 +79,10 @@ const ProfileScreen = () => {
 
   const isFocused = useIsFocused();
 
+  // useEffect(()=>{
+  //   getTabBarIcon()
+  // },[user])
+
   const checkUser = async () => {
     setLoading(true);
     // console.log('Im calling');
@@ -86,7 +90,7 @@ const ProfileScreen = () => {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      // console.log('UserInfio', userInfo.attributes.picture);
+      console.log('UserInfio', userInfo.attributes);
 
       const userRes = await API.graphql(
         graphqlOperation(getUser, {
@@ -94,7 +98,7 @@ const ProfileScreen = () => {
         }),
       );
 
-      // console.log('UserRews', userRes.data.getUser);
+      console.log('UserRews', userRes.data.getUser);
 
       // console.log('USer', userRes.data.listUsers.items.length);
       if (!userRes?.data?.getUser) {
@@ -111,12 +115,20 @@ const ProfileScreen = () => {
         } else {
           uri = getRandomImage();
         }
+
+        let profileName;
+        if (userInfo.attributes?.name) {
+          const nm = userInfo.attributes?.name.split(' ');
+          if (nm.length > 0) {
+            profileName = nm[0] + ' ' + nm[nm.length - 1];
+          } else {
+            profileName = nm[0];
+          }
+        }
         const newUser = {
           id: userInfo.attributes.email,
-          username:
-            userInfo.attributes.email.split('@')[0] +
-            userInfo.attributes.sub.slice(-4),
-          // email: userInfo.attributes.email,
+          username: userInfo.attributes.email.split('@')[0],
+          name: profileName || '',
           imageUri: uri,
         };
         const res = await API.graphql(
@@ -142,6 +154,7 @@ const ProfileScreen = () => {
         });
       } else {
         setUser(userRes?.data?.getUser);
+        // getTabBarIcon(isFocused, userRes.data?.getUser?.imageUri);
         navigation.setOptions({
           tabBarIcon: ({focused, tintColor}) => (
             <>
@@ -212,23 +225,23 @@ const ProfileScreen = () => {
       checkUser();
     } else {
       setUser(route?.params?.postUser);
-      navigation.setOptions({
-        tabBarIcon: ({focused, tintColor}) => (
-          <>
-            <Image
-              // source={require('../assets/images/Profile_icon.png')}
-              source={{
-                uri: route?.params?.postUser.imageUri.startsWith('https')
-                  ? route?.params?.postUser.imageUri
-                  : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${route?.params?.postUser.imageUri}`,
-              }}
-              size={25}
-              style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
-            />
-            {focused && <ActiveStyle />}
-          </>
-        ),
-      });
+      // navigation.setOptions({
+      //   tabBarIcon: ({focused, tintColor}) => (
+      //     <>
+      //       <Image
+      //         // source={require('../assets/images/Profile_icon.png')}
+      //         source={{
+      //           uri: route?.params?.postUser.imageUri.startsWith('https')
+      //             ? route?.params?.postUser.imageUri
+      //             : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${route?.params?.postUser.imageUri}`,
+      //         }}
+      //         size={25}
+      //         style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+      //       />
+      //       {focused && <ActiveStyle />}
+      //     </>
+      //   ),
+      // });
     }
   }, [isFocused === true]);
 
@@ -358,16 +371,28 @@ const ProfileScreen = () => {
                 </View>
 
                 <View style={{position: 'absolute', zIndex: 1, top: '90%'}}>
-                  <Text
-                    style={{
-                      color: '#FFFFFF',
-                      fontFamily: 'Proxima Nova',
-                      fontWeight: '700',
-                      fontSize: 16,
-                      bottom: 10,
-                    }}>
-                    {user.username}
-                  </Text>
+                  <View style={{bottom: 40}}>
+                    <Text
+                      style={{
+                        color: '#FFFFFF',
+                        fontFamily: 'Proxima Nova',
+                        fontWeight: '700',
+                        fontSize: 16,
+                        textAlign: 'center',
+                      }}>
+                      {user?.name}
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#FFFFFF',
+                        fontFamily: 'Proxima Nova',
+                        fontWeight: '700',
+                        fontSize: 13,
+                      }}>
+                      {` (${user.username}) `}
+                    </Text>
+                  </View>
+
                   <Text
                     style={{
                       color: '#FFFFFF',
@@ -375,7 +400,7 @@ const ProfileScreen = () => {
                       fontWeight: '400',
                       fontSize: 12,
                       // left: 25,
-                      bottom: 0,
+                      bottom: 40,
                       alignSelf: 'center',
                     }}>
                     {user.bio}

@@ -44,10 +44,36 @@ const ActiveStyle = () => (
   </>
 );
 
+export const getTabBarIcon = (focused, imgUri) => {
+  return (
+    <>
+      {imgUri ? (
+        <Image
+          source={{
+            uri: imgUri.startsWith('https')
+              ? imgUri
+              : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${imgUri}`,
+          }}
+          size={25}
+          style={{bottom: 2, width: 25, height: 25}}
+        />
+      ) : (
+        <Image
+          source={require('../assets/images/Profile_icon.png')}
+          size={25}
+          style={{bottom: 2, width: 25, height: 25}}
+        />
+      )}
+
+      {focused && <ActiveStyle />}
+    </>
+  );
+};
+
 const Stack = createStackNavigator();
 
-const ProfileNavigator = ({navigation}) => (
-  <Stack.Navigator>
+const ProfileNavigator = () => (
+  <Stack.Navigator initialRouteName="Profile">
     <Stack.Screen
       name="Profile"
       component={ProfileScreen}
@@ -229,18 +255,9 @@ const HomeBottomTabNavigator = () => {
       <Tab.Screen
         name={'Profile'}
         component={ProfileNavigator}
-        options={{
-          tabBarIcon: ({focused, tintColor}) => (
-            <>
-              <Image
-                source={require('../assets/images/Profile_icon.png')}
-                size={25}
-                style={{bottom: 2, width: 25, height: 25}}
-              />
-              {focused && <ActiveStyle />}
-            </>
-          ),
-        }}
+        options={({navigation}) => ({
+          tabBarIcon: ({focused, tintColor}) => getTabBarIcon(focused),
+        })}
       />
     </Tab.Navigator>
     // </Container>

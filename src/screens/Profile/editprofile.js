@@ -127,7 +127,7 @@ const EditProfile = ({user, saveUser}) => {
               fontSize: 12,
               left: 10,
             }}>
-            Name
+            Username
           </Text>
           <TextInput
             style={styles.input}

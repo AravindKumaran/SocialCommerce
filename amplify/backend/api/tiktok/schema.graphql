@@ -1,6 +1,7 @@
 type User @model {
   id: String!
   username: String!
+  name: String
   imageUri: String
   bio: String
   posts: [Post] @connection(keyName: "byUser", fields: ["id"])

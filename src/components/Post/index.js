@@ -27,24 +27,13 @@ import styles from './styles';
 import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
 import Follow from './Follow';
-
-// import DoubleClick from 'react-native-double-tap';
-// import Slider from '@react-native-community/slider';
-// import MediaControls, {PLAYER_STATES} from 'react-native-media-controls';
-// import {makeStyles, withStyles} from '@material-ui/core/styles';
-// import ProgressBar from '../Post/slider';
-// import { duration } from 'moment';
-// import Modal from 'react-native-modal';
-// import Feather from 'react-native-vector-icons/Feather';
-// import Controls from '../Post/controls';
-// import VideoPlayer from 'react-native-video-player';
-// import VideoPlayer from 'react-native-video-controls';
-// import DoubleClick from 'react-native-single-double-click';
+import {NavigationActions} from 'react-navigation';
 
 const Post = (props) => {
   // console.log('Props', props.post);
   const [post, setPost] = useState(props.post);
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
+  const navigation = props.navigation;
 
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(false);
@@ -107,12 +96,12 @@ const Post = (props) => {
   const videoPlayer = useRef();
 
   useEffect(() => {
-    if (!props.post.videoUri.startsWith('https')) {
+    if (!props.post?.videoUri?.startsWith('https')) {
       setVideoUri(
-        `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${props.post.videoUri}`,
+        `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${props.post?.videoUri}`,
       );
     } else {
-      setVideoUri(props.post.videoUri);
+      setVideoUri(props.post?.videoUri);
     }
   }, []);
 
@@ -691,8 +680,14 @@ const Post = (props) => {
                 {!isTouched ? (
                   <TouchableOpacity
                     onPress={() =>
+                      // navigation.navigate('Profile', {
+                      //   postUser: props.post.user,
+                      // })
                       navigation.navigate('Profile', {
-                        postUser: props.post.user,
+                        screen: 'Profile',
+                        params: {
+                          postUser: props.post.user,
+                        },
                       })
                     }>
                     <Text style={styles.handle}>{post?.user?.username}</Text>
