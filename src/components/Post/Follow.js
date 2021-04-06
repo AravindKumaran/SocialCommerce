@@ -12,11 +12,13 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
       if (currentPost?.user?.followers?.length > 0) {
         if (user) {
           const checkFollow = currentPost?.user?.followers.findIndex(
-            (f) => user.sub === f.userId,
+            (f) => user.email === f.userId,
           );
           if (checkFollow !== -1) {
             setIsFollow(true);
           }
+        } else {
+          currentPost?.user?.followers.forEach(() => setIsFollow(false));
         }
       }
     };
@@ -24,7 +26,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   }, [user]);
 
   const handleFollow = async () => {
-    if (user.sub === currentPost.user.id) {
+    if (user?.email === currentPost.user.id) {
       alert("You can't follow yourself");
       return;
     }

@@ -1,6 +1,12 @@
 import React, {useState, useEffect} from 'react';
 
-import {StyleSheet, Image, TouchableOpacity, View} from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  View,
+  ToastAndroid,
+} from 'react-native';
 
 const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
   const [isLiked, setIsLiked] = useState(false);
@@ -9,14 +15,15 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
     const loadLikes = async () => {
       // console.log('FirstCall', user);
       if (likes?.length > 0) {
-        console.log('Likes', likes);
         if (user) {
           const checkLiked = likes.findIndex((id) => {
-            return user.sub === id;
+            return user.email === id;
           });
           if (checkLiked !== -1) {
             setIsLiked(true);
           }
+        } else {
+          likes.forEach(() => setIsLiked(false));
         }
       }
     };
@@ -25,7 +32,10 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
   }, [user]);
 
   const handleLike = async () => {
-    // console.log('Clicked', user.sub);
+    if (!user) {
+      ToastAndroid.show('Please Login First', ToastAndroid.SHORT);
+      return;
+    }
     if (isLiked) {
       if (user) {
         console.log('I am called1');

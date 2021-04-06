@@ -140,7 +140,7 @@ const Post = (props) => {
         // const userId = userInfo.attributes.sub;
         if (user) {
           console.log('Cpost.likes', cPost.likes);
-          cPost.likes.push(user.sub);
+          cPost.likes.push(user.email);
           const likes = cPost.likes;
           await API.graphql(
             graphqlOperation(updatePost, {
@@ -158,7 +158,7 @@ const Post = (props) => {
           const res2 = await API.graphql(
             graphqlOperation(createUserNotification, {
               input: {
-                userID: user.sub,
+                userID: user.email,
                 notificationID: res.data.createNotification.id,
                 read: false,
                 ownerID: cPost.user.id,
@@ -180,7 +180,9 @@ const Post = (props) => {
     if (cPost?.likes?.length > 0) {
       try {
         if (user) {
-          const likesIndex = cPost.likes.findIndex((lkId) => lkId === user.sub);
+          const likesIndex = cPost.likes.findIndex(
+            (lkId) => lkId === user.email,
+          );
           if (likesIndex !== -1) {
             cPost.likes.splice(likesIndex, 1);
             const likes = cPost.likes;
@@ -210,7 +212,7 @@ const Post = (props) => {
         if (user) {
           const userRes = await API.graphql(
             graphqlOperation(getUser, {
-              id: user.sub,
+              id: user.email,
             }),
           );
           if (userRes.data.getUser.followers === null) {
@@ -250,7 +252,7 @@ const Post = (props) => {
             const updatedFollowing = userRes.data.getUser.following;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: {id: user.sub, following: updatedFollowing},
+                input: {id: user.email, following: updatedFollowing},
               }),
             );
           }
@@ -269,7 +271,7 @@ const Post = (props) => {
       try {
         if (user) {
           const frIndex = post.user.followers.findIndex(
-            (f) => f.userId === user.sub,
+            (f) => f.userId === user.email,
           );
           if (frIndex !== -1) {
             post.user.followers.splice(frIndex, 1);
@@ -282,7 +284,7 @@ const Post = (props) => {
 
             const userRes = await API.graphql(
               graphqlOperation(getUser, {
-                id: user.sub,
+                id: user.email,
               }),
             );
             if (userRes.data.getUser?.following?.length > 0) {
@@ -295,7 +297,7 @@ const Post = (props) => {
                 await API.graphql(
                   graphqlOperation(updateUser, {
                     input: {
-                      id: user.sub,
+                      id: user.email,
                       following: updatedFollowing,
                     },
                   }),

@@ -6,14 +6,15 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser {
       id
       username
-      email
       imageUri
+      bio
       posts {
         items {
           id
           videoUri
           description
           likes
+          thumbnail
           userID
           songID
           createdAt
@@ -36,6 +37,7 @@ export const onCreateUser = /* GraphQL */ `
           id
           userID
           ownerID
+          postID
           notificationID
           read
           createdAt
@@ -53,14 +55,15 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser {
       id
       username
-      email
       imageUri
+      bio
       posts {
         items {
           id
           videoUri
           description
           likes
+          thumbnail
           userID
           songID
           createdAt
@@ -83,6 +86,7 @@ export const onUpdateUser = /* GraphQL */ `
           id
           userID
           ownerID
+          postID
           notificationID
           read
           createdAt
@@ -100,14 +104,15 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser {
       id
       username
-      email
       imageUri
+      bio
       posts {
         items {
           id
           videoUri
           description
           likes
+          thumbnail
           userID
           songID
           createdAt
@@ -130,6 +135,7 @@ export const onDeleteUser = /* GraphQL */ `
           id
           userID
           ownerID
+          postID
           notificationID
           read
           createdAt
@@ -149,12 +155,13 @@ export const onCreatePost = /* GraphQL */ `
       videoUri
       description
       likes
+      thumbnail
       userID
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -206,12 +213,13 @@ export const onUpdatePost = /* GraphQL */ `
       videoUri
       description
       likes
+      thumbnail
       userID
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -263,12 +271,13 @@ export const onDeletePost = /* GraphQL */ `
       videoUri
       description
       likes
+      thumbnail
       userID
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -324,8 +333,8 @@ export const onCreateComment = /* GraphQL */ `
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -350,12 +359,13 @@ export const onCreateComment = /* GraphQL */ `
         videoUri
         description
         likes
+        thumbnail
         userID
         user {
           id
           username
-          email
           imageUri
+          bio
           createdAt
           updatedAt
         }
@@ -389,8 +399,8 @@ export const onUpdateComment = /* GraphQL */ `
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -415,12 +425,13 @@ export const onUpdateComment = /* GraphQL */ `
         videoUri
         description
         likes
+        thumbnail
         userID
         user {
           id
           username
-          email
           imageUri
+          bio
           createdAt
           updatedAt
         }
@@ -454,8 +465,8 @@ export const onDeleteComment = /* GraphQL */ `
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -480,12 +491,13 @@ export const onDeleteComment = /* GraphQL */ `
         videoUri
         description
         likes
+        thumbnail
         userID
         user {
           id
           username
-          email
           imageUri
+          bio
           createdAt
           updatedAt
         }
@@ -577,11 +589,12 @@ export const onCreateUserNotification = /* GraphQL */ `
       id
       userID
       ownerID
+      postID
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -596,6 +609,35 @@ export const onCreateUserNotification = /* GraphQL */ `
           imgUri
         }
         notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        thumbnail
+        userID
+        user {
+          id
+          username
+          imageUri
+          bio
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
           nextToken
         }
         createdAt
@@ -620,11 +662,12 @@ export const onUpdateUserNotification = /* GraphQL */ `
       id
       userID
       ownerID
+      postID
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -639,6 +682,35 @@ export const onUpdateUserNotification = /* GraphQL */ `
           imgUri
         }
         notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        thumbnail
+        userID
+        user {
+          id
+          username
+          imageUri
+          bio
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
           nextToken
         }
         createdAt
@@ -663,11 +735,12 @@ export const onDeleteUserNotification = /* GraphQL */ `
       id
       userID
       ownerID
+      postID
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -682,6 +755,35 @@ export const onDeleteUserNotification = /* GraphQL */ `
           imgUri
         }
         notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        thumbnail
+        userID
+        user {
+          id
+          username
+          imageUri
+          bio
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
           nextToken
         }
         createdAt

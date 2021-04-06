@@ -101,14 +101,14 @@ const Notifications = ({navigation}) => {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      if (!userInfo.attributes.sub) {
+      if (!userInfo.attributes.email) {
         return;
       }
-      console.log(userInfo.attributes.sub);
+      // console.log(userInfo.attributes.sub);
       const res = await API.graphql(
         graphqlOperation(listUserNotifications, {
           filter: {
-            ownerID: {eq: userInfo.attributes.sub},
+            ownerID: {eq: userInfo.attributes.email},
           },
         }),
       );

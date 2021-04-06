@@ -110,7 +110,7 @@ const Comments = ({postId, postUserId, curUser}) => {
     const oldComment = comments.find((cmt) => cmt.id === comment.id);
     if (oldComment && oldComment?.likes?.length > 0) {
       const likesIndex = oldComment.likes.findIndex(
-        (lkId) => lkId === user.sub,
+        (lkId) => lkId === user.email,
       );
       if (likesIndex !== -1) {
         oldComment.likes.splice(likesIndex, 1);
@@ -139,7 +139,7 @@ const Comments = ({postId, postUserId, curUser}) => {
     }
     const oldComment = comments.find((cmt) => cmt.id === comment.id);
     if (oldComment) {
-      oldComment.likes.push(user.sub);
+      oldComment.likes.push(user.email);
       const likes = oldComment.likes;
       try {
         const res = await API.graphql(
@@ -147,7 +147,7 @@ const Comments = ({postId, postUserId, curUser}) => {
             input: {id: comment.id, likes},
           }),
         );
-        // console.log('ress', res.data);
+        console.log('ress1', res.data);
         const res33 = await API.graphql(
           graphqlOperation(createNotification, {
             input: {
@@ -159,7 +159,7 @@ const Comments = ({postId, postUserId, curUser}) => {
         const res2 = await API.graphql(
           graphqlOperation(createUserNotification, {
             input: {
-              userID: user.sub,
+              userID: user.email,
               notificationID: res33.data.createNotification.id,
               read: false,
               ownerID: comment.user.id,
@@ -168,7 +168,7 @@ const Comments = ({postId, postUserId, curUser}) => {
           }),
         );
 
-        console.log('ress', res2.data);
+        console.log('ress2', res2.data);
 
         setLoading(false);
       } catch (err) {
@@ -190,7 +190,7 @@ const Comments = ({postId, postUserId, curUser}) => {
     if (cmtText.length > 0) {
       const cmtt = {
         postId,
-        userID: user.sub,
+        userID: user.email,
         text: cmtText,
         likes: [],
       };
@@ -214,7 +214,7 @@ const Comments = ({postId, postUserId, curUser}) => {
         const res2 = await API.graphql(
           graphqlOperation(createUserNotification, {
             input: {
-              userID: user.sub,
+              userID: user.email,
               notificationID: res33.data.createNotification.id,
               read: false,
               ownerID: postUserId,

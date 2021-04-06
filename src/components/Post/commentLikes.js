@@ -1,6 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
 
-import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ToastAndroid,
+} from 'react-native';
 import AppText from '../Common/AppText';
 import {Auth} from 'aws-amplify';
 
@@ -24,10 +31,14 @@ const CommentLikes = ({likes, onLike, onUnlike, comment, user}) => {
       if (likes?.length > 0) {
         try {
           if (user) {
-            const checkLiked = likes.findIndex((id) => user.sub === id);
+            const checkLiked = likes.findIndex((id) => user.email === id);
             if (checkLiked !== -1) {
               setIsLiked(true);
             }
+          } else {
+            likes.forEach((like) => {
+              setIsLiked(false);
+            });
           }
         } catch (error) {
           console.log('Error');
@@ -39,6 +50,10 @@ const CommentLikes = ({likes, onLike, onUnlike, comment, user}) => {
   }, [user]);
 
   const handleLike = async () => {
+    if (!user) {
+      ToastAndroid.show('Please Login First', ToastAndroid.SHORT);
+      return;
+    }
     if (isLiked) {
       if (user) {
         await onUnlike(comment);
@@ -48,7 +63,7 @@ const CommentLikes = ({likes, onLike, onUnlike, comment, user}) => {
     } else {
       if (user) {
         await onLike(comment);
-        console.log('I am called2');
+        console.log('I am called2', user);
         setIsLiked(true);
       }
     }

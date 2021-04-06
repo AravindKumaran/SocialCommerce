@@ -87,11 +87,11 @@ const ProfileScreen = ({navigation, route}) => {
 
       const userRes = await API.graphql(
         graphqlOperation(getUser, {
-          id: userInfo.attributes.sub,
+          id: userInfo.attributes.email,
         }),
       );
 
-      // console.log('UserRews', userRes.data.getUser.posts.items);
+      console.log('UserRews', userRes.data.getUser);
 
       // console.log('USer', userRes.data.listUsers.items.length);
       if (!userRes?.data?.getUser) {
@@ -109,11 +109,11 @@ const ProfileScreen = ({navigation, route}) => {
           uri = getRandomImage();
         }
         const newUser = {
-          id: userInfo.attributes.sub,
+          id: userInfo.attributes.email,
           username:
             userInfo.attributes.email.split('@')[0] +
             userInfo.attributes.sub.slice(-4),
-          email: userInfo.attributes.email,
+          // email: userInfo.attributes.email,
           imageUri: uri,
         };
         const res = await API.graphql(

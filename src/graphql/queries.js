@@ -6,7 +6,6 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       username
-      email
       imageUri
       bio
       posts {
@@ -38,6 +37,7 @@ export const getUser = /* GraphQL */ `
           id
           userID
           ownerID
+          postID
           notificationID
           read
           createdAt
@@ -60,7 +60,6 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         username
-        email
         imageUri
         bio
         posts {
@@ -86,7 +85,6 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
-
 export const searchUsersList = /* GraphQL */ `
   query ListUsers(
     $filter: ModelUserFilterInput
@@ -111,14 +109,14 @@ export const getPost = /* GraphQL */ `
       id
       videoUri
       description
-      thumbnail
       likes
+      thumbnail
       userID
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -154,7 +152,6 @@ export const getPost = /* GraphQL */ `
           user {
             id
             username
-            email
             imageUri
             createdAt
             updatedAt
@@ -188,7 +185,6 @@ export const listPosts = /* GraphQL */ `
         user {
           id
           username
-          email
           imageUri
           posts {
             items {
@@ -201,7 +197,6 @@ export const listPosts = /* GraphQL */ `
               user {
                 id
                 username
-                email
                 imageUri
               }
             }
@@ -248,8 +243,8 @@ export const getComment = /* GraphQL */ `
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -273,14 +268,14 @@ export const getComment = /* GraphQL */ `
         id
         videoUri
         description
-        thumbnail
         likes
+        thumbnail
         userID
         user {
           id
           username
-          email
           imageUri
+          bio
           createdAt
           updatedAt
         }
@@ -319,8 +314,8 @@ export const listComments = /* GraphQL */ `
         user {
           id
           username
-          email
           imageUri
+          bio
           createdAt
           updatedAt
         }
@@ -404,11 +399,12 @@ export const getUserNotification = /* GraphQL */ `
       id
       userID
       ownerID
+      postID
       user {
         id
         username
-        email
         imageUri
+        bio
         posts {
           nextToken
         }
@@ -423,6 +419,35 @@ export const getUserNotification = /* GraphQL */ `
           imgUri
         }
         notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      post {
+        id
+        videoUri
+        description
+        likes
+        thumbnail
+        userID
+        user {
+          id
+          username
+          imageUri
+          bio
+          createdAt
+          updatedAt
+        }
+        songID
+        song {
+          id
+          name
+          imageUri
+          createdAt
+          updatedAt
+        }
+        comments {
           nextToken
         }
         createdAt
@@ -455,13 +480,13 @@ export const listUserNotifications = /* GraphQL */ `
       items {
         id
         userID
-        postID
         ownerID
+        postID
         user {
           id
           username
-          email
           imageUri
+          bio
           createdAt
           updatedAt
         }

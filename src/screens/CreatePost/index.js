@@ -58,7 +58,7 @@ const CreatePost = () => {
         videoUri: s3Response.key,
         description: description,
         thumbnail: s3Response2.key,
-        userID: user.sub,
+        userID: user.email,
         songID: '20dee14b-39a9-4321-8ec7-c3380e2f5c27',
       };
 

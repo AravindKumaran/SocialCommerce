@@ -1,7 +1,6 @@
 type User @model {
-  id: ID!
+  id: String!
   username: String!
-  email: String!
   imageUri: String
   bio: String
   posts: [Post] @connection(keyName: "byUser", fields: ["id"])
@@ -12,7 +11,7 @@ type User @model {
 }
 
 type Follow {
-  userId: ID!
+  userId: String!
   userName: String!
   imgUri: String!
 }
@@ -21,10 +20,10 @@ type Post @model @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   videoUri: String!
   description: String!
-  likes: [ID]
+  likes: [String]
   thumbnail: String
 
-  userID: ID!
+  userID: String!
   user: User @connection(fields: ["userID"])
 
   songID: ID!
@@ -36,9 +35,9 @@ type Post @model @key(name: "byUser", fields: ["userID"]) {
 type Comment @model @key(name: "commentsByPostId", fields: ["postId"]) {
   id: ID!
   postId: ID!
-  userID: ID!
+  userID: String!
   text: String!
-  likes: [ID]
+  likes: [String]
   user: User @connection(fields: ["userID"])
   post: Post @connection(fields: ["postId"])
 }
@@ -56,8 +55,8 @@ type Notification @model {
 
 type UserNotification @model @key(name: "byUser", fields: ["userID"]) {
   id: ID!
-  userID: ID!
-  ownerID: ID!
+  userID: String!
+  ownerID: String!
   postID: ID!
   user: User @connection(fields: ["userID"])
   post: Post @connection(fields: ["postID"])
