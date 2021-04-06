@@ -42,6 +42,7 @@ import Follow from './Follow';
 // import DoubleClick from 'react-native-single-double-click';
 
 const Post = (props) => {
+  // console.log('Props', props.post);
   const [post, setPost] = useState(props.post);
   const navigation = useNavigation();
 
@@ -671,8 +672,8 @@ const Post = (props) => {
                   }}
                 /> */}
                 <Comments
-                  postId={props.post.id}
-                  postUserId={props.post.user.id}
+                  postId={props.post?.id}
+                  postUserId={props.post.user?.id}
                   curUser={user}
                 />
               </RBSheet>

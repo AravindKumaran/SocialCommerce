@@ -16,6 +16,23 @@ export const getUser = /* GraphQL */ `
           likes
           thumbnail
           userID
+          user {
+            id
+            username
+            imageUri
+            following {
+              userId
+              userName
+              imgUri
+            }
+            followers {
+              userId
+              userName
+              imgUri
+            }
+            createdAt
+            updatedAt
+          }
           songID
           createdAt
           updatedAt

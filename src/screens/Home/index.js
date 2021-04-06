@@ -23,11 +23,9 @@ const Home = ({navigation, route}) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const flatListRef = useRef(null);
-
   useEffect(() => {
-    // console.log('I am called', route?.params?.idx);
     if (route?.params?.idx) {
-      // console.log('Routeeitem', route?.params?.item);
+      console.log('Routeeitem');
       // setPosts((post) => [route?.params?.item, ...post]);
 
       flatListRef.current.scrollToIndex({index: route?.params?.idx});

@@ -33,6 +33,8 @@ const TrendingVideo = ({
   fullScreen,
   onFullScreen,
   curIdx,
+  isProfile,
+  data,
 }) => {
   const [paused, setPaused] = useState(true);
   const [duration, setDuration] = useState(0);
@@ -44,11 +46,15 @@ const TrendingVideo = ({
   const onSeeking = (currentVideoTime) => setCurrentTime(currentVideoTime);
 
   const handleClick = () => {
-    // console.log('Clicked');
+    console.log('Clicked', idx);
     // setPaused(!paused);
-    if (!fullScreen) {
-      // onFullScreen(idx);
-      // console.log('IDxxx', idx, item);
+    // if (!fullScreen) {
+    //   // onFullScreen(idx);
+    //   // console.log('IDxxx', idx, item);
+    // }
+    if (isProfile) {
+      navigation.navigate('ProfileVideoList', {idx, item, data});
+    } else {
       navigation.navigate('Home', {idx, item});
     }
   };

@@ -113,6 +113,8 @@ const Videos = ({post}) => {
       videoUri={item.videoUri}
       idx={index}
       item={item}
+      isProfile={true}
+      data={post}
       // height={item.height}
       // width={item.width}
     />
@@ -124,6 +126,7 @@ const Videos = ({post}) => {
   return (
     <View style={styles.container}>
       <FlatList
+        nestedScrollEnabled={true}
         data={post}
         numColumns={3}
         renderItem={_renderItem}

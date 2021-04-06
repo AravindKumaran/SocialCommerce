@@ -26,6 +26,8 @@ import {
   useIsFocused,
   useNavigationState,
   CommonActions,
+  useNavigation,
+  useRoute,
 } from '@react-navigation/native';
 
 const randomImages = [
@@ -64,10 +66,11 @@ const ActiveStyle = () => (
   </>
 );
 
-const ProfileScreen = ({navigation, route}) => {
-  // const state = useNavigationState((state) => state);
-  // console.log('State', state);
-  // console.log('Route', route);
+const ProfileScreen = () => {
+  const state = useNavigationState((state) => state);
+  const route = useRoute();
+  const navigation = useNavigation();
+  console.log('Route', route);
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
@@ -91,7 +94,7 @@ const ProfileScreen = ({navigation, route}) => {
         }),
       );
 
-      console.log('UserRews', userRes.data.getUser);
+      // console.log('UserRews', userRes.data.getUser);
 
       // console.log('USer', userRes.data.listUsers.items.length);
       if (!userRes?.data?.getUser) {
