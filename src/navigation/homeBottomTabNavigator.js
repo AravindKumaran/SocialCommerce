@@ -44,10 +44,10 @@ const ActiveStyle = () => (
   </>
 );
 
-export const getTabBarIcon = (focused, imgUri) => {
+export const getTabBarIcon = (focused) => {
   return (
     <>
-      {imgUri ? (
+      {/* {imgUri ? (
         <Image
           source={{
             uri: imgUri.startsWith('https')
@@ -58,12 +58,13 @@ export const getTabBarIcon = (focused, imgUri) => {
           style={{bottom: 2, width: 25, height: 25}}
         />
       ) : (
-        <Image
-          source={require('../assets/images/Profile_icon.png')}
-          size={25}
-          style={{bottom: 2, width: 25, height: 25}}
-        />
-      )}
+
+      )} */}
+      <Image
+        source={require('../assets/images/Profile_icon.png')}
+        size={25}
+        style={{bottom: 2, width: 25, height: 25}}
+      />
 
       {focused && <ActiveStyle />}
     </>

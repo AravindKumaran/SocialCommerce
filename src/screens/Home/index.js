@@ -43,7 +43,6 @@ const Home = ({navigation, route}) => {
 
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const [nextToken, setNextToken] = useState(undefined);
-  const [nextNextToken, setNextNextToken] = useState();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -51,16 +50,16 @@ const Home = ({navigation, route}) => {
         const response = await API.graphql(
           graphqlOperation(listPosts, {
             limit: curLimit,
-            nextToken,
           }),
         );
+
         const allItems = response.data.listPosts.items;
+        // console.log('Allitems', response.data.listPosts.nextToken);
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
         console.log('sortedItems', sortedItems.length);
-        console.log('sortedItems', allItems[0].videoUri);
-        setNextToken(allItems.nextToken);
+        setNextToken(response.data.listPosts.nextToken);
         setPosts(sortedItems);
       } catch (e) {
         console.log('Caledd');
@@ -72,23 +71,22 @@ const Home = ({navigation, route}) => {
   }, [navigation]);
 
   const getMorePosts = async () => {
-    // try {
-    //   const response = await API.graphql(
-    //     graphqlOperation(listPosts, {
-    //       limit: curLimit + 1,
-    //       nextToken,
-    //     }),
-    //   );
-    //   const allItems = response.data.listPosts.items;
-    //   console.log('AllItems', allItems.length);
-    //   console.log('AllItems', allItems[0]?.videoUri);
-    //   console.log('AllItems', allItems.nextToken);
-    //   setCurLimit((lim) => lim + 1);
-    //   setPosts((post) => [...post, allItems]);
-    //   setNextToken(allItems.nextToken);
-    // } catch (error) {
-    //   console.log('Pagination Error', error);
-    // }
+    try {
+      if (nextToken) {
+        const response = await API.graphql(
+          graphqlOperation(listPosts, {
+            limit: curLimit + 10,
+            nextToken,
+          }),
+        );
+        // console.log('AllItems', curLimit);
+        setCurLimit((lim) => lim + 10);
+        setNextToken(response.data.listPosts.nextToken);
+        setPosts((post) => [...post, ...response.data.listPosts.items]);
+      }
+    } catch (error) {
+      console.log('Pagination Error', error);
+    }
   };
 
   const _renderItem = ({item, index}) => (
