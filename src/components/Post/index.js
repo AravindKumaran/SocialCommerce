@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -8,8 +8,8 @@ import {
   Dimensions,
   ToastAndroid,
 } from 'react-native';
-import {useRoute, useNavigation} from '@react-navigation/native';
-import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { API, graphqlOperation, Storage, Auth, Hub } from 'aws-amplify';
 import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Product from '../../screens/Product/index';
@@ -22,7 +22,7 @@ import {
   createUserNotification,
   updateUser,
 } from '../../graphql/mutations';
-import {getUser} from '../../graphql/queries';
+import { getUser } from '../../graphql/queries';
 import styles from './styles';
 import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
@@ -53,7 +53,7 @@ const Post = (props) => {
   const [message] = useState('Please sign in first');
 
   useEffect(() => {
-    Hub.listen('auth', ({payload: {event, data}}) => {
+    Hub.listen('auth', ({ payload: { event, data } }) => {
       switch (event) {
         case 'signIn':
         case 'cognitoHostedUI':
@@ -134,7 +134,7 @@ const Post = (props) => {
           const likes = cPost.likes;
           await API.graphql(
             graphqlOperation(updatePost, {
-              input: {id: cPost.id, likes},
+              input: { id: cPost.id, likes },
             }),
           );
           const res = await API.graphql(
@@ -178,7 +178,7 @@ const Post = (props) => {
             const likes = cPost.likes;
             const res = await API.graphql(
               graphqlOperation(updatePost, {
-                input: {id: cPost.id, likes},
+                input: { id: cPost.id, likes },
               }),
             );
 
@@ -224,7 +224,7 @@ const Post = (props) => {
             const updatedFollowers = post.user.followers;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: {id: postUser.id, followers: updatedFollowers},
+                input: { id: postUser.id, followers: updatedFollowers },
               }),
             );
           }
@@ -242,7 +242,7 @@ const Post = (props) => {
             const updatedFollowing = userRes.data.getUser.following;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: {id: user.email, following: updatedFollowing},
+                input: { id: user.email, following: updatedFollowing },
               }),
             );
           }
@@ -268,7 +268,7 @@ const Post = (props) => {
             const updatedFollowers = post.user.followers;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: {id: postUser.id, followers: updatedFollowers},
+                input: { id: postUser.id, followers: updatedFollowers },
               }),
             );
 
@@ -417,7 +417,7 @@ const Post = (props) => {
             <Video
               ref={(ref) => (vidRef.current = ref)}
               // ref={vidRef}
-              source={{uri: convertToProxyURL(videoUri)}}
+              source={{ uri: convertToProxyURL(videoUri) }}
               style={styles.video}
               poster={
                 props.post?.thumbnail
@@ -562,7 +562,7 @@ const Post = (props) => {
                 <>
                   {!isTouched ? (
                     <Image
-                      style={{height: 45, width: 45}}
+                      style={{ height: 45, width: 45, opacity: 0.7, }}
                       source={require('../../assets/images/Product_icon.png')}
                       size={25}
                     />
@@ -573,7 +573,7 @@ const Post = (props) => {
                         position: 'absolute',
                         right: 0,
                         height: 45,
-                        width: 45,
+                        width: 45, opacity: 0.7,
                       }}
                       source={require('../../assets/images/Product_icon1.png')}
                       size={25}
@@ -613,7 +613,7 @@ const Post = (props) => {
                 <>
                   {!isTouched ? (
                     <Image
-                      style={{height: 45, width: 45}}
+                      style={{ height: 45, width: 45, opacity: 0.7, }}
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                     />
@@ -624,7 +624,7 @@ const Post = (props) => {
                         position: 'absolute',
                         right: 0,
                         height: 45,
-                        width: 45,
+                        width: 45, opacity: 0.7,
                       }}
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
@@ -695,7 +695,7 @@ const Post = (props) => {
                     <Image
                       source={require('../../assets/images/Dot.png')}
                       size={25}
-                      style={{bottom: 15, left: 10}}
+                      style={{ bottom: 15, left: 10 }}
                     />
                     <Text style={styles.description}>{post.description}</Text>
                   </TouchableOpacity>
