@@ -84,7 +84,8 @@ const ProfileScreen = ({navigation, route}) => {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      // console.log('UserInfio', userInfo.attributes);
+
+      // console.log('UserResw', userInfo.attributes);
 
       const userRes = await API.graphql(
         graphqlOperation(getUser, {
@@ -93,7 +94,7 @@ const ProfileScreen = ({navigation, route}) => {
         }),
       );
 
-      console.log('UserRews', userRes.data.getUser.posts.items.length);
+      // console.log('UserRews', userRes.data.getUser.posts.items.length);
 
       // console.log('USer', userRes.data.listUsers.items.length);
       if (!userRes?.data?.getUser) {
@@ -102,10 +103,10 @@ const ProfileScreen = ({navigation, route}) => {
         let uri;
         if (userInfo.attributes?.picture) {
           if (provider === 'Facebook') {
-            const pic = JSON.parse(userInfo.attributes.picture);
-            uri = pic.data.url;
-          } else {
-            uri = userInfo.attributes.picture;
+            uri = `https://graph.facebook.com/${identity[0].userId}/picture?height=300`;
+          } else if (provider === 'Google') {
+            let s = userInfo.attributes.picture;
+            uri = s.replace('s96-c', 's250-c');
           }
         } else {
           uri = getRandomImage();
@@ -193,6 +194,18 @@ const ProfileScreen = ({navigation, route}) => {
     console.log('User', user);
     Auth.signOut();
     setUser(null);
+    c.setOptions({
+      tabBarIcon: ({focused, tintColor}) => (
+        <>
+          <Image
+            source={require('../../assets/images/Profile_icon.png')}
+            size={25}
+            style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+          />
+          {focused && <ActiveStyle />}
+        </>
+      ),
+    });
   };
 
   useEffect(() => {
@@ -220,23 +233,17 @@ const ProfileScreen = ({navigation, route}) => {
       checkUser();
     } else {
       setUser(route?.params?.postUser);
-      // navigation.setOptions({
-      //   tabBarIcon: ({focused, tintColor}) => (
-      //     <>
-      //       <Image
-      //         // source={require('../assets/images/Profile_icon.png')}
-      //         source={{
-      //           uri: route?.params?.postUser.imageUri.startsWith('https')
-      //             ? route?.params?.postUser.imageUri
-      //             : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${route?.params?.postUser.imageUri}`,
-      //         }}
-      //         size={25}
-      //         style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
-      //       />
-      //       {focused && <ActiveStyle />}
-      //     </>
-      //   ),
-      // });
+      c.setOptions({
+        tabBarIcon: ({focused, tintColor}) => (
+          <>
+            <Image
+              source={require('../../assets/images/Profile_icon.png')}
+              size={25}
+              style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+            />
+          </>
+        ),
+      });
     }
   }, [isFocused === true]);
 
@@ -559,7 +566,9 @@ const ProfileScreen = ({navigation, route}) => {
               }}>
               <Image
                 style={styles.user}
-                // source={require('../../assets/images/User2.png')}
+                // source={{
+                //   uri: `https://graph.facebook.com/220891159509908/picture?height=500`,
+                // }}
                 source={{
                   uri: user.imageUri.startsWith('https')
                     ? user.imageUri
@@ -568,6 +577,11 @@ const ProfileScreen = ({navigation, route}) => {
               />
             </View>
           </View>
+          {!route?.params?.postUser && (
+            <View style={{margin: 20}}>
+              <AppButton onPress={handleLogout} title="Logout" />
+            </View>
+          )}
           {user?.id && <Videos userId={user.id} />}
         </View>
       )}

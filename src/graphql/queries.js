@@ -9,37 +9,6 @@ export const getUser = /* GraphQL */ `
       name
       imageUri
       bio
-      posts {
-        items {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          userID
-          user {
-            id
-            username
-            imageUri
-            following {
-              userId
-              userName
-              imgUri
-            }
-            followers {
-              userId
-              userName
-              imgUri
-            }
-            createdAt
-            updatedAt
-          }
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       following {
         userId
         userName
@@ -49,19 +18,6 @@ export const getUser = /* GraphQL */ `
         userId
         userName
         imgUri
-      }
-      notifications {
-        items {
-          id
-          userID
-          ownerID
-          postID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
-        nextToken
       }
       createdAt
       updatedAt
