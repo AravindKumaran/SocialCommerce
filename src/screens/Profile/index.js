@@ -89,10 +89,11 @@ const ProfileScreen = ({navigation, route}) => {
       const userRes = await API.graphql(
         graphqlOperation(getUser, {
           id: userInfo.attributes.email,
+          limit: 2,
         }),
       );
 
-      // console.log('UserRews', userRes.data.getUser);
+      console.log('UserRews', userRes.data.getUser.posts.items.length);
 
       // console.log('USer', userRes.data.listUsers.items.length);
       if (!userRes?.data?.getUser) {
@@ -286,9 +287,10 @@ const ProfileScreen = ({navigation, route}) => {
           <AppButton title="Login" onPress={handleLogin} />
         </View>
       ) : (
-        <ScrollView
+        <View
           style={styles.container}
-          showsVerticalScrollIndicator={false}>
+          // showsVerticalScrollIndicator={false}
+        >
           <View style={{top: 0, height: 400}}>
             <View style={{top: 80, marginHorizontal: '4%'}}>
               <View>
@@ -566,36 +568,8 @@ const ProfileScreen = ({navigation, route}) => {
               />
             </View>
           </View>
-          {!route?.params?.postUser && (
-            <View style={{margin: 20}}>
-              <AppButton onPress={handleLogout} title="Logout" />
-            </View>
-          )}
-
-          {/* <View
-            style={{
-              flexWrap: 'wrap',
-              flexDirection: 'row',
-              marginHorizontal: '4%',
-            }}>
-            {images.map((s, i) => (
-              <TouchableOpacity
-                key={i}
-                style={{aspectRatio: 0.7, width: '33.33%'}}>
-                <Image
-                  style={{
-                    flex: 1,
-                    resizeMode: 'contain',
-                    height: '100%',
-                    width: '100%',
-                    marginBottom: 10,
-                  }}
-                  source={s}></Image>
-              </TouchableOpacity>
-            ))}
-          </View> */}
-          {user?.posts?.items?.length > 0 && <Videos post={user.posts.items} />}
-        </ScrollView>
+          {user?.id && <Videos userId={user.id} />}
+        </View>
       )}
     </SafeAreaView>
   );

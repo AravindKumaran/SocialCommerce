@@ -1,6 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, FlatList, Dimensions} from 'react-native';
 import TrendingVideo from '../Search/trendingVideo';
+import {API, graphqlOperation, Auth} from 'aws-amplify';
+import {listPosts} from '../../graphql/queries';
+import Feather from 'react-native-vector-icons/Feather';
+import LoadingIndicator from '../../components/Common/LoadingIndicator';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -107,30 +111,89 @@ const uris = [
   },
 ];
 
-const Videos = ({post}) => {
+const Videos = ({userId}) => {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [curLimit, setCurLimit] = useState(15);
+  const [nextToken, setNextToken] = useState(undefined);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        setLoading(true);
+        const response = await API.graphql(
+          graphqlOperation(listPosts, {
+            limit: curLimit,
+            filter: {
+              userID: {eq: userId},
+            },
+          }),
+        );
+
+        const allItems = response.data.listPosts.items;
+        const sortedItems = allItems.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
+        // console.log('sortedItems', sortedItems.length);
+        setNextToken(response.data.listPosts.nextToken);
+        setPosts(sortedItems);
+        setLoading(false);
+      } catch (e) {
+        console.log('Caledd');
+        setLoading(false);
+        console.error(e);
+      }
+    };
+
+    fetchPost();
+  }, [userId]);
+
+  const getMorePosts = async () => {
+    console.log('I am called');
+    try {
+      if (nextToken) {
+        setLoading(true);
+        const response = await API.graphql(
+          graphqlOperation(listPosts, {
+            limit: curLimit + 15,
+            filter: {
+              userID: {eq: userId},
+            },
+            nextToken,
+          }),
+        );
+        // console.log('AllItems', curLimit);
+        setCurLimit((lim) => lim + 15);
+        setNextToken(response.data.listPosts.nextToken);
+        setPosts((post) => [...post, ...response.data.listPosts.items]);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log('Pagination Error', error);
+      setLoading(false);
+    }
+  };
+
   const _renderItem = ({item, index}) => (
     <TrendingVideo
       videoUri={item.videoUri}
       idx={index}
       item={item}
       isProfile={true}
-      data={post}
-      // height={item.height}
-      // width={item.width}
+      data={posts}
     />
   );
-
-  const Item = (dataItem, key) => {
-    return <TrendingVideo key={key} videoUri={dataItem.uri} />;
-  };
   return (
     <View style={styles.container}>
+      {loading && <LoadingIndicator visible={loading} />}
       <FlatList
         nestedScrollEnabled={true}
-        data={post}
+        data={posts}
         numColumns={3}
         renderItem={_renderItem}
         keyExtractor={(item) => item.id.toString()}
+        onEndReached={getMorePosts}
+        onEndReachedThreshold={0.5}
       />
     </View>
   );
@@ -140,6 +203,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
+    paddingBottom: 70,
   },
 });
 
