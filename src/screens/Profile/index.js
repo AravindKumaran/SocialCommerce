@@ -366,7 +366,7 @@ const ProfileScreen = ({navigation, route}) => {
                   </TouchableOpacity>
                 </View>
 
-                <View style={{position: 'absolute', zIndex: 1, top: '90%'}}>
+                <View style={{position: 'absolute', zIndex: 1, top: '110%'}}>
                   <View style={{bottom: 40}}>
                     <Text
                       style={{
