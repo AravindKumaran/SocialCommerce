@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/Home';
@@ -44,10 +44,36 @@ const ActiveStyle = () => (
   </>
 );
 
-export const getTabBarIcon = (focused) => {
-  return (
-    <>
-      {/* {imgUri ? (
+export let c;
+
+export const getTabBarIcon = (focused, props, imgUri) => {
+  c = props.navigation;
+  console.log('C', c);
+  // console.log(
+  //   'Ref',
+  //   props.navigation.setOptions({
+  //     tabBarLabel: 'Home',
+  //   }),
+  // );
+  if (imgUri) {
+    console.log('I am clleed');
+    return (
+      <>
+        <Image
+          source={{
+            uri: imgUri.startsWith('https')
+              ? imgUri
+              : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${imgUri}`,
+          }}
+          size={25}
+          style={{bottom: 2, width: 25, height: 25}}
+        />
+      </>
+    );
+  } else {
+    return (
+      <>
+        {/* {imgUri ? (
         <Image
           source={{
             uri: imgUri.startsWith('https')
@@ -60,15 +86,16 @@ export const getTabBarIcon = (focused) => {
       ) : (
 
       )} */}
-      <Image
-        source={require('../assets/images/Profile_icon.png')}
-        size={25}
-        style={{bottom: 2, width: 25, height: 25}}
-      />
+        <Image
+          source={require('../assets/images/Profile_icon.png')}
+          size={25}
+          style={{bottom: 2, width: 25, height: 25}}
+        />
 
-      {focused && <ActiveStyle />}
-    </>
-  );
+        {focused && <ActiveStyle />}
+      </>
+    );
+  }
 };
 
 const Stack = createStackNavigator();
@@ -90,27 +117,8 @@ const ProfileNavigator = () => (
 
 const Tab = createBottomTabNavigator();
 
-// function Color() {
-//   const isClicked = true;
-// }
-
-// class constructor {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       myDynamicColor: '#ffffff'
-//     };
-//   }
-// }
-
-// function changeColor(bool) {
-//   this.setState({
-//     myDynamicColor: bool ? '#932727' : '#ffffff';
-//   })
-// }
-// backgroundColor: '#383734',
-
 const HomeBottomTabNavigator = () => {
+  const proRef = useRef(null);
   const {keyboardHidesTabBars} = useState(true);
   const [didKeyboardShow, setKeyboardShow] = useState(false);
 
@@ -256,8 +264,10 @@ const HomeBottomTabNavigator = () => {
       <Tab.Screen
         name={'Profile'}
         component={ProfileNavigator}
-        options={({navigation}) => ({
-          tabBarIcon: ({focused, tintColor}) => getTabBarIcon(focused),
+        options={(props) => ({
+          tabBarIcon: ({focused, tintColor}) =>
+            // <CustomTabIcon focused={focused} />
+            getTabBarIcon(focused, props),
         })}
       />
     </Tab.Navigator>

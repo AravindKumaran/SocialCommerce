@@ -30,7 +30,7 @@ import {
   useRoute,
   getFocusedRouteNameFromRoute,
 } from '@react-navigation/native';
-import {getTabBarIcon} from '../../navigation/homeBottomTabNavigator';
+import {c, getTabBarIcon} from '../../navigation/homeBottomTabNavigator';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -69,8 +69,6 @@ const ActiveStyle = () => (
 );
 
 const ProfileScreen = ({navigation, route}) => {
-  // const state = useNavigationState((state) => state);
-  // console.log('State', state);
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
@@ -78,10 +76,6 @@ const ProfileScreen = ({navigation, route}) => {
   const refRBSheet2 = useRef();
 
   const isFocused = useIsFocused();
-
-  // useEffect(()=>{
-  //   getTabBarIcon()
-  // },[user])
 
   const checkUser = async () => {
     setLoading(true);
@@ -135,7 +129,7 @@ const ProfileScreen = ({navigation, route}) => {
           graphqlOperation(createUser, {input: newUser}),
         );
         setUser(res?.data?.createUser);
-        navigation.setOptions({
+        c.setOptions({
           tabBarIcon: ({focused, tintColor}) => (
             <>
               <Image
@@ -155,7 +149,7 @@ const ProfileScreen = ({navigation, route}) => {
       } else {
         setUser(userRes?.data?.getUser);
         // getTabBarIcon(isFocused, userRes.data?.getUser?.imageUri);
-        navigation.setOptions({
+        c.setOptions({
           tabBarIcon: ({focused, tintColor}) => (
             <>
               <Image
@@ -257,7 +251,7 @@ const ProfileScreen = ({navigation, route}) => {
 
   const handleUpdateUser = (user) => {
     console.log('I am called');
-    navigation.setOptions({
+    c.setOptions({
       tabBarIcon: ({focused, tintColor}) => (
         <>
           <Image
