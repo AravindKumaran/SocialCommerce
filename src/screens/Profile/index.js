@@ -84,7 +84,7 @@ const ProfileScreen = ({navigation, route}) => {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
       });
-      console.log('UserInfio', userInfo.attributes);
+      // console.log('UserInfio', userInfo.attributes);
 
       const userRes = await API.graphql(
         graphqlOperation(getUser, {
@@ -92,7 +92,7 @@ const ProfileScreen = ({navigation, route}) => {
         }),
       );
 
-      console.log('UserRews', userRes.data.getUser);
+      // console.log('UserRews', userRes.data.getUser);
 
       // console.log('USer', userRes.data.listUsers.items.length);
       if (!userRes?.data?.getUser) {
@@ -181,7 +181,7 @@ const ProfileScreen = ({navigation, route}) => {
         await Auth.federatedSignIn();
         setTimeout(() => {
           checkUser();
-        }, 5000);
+        }, 3000);
       } catch (error) {
         console.log('Error', error);
       }

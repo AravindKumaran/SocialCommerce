@@ -48,7 +48,7 @@ export let c;
 
 export const getTabBarIcon = (focused, props, imgUri) => {
   c = props.navigation;
-  console.log('C', c);
+  // console.log('C', c);
   // console.log(
   //   'Ref',
   //   props.navigation.setOptions({

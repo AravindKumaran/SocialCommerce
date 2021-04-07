@@ -122,16 +122,6 @@ const TrendingVideo = ({
         onLoad={onLoad}
       />
 
-      <Text
-        style={{
-          color: '#000',
-          position: 'absolute',
-          top: 30,
-          zIndex: 1,
-        }}>
-        Hello
-      </Text>
-
       {fullScreen ? (
         <Slider
           minimumValue={0}
