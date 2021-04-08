@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import Post from '../../components/Post';
 
 const vpHeight = Dimensions.get('window').height;
@@ -17,6 +18,15 @@ const vpWidth = Dimensions.get('window').width;
 const ProfileVideoList = ({navigation, route}) => {
   const flatListRef = useRef(null);
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
+  const focused = useIsFocused();
+  // console.log('Fic', focused);
+
+  useEffect(() => {
+    if (focused === false) {
+      // console.log('False');
+      navigation.goBack();
+    }
+  }, [focused]);
 
   useEffect(() => {
     if (route?.params?.idx) {
