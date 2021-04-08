@@ -18,19 +18,14 @@ import {useNavigation} from '@react-navigation/native';
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-function randomIntFromInterval(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 const TrendingVideo = ({
   videoUri,
   item,
   idx,
   poster,
   style,
-  fullScreen,
-  curIdx,
   isProfile,
+  isCategory,
   data,
 }) => {
   const [paused, setPaused] = useState(true);
@@ -44,15 +39,10 @@ const TrendingVideo = ({
 
   const handleClick = () => {
     console.log('Clicked', idx);
-    // setPaused(!paused);
-    // if (!fullScreen) {
-    //   // onFullScreen(idx);
-    //   // console.log('IDxxx', idx, item);
-    // }
     if (isProfile) {
       navigation.navigate('ProfileVideoList', {idx, item, data});
-    } else {
-      navigation.navigate('Home', {idx, item});
+    } else if (isCategory) {
+      navigation.navigate('TrendingVideoList', {idx, item, data});
     }
   };
 
@@ -79,19 +69,12 @@ const TrendingVideo = ({
         }}
         style={[
           {
-            width: fullScreen ? vpWidth - 10 : vpWidth * 0.33,
+            width: vpWidth * 0.33,
             // height: fullScreen ? vpHeight - 80 : height,
             height: 200,
             margin: 2.5,
             elevation: 5,
-            marginLeft: fullScreen ? 5 : 0,
-            marginBottom: fullScreen ? 5 : 0,
-            borderRadius: fullScreen ? 10 : 4,
-            // position: 'absolute',
-            // top: 0,
-            // left: 0,
-            // right: 0,
-            // bottom: 0,
+            borderRadius: 4,
           },
           style,
         ]}
@@ -104,34 +87,12 @@ const TrendingVideo = ({
             : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png'
         }
         posterResizeMode="cover"
-        repeat={!fullScreen ? idx === 0 : false}
-        paused={
-          fullScreen
-            ? idx === curIdx
-              ? !paused
-              : paused
-            : idx === 0
-            ? false
-            : paused
-        }
-        muted={!fullScreen ? idx === 0 : false}
+        repeat={idx === 0}
+        paused={idx !== 0}
+        muted={true}
         onProgress={onProgress}
         onLoad={onLoad}
       />
-
-      {fullScreen ? (
-        <Slider
-          minimumValue={0}
-          maximumValue={duration}
-          minimumTrackTintColor="red"
-          maximumTrackTintColor="#292929"
-          thumbTintColor="white"
-          step={1}
-          value={currentTime}
-          onValueChange={onSeeking}
-          style={styles.slider}
-        />
-      ) : null}
     </DoubleClick>
   );
 };

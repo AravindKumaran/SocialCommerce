@@ -3,30 +3,19 @@ import {
   View,
   FlatList,
   Dimensions,
-  Image,
   Text,
-  ImageOverlay,
   StyleSheet,
-  TouchableOpacity,
+  BackHandler,
 } from 'react-native';
-import {useIsFocused} from '@react-navigation/native';
+// import {useIsFocused, CommonActions} from '@react-navigation/native';
 import Post from '../../components/Post';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-const ProfileVideoList = ({navigation, route}) => {
+const TrendingVideoList = ({navigation, route}) => {
   const flatListRef = useRef(null);
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
-  const focused = useIsFocused();
-  // console.log('Fic', focused);
-
-  // useEffect(() => {
-  //   if (focused === false) {
-  //     // console.log('False');
-  //     navigation.goBack();
-  //   }
-  // }, [focused]);
 
   useEffect(() => {
     if (route?.params?.idx) {
@@ -63,7 +52,7 @@ const ProfileVideoList = ({navigation, route}) => {
             fontSize: 20,
             padding: 10,
           }}>
-          Your Videos
+          {route?.params?.title || 'Top Trending'}
         </Text>
       </View>
       <FlatList
@@ -95,4 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileVideoList;
+export default TrendingVideoList;
