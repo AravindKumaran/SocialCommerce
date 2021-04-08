@@ -294,7 +294,7 @@ const ProfileScreen = ({navigation, route}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
       {!user ? (
         <View
@@ -377,14 +377,17 @@ const ProfileScreen = ({navigation, route}) => {
                     <EditProfile user={user} saveUser={handleUpdateUser} />
                   </RBSheet>
 
-                  <TouchableOpacity
-                    style={{bottom: 0, left: '750%', position: 'absolute'}}>
-                    <Feather
-                      style={styles.chart}
-                      name={'bar-chart'}
-                      size={20}
-                    />
-                  </TouchableOpacity>
+                  {!route?.params?.postUser && (
+                    <TouchableOpacity
+                      onPress={handleLogout}
+                      style={{bottom: 0, left: '750%', position: 'absolute'}}>
+                      <Feather
+                        style={styles.chart}
+                        name={'bar-chart'}
+                        size={20}
+                      />
+                    </TouchableOpacity>
+                  )}
                 </View>
 
                 <View style={{position: 'absolute', zIndex: 1, top: '110%'}}>
@@ -591,15 +594,15 @@ const ProfileScreen = ({navigation, route}) => {
               />
             </View>
           </View>
-          {!route?.params?.postUser && (
+          {/* {!route?.params?.postUser && (
             <View style={{margin: 20}}>
               <AppButton onPress={handleLogout} title="Logout" />
             </View>
-          )}
+          )} */}
           {user?.id && <Videos userId={user.id} />}
         </View>
       )}
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 

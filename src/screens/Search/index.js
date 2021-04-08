@@ -121,7 +121,7 @@ const Categories = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Searchhbar onSearch={handleSearch} />
 
       <View style={styles.choose}>
@@ -206,18 +206,8 @@ const Categories = () => {
           </View>
         </ScrollView>
       )}
-
-      {/* <View style={{bottom: '62%'}}>
-        <Image
-          style={{bottom: 20, left: 10}}
-          source={require('../../assets/images/Line2.png')}
-          size={15}
-        />
-        <Text style={styles.text2}>Top Trending</Text>
-      </View> */}
-
       {active === 'categories' ? <Trending /> : <Brands />}
-    </View>
+    </ScrollView>
   );
 };
 
