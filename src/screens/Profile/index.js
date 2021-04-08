@@ -22,15 +22,9 @@ import AppButton from '../../components/Common/AppButton';
 import {createUser} from '../../graphql/mutations';
 import {getUser, getUserByEmail, listUsers} from '../../graphql/queries';
 import Videos from '../Profile/videos';
-import {
-  useIsFocused,
-  useNavigationState,
-  CommonActions,
-  useNavigation,
-  useRoute,
-  getFocusedRouteNameFromRoute,
-} from '@react-navigation/native';
-import {c, getTabBarIcon} from '../../navigation/homeBottomTabNavigator';
+import {useIsFocused, CommonActions} from '@react-navigation/native';
+import {c} from '../../navigation/homeBottomTabNavigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -131,6 +125,7 @@ const ProfileScreen = ({navigation, route}) => {
           graphqlOperation(createUser, {input: newUser}),
         );
         setUser(res?.data?.createUser);
+        await AsyncStorage.setItem('userImg', uri);
         c.setOptions({
           tabBarIcon: ({focused, tintColor}) => (
             <>
@@ -150,6 +145,7 @@ const ProfileScreen = ({navigation, route}) => {
         });
       } else {
         setUser(userRes?.data?.getUser);
+        await AsyncStorage.setItem('userImg', userRes.data?.getUser?.imageUri);
         // getTabBarIcon(isFocused, userRes.data?.getUser?.imageUri);
         c.setOptions({
           tabBarIcon: ({focused, tintColor}) => (
@@ -194,6 +190,7 @@ const ProfileScreen = ({navigation, route}) => {
     console.log('User', user);
     Auth.signOut();
     setUser(null);
+    await AsyncStorage.removeItem('userImg');
     c.setOptions({
       tabBarIcon: ({focused, tintColor}) => (
         <>
@@ -229,22 +226,39 @@ const ProfileScreen = ({navigation, route}) => {
   }, []);
 
   useEffect(() => {
-    if (!route?.params?.postUser) {
-      checkUser();
-    } else {
-      setUser(route?.params?.postUser);
-      c.setOptions({
-        tabBarIcon: ({focused, tintColor}) => (
-          <>
-            <Image
-              source={require('../../assets/images/Profile_icon.png')}
-              size={25}
-              style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
-            />
-          </>
-        ),
-      });
-    }
+    const onOtherUser = async () => {
+      if (!route?.params?.postUser) {
+        checkUser();
+      } else {
+        setUser(route?.params?.postUser);
+        const value = await AsyncStorage.getItem('userImg');
+        if (value) {
+          c.setOptions({
+            tabBarIcon: ({focused, tintColor}) => (
+              <>
+                <Image
+                  // source={require('../assets/images/Profile_icon.png')}
+                  source={{
+                    uri: value?.startsWith('https')
+                      ? value
+                      : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${value}`,
+                  }}
+                  size={25}
+                  style={{
+                    bottom: 2,
+                    width: 25,
+                    height: 25,
+                    borderRadius: 12,
+                  }}
+                />
+              </>
+            ),
+          });
+        }
+      }
+    };
+
+    onOtherUser();
   }, [isFocused === true]);
 
   useEffect(() => {

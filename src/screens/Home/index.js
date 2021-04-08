@@ -14,9 +14,36 @@ import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
 import Feather from 'react-native-vector-icons/Feather';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import {c} from '../../navigation/homeBottomTabNavigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
+
+const ActiveStyle = () => (
+  <>
+    <Image
+      style={{
+        position: 'absolute',
+        bottom: 13,
+      }}
+      source={require('../..//assets/images/blur.png')}
+      width={15}
+      height={15}
+      // tintColor={color}
+    />
+    <View
+      style={{
+        width: 27,
+        height: 4,
+        borderRadius: 14,
+        position: 'absolute',
+        bottom: 10,
+        borderBottomColor: '#21FFFC',
+        borderBottomWidth: 4,
+      }}></View>
+  </>
+);
 
 const Home = ({navigation, route}) => {
   const [posts, setPosts] = useState([]);
@@ -27,6 +54,38 @@ const Home = ({navigation, route}) => {
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(10);
   const flatListRef = useRef(null);
+
+  useEffect(() => {
+    const setUserIcon = async () => {
+      const value = await AsyncStorage.getItem('userImg');
+      if (value) {
+        c.setOptions({
+          tabBarIcon: ({focused, tintColor}) => (
+            <>
+              <Image
+                // source={require('../assets/images/Profile_icon.png')}
+                source={{
+                  uri: value?.startsWith('https')
+                    ? value
+                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${value}`,
+                }}
+                size={25}
+                style={{
+                  bottom: 2,
+                  width: 25,
+                  height: 25,
+                  borderRadius: 12,
+                }}
+              />
+              {focused && <ActiveStyle />}
+            </>
+          ),
+        });
+      }
+    };
+    setUserIcon();
+  }, []);
+
   useEffect(() => {
     if (route?.params?.idx) {
       console.log('Routeeitem');

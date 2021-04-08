@@ -30,7 +30,7 @@ const Camera = () => {
       ProcessingManager.getVideoInfo(data.uri).then((stats) =>
         console.log('Before', stats),
       );
-      const options = {width: 360, height: 480};
+      const options = {width: 300, height: 400};
       setCompressing(true);
       ProcessingManager.compress(data.uri, options).then((d) => {
         ProcessingManager.getVideoInfo(d.source).then((stats) =>

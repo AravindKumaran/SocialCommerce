@@ -170,50 +170,6 @@ export const createPost = /* GraphQL */ `
       likes
       thumbnail
       userID
-      user {
-        id
-        username
-        imageUri
-        bio
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postId
-          userID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
