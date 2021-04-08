@@ -37,7 +37,7 @@ const CreatePost = () => {
       alert('Please provide all details');
       return;
     }
-    console.log('gdf', description, thumbnail);
+    // console.log('gdf', description, thumbnail);
     try {
       setLoading(true);
       const response1 = await fetch(route.params.videoUri);
@@ -67,6 +67,7 @@ const CreatePost = () => {
       );
       console.log('posRes', posRes);
       setLoading(false);
+      alert('Your video has been uploaded');
       navigation.navigate('Home', {screen: 'Home'});
     } catch (e) {
       console.error(e);

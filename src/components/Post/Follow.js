@@ -57,18 +57,29 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
         isTouched ? {top: -130} : '',
       ]}>
       {isFollow ? (
-        <TouchableOpacity onPress={handleFollow} style={{bottom: 5}}>
-          <Image
-            // source={require('../../assets/images/Profile1_icon.png')}
-            source={{
-              uri: currentPost.user?.imageUri?.startsWith('https')
-                ? currentPost.user?.imageUri
-                : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${currentPost.user?.imageUri}`,
-            }}
-            size={35}
-            style={{height: 60, width: 60, borderRadius: 30}}
-          />
-        </TouchableOpacity>
+        <>
+          <TouchableOpacity onPress={handleFollow} style={{bottom: 5}}>
+            <Image
+              // source={require('../../assets/images/Profile1_icon.png')}
+              source={{
+                uri: currentPost.user?.imageUri?.startsWith('https')
+                  ? currentPost.user?.imageUri
+                  : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${currentPost.user?.imageUri}`,
+              }}
+              size={35}
+              style={{height: 60, width: 60, borderRadius: 30}}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleFollow}
+            style={{bottom: 17, left: 18, height: 20, width: 40}}>
+            <Image
+              source={require('../../assets/images/tick.png')}
+              size={35}
+              style={{height: 17, width: 24}}
+            />
+          </TouchableOpacity>
+        </>
       ) : (
         <>
           <TouchableOpacity onPress={handleFollow} style={{bottom: 5}}>

@@ -18,8 +18,6 @@ const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
 const Brands = () => {
-  const [fullScreen, setFullScreen] = useState(false);
-  const [curIdx, setCurIdx] = useState(0);
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(10);
@@ -68,27 +66,14 @@ const Brands = () => {
     }
   };
 
-  const handleFullScreen = useCallback(
-    (idx, btn) => {
-      if (btn) {
-        setFullScreen(false);
-        return;
-      }
-      setFullScreen(true);
-      setCurIdx(idx);
-    },
-    [fullScreen],
-  );
-
   const _renderItem = ({item, index}) => (
     <TrendingVideo
       videoUri={item.videoUri}
       idx={index}
       height={item.height}
-      fullScreen={fullScreen}
-      onFullScreen={handleFullScreen}
       poster={item?.thumbnail}
-      item={item}
+      isCategory={true}
+      data={uris}
     />
   );
 

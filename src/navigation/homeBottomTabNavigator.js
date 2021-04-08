@@ -18,6 +18,7 @@ import {color} from 'react-native-reanimated';
 import LinearGradient from 'react-native-linear-gradient';
 import Container from '../navigation/container';
 import ProfileVideoList from '../screens/Profile/ProfileVideoList';
+import TrendingVideoList from '../screens/Search/TrendingVideoList';
 
 const ActiveStyle = () => (
   <>
@@ -115,6 +116,21 @@ const ProfileNavigator = () => (
   </Stack.Navigator>
 );
 
+const ExploreNavigator = () => (
+  <Stack.Navigator initialRouteName="Search">
+    <Stack.Screen
+      name="Search"
+      component={Search}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="TrendingVideoList"
+      component={TrendingVideoList}
+      options={{headerShown: false}}
+    />
+  </Stack.Navigator>
+);
+
 const Tab = createBottomTabNavigator();
 
 const HomeBottomTabNavigator = () => {
@@ -202,7 +218,7 @@ const HomeBottomTabNavigator = () => {
       />
       <Tab.Screen
         name={'Search'}
-        component={Search}
+        component={ExploreNavigator}
         options={{
           tabBarIcon: ({focused, color}) => (
             <>

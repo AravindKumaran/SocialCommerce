@@ -14,16 +14,78 @@ import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
 import Feather from 'react-native-vector-icons/Feather';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import {c} from '../../navigation/homeBottomTabNavigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
+
+const ActiveStyle = () => (
+  <>
+    <Image
+      style={{
+        position: 'absolute',
+        bottom: 13,
+      }}
+      source={require('../..//assets/images/blur.png')}
+      width={15}
+      height={15}
+      // tintColor={color}
+    />
+    <View
+      style={{
+        width: 27,
+        height: 4,
+        borderRadius: 14,
+        position: 'absolute',
+        bottom: 10,
+        borderBottomColor: '#21FFFC',
+        borderBottomWidth: 4,
+      }}></View>
+  </>
+);
 
 const Home = ({navigation, route}) => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
+  const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(10);
   const flatListRef = useRef(null);
+
+  useEffect(() => {
+    const setUserIcon = async () => {
+      const value = await AsyncStorage.getItem('userImg');
+      if (value) {
+        c.setOptions({
+          tabBarIcon: ({focused, tintColor}) => (
+            <>
+              <Image
+                // source={require('../assets/images/Profile_icon.png')}
+                source={{
+                  uri: value?.startsWith('https')
+                    ? value
+                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${value}`,
+                }}
+                size={25}
+                style={{
+                  bottom: 2,
+                  width: 25,
+                  height: 25,
+                  borderRadius: 12,
+                }}
+              />
+              {focused && <ActiveStyle />}
+            </>
+          ),
+        });
+      }
+    };
+    setUserIcon();
+  }, []);
+
   useEffect(() => {
     if (route?.params?.idx) {
       console.log('Routeeitem');
@@ -34,19 +96,10 @@ const Home = ({navigation, route}) => {
     }
   }, [route?.params?.idx]);
 
-  // useEffect(() => {
-  //   if (route?.params?.idx) {
-  //     flatListRef.current.scrollToIndex({index: 0});
-  //     setCurrentVisibleIndex(0);
-  //   }
-  // }, [posts]);
-
-  const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
-  const [nextToken, setNextToken] = useState(undefined);
-
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        setLoading(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
             limit: curLimit,
@@ -54,16 +107,16 @@ const Home = ({navigation, route}) => {
         );
 
         const allItems = response.data.listPosts.items;
-        // console.log('Allitems', response.data.listPosts.nextToken);
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
         console.log('sortedItems', sortedItems.length);
         setNextToken(response.data.listPosts.nextToken);
         setPosts(sortedItems);
+        setLoading(false);
       } catch (e) {
-        console.log('Caledd');
         console.error(e);
+        setLoading(false);
       }
     };
 
@@ -86,6 +139,30 @@ const Home = ({navigation, route}) => {
       }
     } catch (error) {
       console.log('Pagination Error', error);
+    }
+  };
+
+  const handleRefresh = async () => {
+    try {
+      setRefreshing(true);
+      const response = await API.graphql(
+        graphqlOperation(listPosts, {
+          limit: 10,
+        }),
+      );
+
+      const allItems = response.data.listPosts.items;
+      const sortedItems = allItems.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      );
+      console.log('sortedItems Refreshh', sortedItems.length);
+      setCurLimit(10);
+      setNextToken(response.data.listPosts.nextToken);
+      setPosts(sortedItems);
+      setRefreshing(false);
+    } catch (e) {
+      console.error(e);
+      setRefreshing(false);
     }
   };
 
@@ -141,7 +218,9 @@ const Home = ({navigation, route}) => {
         onViewableItemsChanged={_onViewableItemsChanged.current}
         onEndReached={getMorePosts}
         onEndReachedThreshold={0.5}
-        // keyExtractor={(item) => item?.id.toString()}
+        keyExtractor={(item) => item.id.toString()}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
       />
     </View>
   );
