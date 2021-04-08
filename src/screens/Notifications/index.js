@@ -15,67 +15,6 @@ import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import NotifItem from './NotifItem';
 import AppText from '../../components/Common/AppText';
 
-const user = [
-  {
-    name: 'Tamil25',
-    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    comment: 'commented on your photo.',
-    createdat: '11m',
-    reply: 'Reply',
-    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-  },
-  {
-    name: 'Eren45',
-    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    comment: 'commented on your photo.',
-    createdat: '22m',
-    reply: 'Reply',
-    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-  },
-  {
-    name: 'Mikasa',
-    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    comment: 'commented on your photo.',
-    createdat: '33m',
-    reply: 'Reply',
-    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-  },
-  {
-    name: 'Armin65',
-    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    comment: 'commented on your photo.',
-    createdat: '44m',
-    reply: 'Reply',
-    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-  },
-  {
-    name: 'Levi75',
-    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    comment: 'commented on your photo.',
-    createdat: '50m',
-    reply: 'Reply',
-    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-  },
-  {
-    name: 'Hange85',
-    photo: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-    comment: 'commented on your photo.',
-    createdat: '56m',
-    reply: 'Reply',
-    liked: 'https://i.stack.imgur.com/t8vJf.jpg?s=328&g=1',
-  },
-];
-
-const user1 = {
-  __typename: 'User',
-  createdAt: '2021-01-01T17:03:46.393Z',
-  email: 'asfiidarlachu@gmail.com',
-  id: '0914c457-106d-4937-b44f-f430e611a52a',
-  imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
-  updatedAt: '2021-01-01T17:03:46.393Z',
-  username: 'Asfiya begum',
-};
-
 const checkYesterday = () => {
   const today = new Date();
   const yesterday = new Date(today);
