@@ -207,14 +207,14 @@ const Categories = () => {
         </ScrollView>
       )}
 
-      <View style={{bottom: 450}}>
+      {/* <View style={{bottom: '62%'}}>
         <Image
           style={{bottom: 20, left: 10}}
           source={require('../../assets/images/Line2.png')}
           size={15}
         />
         <Text style={styles.text2}>Top Trending</Text>
-      </View>
+      </View> */}
 
       {active === 'categories' ? <Trending /> : <Brands />}
     </View>

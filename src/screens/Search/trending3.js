@@ -172,14 +172,12 @@ const Trending = () => {
 
   return (
     <View style={styles.container}>
-      {/* <View style={{bottom: 30}}>
-        <Image
-          style={{top: 0, left: 10}}
-          source={require('../../assets/images/Line2.png')}
-          size={15}
-        />
-        <Text style={styles.text2}>Top Trending</Text>
-      </View> */}
+      <Image
+        style={{top: 0, left: 10}}
+        source={require('../../assets/images/Line2.png')}
+        size={15}
+      />
+      <Text style={styles.text2}>Top Trending</Text>
       <FlatList
         nestedScrollEnabled={true}
         data={uris}
@@ -197,10 +195,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    marginTop: -450,
+    marginTop: -540,
   },
   text2: {
-    // marginVertical: 30,
+    marginBottom: 30,
     color: '#FFFFFF',
     fontWeight: '700',
     textAlign: 'center',
