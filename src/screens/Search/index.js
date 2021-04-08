@@ -207,11 +207,7 @@ const Categories = () => {
         </ScrollView>
       )}
 
-      <Image
-        style={{bottom: 20, left: 15}}
-        source={require('../../assets/images/Line2.png')}
-        size={15}
-      />
+      
 
       {/* <Text style={styles.text2}>Top Trending</Text> */}
 
