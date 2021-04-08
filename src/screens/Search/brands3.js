@@ -6,6 +6,7 @@ import {
   Dimensions,
   Modal,
   Text,
+  Image,
 } from 'react-native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
@@ -78,6 +79,11 @@ const Brands = () => {
 
   return (
     <View style={styles.container}>
+      <Image
+        style={{top: 35, left: 10}}
+        source={require('../../assets/images/Line2.png')}
+        size={15}
+      />
       <Text style={styles.text2}>Top Trending</Text>
       <FlatList
         nestedScrollEnabled={true}
@@ -96,8 +102,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    marginBottom: 100,
-    marginTop: -500,
+    marginBottom: 50,
+    marginTop: -550,
   },
   text2: {
     marginVertical: 30,
@@ -106,6 +112,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: 'Proxima Nova',
     fontSize: 16,
+    top: 15,
   },
 });
 

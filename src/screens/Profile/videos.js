@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    paddingBottom: 70,
+    paddingBottom: 50,
   },
 });
 
