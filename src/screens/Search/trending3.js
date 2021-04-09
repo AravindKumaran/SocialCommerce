@@ -186,6 +186,7 @@ const Trending = () => {
         onEndReached={getMorePosts}
         onEndReachedThreshold={0.5}
         keyExtractor={(item) => item.id.toString()}
+        style ={{ height: Dimensions.get('window').height}}
       />
     </View>
   );
