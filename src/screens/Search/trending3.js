@@ -113,7 +113,7 @@ const vpWidth = Dimensions.get('window').width;
 const Trending = () => {
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
-  const [curLimit, setCurLimit] = useState(10);
+  const [curLimit, setCurLimit] = useState(9);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -186,7 +186,7 @@ const Trending = () => {
         onEndReached={getMorePosts}
         onEndReachedThreshold={0.5}
         keyExtractor={(item) => item.id.toString()}
-        style ={{ height: Dimensions.get('window').height}}
+        style={{height: Dimensions.get('window').height}}
       />
     </View>
   );

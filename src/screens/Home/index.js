@@ -111,8 +111,12 @@ const Home = ({navigation, route}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        console.log('sortedItems', sortedItems.length);
+        console.log('sortedItemsInside', sortedItems.length);
         setNextToken(response.data.listPosts.nextToken);
+        // if (route?.params?.newPost) {
+        //   setPosts([route?.params?.newPost, ...sortedItems]);
+        // } else {
+        // }
         setPosts(sortedItems);
         setLoading(false);
       } catch (e) {
@@ -122,7 +126,7 @@ const Home = ({navigation, route}) => {
     };
 
     fetchPost();
-  }, [navigation]);
+  }, [navigation, route?.params?.newPost]);
 
   const getMorePosts = async () => {
     try {

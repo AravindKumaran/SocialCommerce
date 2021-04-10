@@ -5,7 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
-  ToastAndroid
+  ToastAndroid,
 } from 'react-native';
 import {v4 as uuidv4, v4} from 'uuid';
 
@@ -28,7 +28,6 @@ const CreatePost = () => {
 
   const [message] = useState('Please provide all details');
   const [message1] = useState('Your video has been uploaded');
-
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -73,7 +72,12 @@ const CreatePost = () => {
       console.log('posRes', posRes);
       setLoading(false);
       ToastAndroid.show(message1, ToastAndroid.SHORT);
-      navigation.navigate('Home', {screen: 'Home'});
+      navigation.navigate('Home', {
+        screen: 'Home',
+        params: {
+          newPost: true,
+        },
+      });
     } catch (e) {
       console.error(e);
     }

@@ -20,7 +20,7 @@ const vpWidth = Dimensions.get('window').width;
 const Brands = () => {
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
-  const [curLimit, setCurLimit] = useState(10);
+  const [curLimit, setCurLimit] = useState(9);
 
   useEffect(() => {
     const fetchPost = async () => {

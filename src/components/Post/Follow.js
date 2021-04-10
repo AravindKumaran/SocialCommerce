@@ -2,11 +2,13 @@ import React, {useState, useEffect} from 'react';
 
 import {StyleSheet, View, Text, Image, Alert, ToastAndroid} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
 
 const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   const [isFollow, setIsFollow] = useState(false);
   const [message] = useState('Please login!');
   const [message1] = useState("You can't follow yourself");
+  const navigation = useNavigation();
 
   useEffect(() => {
     const checkFollowings = async () => {
@@ -46,6 +48,15 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
     }
   };
 
+  const seeProfile = () => {
+    navigation.navigate('Profile', {
+      screen: 'Profile',
+      params: {
+        postUser: currentPost.user,
+      },
+    });
+  };
+
   return (
     <View
       style={[
@@ -59,7 +70,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
       ]}>
       {isFollow ? (
         <>
-          <TouchableOpacity onPress={handleFollow} style={{bottom: 5}}>
+          <TouchableOpacity onPress={seeProfile} style={{bottom: 5}}>
             <Image
               // source={require('../../assets/images/Profile1_icon.png')}
               source={{
@@ -83,7 +94,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
         </>
       ) : (
         <>
-          <TouchableOpacity onPress={handleFollow} style={{bottom: 5}}>
+          <TouchableOpacity onPress={seeProfile} style={{bottom: 5}}>
             <Image
               // source={require('../../assets/images/Profile1_icon.png')}
               source={{
