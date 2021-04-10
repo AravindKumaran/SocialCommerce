@@ -6,6 +6,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   const [isFollow, setIsFollow] = useState(false);
   const [message] = useState('Please login!');
+  const [message1] = useState("You can't follow yourself");
 
   useEffect(() => {
     const checkFollowings = async () => {
@@ -27,7 +28,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
 
   const handleFollow = async () => {
     if (user?.email === currentPost.user.id) {
-      alert("You can't follow yourself");
+      ToastAndroid.show(message1, ToastAndroid.SHORT);
       return;
     }
     if (user) {

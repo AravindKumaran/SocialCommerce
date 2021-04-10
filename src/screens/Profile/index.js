@@ -304,6 +304,7 @@ const ProfileScreen = ({navigation, route}) => {
               alignItems: 'center',
               justifyContent: 'center',
               marginHorizontal: 30,
+              marginTop: 300,
             }}>
             <Text style={{fontSize: 22, margin: 5}}>You are not logged in</Text>
             <AppButton title="Login" onPress={handleLogin} />
