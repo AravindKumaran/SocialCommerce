@@ -105,7 +105,6 @@ const Home = ({navigation, route}) => {
             limit: curLimit,
           }),
         );
-
         const allItems = response.data.listPosts.items;
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
@@ -130,6 +129,7 @@ const Home = ({navigation, route}) => {
   const getMorePosts = async () => {
     try {
       if (nextToken) {
+        setLoading(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
             limit: curLimit + 10,
@@ -140,9 +140,11 @@ const Home = ({navigation, route}) => {
         setCurLimit((lim) => lim + 10);
         setNextToken(response.data.listPosts.nextToken);
         setPosts((post) => [...post, ...response.data.listPosts.items]);
+        setLoading(false);
       }
     } catch (error) {
       console.log('Pagination Error', error);
+      setLoading(false);
     }
   };
 
@@ -185,8 +187,10 @@ const Home = ({navigation, route}) => {
   });
 
   const _onViewableItemsChanged = useRef(({viewableItems, changed}) => {
+    setLoading(true);
     if (viewableItems && viewableItems.length > 0) {
       setCurrentVisibleIndex(viewableItems[0].index);
+      setLoading(false);
     }
   });
 
