@@ -114,7 +114,7 @@ const uris = [
 const Videos = ({userId, postLength}) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [curLimit, setCurLimit] = useState(15);
+  const [curLimit, setCurLimit] = useState(9);
   const [nextToken, setNextToken] = useState(undefined);
 
   useEffect(() => {
