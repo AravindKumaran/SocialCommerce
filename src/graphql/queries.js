@@ -9,6 +9,11 @@ export const getUser = /* GraphQL */ `
       name
       imageUri
       bio
+      posts {
+        items {
+          id
+        }
+      }
       following {
         userId
         userName

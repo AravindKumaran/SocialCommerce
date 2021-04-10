@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {
   StyleSheet,
@@ -8,7 +8,7 @@ import {
   ToastAndroid,
 } from 'react-native';
 
-const PostLike = ({ isTouched, likes, onLike, onUnlike, currentPost, user }) => {
+const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
@@ -39,13 +39,13 @@ const PostLike = ({ isTouched, likes, onLike, onUnlike, currentPost, user }) => 
     if (isLiked) {
       if (user) {
         console.log('I am called1');
-        await onUnlike(currentPost);
+        onUnlike(currentPost);
         setIsLiked(false);
       }
     } else {
       if (user) {
         console.log('I am called2');
-        await onLike(currentPost);
+        onLike(currentPost);
         setIsLiked(true);
       }
     }
@@ -54,13 +54,13 @@ const PostLike = ({ isTouched, likes, onLike, onUnlike, currentPost, user }) => 
   return (
     <View
       style={[
-        { position: 'absolute', right: 20, bottom: 0, top: 50 },
-        isTouched ? { top: -60 } : '',
+        {position: 'absolute', right: 20, bottom: 0, top: 50},
+        isTouched ? {top: -60} : '',
       ]}>
       {isLiked ? (
         <TouchableOpacity onPress={handleLike}>
           <Image
-            style={{ height: 45, width: 45, opacity: 0.7, }}
+            style={{height: 45, width: 45, opacity: 0.7}}
             source={require('../../assets/images/Like_icon1.png')}
             size={25}
           />
@@ -69,9 +69,10 @@ const PostLike = ({ isTouched, likes, onLike, onUnlike, currentPost, user }) => 
         <TouchableOpacity onPress={handleLike}>
           <Image
             style={{
-              height: 45, width: 45, opacity: 0.7,
+              height: 45,
+              width: 45,
+              opacity: 0.7,
             }}
-
             source={require('../../assets/images/Like_icon.png')}
             size={25}
           />

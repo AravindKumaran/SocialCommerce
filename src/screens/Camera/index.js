@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import {View, Text, TouchableOpacity, Image, ToastAndroid} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import {ProcessingManager} from 'react-native-video-processing';
+import RNFS from 'react-native-fs';
 
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
@@ -61,15 +62,40 @@ const Camera = () => {
     const options = {
       mediaType: 'video',
       videoQuality: 'low',
-      maxWidth: 360,
-      maxHeight: 480,
+      maxWidth: 300,
+      maxHeight: 400,
     };
-    launchImageLibrary(options, (res) => {
+    launchImageLibrary(options, async (res) => {
       if (res.fileSize <= 555000000) {
-        console.log(res.uri);
-        navigation.navigate('CreatePost', {
-          videoUri: res.uri,
-        });
+        // console.log('Res', res.uri.replace('content://', 'file:///'));
+        const checkIfExists = await RNFS.exists(
+          `${RNFS.CachesDirectoryPath}/${res.fileName}`,
+        );
+        if (!checkIfExists) {
+          await RNFS.copyFile(
+            res.uri,
+            `${RNFS.CachesDirectoryPath}/${res.fileName}`,
+          );
+        }
+        createThumbnail({
+          url:
+            Platform.OS === 'android'
+              ? `file:///${RNFS.CachesDirectoryPath}/${res.fileName}`
+              : res.uri,
+          timeStamp: 10000,
+        })
+          .then((response) => {
+            console.log({response});
+            setCompressing(false);
+            navigation.navigate('CreatePost', {
+              videoUri: res.uri,
+              thumbnailUri: response.path,
+            });
+          })
+          .catch((err) => {
+            setCompressing(false);
+            console.log({err});
+          });
       } else {
         setTimeout(() => {
           ToastAndroid.show(message, ToastAndroid.SHORT);
