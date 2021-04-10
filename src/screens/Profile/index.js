@@ -601,7 +601,14 @@ const ProfileScreen = ({navigation, route}) => {
               <AppButton onPress={handleLogout} title="Logout" />
             </View>
             )} */}
-            <View>{user?.id && <Videos userId={user.id} />}</View>
+            <View>
+              {user?.id && (
+                <Videos
+                  userId={user.id}
+                  postLength={user?.posts?.items?.length}
+                />
+              )}
+            </View>
           </View>
         )}
       </ScrollView>
