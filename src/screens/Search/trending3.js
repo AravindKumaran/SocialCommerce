@@ -173,7 +173,7 @@ const Trending = () => {
   return (
     <View style={styles.container}>
       <Image
-        style={{top: 35, left: 10}}
+        style={{top: 0, left: 10}}
         source={require('../../assets/images/Line2.png')}
         size={15}
       />
@@ -186,6 +186,7 @@ const Trending = () => {
         onEndReached={getMorePosts}
         onEndReachedThreshold={0.5}
         keyExtractor={(item) => item.id.toString()}
+        style ={{ height: Dimensions.get('window').height}}
       />
     </View>
   );
@@ -195,17 +196,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    marginBottom: 50,
-    marginTop: -550,
+    bottom: 30,
+    // marginTop: -540,
   },
   text2: {
-    marginVertical: 30,
+    marginBottom: 30,
     color: '#FFFFFF',
     fontWeight: '700',
     textAlign: 'center',
     fontFamily: 'Proxima Nova',
     fontSize: 16,
-    top: 15
+    top: 15,
   },
 });
 

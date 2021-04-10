@@ -203,11 +203,11 @@ const Home = ({navigation, route}) => {
       <FlatList
         data={posts}
         ref={flatListRef}
-        getItemLayout={(data, index) => ({
-          length: vpHeight + 10,
-          offset: vpHeight * 1.07 * index,
-          index,
-        })}
+        // getItemLayout={(data, index) => ({
+        //   length: vpHeight + 10,
+        //   offset: vpHeight * 1.07 * index,
+        //   index,
+        // })}
         renderItem={_renderItem}
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}

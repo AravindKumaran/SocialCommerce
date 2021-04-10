@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ActivityIndicator,
+  ToastAndroid
 } from 'react-native';
 import {v4 as uuidv4, v4} from 'uuid';
 
@@ -25,6 +26,10 @@ const CreatePost = () => {
   const [thumbnail, setThumbnail] = useState(route.params.thumbnailUri);
   const [videoKey, setVideoKey] = useState(null);
 
+  const [message] = useState('Please provide all details');
+  const [message1] = useState('Your video has been uploaded');
+
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const signin = useCallback(() => {
@@ -34,7 +39,7 @@ const CreatePost = () => {
 
   const uploadToStorage = async () => {
     if (!description || !route.params.videoUri || !thumbnail) {
-      alert('Please provide all details');
+      ToastAndroid.show(message, ToastAndroid.SHORT);
       return;
     }
     // console.log('gdf', description, thumbnail);
@@ -67,7 +72,7 @@ const CreatePost = () => {
       );
       console.log('posRes', posRes);
       setLoading(false);
-      alert('Your video has been uploaded');
+      ToastAndroid.show(message1, ToastAndroid.SHORT);
       navigation.navigate('Home', {screen: 'Home'});
     } catch (e) {
       console.error(e);

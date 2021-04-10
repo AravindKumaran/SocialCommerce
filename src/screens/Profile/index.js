@@ -294,312 +294,318 @@ const ProfileScreen = ({navigation, route}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {loading && <LoadingIndicator visible={loading} />}
-      {!user ? (
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginHorizontal: 30,
-          }}>
-          <Text style={{fontSize: 22, margin: 5}}>You are not logged in</Text>
-          <AppButton title="Login" onPress={handleLogin} />
-        </View>
-      ) : (
-        <View
-          style={styles.container}
-          // showsVerticalScrollIndicator={false}
-        >
-          <View style={{top: 0, height: 400}}>
-            <View style={{top: 80, marginHorizontal: '4%'}}>
-              <View>
-                <LinearGradient
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 0}}
-                  colors={['#141414', '#232323']}
-                  style={styles.Rectangle}>
-                  <View />
-                </LinearGradient>
+    <View style={styles.container}>
+      <ScrollView nestedScrollEnabled={true}>
+        {loading && <LoadingIndicator visible={loading} />}
+        {!user ? (
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginHorizontal: 30,
+              marginTop: 300,
+            }}>
+            <Text style={{fontSize: 22, margin: 5}}>You are not logged in</Text>
+            <AppButton title="Login" onPress={handleLogin} />
+          </View>
+        ) : (
+          <View
+            style={styles.container}
+            // showsVerticalScrollIndicator={false}
+          >
+            <View style={{top: 0, height: 400}}>
+              <View style={{top: 80, marginHorizontal: '4%'}}>
+                <View>
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
+                    colors={['#141414', '#232323']}
+                    style={styles.Rectangle}>
+                    <View />
+                  </LinearGradient>
 
-                <Image
-                  style={{
-                    top: 180,
-                    position: 'absolute',
-                    left: 5,
-                    width: '98%',
-                  }}
-                  source={require('../../assets/images/Pline.png')}
-                />
-                <Image
-                  style={{
-                    top: 245,
-                    position: 'absolute',
-                    left: 5,
-                    width: '98%',
-                  }}
-                  source={require('../../assets/images/Pline.png')}
-                />
-              </View>
-
-              <View style={{alignItems: 'center'}}>
-                <View style={{top: 110, position: 'absolute'}}>
-                  {!route?.params?.postUser && (
-                    <TouchableOpacity
-                      style={{bottom: 0, right: '750%'}}
-                      onPress={() => refRBSheet.current.open()}>
-                      <Feather name={'edit'} size={20} />
-                    </TouchableOpacity>
-                  )}
-
-                  <RBSheet
-                    ref={refRBSheet}
-                    height={Dimensions.get('window').height - 140}
-                    animationType="fade"
-                    customStyles={{
-                      wrapper: {
-                        backgroundColor: 'rgba(0,0,0,.6)',
-                        padding: 10,
-                      },
-                      draggableIcon: {
-                        backgroundColor: '#000',
-                      },
-                      container: {
-                        backgroundColor: '#1A1A1A',
-                        borderBottomLeftRadius: 10,
-                        borderBottomRightRadius: 10,
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10,
-                        bottom: 85,
-                      },
-                    }}>
-                    <EditProfile user={user} saveUser={handleUpdateUser} />
-                  </RBSheet>
-
-                  <TouchableOpacity
-                    style={{bottom: 0, left: '750%', position: 'absolute'}}>
-                    <Feather
-                      style={styles.chart}
-                      name={'bar-chart'}
-                      size={20}
-                    />
-                  </TouchableOpacity>
+                  <Image
+                    style={{
+                      top: 180,
+                      position: 'absolute',
+                      left: 5,
+                      width: '98%',
+                    }}
+                    source={require('../../assets/images/Pline.png')}
+                  />
+                  <Image
+                    style={{
+                      top: 245,
+                      position: 'absolute',
+                      left: 5,
+                      width: '98%',
+                    }}
+                    source={require('../../assets/images/Pline.png')}
+                  />
                 </View>
 
-                <View style={{position: 'absolute', zIndex: 1, top: '110%'}}>
-                  <View style={{bottom: 40}}>
+                <View style={{alignItems: 'center'}}>
+                  <View style={{top: 110, position: 'absolute'}}>
+                    {!route?.params?.postUser && (
+                      <TouchableOpacity
+                        style={{bottom: 0, right: '750%'}}
+                        onPress={() => refRBSheet.current.open()}>
+                        <Feather name={'edit'} size={20} />
+                      </TouchableOpacity>
+                    )}
+
+                    <RBSheet
+                      ref={refRBSheet}
+                      height={Dimensions.get('window').height - 140}
+                      animationType="fade"
+                      customStyles={{
+                        wrapper: {
+                          backgroundColor: 'rgba(0,0,0,.6)',
+                          padding: 10,
+                        },
+                        draggableIcon: {
+                          backgroundColor: '#000',
+                        },
+                        container: {
+                          backgroundColor: '#1A1A1A',
+                          borderBottomLeftRadius: 10,
+                          borderBottomRightRadius: 10,
+                          borderTopLeftRadius: 10,
+                          borderTopRightRadius: 10,
+                          bottom: 85,
+                        },
+                      }}>
+                      <EditProfile user={user} saveUser={handleUpdateUser} />
+                    </RBSheet>
+
+                    {!route?.params?.postUser && (
+                      <TouchableOpacity
+                        onPress={handleLogout}
+                        style={{bottom: 0, left: '750%', position: 'absolute'}}>
+                        <Feather
+                          style={styles.chart}
+                          name={'bar-chart'}
+                          size={20}
+                        />
+                      </TouchableOpacity>
+                    )}
+                  </View>
+
+                  <View style={{position: 'absolute', zIndex: 1, top: '110%'}}>
+                    <View style={{bottom: 40}}>
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 16,
+                          textAlign: 'center',
+                        }}>
+                        {user?.name}
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 13,
+                        }}>
+                        {` (${user.username}) `}
+                      </Text>
+                    </View>
+
                     <Text
                       style={{
                         color: '#FFFFFF',
                         fontFamily: 'Proxima Nova',
-                        fontWeight: '700',
-                        fontSize: 16,
-                        textAlign: 'center',
+                        fontWeight: '400',
+                        fontSize: 12,
+                        // left: 25,
+                        bottom: 40,
+                        alignSelf: 'center',
                       }}>
-                      {user?.name}
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#FFFFFF',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '700',
-                        fontSize: 13,
-                      }}>
-                      {` (${user.username}) `}
+                      {user.bio}
                     </Text>
                   </View>
 
-                  <Text
-                    style={{
-                      color: '#FFFFFF',
-                      fontFamily: 'Proxima Nova',
-                      fontWeight: '400',
-                      fontSize: 12,
-                      // left: 25,
-                      bottom: 40,
-                      alignSelf: 'center',
-                    }}>
-                    {user.bio}
-                  </Text>
-                </View>
+                  <View style={{top: '40%'}}>
+                    <TouchableOpacity
+                      style={{top: 135, right: 130}}
+                      onPress={() => refRBSheet1.current.open()}>
+                      <Text
+                        style={{
+                          color: '#939495',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '400',
+                          fontSize: 12,
+                        }}>
+                        Followers
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 14,
+                          left: 20,
+                        }}>
+                        {user?.followers?.length || 0}
+                      </Text>
+                    </TouchableOpacity>
 
-                <View style={{top: '40%'}}>
-                  <TouchableOpacity
-                    style={{top: 135, right: 130}}
-                    onPress={() => refRBSheet1.current.open()}>
-                    <Text
-                      style={{
-                        color: '#939495',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '400',
-                        fontSize: 12,
+                    <RBSheet
+                      ref={refRBSheet1}
+                      height={Dimensions.get('window').height - 140}
+                      animationType="fade"
+                      customStyles={{
+                        wrapper: {
+                          backgroundColor: 'rgba(0,0,0,.6)',
+                          padding: 10,
+                        },
+                        draggableIcon: {
+                          backgroundColor: '#000',
+                        },
+                        container: {
+                          backgroundColor: '#1A1A1A',
+                          borderBottomLeftRadius: 10,
+                          borderBottomRightRadius: 10,
+                          borderTopLeftRadius: 10,
+                          borderTopRightRadius: 10,
+                          bottom: 85,
+                        },
                       }}>
-                      Followers
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#FFFFFF',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '700',
-                        fontSize: 14,
-                        left: 20,
-                      }}>
-                      {user?.followers?.length || 0}
-                    </Text>
-                  </TouchableOpacity>
+                      <Followers
+                        data={user.followers}
+                        followingData={user.following}
+                      />
+                    </RBSheet>
 
-                  <RBSheet
-                    ref={refRBSheet1}
-                    height={Dimensions.get('window').height - 140}
-                    animationType="fade"
-                    customStyles={{
-                      wrapper: {
-                        backgroundColor: 'rgba(0,0,0,.6)',
-                        padding: 10,
-                      },
-                      draggableIcon: {
-                        backgroundColor: '#000',
-                      },
-                      container: {
-                        backgroundColor: '#1A1A1A',
-                        borderBottomLeftRadius: 10,
-                        borderBottomRightRadius: 10,
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10,
-                        bottom: 85,
-                      },
-                    }}>
-                    <Followers
-                      data={user.followers}
-                      followingData={user.following}
-                    />
-                  </RBSheet>
+                    <TouchableOpacity
+                      style={{top: 100}}
+                      onPress={() => refRBSheet2.current.open()}>
+                      <Text
+                        style={{
+                          color: '#939495',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '400',
+                          fontSize: 12,
+                        }}>
+                        Following
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 14,
+                          left: 20,
+                        }}>
+                        {user?.following?.length || 0}
+                      </Text>
+                    </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={{top: 100}}
-                    onPress={() => refRBSheet2.current.open()}>
-                    <Text
-                      style={{
-                        color: '#939495',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '400',
-                        fontSize: 12,
+                    <RBSheet
+                      ref={refRBSheet2}
+                      height={Dimensions.get('window').height - 140}
+                      animationType="fade"
+                      customStyles={{
+                        wrapper: {
+                          backgroundColor: 'rgba(0,0,0,.6)',
+                          padding: 10,
+                        },
+                        draggableIcon: {
+                          backgroundColor: '#000',
+                        },
+                        container: {
+                          backgroundColor: '#1A1A1A',
+                          borderBottomLeftRadius: 10,
+                          borderBottomRightRadius: 10,
+                          borderTopLeftRadius: 10,
+                          borderTopRightRadius: 10,
+                          bottom: 85,
+                        },
                       }}>
-                      Following
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#FFFFFF',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '700',
-                        fontSize: 14,
-                        left: 20,
-                      }}>
-                      {user?.following?.length || 0}
-                    </Text>
-                  </TouchableOpacity>
+                      <Following
+                        data={user.following}
+                        followerData={user.followers}
+                      />
+                    </RBSheet>
 
-                  <RBSheet
-                    ref={refRBSheet2}
-                    height={Dimensions.get('window').height - 140}
-                    animationType="fade"
-                    customStyles={{
-                      wrapper: {
-                        backgroundColor: 'rgba(0,0,0,.6)',
-                        padding: 10,
-                      },
-                      draggableIcon: {
-                        backgroundColor: '#000',
-                      },
-                      container: {
-                        backgroundColor: '#1A1A1A',
-                        borderBottomLeftRadius: 10,
-                        borderBottomRightRadius: 10,
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10,
-                        bottom: 85,
-                      },
-                    }}>
-                    <Following
-                      data={user.following}
-                      followerData={user.followers}
-                    />
-                  </RBSheet>
+                    <TouchableOpacity style={{top: 65, left: 150}}>
+                      <Text
+                        style={{
+                          color: '#939495',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '400',
+                          fontSize: 12,
+                        }}>
+                        Posts
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 14,
+                          left: 3,
+                        }}>
+                        {user?.posts?.items?.length || 0}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
 
-                  <TouchableOpacity style={{top: 65, left: 150}}>
-                    <Text
-                      style={{
-                        color: '#939495',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '400',
-                        fontSize: 12,
-                      }}>
-                      Posts
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#FFFFFF',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '700',
-                        fontSize: 14,
-                        left: 3,
-                      }}>
-                      {user?.posts?.items?.length || 0}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-
-                <View style={{top: 135}}>
-                  <TouchableOpacity style={{left: 20, alignSelf: 'center'}}>
-                    <Feather
-                      style={{top: 20, right: 35}}
-                      name={'activity'}
-                      size={20}
-                    />
-                    <Text
-                      style={{
-                        color: '#FFFFFF',
-                        fontFamily: 'Proxima Nova',
-                        fontWeight: '700',
-                        fontSize: 14,
-                      }}>
-                      View Analytics
-                    </Text>
-                  </TouchableOpacity>
+                  <View style={{top: 135}}>
+                    <TouchableOpacity style={{left: 20, alignSelf: 'center'}}>
+                      <Feather
+                        style={{top: 20, right: 35}}
+                        name={'activity'}
+                        size={20}
+                      />
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 14,
+                        }}>
+                        View Analytics
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               </View>
-            </View>
 
-            <View
-              style={{
-                zIndex: -1,
-                position: 'absolute',
-                bottom: 440,
-                width: '100%',
-              }}>
-              <Image
-                style={styles.user}
-                // source={{
-                //   uri: `https://graph.facebook.com/220891159509908/picture?height=500`,
-                // }}
-                source={{
-                  uri: user.imageUri.startsWith('https')
-                    ? user.imageUri
-                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
-                }}
-              />
+              <View
+                style={{
+                  zIndex: -1,
+                  position: 'absolute',
+                  bottom: 440,
+                  width: '100%',
+                }}>
+                <Image
+                  style={styles.user}
+                  // source={{
+                  //   uri: `https://graph.facebook.com/220891159509908/picture?height=500`,
+                  // }}
+                  source={{
+                    uri: user.imageUri.startsWith('https')
+                      ? user.imageUri
+                      : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
+                  }}
+                />
+              </View>
             </View>
-          </View>
-          {!route?.params?.postUser && (
+            {/* {!route?.params?.postUser && (
             <View style={{margin: 20}}>
               <AppButton onPress={handleLogout} title="Logout" />
             </View>
-          )}
-          {user?.id && <Videos userId={user.id} />}
-        </View>
-      )}
-    </SafeAreaView>
+            )} */}
+            <View>{user?.id && <Videos userId={user.id} />}</View>
+          </View>
+        )}
+      </ScrollView>
+    </View>
   );
 };
 
