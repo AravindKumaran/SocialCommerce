@@ -8,6 +8,7 @@ import {
   ImageOverlay,
   StyleSheet,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 import Post from '../../components/Post';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
@@ -50,6 +51,7 @@ const Home = ({navigation, route}) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [isLoader, setLoader] = useState(false);
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(10);
@@ -124,8 +126,9 @@ const Home = ({navigation, route}) => {
 
   const getMorePosts = async () => {
     try {
+      setLoader(true);
       if (nextToken) {
-        setLoading(true);
+        console.log('loader is true', nextToken);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
             limit: curLimit + 10,
@@ -136,11 +139,11 @@ const Home = ({navigation, route}) => {
         setCurLimit((lim) => lim + 10);
         setNextToken(response.data.listPosts.nextToken);
         setPosts((post) => [...post, ...response.data.listPosts.items]);
-        setLoading(false);
+        setLoader(false);
       }
     } catch (error) {
       console.log('Pagination Error', error);
-      setLoading(false);
+      setLoader(false);
     }
   };
 
@@ -190,6 +193,25 @@ const Home = ({navigation, route}) => {
     }
   });
 
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          position: 'relative',
+          width: vpWidth,
+          height: 50,
+          bottom: 120,
+          // paddingVertical: 0,
+          // marginTop: 0,
+          // marginBottom: 0,
+        }}>
+        {isLoader ? (
+          <ActivityIndicator size={'large'} animating color="white" />
+        ) : null}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.mainContainer}>
       {loading && <LoadingIndicator visible={loading} />}
@@ -225,6 +247,7 @@ const Home = ({navigation, route}) => {
         keyExtractor={(item) => item.id.toString()}
         refreshing={refreshing}
         onRefresh={handleRefresh}
+        ListFooterComponent={renderFooter}
       />
     </View>
   );
@@ -293,6 +316,11 @@ const styles = StyleSheet.create({
   cart: {
     bottom: 18,
     left: 350,
+  },
+  footer: {
+    marginTop: 10,
+    alignItems: 'center',
+    zIndex: 1,
   },
 });
 
