@@ -33,11 +33,11 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
     }
     if (user) {
       if (isFollow) {
-        await onUnFollow(currentPost.user);
+        onUnFollow(currentPost.user);
         console.log('I am called1');
         setIsFollow(false);
       } else if (!isFollow) {
-        await onFollow(currentPost.user);
+        onFollow(currentPost.user);
         console.log('I am called2');
         setIsFollow(true);
       }

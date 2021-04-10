@@ -56,13 +56,13 @@ const CommentLikes = ({likes, onLike, onUnlike, comment, user}) => {
     }
     if (isLiked) {
       if (user) {
-        await onUnlike(comment);
+        onUnlike(comment);
         console.log('I am called1');
         setIsLiked(false);
       }
     } else {
       if (user) {
-        await onLike(comment);
+        onLike(comment);
         console.log('I am called2', user);
         setIsLiked(true);
       }
