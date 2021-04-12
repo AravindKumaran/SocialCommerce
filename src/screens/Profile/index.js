@@ -295,7 +295,7 @@ const ProfileScreen = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView nestedScrollEnabled={true}>
+      <View>
         {loading && <LoadingIndicator visible={loading} />}
         {!user ? (
           <View
@@ -611,7 +611,7 @@ const ProfileScreen = ({navigation, route}) => {
             </View>
           </View>
         )}
-      </ScrollView>
+      </View>
     </View>
   );
 };
