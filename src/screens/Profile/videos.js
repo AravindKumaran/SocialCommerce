@@ -194,7 +194,7 @@ const Videos = ({userId, postLength}) => {
         keyExtractor={(item) => item.id.toString()}
         onEndReached={getMorePosts}
         onEndReachedThreshold={0.5}
-        style={{height: Dimensions.get('window').height}}
+        // style={{height: Dimensions.get('window').height}}
       />
     </View>
   );

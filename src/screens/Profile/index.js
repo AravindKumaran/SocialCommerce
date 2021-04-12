@@ -295,7 +295,7 @@ const ProfileScreen = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView nestedScrollEnabled={true}>
+      {/* <ScrollView nestedScrollEnabled={true}> */}
         {loading && <LoadingIndicator visible={loading} />}
         {!user ? (
           <View
@@ -601,17 +601,17 @@ const ProfileScreen = ({navigation, route}) => {
               <AppButton onPress={handleLogout} title="Logout" />
             </View>
             )} */}
-            <View>
+            {/* <View> */}
               {user?.id && (
                 <Videos
                   userId={user.id}
                   postLength={user?.posts?.items?.length}
                 />
               )}
-            </View>
+            {/* </View> */}
           </View>
         )}
-      </ScrollView>
+      {/* </ScrollView> */}
     </View>
   );
 };

@@ -122,94 +122,91 @@ const Categories = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView nestedScrollEnabled={true}>
-        <Searchhbar onSearch={handleSearch} />
+      <Searchhbar onSearch={handleSearch} />
 
-        <View style={styles.choose}>
-          <View>
-            {active === 'categories' ? (
-              <ActiveStyle />
-            ) : (
-              <View style={{height: 52}} />
-            )}
-            <TouchableWithoutFeedback
-              onPress={() => handleActive('categories')}>
-              <Text
-                style={[
-                  styles.text1,
-                  {color: active === 'categories' ? '#21FFFC' : '#FFFFFF'},
-                ]}>
-                Categories
-              </Text>
-            </TouchableWithoutFeedback>
-          </View>
-          <View>
-            {active === 'brands' ? (
-              <ActiveStyle />
-            ) : (
-              <View style={{height: 52}} />
-            )}
-            <TouchableWithoutFeedback onPress={() => handleActive('brands')}>
-              <Text
-                style={[
-                  styles.text1,
-                  {color: active === 'brands' ? '#21FFFC' : '#FFFFFF'},
-                ]}>
-                Brands
-              </Text>
-            </TouchableWithoutFeedback>
-          </View>
+      <View style={styles.choose}>
+        <View>
+          {active === 'categories' ? (
+            <ActiveStyle />
+          ) : (
+            <View style={{height: 52}} />
+          )}
+          <TouchableWithoutFeedback onPress={() => handleActive('categories')}>
+            <Text
+              style={[
+                styles.text1,
+                {color: active === 'categories' ? '#21FFFC' : '#FFFFFF'},
+              ]}>
+              Categories
+            </Text>
+          </TouchableWithoutFeedback>
         </View>
+        <View>
+          {active === 'brands' ? (
+            <ActiveStyle />
+          ) : (
+            <View style={{height: 52}} />
+          )}
+          <TouchableWithoutFeedback onPress={() => handleActive('brands')}>
+            <Text
+              style={[
+                styles.text1,
+                {color: active === 'brands' ? '#21FFFC' : '#FFFFFF'},
+              ]}>
+              Brands
+            </Text>
+          </TouchableWithoutFeedback>
+        </View>
+      </View>
 
-        {active === 'categories' && (
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View style={styles.cat}>
-              {cat.map((c, i) => (
-                <TouchableOpacity key={`${c.name}-${i}`} style={styles.catItem}>
-                  <Image
-                    style={
-                      {
-                        // height: 50,
-                        // width: 50,
-                        // borderWidth: 0.5,
-                        // borderRadius: 25,
-                        // borderColor: '#A1A1A1',
-                        // backgroundColor: '#20232A',
-                      }
+      {active === 'categories' && (
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View style={styles.cat}>
+            {cat.map((c, i) => (
+              <TouchableOpacity key={`${c.name}-${i}`} style={styles.catItem}>
+                <Image
+                  style={
+                    {
+                      // height: 50,
+                      // width: 50,
+                      // borderWidth: 0.5,
+                      // borderRadius: 25,
+                      // borderColor: '#A1A1A1',
+                      // backgroundColor: '#20232A',
                     }
-                    source={c.src}
-                    size={15}
-                    style={{height: 75, width: 75}}
-                  />
-                  <Text style={[styles.catItemText, {marginTop: -10}]}>
-                    {c.name}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </ScrollView>
-        )}
+                  }
+                  source={c.src}
+                  size={15}
+                  style={{height: 75, width: 75}}
+                />
+                <Text style={[styles.catItemText, {marginTop: -10}]}>
+                  {c.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      )}
 
-        {active === 'brands' && (
-          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View style={styles.cat}>
-              {brands.map((b, i) => (
-                <TouchableOpacity key={`${b.name}-${i}`} style={styles.catItem}>
-                  <Image
-                    style={{height: 75, width: 75}}
-                    source={b.src}
-                    size={15}
-                  />
-                  <Text style={[styles.catItemText, {marginTop: -10}]}>
-                    {b.name}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </ScrollView>
-        )}
-        <View>{active === 'categories' ? <Trending /> : <Brands />}</View>
-      </ScrollView>
+      {active === 'brands' && (
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View style={styles.cat}>
+            {brands.map((b, i) => (
+              <TouchableOpacity key={`${b.name}-${i}`} style={styles.catItem}>
+                <Image
+                  style={{height: 75, width: 75}}
+                  source={b.src}
+                  size={15}
+                />
+                <Text style={[styles.catItemText, {marginTop: -10}]}>
+                  {b.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      )}
+      {active === 'categories' ? <Trending /> : <Brands />}
     </View>
   );
 };

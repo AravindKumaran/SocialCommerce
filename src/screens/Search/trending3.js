@@ -186,7 +186,7 @@ const Trending = () => {
         onEndReached={getMorePosts}
         onEndReachedThreshold={0.5}
         keyExtractor={(item) => item.id.toString()}
-        style={{height: Dimensions.get('window').height}}
+        // style={{height: Dimensions.get('window').height}}
       />
     </View>
   );
@@ -196,8 +196,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    bottom: 30,
-    // marginTop: -540,
+    // bottom: 30,
+    marginTop: -540,
   },
   text2: {
     marginBottom: 30,
