@@ -7,6 +7,7 @@ import {
   Modal,
   Text,
   Image,
+  ActivityIndicator
 } from 'react-native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
@@ -20,7 +21,8 @@ const vpWidth = Dimensions.get('window').width;
 const Brands = () => {
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
-  const [curLimit, setCurLimit] = useState(9);
+  const [curLimit, setCurLimit] = useState(12);
+  const [isLoader, setLoader] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -49,6 +51,7 @@ const Brands = () => {
 
   const getMorePosts = async () => {
     try {
+      setLoader(true);
       if (nextToken) {
         const response = await API.graphql(
           graphqlOperation(listPosts, {
@@ -60,9 +63,11 @@ const Brands = () => {
         setCurLimit((lim) => lim + 15);
         setNextToken(response.data.listPosts.nextToken);
         setUris((post) => [...post, ...response.data.listPosts.items]);
+        setLoader(false);
       }
     } catch (error) {
       console.log('Pagination Error', error);
+      setLoader(false);
     }
   };
 
@@ -76,6 +81,25 @@ const Brands = () => {
       data={uris}
     />
   );
+
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          position: 'relative',
+          width: vpWidth,
+          height: 50,
+          bottom: 120,
+          // paddingVertical: 0,
+          // marginTop: 0,
+          // marginBottom: 0,
+        }}>
+        {isLoader ? (
+          <ActivityIndicator size={'large'} animating color="white" />
+        ) : null}
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -93,7 +117,8 @@ const Brands = () => {
         onEndReached={getMorePosts}
         onEndReachedThreshold={0.5}
         keyExtractor={(item) => item.id.toString()}
-        // style={{height: Dimensions.get('window').height}}
+        style={{height: Dimensions.get('window').height}}
+        ListFooterComponent={renderFooter}
       />
     </View>
   );

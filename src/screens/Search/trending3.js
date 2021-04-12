@@ -7,6 +7,7 @@ import {
   Modal,
   Text,
   Image,
+  ActivityIndicator
 } from 'react-native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
@@ -113,7 +114,8 @@ const vpWidth = Dimensions.get('window').width;
 const Trending = () => {
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
-  const [curLimit, setCurLimit] = useState(9);
+  const [curLimit, setCurLimit] = useState(12);
+  const [isLoader, setLoader] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -142,6 +144,7 @@ const Trending = () => {
 
   const getMorePosts = async () => {
     try {
+      setLoader(true);
       if (nextToken) {
         const response = await API.graphql(
           graphqlOperation(listPosts, {
@@ -153,9 +156,11 @@ const Trending = () => {
         setCurLimit((lim) => lim + 15);
         setNextToken(response.data.listPosts.nextToken);
         setUris((post) => [...post, ...response.data.listPosts.items]);
+        setLoader(false);
       }
     } catch (error) {
       console.log('Pagination Error', error);
+      setLoader(false);
     }
   };
 
@@ -169,6 +174,25 @@ const Trending = () => {
       data={uris}
     />
   );
+
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          position: 'relative',
+          width: vpWidth,
+          height: 50,
+          bottom: 120,
+          // paddingVertical: 0,
+          // marginTop: 0,
+          // marginBottom: 0,
+        }}>
+        {isLoader ? (
+          <ActivityIndicator size={'large'} animating color="white" />
+        ) : null}
+      </View>
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -186,7 +210,8 @@ const Trending = () => {
         onEndReached={getMorePosts}
         onEndReachedThreshold={0.5}
         keyExtractor={(item) => item.id.toString()}
-        // style={{height: Dimensions.get('window').height}}
+        style={{height: Dimensions.get('window').height}}
+        ListFooterComponent={renderFooter}
       />
     </View>
   );
@@ -196,8 +221,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    // bottom: 30,
-    marginTop: -540,
+    bottom: 30,
+    // marginTop: -540,
   },
   text2: {
     marginBottom: 30,
