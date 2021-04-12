@@ -9,18 +9,31 @@ import {
 } from 'react-native';
 // import {useIsFocused, CommonActions} from '@react-navigation/native';
 import Post from '../../components/Post';
+import LoadingIndicator from '../../components/Common/LoadingIndicator';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
 const TrendingVideoList = ({navigation, route}) => {
+  const [posts, setPosts] = useState([]);
   const flatListRef = useRef(null);
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (route?.params?.idx) {
-      flatListRef.current.scrollToIndex({index: route?.params?.idx});
-      setCurrentVisibleIndex(route?.params?.idx);
+      // flatListRef.current.scrollToIndex({index: route?.params?.idx});
+      setLoading(true);
+      // const allPosts = [...posts];
+      const allPosts = [...route?.params?.data];
+      const prev = allPosts[route?.params?.idx];
+      allPosts.splice(route?.params?.idx, 1);
+      // console.log('Prev', prev);
+      setPosts([prev, ...allPosts]);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+      // setCurrentVisibleIndex(0);
     }
   }, [route?.params?.idx]);
 
@@ -43,6 +56,7 @@ const TrendingVideoList = ({navigation, route}) => {
   });
   return (
     <View style={styles.container}>
+      {loading && <LoadingIndicator visible={loading} />}
       <View style={{height: 65}}>
         <Text
           style={{
@@ -56,13 +70,13 @@ const TrendingVideoList = ({navigation, route}) => {
         </Text>
       </View>
       <FlatList
-        data={route?.params?.data}
+        data={posts}
         ref={flatListRef}
-        getItemLayout={(data, index) => ({
-          length: vpHeight + 10,
-          offset: vpHeight * 1.07 * index,
-          index,
-        })}
+        // getItemLayout={(data, index) => ({
+        //   length: vpHeight,
+        //   offset: vpHeight * 1.05 * index,
+        //   index,
+        // })}
         renderItem={_renderItem}
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}
