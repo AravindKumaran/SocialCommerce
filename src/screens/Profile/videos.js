@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, FlatList, Dimensions} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Dimensions,
+  ActivityIndicator,
+} from 'react-native';
 import TrendingVideo from '../Search/trendingVideo';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
@@ -9,118 +15,118 @@ import LoadingIndicator from '../../components/Common/LoadingIndicator';
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-// const uris = [
-//   {
-//     key: 1,
-//     uri:
-//       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 2,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 3,
-//     uri:
-//       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 4,
-//     uri:
-//       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 5,
-//     uri:
-//       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 6,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 7,
-//     uri:
-//       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 8,
-//     uri:
-//       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 9,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 10,
-//     uri:
-//       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 11,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 12,
-//     uri:
-//       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 13,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 14,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 15,
-//     uri:
-//       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-// ];
+const uris = [
+  {
+    key: 1,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 2,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 3,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 4,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 5,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 6,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 7,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 8,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 9,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 10,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 11,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 12,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 13,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 14,
+    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+  {
+    key: 15,
+    uri:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    height: 200,
+    width: '33.33%',
+  },
+];
 
 const Videos = ({userId, postLength}) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [curLimit, setCurLimit] = useState(9);
+  const [curLimit, setCurLimit] = useState(12);
   const [nextToken, setNextToken] = useState(undefined);
+  const [isLoader, setLoader] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        console.log('USerId', userId);
         setLoading(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
@@ -131,12 +137,11 @@ const Videos = ({userId, postLength}) => {
           }),
         );
 
-        console.log('Ress', response.data.listPosts.items);
         const allItems = response.data.listPosts.items;
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        console.log('ProfilesortedItems', sortedItems.length);
+        // console.log('sortedItems', sortedItems.length);
         setNextToken(response.data.listPosts.nextToken);
         setPosts(sortedItems);
         setLoading(false);
@@ -151,10 +156,10 @@ const Videos = ({userId, postLength}) => {
   }, [userId, postLength]);
 
   const getMorePosts = async () => {
-    console.log('I am called Profile');
+    console.log('I am called');
     try {
       if (nextToken) {
-        setLoading(true);
+        setLoader(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
             limit: curLimit + 15,
@@ -164,15 +169,15 @@ const Videos = ({userId, postLength}) => {
             nextToken,
           }),
         );
-        // console.log('VideosAllItems', curLimit);
+        // console.log('AllItems', curLimit);
         setCurLimit((lim) => lim + 15);
         setNextToken(response.data.listPosts.nextToken);
         setPosts((post) => [...post, ...response.data.listPosts.items]);
-        setLoading(false);
+        setLoader(false);
       }
     } catch (error) {
       console.log('Pagination Error', error);
-      setLoading(false);
+      setLoader(false);
     }
   };
 
@@ -185,6 +190,26 @@ const Videos = ({userId, postLength}) => {
       data={posts}
     />
   );
+
+  const renderFooter = () => {
+    return (
+      <View
+        style={{
+          position: 'relative',
+          width: vpWidth,
+          height: 50,
+          bottom: 120,
+          // paddingVertical: 0,
+          // marginTop: 0,
+          // marginBottom: 0,
+        }}>
+        {isLoader ? (
+          <ActivityIndicator size={'large'} animating color="white" />
+        ) : null}
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
@@ -196,7 +221,8 @@ const Videos = ({userId, postLength}) => {
         keyExtractor={(item) => item.id.toString()}
         onEndReached={getMorePosts}
         onEndReachedThreshold={0.5}
-        // style={{height: Dimensions.get('window').height}}
+        style={{height: Dimensions.get('window').height}}
+        ListFooterComponent={renderFooter}
       />
     </View>
   );
