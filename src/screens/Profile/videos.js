@@ -15,112 +15,10 @@ import LoadingIndicator from '../../components/Common/LoadingIndicator';
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-const uris = [
-  {
-    key: 1,
-    uri:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 2,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 3,
-    uri:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 4,
-    uri:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 5,
-    uri:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 6,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 7,
-    uri:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 8,
-    uri:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 9,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 10,
-    uri:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 11,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 12,
-    uri:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 13,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 14,
-    uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-  {
-    key: 15,
-    uri:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
-    height: 200,
-    width: '33.33%',
-  },
-];
-
 const Videos = ({userId, postLength}) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [curLimit, setCurLimit] = useState(12);
+  const [curLimit, setCurLimit] = useState(15);
   const [nextToken, setNextToken] = useState(undefined);
   const [isLoader, setLoader] = useState(false);
 
@@ -141,7 +39,7 @@ const Videos = ({userId, postLength}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        // console.log('sortedItems', sortedItems.length);
+        console.log('sortedItems', sortedItems.length);
         setNextToken(response.data.listPosts.nextToken);
         setPosts(sortedItems);
         setLoading(false);
