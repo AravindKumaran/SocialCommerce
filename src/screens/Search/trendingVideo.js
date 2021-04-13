@@ -33,12 +33,11 @@ const TrendingVideo = ({
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const navigation = useNavigation();
-  // console.log('Video', videoUri);
 
   const onSeeking = (currentVideoTime) => setCurrentTime(currentVideoTime);
 
   const handleClick = () => {
-    console.log('Clicked', idx);
+    console.log('Clicked');
     if (isProfile) {
       navigation.navigate('ProfileVideoList', {idx, item, data});
     } else if (isCategory) {

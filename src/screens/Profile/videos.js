@@ -39,7 +39,7 @@ const Videos = ({userId, postLength}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        console.log('sortedItems', sortedItems.length);
+        console.log('sortedItemsProfile', sortedItems.length);
         setNextToken(response.data.listPosts.nextToken);
         setPosts(sortedItems);
         setLoading(false);
@@ -86,6 +86,7 @@ const Videos = ({userId, postLength}) => {
       item={item}
       isProfile={true}
       data={posts}
+      poster={item?.thumbnail}
     />
   );
 

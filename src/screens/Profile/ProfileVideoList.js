@@ -81,7 +81,7 @@ const ProfileVideoList = ({navigation, route}) => {
         </Text>
       </View>
       <FlatList
-        data={route?.params?.data}
+        data={posts}
         ref={flatListRef}
         // getItemLayout={(data, index) => ({
         //   length: vpHeight - 300,

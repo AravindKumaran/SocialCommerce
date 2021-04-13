@@ -7,7 +7,7 @@ import {
   Modal,
   Text,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
@@ -17,99 +17,6 @@ import FullScreenVideo from './fullScreenVideo';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
-
-// const uris = [
-//   {
-//     key: 1,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 2,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 3,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 4,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 5,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 6,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 7,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 8,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 9,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 10,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 11,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 12,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 13,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 14,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-//   {
-//     key: 15,
-//     uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4',
-//     height: 200,
-//     width: '33.33%',
-//   },
-// ];
 
 const Trending = () => {
   const [uris, setUris] = useState([]);
