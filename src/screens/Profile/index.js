@@ -392,7 +392,7 @@ const ProfileScreen = ({navigation, route}) => {
                     )}
                   </View>
 
-                  <View style={{position: 'absolute', zIndex: 1, top: '75%'}}>
+                  <View style={{position: 'absolute', zIndex: 1, top: '65%'}}>
                     <Text
                       style={{
                         color: '#FFFFFF',
