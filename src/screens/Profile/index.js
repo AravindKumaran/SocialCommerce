@@ -392,29 +392,26 @@ const ProfileScreen = ({navigation, route}) => {
                     )}
                   </View>
 
-                  <View style={{position: 'absolute', zIndex: 1, top: '110%'}}>
-                    <View style={{bottom: 40}}>
-                      <Text
-                        style={{
-                          color: '#FFFFFF',
-                          fontFamily: 'Proxima Nova',
-                          fontWeight: '700',
-                          fontSize: 16,
-                          textAlign: 'center',
-                        }}>
-                        {user?.name}
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#FFFFFF',
-                          fontFamily: 'Proxima Nova',
-                          fontWeight: '700',
-                          fontSize: 13,
-                        }}>
-                        {` (${user.username}) `}
-                      </Text>
-                    </View>
-
+                  <View style={{position: 'absolute', zIndex: 1, top: '75%'}}>
+                    <Text
+                      style={{
+                        color: '#FFFFFF',
+                        fontFamily: 'Proxima Nova',
+                        fontWeight: '700',
+                        fontSize: 16,
+                        textAlign: 'center',
+                      }}>
+                      {user?.name}
+                    </Text>
+                    <Text
+                      style={{
+                        color: '#FFFFFF',
+                        fontFamily: 'Proxima Nova',
+                        fontWeight: '700',
+                        fontSize: 13,
+                      }}>
+                      {` (${user.username}) `}
+                    </Text>
                     <Text
                       style={{
                         color: '#FFFFFF',
@@ -422,7 +419,7 @@ const ProfileScreen = ({navigation, route}) => {
                         fontWeight: '400',
                         fontSize: 12,
                         // left: 25,
-                        bottom: 40,
+                        bottom: 0,
                         alignSelf: 'center',
                       }}>
                       {user.bio}

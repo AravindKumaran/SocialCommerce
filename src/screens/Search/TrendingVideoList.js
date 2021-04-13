@@ -81,7 +81,7 @@ const TrendingVideoList = ({navigation, route}) => {
         showsVerticalScrollIndicator={false}
         snapToAlignment={'start'}
         decelerationRate={'fast'}
-        snapToInterval={Dimensions.get('window').height + 45}
+        snapToInterval={Dimensions.get('window').height + 40}
         borderRadius={50}
         viewabilityConfig={_viewabilityConfig.current}
         onViewableItemsChanged={_onViewableItemsChanged.current}
