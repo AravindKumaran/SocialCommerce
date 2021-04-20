@@ -305,8 +305,11 @@ const Post = (props) => {
   };
 
   const handleClick = () => {
-    props.setMuteAll(!props.muteAll);
-    // setMuted(!muted);
+    if (props?.muteAll && props?.setMuteAll) {
+      props?.setMuteAll(!props?.muteAll);
+    } else {
+      setMuted(!muted);
+    }
   };
 
   const handleDoubleClick = () => {
@@ -368,7 +371,7 @@ const Post = (props) => {
               repeat={props.currentIndex === 0}
               paused={paused}
               // muted={muted}
-              muted={props.muteAll}
+              muted={props?.muteAll || muted}
               onProgress={onProgress}
               onLoad={onLoad}
             />

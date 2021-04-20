@@ -112,7 +112,7 @@ const Home = ({navigation, route}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        console.log('sortedItemsInside', sortedItems.length);
+        console.log('sortedItemsInside', sortedItems.length, sortedItems[0]);
         setNextToken(response.data.listPosts.nextToken);
         // if (route?.params?.newPost) {
         //   setPosts([route?.params?.newPost, ...sortedItems]);
