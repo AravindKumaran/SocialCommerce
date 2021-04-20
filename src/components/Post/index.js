@@ -305,7 +305,8 @@ const Post = (props) => {
   };
 
   const handleClick = () => {
-    if (props?.muteAll && props?.setMuteAll) {
+    // console.log('Propsd', props?.muteAll);
+    if (props?.setMuteAll) {
       props?.setMuteAll(!props?.muteAll);
     } else {
       setMuted(!muted);
