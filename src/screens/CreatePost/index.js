@@ -110,34 +110,36 @@ const CreatePost = () => {
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
-      <TextInput
-        value={description}
-        onChangeText={(text) => setDescription(text)}
-        numberOfLines={5}
-        placeholder={'Hashtag'}
-        style={styles.textInput}
-      />
-
-      <View style={{padding: 30}}>
-        <View style={{alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', marginTop: 30}}>
+        <View style={{padding: 10}}>
           <ImagePickerBottomSheet
             imageUri={thumbnail}
             onChangeImage={(uri) => setThumbnail(uri)}
             title="Add Thumbnail"
             tStyle={{color: '#000'}}
             cStyle={{
-              width: 250,
+              width: 130,
               height: 250,
-              borderRadius: 25,
-              backgroundColor: '#333',
+              borderRadius: 10,
+              // backgroundColor: '#333',
             }}
+          />
+        </View>
+        <View style={{flexDirection: 'column'}}>
+          <Text style={styles.text1}>Description</Text>
+          <TextInput
+            value={description}
+            onChangeText={(text) => setDescription(text)}
+            numberOfLines={5}
+            placeholder={'Tell us something about your post...'}
+            style={styles.textInput}
           />
         </View>
       </View>
 
       {user ? (
         <View style={styles.button}>
-          <AppButton onPress={uploadToStorage} title="Publish Video" />
+          <AppButton onPress={uploadToStorage} title="Publish" />
         </View>
       ) : (
         <View style={styles.button}>

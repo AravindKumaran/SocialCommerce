@@ -21,7 +21,7 @@ const RootNavigation = () => {
         <Stack.Screen
           options={{
             headerShown: true,
-            title: 'Post',
+            title: 'Your Post',
           }}
           name="CreatePost"
           component={CreatePost}
