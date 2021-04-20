@@ -55,6 +55,7 @@ const Home = ({navigation, route}) => {
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(10);
+  const [muteAll, setMuteAll] = useState(false);
   const flatListRef = useRef(null);
 
   useEffect(() => {
@@ -182,6 +183,8 @@ const Home = ({navigation, route}) => {
       currentVisibleIndex={currentVisibleIndex}
       user={user}
       navigation={navigation}
+      muteAll={muteAll}
+      setMuteAll={setMuteAll}
     />
   );
 
