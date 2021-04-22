@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import Post from '../../components/Post';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
@@ -45,6 +46,21 @@ const ActiveStyle = () => (
       }}></View>
   </>
 );
+
+const options = {
+  taskName: 'Example',
+  taskTitle: 'ExampleTask title',
+  taskDesc: 'ExampleTask description',
+  taskIcon: {
+    name: 'ic_launcher',
+    type: 'mipmap',
+  },
+  color: '#ff00ff',
+  // linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info
+  parameters: {
+    delay: 1000,
+  },
+};
 
 const Home = ({navigation, route}) => {
   const [posts, setPosts] = useState([]);
