@@ -16,13 +16,15 @@ const styles = StyleSheet.create({
   textInput: {
     margin: 20,
     fontFamily: 'Proxima Nova',
-    fontSize: 15,
+    fontSize: 12,
     borderRadius: 15,
     borderWidth: 1,
     borderColor: '#3F464F',
     height: 220,
     width: 235,
     right: 20,
+    color: 'white',
+    paddingBottom: 180
   },
   button: {
     alignItems: 'center',

@@ -84,11 +84,11 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={handleFollow}
-            style={{bottom: 17, left: 18, height: 20, width: 40}}>
+            style={{bottom: 17, left: 10, height: 30, width: 40}}>
             <Image
               source={require('../../assets/images/tick.png')}
               size={35}
-              style={{height: 17, width: 24}}
+              style={{height: 17, width: 24, left: 8}}
             />
           </TouchableOpacity>
         </>

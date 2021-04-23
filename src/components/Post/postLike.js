@@ -58,7 +58,7 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
         isTouched ? {top: -60} : '',
       ]}>
       {isLiked ? (
-        <TouchableOpacity onPress={handleLike}>
+        <TouchableOpacity onPress={handleLike} style={{height: 50}}>
           <Image
             style={{height: 45, width: 45, opacity: 0.7}}
             source={require('../../assets/images/Like_icon1.png')}
@@ -66,7 +66,7 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
           />
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity onPress={handleLike}>
+        <TouchableOpacity onPress={handleLike} style={{height: 50}}>
           <Image
             style={{
               height: 45,

@@ -349,7 +349,10 @@ const ProfileScreen = ({navigation, route}) => {
                   <View style={{top: 110, position: 'absolute'}}>
                     {!route?.params?.postUser && (
                       <TouchableOpacity
-                        style={{bottom: 0, right: '750%'}}
+                        style={{
+                          bottom: 0,
+                          right: '750%',
+                        }}
                         onPress={() => refRBSheet.current.open()}>
                         <Feather name={'edit'} size={20} />
                       </TouchableOpacity>
@@ -382,7 +385,11 @@ const ProfileScreen = ({navigation, route}) => {
                     {!route?.params?.postUser && (
                       <TouchableOpacity
                         onPress={handleLogout}
-                        style={{bottom: 0, left: '750%', position: 'absolute'}}>
+                        style={{
+                          bottom: 0,
+                          left: '750%',
+                          position: 'absolute',
+                        }}>
                         <Feather
                           style={styles.chart}
                           name={'bar-chart'}
@@ -392,7 +399,7 @@ const ProfileScreen = ({navigation, route}) => {
                     )}
                   </View>
 
-                  <View style={{position: 'absolute', zIndex: 1, top: '77.5%'}}>
+                  <View style={{position: 'absolute', zIndex: 1, top: '62.5%'}}>
                     <Text
                       style={{
                         color: '#FFFFFF',
@@ -428,7 +435,7 @@ const ProfileScreen = ({navigation, route}) => {
 
                   <View style={{top: '40%'}}>
                     <TouchableOpacity
-                      style={{top: 135, right: 130}}
+                      style={{top: 115, right: 130, height: 50, width: 80}}
                       onPress={() => refRBSheet1.current.open()}>
                       <Text
                         style={{
@@ -436,6 +443,7 @@ const ProfileScreen = ({navigation, route}) => {
                           fontFamily: 'Proxima Nova',
                           fontWeight: '400',
                           fontSize: 12,
+                          left: 15,
                         }}>
                         Followers
                       </Text>
@@ -445,7 +453,7 @@ const ProfileScreen = ({navigation, route}) => {
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
                           fontSize: 14,
-                          left: 20,
+                          left: 35,
                         }}>
                         {user?.followers?.length || 0}
                       </Text>
@@ -479,7 +487,7 @@ const ProfileScreen = ({navigation, route}) => {
                     </RBSheet>
 
                     <TouchableOpacity
-                      style={{top: 100}}
+                      style={{top: 65, height: 50, width: 80}}
                       onPress={() => refRBSheet2.current.open()}>
                       <Text
                         style={{
@@ -487,6 +495,7 @@ const ProfileScreen = ({navigation, route}) => {
                           fontFamily: 'Proxima Nova',
                           fontWeight: '400',
                           fontSize: 12,
+                          left: 15,
                         }}>
                         Following
                       </Text>
@@ -496,7 +505,7 @@ const ProfileScreen = ({navigation, route}) => {
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
                           fontSize: 14,
-                          left: 20,
+                          left: 35,
                         }}>
                         {user?.following?.length || 0}
                       </Text>
@@ -529,13 +538,15 @@ const ProfileScreen = ({navigation, route}) => {
                       />
                     </RBSheet>
 
-                    <TouchableOpacity style={{top: 65, left: 150}}>
+                    <TouchableOpacity
+                      style={{top: 15, left: 130, height: 50, width: 80}}>
                       <Text
                         style={{
                           color: '#939495',
                           fontFamily: 'Proxima Nova',
                           fontWeight: '400',
                           fontSize: 12,
+                          left: 15,
                         }}>
                         Posts
                       </Text>
@@ -545,17 +556,18 @@ const ProfileScreen = ({navigation, route}) => {
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
                           fontSize: 14,
-                          left: 3,
+                          left: 25,
                         }}>
                         {user?.posts?.items?.length || 0}
                       </Text>
                     </TouchableOpacity>
                   </View>
 
-                  <View style={{top: 135}}>
-                    <TouchableOpacity style={{left: 20, alignSelf: 'center'}}>
+                  <View style={{top: 90}}>
+                    <TouchableOpacity
+                      style={{left: 20, alignSelf: 'center', top: 10}}>
                       <Feather
-                        style={{top: 20, right: 35}}
+                        style={{top: 10, right: 35}}
                         name={'activity'}
                         size={20}
                       />
@@ -565,6 +577,7 @@ const ProfileScreen = ({navigation, route}) => {
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
                           fontSize: 14,
+                          bottom: 10,
                         }}>
                         View Analytics
                       </Text>

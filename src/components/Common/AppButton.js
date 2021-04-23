@@ -14,7 +14,7 @@ const AppButton = ({title, onPress, btnStyle, txtStyle, iconName}) => {
       <LinearGradient
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}
-        colors={['#5e37f4', '#518bf9', '#21fffc']}
+        colors={['#21fffc', '#518bf9', '#5e37f4']}
         style={styles.button}>
         <Text style={[styles.text, txtStyle]}>{title}</Text>
       </LinearGradient>

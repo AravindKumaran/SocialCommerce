@@ -108,7 +108,7 @@ const ImagePickerBottomSheet = ({
           <Feather
             name={'camera'}
             size={25}
-            style={{marginRight: 10, color: '#000'}}
+            style={{marginRight: 10, color: 'white'}}
           />
         )}
         <Text

@@ -9,23 +9,23 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import {v4 as uuidv4, v4} from 'uuid';
-
 import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
 import {useRoute, useNavigation} from '@react-navigation/native';
-import {withAuthenticator} from 'aws-amplify-react-native';
 import styles from './styles';
 import {createPost} from '../../graphql/mutations';
-import {WebView} from 'react-native-webview';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
 import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomSheet';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import RNPickerSelect from 'react-native-picker-select';
 import DropDownPicker from 'react-native-dropdown-picker';
-
-import BackgroundService from 'react-native-background-actions';
 import AppText from '../../components/Common/AppText';
+
+// import {v4 as uuidv4, v4} from 'uuid';
+// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// import {WebView} from 'react-native-webview';
+// import {withAuthenticator} from 'aws-amplify-react-native';
+// import BackgroundService from 'react-native-background-actions';
+// import AppTextInput from '../../components/Common/AppTextInput';
+// import RNPickerSelect from 'react-native-picker-select';
 
 // const veryIntensiveTask = async (taskDataArguments) => {
 //   // Example of an infinite loop task
@@ -187,69 +187,24 @@ const CreatePost = () => {
   return (
     <ScrollView style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
-      <TextInput
-        value={description}
-        onChangeText={(text) => setDescription(text)}
-        numberOfLines={5}
-        placeholder={'Hashtag'}
-        style={styles.textInput}
-      />
 
-      <View style={{marginHorizontal: 20}}>
-        <AppText>Select Category</AppText>
+      <View style={{height: 1, borderWidth: 1, borderColor: '#3F464F'}} />
 
-        <DropDownPicker
-          items={categoryItems}
-          placeholder="Select an item"
-          containerStyle={{
-            height: 60,
-            borderRadius: 10,
-            marginVertical: 5,
-          }}
-          style={{backgroundColor: '#fafafa'}}
-          itemStyle={{
-            justifyContent: 'flex-start',
-          }}
-          dropDownStyle={{backgroundColor: '#20232A', color: '#fff'}}
-          onChangeItem={(item) => setCategory(item.value)}
-        />
-      </View>
-
-      <View style={{marginHorizontal: 20}}>
-        <AppText>Select Brand</AppText>
-        <DropDownPicker
-          items={brandItems}
-          placeholder="Select an item"
-          containerStyle={{
-            height: 60,
-            borderRadius: 10,
-            marginVertical: 5,
-          }}
-          style={{backgroundColor: '#fafafa'}}
-          itemStyle={{
-            justifyContent: 'flex-start',
-          }}
-          dropDownStyle={{backgroundColor: '#20232A'}}
-          onChangeItem={(item) => setCategory(item.value)}
-        />
-      </View>
-
-      <View style={{padding: 30}}>
+      <View style={{padding: 10, flexDirection: 'row'}}>
         <View style={{alignItems: 'center'}}>
           <ImagePickerBottomSheet
             imageUri={thumbnail}
             onChangeImage={(uri) => setThumbnail(uri)}
             title="Add Thumbnail"
-            tStyle={{color: '#000'}}
+            tStyle={{color: 'white', fontSize: 12}}
             cStyle={{
               width: 130,
               height: 250,
               borderRadius: 10,
-              // backgroundColor: '#333',
             }}
           />
         </View>
-        <View style={{flexDirection: 'column'}}>
+        <View style={{flexDirection: 'column', left: 10, bottom: 10}}>
           <Text style={styles.text1}>Description</Text>
           <TextInput
             value={description}
@@ -257,8 +212,52 @@ const CreatePost = () => {
             numberOfLines={5}
             placeholder={'Tell us something about your post...'}
             style={styles.textInput}
+            placeholderTextColor={'rgba(255, 255, 255, 0.35)'}
           />
         </View>
+      </View>
+
+      <View style={{marginHorizontal: 20}}>
+        <AppText style={{color: 'white', fontSize: 12}}>Categories</AppText>
+
+        <DropDownPicker
+          items={categoryItems}
+          placeholder="Select the Category"
+          containerStyle={{
+            height: 40,
+            borderRadius: 30,
+            marginVertical: 5,
+          }}
+          style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          dropDownStyle={{backgroundColor: '#20232A', color: '#fff'}}
+          onChangeItem={(item) => setCategory(item.value)}
+          placeholderStyle={{color: 'white', fontSize: 12}}
+          arrowColor={{color: 'white'}}
+        />
+      </View>
+
+      <View style={{marginHorizontal: 20, paddingBottom: 130}}>
+        <AppText style={{color: 'white', fontSize: 12}}>Brand</AppText>
+        <DropDownPicker
+          items={brandItems}
+          placeholder="Select the Brand"
+          containerStyle={{
+            height: 40,
+            borderRadius: 30,
+            marginVertical: 5,
+          }}
+          style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          dropDownStyle={{backgroundColor: '#20232A'}}
+          onChangeItem={(item) => setCategory(item.value)}
+          placeholderStyle={{color: 'white', fontSize: 12}}
+          arrowColor={{color: 'white'}}
+        />
       </View>
 
       {user ? (
@@ -267,7 +266,11 @@ const CreatePost = () => {
         </View>
       ) : (
         <View style={styles.button}>
-          <AppButton onPress={handleSignIn} title="Please sign in first" />
+          <AppButton
+            style={{top: 20}}
+            onPress={handleSignIn}
+            title="Please sign in first"
+          />
         </View>
       )}
     </ScrollView>

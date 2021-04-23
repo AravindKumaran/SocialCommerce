@@ -26,18 +26,18 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     padding: 10,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    bottom: 150,
+    alignItems: 'flex-start',
+    bottom: 170,
   },
   handle: {
     color: '#fff',
     fontFamily: 'Proxima Nova',
     fontSize: 20,
     fontWeight: '700',
-    bottom: 25,
-    left: 10,
+    bottom: 0,
+    left: 0,
   },
   description: {
     color: '#fff',

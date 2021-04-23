@@ -542,7 +542,6 @@ const Post = (props) => {
                   bottom: 0,
                   top: 160,
                   zIndex: 1,
-                  backgroundColor: 'red',
                 }}
                 onPress={() => setPressed(!isPressed)}></TouchableOpacity>
 
@@ -624,27 +623,31 @@ const Post = (props) => {
             <View style={styles.bottomContainer}>
               <>
                 {!isTouched ? (
-                  <TouchableOpacity
-                    onPress={() =>
-                      // navigation.navigate('Profile', {
-                      //   postUser: props.post.user,
-                      // })
-                      navigation.navigate('Profile', {
-                        screen: 'Profile',
-                        params: {
-                          postUser: props.post.user,
-                        },
-                      })
-                    }>
-                    <Text style={styles.handle}>{post?.user?.username}</Text>
-
-                    <Image
-                      source={require('../../assets/images/Dot.png')}
-                      size={25}
-                      style={{bottom: 15, left: 10}}
-                    />
-                    <Text style={styles.description}>{post.description}</Text>
-                  </TouchableOpacity>
+                  <>
+                    <TouchableOpacity
+                      style={{left: 10}}
+                      onPress={() =>
+                        // navigation.navigate('Profile', {
+                        //   postUser: props.post.user,
+                        // })
+                        navigation.navigate('Profile', {
+                          screen: 'Profile',
+                          params: {
+                            postUser: props.post.user,
+                          },
+                        })
+                      }>
+                      <Text style={styles.handle}>{post?.user?.username}</Text>
+                    </TouchableOpacity>
+                    <View style={{flexDirection: 'row', top: 25}}>
+                      <Image
+                        source={require('../../assets/images/Dot.png')}
+                        size={25}
+                        style={{bottom: 18, left: 10}}
+                      />
+                      <Text style={styles.description}>{post.description}</Text>
+                    </View>
+                  </>
                 ) : (
                   <View />
                 )}
