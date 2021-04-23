@@ -91,7 +91,7 @@ export const getTabBarIcon = (focused, props, imgUri) => {
         <Image
           source={require('../assets/images/Profile_icon.png')}
           size={25}
-          style={{bottom: 2, width: 25, height: 25}}
+          style={{bottom: 2, width: 32, height: 32}}
         />
 
         {focused && <ActiveStyle />}

@@ -8,7 +8,12 @@ import {
   ToastAndroid,
   StyleSheet,
   ScrollView,
+  NativeModules,
 } from 'react-native';
+import {v4 as uuidv4, v4} from 'uuid';
+
+const {RNVideoEditorSDK} = NativeModules;
+
 import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import styles from './styles';
@@ -19,13 +24,12 @@ import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomShe
 import DropDownPicker from 'react-native-dropdown-picker';
 import AppText from '../../components/Common/AppText';
 
-// import {v4 as uuidv4, v4} from 'uuid';
-// import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-// import {WebView} from 'react-native-webview';
-// import {withAuthenticator} from 'aws-amplify-react-native';
-// import BackgroundService from 'react-native-background-actions';
-// import AppTextInput from '../../components/Common/AppTextInput';
-// import RNPickerSelect from 'react-native-picker-select';
+import {
+  VESDK,
+  VideoEditorModal,
+  Configuration,
+  PESDK,
+} from 'react-native-videoeditorsdk';
 
 // const veryIntensiveTask = async (taskDataArguments) => {
 //   // Example of an infinite loop task
@@ -90,6 +94,7 @@ const CreatePost = () => {
   const [category, setCategory] = useState();
   const [brand, setBrand] = useState();
   const [videoKey, setVideoKey] = useState(null);
+  const [videoUrii, setVideoUrii] = useState(route.params.videoUri);
 
   const [message] = useState('Please provide all details');
   const [message1] = useState('Your video has been uploaded');
@@ -98,21 +103,14 @@ const CreatePost = () => {
   const [loading, setLoading] = useState(false);
 
   const uploadToStorage = async () => {
-    if (
-      !description ||
-      !route.params.videoUri ||
-      !thumbnail ||
-      !category ||
-      !brand
-    ) {
+    // console.log('gdf', videoUrii, description, category, brand);
+    if (!description || !videoUrii || !thumbnail || !category || !brand) {
       ToastAndroid.show(message, ToastAndroid.SHORT);
       return;
     }
-    console.log('gdf', category, brand);
-    // return;
     try {
       setLoading(true);
-      const response1 = await fetch(route.params.videoUri);
+      const response1 = await fetch(videoUrii);
       const blob1 = await response1.blob();
       const response2 = await fetch(thumbnail);
       const blob2 = await response2.blob();
@@ -176,7 +174,7 @@ const CreatePost = () => {
   };
   useEffect(() => {
     console.log('route.params.videoUri', route.params.videoUri);
-    // checkUser();
+    checkUser();
   }, []);
 
   const handleSignIn = async () => {
@@ -216,6 +214,27 @@ const CreatePost = () => {
           />
         </View>
       </View>
+      <AppButton
+        onPress={() =>
+          VESDK.openEditor({
+            uri: videoUrii,
+          })
+            .then((res) => {
+              if (res?.hasChanges === true) {
+                setVideoUrii(res.video);
+              }
+            })
+            .catch((err) => console.log('Error', err))
+        }
+        title="Edit Video"
+      />
+      <TextInput
+        value={description}
+        onChangeText={(text) => setDescription(text)}
+        numberOfLines={5}
+        placeholder={'Hashtag'}
+        style={styles.textInput}
+      />
 
       <View style={{marginHorizontal: 20}}>
         <AppText style={{color: 'white', fontSize: 12}}>Categories</AppText>
@@ -254,7 +273,7 @@ const CreatePost = () => {
             justifyContent: 'flex-start',
           }}
           dropDownStyle={{backgroundColor: '#20232A'}}
-          onChangeItem={(item) => setCategory(item.value)}
+          onChangeItem={(item) => setBrand(item.value)}
           placeholderStyle={{color: 'white', fontSize: 12}}
           arrowColor={{color: 'white'}}
         />
