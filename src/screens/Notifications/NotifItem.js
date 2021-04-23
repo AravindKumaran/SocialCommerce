@@ -1,66 +1,86 @@
 import React from 'react';
 
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import TimeAgo from 'react-native-timeago';
+import {useNavigation} from '@react-navigation/native';
 import AppText from '../../components/Common/AppText';
 
 const NotifItem = ({item}) => {
+  const navigation = useNavigation();
+
   return (
-    <View
-      key={item.id}
-      style={[
-        styles.ntfCard,
-        //    index === todayNotif.length - 1 ? {marginBottom: 100} : null,
-      ]}>
-      <View style={{width: 40, marginHorizontal: 10}}>
-        <Image
-          source={{
-            uri: item?.user?.imageUri.startsWith('https')
-              ? item?.user?.imageUri
-              : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${item?.user?.imageUri}`,
-          }}
-          style={{
-            height: 35,
-            width: 35,
-            borderRadius: 20,
-            marginTop: 7,
-          }}
-        />
-      </View>
+    <>
+      <View
+        key={item.id}
+        style={[
+          styles.ntfCard,
+          //    index === todayNotif.length - 1 ? {marginBottom: 100} : null,
+        ]}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Profile', {
+              screen: 'Profile',
+              params: {
+                postUser: item.user,
+              },
+            })
+          }
+          style={{width: 40, marginHorizontal: 10}}>
+          <Image
+            source={{
+              uri: item?.user?.imageUri.startsWith('https')
+                ? item?.user?.imageUri
+                : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${item?.user?.imageUri}`,
+            }}
+            style={{
+              height: 35,
+              width: 35,
+              borderRadius: 20,
+              marginTop: 7,
+            }}
+          />
+        </TouchableOpacity>
 
-      <View style={{flex: 1, top: 5}}>
-        <AppText style={{color: '#fff', fontSize: 12, fontWeight: '700'}}>
-          {item.user.username}
-          <AppText style={{fontSize: 12, color: '#fff', fontWeight: '400'}}>
-            {item.notification.message}
+        <View style={{flex: 1, top: 5}}>
+          <AppText style={{color: '#fff', fontSize: 12, fontWeight: '700'}}>
+            {item.user.username}
+            <AppText style={{fontSize: 12, color: '#fff', fontWeight: '400'}}>
+              {item.notification.message}
+            </AppText>
           </AppText>
-        </AppText>
 
-        <AppText
-          style={{
-            color: '#5C5C5C',
-            fontSize: 12,
-            fontWeight: '400',
-            bottom: 10,
-          }}>
-          <TimeAgo time={item.createdAt} />
-        </AppText>
+          <AppText
+            style={{
+              color: '#5C5C5C',
+              fontSize: 12,
+              fontWeight: '400',
+              bottom: 10,
+            }}>
+            <TimeAgo time={item.createdAt} />
+          </AppText>
+        </View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('NotifVideoPlay', {
+              item: {...item.post, user: item.user},
+            })
+          }
+          style={{width: 40, marginHorizontal: 10}}>
+          <Image
+            source={{
+              uri: item?.post?.thumbnail.startsWith('https')
+                ? item?.post?.thumbnail
+                : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${item.post?.thumbnail}`,
+            }}
+            style={{
+              height: 35,
+              width: 35,
+              marginTop: 7,
+            }}
+          />
+        </TouchableOpacity>
       </View>
-      <View style={{width: 40, marginHorizontal: 10}}>
-        <Image
-          source={{
-            uri: item?.post?.thumbnail.startsWith('https')
-              ? item?.post?.thumbnail
-              : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${item.post?.thumbnail}`,
-          }}
-          style={{
-            height: 35,
-            width: 35,
-            marginTop: 7,
-          }}
-        />
-      </View>
-    </View>
+    </>
   );
 };
 

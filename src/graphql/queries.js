@@ -466,6 +466,21 @@ export const listUserNotifications = /* GraphQL */ `
           username
           imageUri
           bio
+          posts {
+            items {
+              id
+            }
+          }
+          following {
+            userId
+            userName
+            imgUri
+          }
+          followers {
+            userId
+            userName
+            imgUri
+          }
           createdAt
           updatedAt
         }
@@ -476,6 +491,38 @@ export const listUserNotifications = /* GraphQL */ `
           likes
           thumbnail
           userID
+          user {
+            id
+            username
+            imageUri
+            posts {
+              items {
+                id
+                videoUri
+                description
+                thumbnail
+                likes
+                userID
+                user {
+                  id
+                  username
+                  imageUri
+                }
+              }
+            }
+            following {
+              userId
+              userName
+              imgUri
+            }
+            followers {
+              userId
+              userName
+              imgUri
+            }
+            createdAt
+            updatedAt
+          }
           songID
           createdAt
           updatedAt

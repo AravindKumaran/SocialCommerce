@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import Post from '../../components/Post';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
@@ -46,6 +47,21 @@ const ActiveStyle = () => (
   </>
 );
 
+const options = {
+  taskName: 'Example',
+  taskTitle: 'ExampleTask title',
+  taskDesc: 'ExampleTask description',
+  taskIcon: {
+    name: 'ic_launcher',
+    type: 'mipmap',
+  },
+  color: '#ff00ff',
+  // linkingURI: 'yourSchemeHere://chat/jane', // See Deep Linking for more info
+  parameters: {
+    delay: 1000,
+  },
+};
+
 const Home = ({navigation, route}) => {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
@@ -55,6 +71,7 @@ const Home = ({navigation, route}) => {
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(10);
+  const [muteAll, setMuteAll] = useState(false);
   const flatListRef = useRef(null);
 
   useEffect(() => {
@@ -111,7 +128,7 @@ const Home = ({navigation, route}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        console.log('sortedItemsInside', sortedItems.length);
+        console.log('sortedItemsInside', sortedItems.length, sortedItems[0]);
         setNextToken(response.data.listPosts.nextToken);
         // if (route?.params?.newPost) {
         //   setPosts([route?.params?.newPost, ...sortedItems]);
@@ -182,6 +199,8 @@ const Home = ({navigation, route}) => {
       currentVisibleIndex={currentVisibleIndex}
       user={user}
       navigation={navigation}
+      muteAll={muteAll}
+      setMuteAll={setMuteAll}
     />
   );
 

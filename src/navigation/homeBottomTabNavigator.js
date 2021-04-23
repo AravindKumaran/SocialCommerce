@@ -19,6 +19,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Container from '../navigation/container';
 import ProfileVideoList from '../screens/Profile/ProfileVideoList';
 import TrendingVideoList from '../screens/Search/TrendingVideoList';
+import NotifVideoPlay from '../screens/Notifications/NotifVideoPlay';
 
 const ActiveStyle = () => (
   <>
@@ -126,6 +127,20 @@ const ExploreNavigator = () => (
     <Stack.Screen
       name="TrendingVideoList"
       component={TrendingVideoList}
+      options={{headerShown: false}}
+    />
+  </Stack.Navigator>
+);
+const NotifNavigator = () => (
+  <Stack.Navigator initialRouteName="Notification">
+    <Stack.Screen
+      name="Notification"
+      component={Notifications}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="NotifVideoPlay"
+      component={NotifVideoPlay}
       options={{headerShown: false}}
     />
   </Stack.Navigator>
@@ -261,7 +276,7 @@ const HomeBottomTabNavigator = () => {
       />
       <Tab.Screen
         name={'Notification'}
-        component={Notifications}
+        component={NotifNavigator}
         options={{
           tabBarIcon: ({focused, color}) => (
             <>

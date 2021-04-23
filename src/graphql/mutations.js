@@ -169,6 +169,8 @@ export const createPost = /* GraphQL */ `
       description
       likes
       thumbnail
+      category
+      brand
       userID
       createdAt
       updatedAt

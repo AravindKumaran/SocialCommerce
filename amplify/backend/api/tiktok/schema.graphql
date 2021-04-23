@@ -24,6 +24,9 @@ type Post @model @key(name: "byUser", fields: ["userID"]) {
   likes: [String]
   thumbnail: String
 
+  category: String!
+  brand: String!
+
   userID: String!
   user: User @connection(fields: ["userID"])
 

@@ -16,6 +16,7 @@ const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
 const Videos = ({userId, postLength}) => {
+  console.log('ghg', userId, postLength);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [curLimit, setCurLimit] = useState(15);
@@ -39,7 +40,7 @@ const Videos = ({userId, postLength}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        console.log('sortedItemsProfile', sortedItems.length);
+        console.log('sortedItemsProfile', sortedItems.length, sortedItems[0]);
         setNextToken(response.data.listPosts.nextToken);
         setPosts(sortedItems);
         setLoading(false);
@@ -54,7 +55,7 @@ const Videos = ({userId, postLength}) => {
   }, [userId, postLength]);
 
   const getMorePosts = async () => {
-    console.log('I am called');
+    console.log('I am called222');
     try {
       if (nextToken) {
         setLoader(true);

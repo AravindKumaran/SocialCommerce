@@ -271,7 +271,7 @@ const Comments = ({postId, postUserId, curUser}) => {
                 <View style={styles.cmCardContent}>
                   <View style={{width: 40, padding: 5}}>
                     <Image
-                      source={{uri: cm.user.imageUri}}
+                      source={{uri: cm?.user?.imageUri}}
                       style={{
                         height: 35,
                         width: 35,
@@ -291,7 +291,7 @@ const Comments = ({postId, postUserId, curUser}) => {
                           color: '#20232A',
                           // top: 5,
                         }}>
-                        {cm.user.username}
+                        {cm?.user?.username}
                       </AppText>{' '}
                       <AppText
                         style={{
