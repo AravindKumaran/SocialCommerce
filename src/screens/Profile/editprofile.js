@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
   ToastAndroid,
+  ScrollView,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
@@ -101,13 +102,8 @@ const EditProfile = ({user, saveUser}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {loading && <LoadingIndicator visible={loading} />}
-      {/* <LinearGradient
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 0}}
-        colors={['#1A1A1A', '#232323']}
-        style={styles.container}> */}
       <View style={{padding: 30}}>
         <View style={{alignItems: 'center'}}>
           <ImagePickerBottomSheet
@@ -116,7 +112,6 @@ const EditProfile = ({user, saveUser}) => {
           />
         </View>
       </View>
-
       <View style={{padding: 0, alignItems: 'center'}}>
         <View style={{top: 20}}>
           <Text
@@ -158,7 +153,7 @@ const EditProfile = ({user, saveUser}) => {
         </View>
       </View>
 
-      <View style={{alignItems: 'center', top: 100}}>
+      <View style={{alignItems: 'center', paddingTop: 100}}>
         <LinearGradient
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
@@ -177,8 +172,7 @@ const EditProfile = ({user, saveUser}) => {
           </TouchableOpacity>
         </LinearGradient>
       </View>
-      {/* </LinearGradient> */}
-    </View>
+    </ScrollView>
   );
 };
 export default EditProfile;
@@ -186,6 +180,8 @@ export default EditProfile;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginVertical: 5,
+    paddingHorizontal: 10,
     backgroundColor: '#1A1A1A',
   },
   user: {
