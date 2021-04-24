@@ -352,6 +352,7 @@ const ProfileScreen = ({navigation, route}) => {
                         style={{
                           bottom: 0,
                           right: '750%',
+                          height: 50,
                         }}
                         onPress={() => refRBSheet.current.open()}>
                         <Feather name={'edit'} size={20} />
@@ -389,6 +390,7 @@ const ProfileScreen = ({navigation, route}) => {
                           bottom: 0,
                           left: '750%',
                           position: 'absolute',
+                          height: 50,
                         }}>
                         <Feather
                           style={styles.chart}
