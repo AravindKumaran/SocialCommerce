@@ -28,6 +28,7 @@ import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
 import Follow from './Follow';
 import {NavigationActions} from 'react-navigation';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Post = (props) => {
   // console.log('Props', props.post);
@@ -37,6 +38,7 @@ const Post = (props) => {
 
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(false);
+  const [showLikeIcon, setShowLikeIcon] = useState(false);
   const [showMutedIcon, setShowMutedIcon] = useState(false);
   const [showPauseIcon, setShowPauseIcon] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -90,10 +92,9 @@ const Post = (props) => {
 
   const vidRef = useRef();
   const refRBSheet = useRef();
+  const likeIconRef = useRef();
   const showRef = useRef();
   const showPauseRef = useRef();
-  const playerRef = useRef();
-  const videoPlayer = useRef();
 
   useEffect(() => {
     if (!props.post?.videoUri?.startsWith('https')) {
@@ -131,6 +132,13 @@ const Post = (props) => {
         if (user) {
           console.log('Cpost.likes', cPost.likes);
           cPost.likes.push(user.email);
+          if (likeIconRef.current) {
+            clearTimeout(likeIconRef.current);
+          }
+          setShowLikeIcon(true);
+          likeIconRef.current = setTimeout(() => {
+            setShowLikeIcon(false);
+          }, 1000);
           const likes = cPost.likes;
           await API.graphql(
             graphqlOperation(updatePost, {
@@ -306,15 +314,33 @@ const Post = (props) => {
 
   const handleClick = () => {
     // console.log('Propsd', props?.muteAll);
+    showPauseRef.current = null;
+    if (showRef.current) {
+      clearTimeout(showRef.current);
+    }
     if (props?.setMuteAll) {
       props?.setMuteAll(!props?.muteAll);
+      // console.log('df');
     } else {
+      // console.log('TGH');
       setMuted(!muted);
     }
+    setShowMutedIcon(true);
+    showRef.current = setTimeout(() => {
+      setShowMutedIcon(false);
+    }, 1000);
   };
 
   const handleDoubleClick = () => {
+    showRef.current = null;
+    if (showPauseRef.current) {
+      clearTimeout(showPauseRef.current);
+    }
     setPaused(!paused);
+    setShowPauseIcon(true);
+    showPauseRef.current = setTimeout(() => {
+      setShowPauseIcon(false);
+    }, 1000);
   };
 
   const click = () => {
@@ -398,7 +424,28 @@ const Post = (props) => {
             /> */}
           </View>
 
-          {/* {showMutedIcon && (
+          {showLikeIcon && (
+            <View
+              style={{
+                position: 'absolute',
+                bottom: '50%',
+                left: '30%',
+                height: 120,
+                width: 120,
+                backgroundColor: `rgba(0, 0, 0, 0.3)`,
+                borderRadius: 60,
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: 25,
+              }}>
+              <Image
+                source={require('../../assets/images/Cl3.png')}
+                size={50}
+                style={{height: 50, width: 50}}
+              />
+            </View>
+          )}
+          {showMutedIcon && (
             <View
               style={{
                 position: 'absolute',
@@ -412,7 +459,7 @@ const Post = (props) => {
                 justifyContent: 'center',
                 padding: 15,
               }}>
-              {muted ? (
+              {props?.muteAll || muted ? (
                 <Feather name="volume-x" size={50} color="#fff" />
               ) : (
                 <Feather name="volume" size={75} color="#fff" />
@@ -439,7 +486,7 @@ const Post = (props) => {
                 <Feather name="pause" size={50} color="#fff" />
               )}
             </View>
-          )} */}
+          )}
 
           <View style={styles.uiContainer}>
             <View style={styles.rightContainer}>
