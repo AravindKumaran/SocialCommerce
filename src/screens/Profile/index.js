@@ -25,6 +25,7 @@ import Videos from '../Profile/videos';
 import {useIsFocused, CommonActions} from '@react-navigation/native';
 import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Header} from 'react-native-elements';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -293,8 +294,28 @@ const ProfileScreen = ({navigation, route}) => {
     setUser(user);
   };
 
+  const MyCustomLeftComponent = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 25,
+          fontFamily: 'LilyScriptOne-Regular',
+          width: 200,
+        }}>
+        Profile
+      </Text>
+    );
+  };
+
   return (
     <View style={styles.container}>
+      <Header
+        leftComponent={<MyCustomLeftComponent />}
+        containerStyle={{
+          backgroundColor: '#20232A',
+          borderColor: '#20232A',
+        }}
+      />
       <ScrollView nestedScrollEnabled={true}>
         {loading && <LoadingIndicator visible={loading} />}
         {!user ? (

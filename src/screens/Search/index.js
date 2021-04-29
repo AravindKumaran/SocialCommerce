@@ -16,6 +16,7 @@ import Brands from '../Search/brands3';
 import Trending from '../Search/trending3';
 import {API, graphqlOperation} from 'aws-amplify';
 import {searchUsersList} from '../../graphql/queries';
+import {Header} from 'react-native-elements';
 
 const ActiveStyle = () => (
   <View style={{alignItems: 'center'}}>
@@ -120,9 +121,29 @@ const Categories = () => {
     }
   };
 
+  const MyCustomLeftComponent = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 25,
+          fontFamily: 'LilyScriptOne-Regular',
+          width: 200,
+        }}>
+        Search
+      </Text>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView nestedScrollEnabled={true}>
+      <Header
+        leftComponent={<MyCustomLeftComponent />}
+        containerStyle={{
+          backgroundColor: '#20232A',
+          borderColor: '#20232A',
+        }}
+      />
+      <ScrollView nestedScrollEnabled={true} style={{marginTop: 10}}>
         <Searchhbar onSearch={handleSearch} />
 
         <View style={styles.choose}>

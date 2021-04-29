@@ -228,13 +228,6 @@ const CreatePost = () => {
         }
         title="Edit Video"
       />
-      <TextInput
-        value={description}
-        onChangeText={(text) => setDescription(text)}
-        numberOfLines={5}
-        placeholder={'Hashtag'}
-        style={styles.textInput}
-      />
 
       <View style={{marginHorizontal: 20}}>
         <AppText style={{color: 'white', fontSize: 12}}>Categories</AppText>
@@ -255,10 +248,11 @@ const CreatePost = () => {
           onChangeItem={(item) => setCategory(item.value)}
           placeholderStyle={{color: 'white', fontSize: 12}}
           arrowColor={{color: 'white'}}
+          selectedLabelStyle={{color: 'white'}}
         />
       </View>
 
-      <View style={{marginHorizontal: 20, paddingBottom: 130}}>
+      <View style={{marginHorizontal: 20, paddingBottom: 20}}>
         <AppText style={{color: 'white', fontSize: 12}}>Brand</AppText>
         <DropDownPicker
           items={brandItems}
@@ -276,6 +270,7 @@ const CreatePost = () => {
           onChangeItem={(item) => setBrand(item.value)}
           placeholderStyle={{color: 'white', fontSize: 12}}
           arrowColor={{color: 'white'}}
+          selectedLabelStyle={{color: 'white'}}
         />
       </View>
 

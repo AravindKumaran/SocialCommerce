@@ -16,6 +16,7 @@ import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomShe
 import {listUsers} from '../../graphql/queries';
 import {updateUser} from '../../graphql/mutations';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import AppButton from '../../components/Common/AppButton';
 
 const EditProfile = ({user, saveUser}) => {
   console.log('UUSer', user.id, saveUser);
@@ -153,7 +154,7 @@ const EditProfile = ({user, saveUser}) => {
         </View>
       </View>
 
-      <View style={{alignItems: 'center', paddingTop: 100}}>
+      {/* <View style={{alignItems: 'center', paddingTop: 100}}>
         <LinearGradient
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
@@ -171,6 +172,9 @@ const EditProfile = ({user, saveUser}) => {
             </Text>
           </TouchableOpacity>
         </LinearGradient>
+      </View> */}
+      <View style={{alignItems: 'center', paddingTop: 50, margin: 20}}>
+        <AppButton onPress={handleRevert} title="Update" />
       </View>
     </ScrollView>
   );

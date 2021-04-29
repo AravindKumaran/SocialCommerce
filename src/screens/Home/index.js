@@ -18,6 +18,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Header} from 'react-native-elements';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -235,19 +236,50 @@ const Home = ({navigation, route}) => {
     );
   };
 
+  const MyCustomLeftComponent = () => {
+    return (
+      <TouchableOpacity>
+        <Text
+          style={{
+            fontSize: 25,
+            fontFamily: 'LilyScriptOne-Regular',
+            width: 100,
+          }}>
+          Livebox
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const MyCustomRightComponent = () => {
+    return (
+      <TouchableOpacity>
+        <Feather name={'shopping-cart'} size={25} color="white" />
+      </TouchableOpacity>
+    );
+  };
+
   return (
     <View style={styles.mainContainer}>
       {loading && <LoadingIndicator visible={loading} />}
-      <Image
+      <Header
+        leftComponent={<MyCustomLeftComponent />}
+        rightComponent={<MyCustomRightComponent />}
+        containerStyle={{
+          backgroundColor: '#20232A',
+          borderColor: '#20232A',
+        }}
+      />
+      {/* <Image
         source={require('../../assets/images/Logo13.png')}
         size={15}
         style={styles.img1}
       />
-      <Text style={styles.text}>Livebox</Text>
+      <Text style={styles.text}>Livebox</Text> */}
 
-      <TouchableOpacity style={styles.cart}>
+      {/* <TouchableOpacity style={styles.cart}>
         <Feather name={'shopping-cart'} size={20} color="transparent" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <FlatList
         data={posts}
@@ -279,15 +311,15 @@ const Home = ({navigation, route}) => {
 const styles = StyleSheet.create({
   mainContainer: {
     position: 'absolute',
-    padding: 10,
+    // padding: 10,
     width: '100%',
     height: '100%',
-    top: 34,
-    paddingTop: 0,
-    paddingLeft: 4,
-    paddingRight: 4,
-    paddingBottom: 0,
-    marginRight: 4,
+    // top: 34,
+    // paddingTop: 0,
+    // paddingLeft: 4,
+    // paddingRight: 4,
+    // paddingBottom: 0,
+    // marginRight: 4,
     backgroundColor: '#20232A',
   },
 
