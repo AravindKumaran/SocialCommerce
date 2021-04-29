@@ -145,12 +145,18 @@ const Notifications = ({navigation}) => {
       {todayNotif.length === 0 &&
         yesterdayNotif.length === 0 &&
         olderNotif.length === 0 && (
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 10,
+            }}>
             <AppText style={{color: '#fff'}}>No Notifications!</AppText>
           </View>
         )}
 
       <ScrollView
+        style={{marginTop: 10}}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }>

@@ -136,14 +136,14 @@ const Categories = () => {
 
   return (
     <View style={styles.container}>
-      <Header
+      {/* <Header
         leftComponent={<MyCustomLeftComponent />}
         containerStyle={{
           backgroundColor: '#20232A',
           borderColor: '#20232A',
         }}
-      />
-      <ScrollView nestedScrollEnabled={true} style={{marginTop: 10}}>
+      /> */}
+      <ScrollView nestedScrollEnabled={true} style={{marginTop: 25}}>
         <Searchhbar onSearch={handleSearch} />
 
         <View style={styles.choose}>

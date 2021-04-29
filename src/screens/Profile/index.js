@@ -309,13 +309,13 @@ const ProfileScreen = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <Header
+      {/* <Header
         leftComponent={<MyCustomLeftComponent />}
         containerStyle={{
           backgroundColor: '#20232A',
           borderColor: '#20232A',
         }}
-      />
+      /> */}
       <ScrollView nestedScrollEnabled={true}>
         {loading && <LoadingIndicator visible={loading} />}
         {!user ? (
