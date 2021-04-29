@@ -129,7 +129,7 @@ const ImagePickerBottomSheet = ({
         ref={refRBSheet}
         height={300}
         animationType="fade"
-        closeOnDragDown={true}
+        closeOnDragDown={false}
         customStyles={{
           wrapper: {
             backgroundColor: 'rgba(0,0,0,.6)',

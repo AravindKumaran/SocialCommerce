@@ -384,6 +384,7 @@ const ProfileScreen = ({navigation, route}) => {
                       ref={refRBSheet}
                       height={Dimensions.get('window').height - 140}
                       animationType="fade"
+                      closeOnDragDown={false}
                       customStyles={{
                         wrapper: {
                           backgroundColor: 'rgba(0,0,0,.6)',
@@ -486,6 +487,7 @@ const ProfileScreen = ({navigation, route}) => {
                       ref={refRBSheet1}
                       height={Dimensions.get('window').height - 140}
                       animationType="fade"
+                      closeOnDragDown={false}
                       customStyles={{
                         wrapper: {
                           backgroundColor: 'rgba(0,0,0,.6)',
@@ -538,6 +540,7 @@ const ProfileScreen = ({navigation, route}) => {
                       ref={refRBSheet2}
                       height={Dimensions.get('window').height - 140}
                       animationType="fade"
+                      closeOnDragDown={false}
                       customStyles={{
                         wrapper: {
                           backgroundColor: 'rgba(0,0,0,.6)',

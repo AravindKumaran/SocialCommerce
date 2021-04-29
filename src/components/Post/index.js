@@ -629,7 +629,7 @@ const Post = (props) => {
                 ref={refRBSheet}
                 height={Dimensions.get('window').height - 300}
                 animationType="fade"
-                closeOnDragDown={true}
+                closeOnDragDown={false}
                 customStyles={{
                   wrapper: {
                     backgroundColor: 'rgba(0,0,0,.6)',
