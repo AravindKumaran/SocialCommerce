@@ -262,11 +262,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '400',
     fontFamily: 'Proxima Nova',
+    fontSize: 12,
   },
   text1: {
     fontWeight: '700',
     fontFamily: 'Proxima Nova',
-    fontSize: 16,
+    fontSize: 14,
     marginHorizontal: 25,
     marginTop: -45,
   },

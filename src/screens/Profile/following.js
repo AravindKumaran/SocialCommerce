@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
 import {
   View,
   Text,
@@ -82,7 +82,7 @@ const ActiveStyle1 = () => (
   </>
 );
 
-const Following = ({ data, followerData }) => {
+const Following = ({data, followerData}) => {
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(true);
   const [actualData, setData] = useState(data);
@@ -90,12 +90,12 @@ const Following = ({ data, followerData }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
-        <View style={{ alignItems: 'center', padding: 5 }}>
-          <View style={{ top: 20, right: 80 }}>
+        <View style={{alignItems: 'center', padding: 5}}>
+          <View style={{top: 20, right: 80}}>
             <TouchableOpacity
               onPress={() => {
                 if (isTouched === false) {
-                  setData(followerData)
+                  setData(followerData);
                 }
                 setTouched(!isTouched);
                 setPressed(!isPressed);
@@ -105,13 +105,13 @@ const Following = ({ data, followerData }) => {
                   color: !isTouched ? '#FFFFFF' : '#21FFFC',
                   fontFamily: 'Proxima Nova',
                   fontWeight: '700',
-                  fontSize: 16,
+                  fontSize: 14,
                 }}>
                 Followers
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={{ left: 80 }}>
+          <View style={{left: 80}}>
             <TouchableOpacity
               onPress={() => {
                 setData(data);
@@ -123,23 +123,23 @@ const Following = ({ data, followerData }) => {
                   color: !isPressed ? '#FFFFFF' : '#21FFFC',
                   fontFamily: 'Proxima Nova',
                   fontWeight: '700',
-                  fontSize: 16,
+                  fontSize: 14,
                 }}>
                 Following
               </Text>
             </TouchableOpacity>
           </View>
-          <View style={{ top: 10 }}>
+          <View style={{top: 10}}>
             <Image source={require('../../assets/images/Pline.png')} />
           </View>
         </View>
 
-        <View style={{ top: 10 }}>
+        <View style={{top: 10}}>
           <Searchbar />
         </View>
 
-        <View style={{ padding: 20 }}>
-          <ScrollView showsVerticalScrollIndicator={false} style={{ top: 50 }}>
+        <View style={{padding: 20}}>
+          <ScrollView showsVerticalScrollIndicator={false} style={{top: 50}}>
             <View>
               {actualData?.length > 0 &&
                 actualData.map((v, i) => {
@@ -147,8 +147,8 @@ const Following = ({ data, followerData }) => {
                     <View key={`${v.userId}-${i}`}>
                       <View>
                         <Image
-                          source={{ uri: v.imgUri }}
-                          style={{ height: 35, width: 35, borderRadius: 20 }}
+                          source={{uri: v.imgUri}}
+                          style={{height: 35, width: 35, borderRadius: 20}}
                         />
                       </View>
                       <View>
@@ -157,7 +157,7 @@ const Following = ({ data, followerData }) => {
                             color: '#FFFFFF',
                             fontFamily: 'Proxima Nova',
                             fontWeight: '700',
-                            fontSize: 14,
+                            fontSize: 12,
                             left: 60,
                             bottom: 25,
                           }}>
@@ -165,16 +165,14 @@ const Following = ({ data, followerData }) => {
                         </Text>
                       </View>
                       <View>
-                        <Feather
-                          style={{ bottom: 50, left: 310 }}
-                          name={'more-vertical'}
-                          size={25}
-                        />
+                        <TouchableOpacity style={{bottom: 50, left: 310}}>
+                          <Feather name={'more-vertical'} size={25} />
+                        </TouchableOpacity>
                       </View>
-                      <View style={{ margin: -25 }}>
+                      <View style={{margin: -25}}>
                         <LinearGradient
-                          start={{ x: 0, y: 0 }}
-                          end={{ x: 1, y: 0 }}
+                          start={{x: 0, y: 0}}
+                          end={{x: 1, y: 0}}
                           colors={['#252525', '#252525', '#252525']}
                           style={styles.Rectangle1}>
                           <TouchableOpacity>

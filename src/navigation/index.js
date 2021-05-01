@@ -38,7 +38,7 @@ const RootNavigation = () => {
             headerRight: () => (
               <TouchableOpacity
               // onPress={() => {
-              //   navigation.navigate('CreatePost');
+              //   navigation.goBack();
               // }}
               >
                 <Feather

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 
 import {
   StyleSheet,
@@ -29,6 +29,7 @@ import {
   createUserNotification,
 } from '../../graphql/mutations';
 import {useNavigation} from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
 
 const Comments = ({postId, postUserId, curUser}) => {
   const [comments, setComments] = useState([]);
@@ -242,6 +243,8 @@ const Comments = ({postId, postUserId, curUser}) => {
   //   parent?.goBack();
   // };
 
+  const refRBSheet = useRef();
+
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} bgc="blue" />}
@@ -251,17 +254,10 @@ const Comments = ({postId, postUserId, curUser}) => {
           fontSize: 16,
           marginVertical: 10,
           fontWeight: '700',
+          marginTop: -35,
         }}>
         Comments ({comments.length})
       </AppText>
-
-      {/* <TouchableOpacity
-        // onPress={() => {
-        //   navigation.goBack()
-        // }}
-        style={{bottom: 35, left: 5}}>
-        <Feather name="chevron-left" size={30} color="#000000" />
-      </TouchableOpacity> */}
 
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         <View style={styles.cmList}>
@@ -329,6 +325,17 @@ const Comments = ({postId, postUserId, curUser}) => {
             ))}
         </View>
       </ScrollView>
+
+      <Feather
+        name="chevron-down"
+        size={30}
+        color="#999999"
+        style={{
+          alignContent: 'center',
+          alignSelf: 'center',
+          alignItems: 'center',
+        }}
+      />
 
       <View style={styles.commentForm}>
         <KeyboardAvoidingView

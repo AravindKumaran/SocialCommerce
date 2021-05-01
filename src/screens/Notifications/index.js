@@ -106,8 +106,9 @@ const Notifications = ({navigation}) => {
       <Text
         style={{
           fontSize: 25,
-          fontFamily: 'LilyScriptOne-Regular',
+          fontFamily: 'Proxima Nova',
           width: 200,
+          fontWeight: '700'
         }}>
         Notifications
       </Text>

@@ -627,7 +627,7 @@ const Post = (props) => {
 
               <RBSheet
                 ref={refRBSheet}
-                height={Dimensions.get('window').height - 300}
+                height={Dimensions.get('window').height - 150}
                 animationType="fade"
                 closeOnDragDown={false}
                 customStyles={{
@@ -652,13 +652,23 @@ const Post = (props) => {
                     position: 'absolute',
                   }}
                 /> */}
+                <View style={{marginTop: 22, height: 40, width: 40}}>
+                  <TouchableOpacity
+                    onPress={() => refRBSheet.current.close()}
+                    style={{
+                      top: 0,
+                      left: 10,
+                      position: 'absolute',
+                    }}>
+                    <Feather name="chevron-left" size={30} color="#20232A" />
+                  </TouchableOpacity>
+                </View>
                 <Comments
                   postId={props.post?.id}
                   postUserId={props.post.user?.id}
                   curUser={user}
                 />
               </RBSheet>
-
               {/* {isClicked ?  : <></>} */}
 
               {/* <View style={styles.iconContainer}>

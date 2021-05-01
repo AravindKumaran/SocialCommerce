@@ -72,6 +72,10 @@ const ProfileScreen = ({navigation, route}) => {
 
   const isFocused = useIsFocused();
 
+  function closeSheets() {
+    refRBSheet.current.close();
+  }
+
   const checkUser = async () => {
     setLoading(true);
     // console.log('Im calling');
@@ -402,7 +406,11 @@ const ProfileScreen = ({navigation, route}) => {
                           bottom: 85,
                         },
                       }}>
-                      <EditProfile user={user} saveUser={handleUpdateUser} />
+                      <EditProfile
+                        user={user}
+                        saveUser={handleUpdateUser}
+                        closeSheet={closeSheets}
+                      />
                     </RBSheet>
 
                     {!route?.params?.postUser && (
@@ -476,7 +484,7 @@ const ProfileScreen = ({navigation, route}) => {
                           color: '#FFFFFF',
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
-                          fontSize: 14,
+                          fontSize: 16,
                           left: 35,
                         }}>
                         {user?.followers?.length || 0}
@@ -529,7 +537,7 @@ const ProfileScreen = ({navigation, route}) => {
                           color: '#FFFFFF',
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
-                          fontSize: 14,
+                          fontSize: 16,
                           left: 35,
                         }}>
                         {user?.following?.length || 0}
@@ -581,7 +589,7 @@ const ProfileScreen = ({navigation, route}) => {
                           color: '#FFFFFF',
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
-                          fontSize: 14,
+                          fontSize: 16,
                           left: 25,
                         }}>
                         {user?.posts?.items?.length || 0}

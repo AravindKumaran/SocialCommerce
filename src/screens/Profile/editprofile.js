@@ -12,13 +12,13 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import {Storage, API, graphqlOperation, Auth, Hub} from 'aws-amplify';
-import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomSheet';
+import ImagePickerBottomSheet from '../Profile/ImagePickerBottomSheet';
 import {listUsers} from '../../graphql/queries';
 import {updateUser} from '../../graphql/mutations';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
 
-const EditProfile = ({user, saveUser}) => {
+const EditProfile = ({user, saveUser, closeSheet}) => {
   console.log('UUSer', user.id, saveUser);
   const [username, setUsername] = useState(user.username);
   const [userImageUri, setUserImageUri] = useState(
@@ -95,6 +95,7 @@ const EditProfile = ({user, saveUser}) => {
 
       console.log('Ress', res3);
       saveUser(res3?.data?.updateUser);
+      closeSheet();
       setLoading(false);
     } catch (error) {
       console.log('Error', error);
@@ -110,6 +111,7 @@ const EditProfile = ({user, saveUser}) => {
           <ImagePickerBottomSheet
             imageUri={userImageUri}
             onChangeImage={(uri) => setUserImageUri(uri)}
+            tStyle={{color: 'white', fontSize: 12}}
           />
         </View>
       </View>
@@ -174,7 +176,7 @@ const EditProfile = ({user, saveUser}) => {
         </LinearGradient>
       </View> */}
       <View style={{alignItems: 'center', paddingTop: 50, margin: 20}}>
-        <AppButton onPress={handleRevert} title="Update" />
+        <AppButton onPress={handleRevert} title="Submit" />
       </View>
     </ScrollView>
   );
@@ -228,6 +230,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     borderWidth: 0.5,
     borderColor: '#737373',
+    paddingBottom: 75,
   },
   Rectangle1: {
     width: 300,
