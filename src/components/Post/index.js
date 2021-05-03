@@ -673,7 +673,7 @@ const Post = (props) => {
 
               <RBSheet
                 ref={refRBSheet}
-                height={Dimensions.get('window').height - 150}
+                height={Dimensions.get('window').height - 300}
                 animationType="fade"
                 closeOnDragDown={false}
                 customStyles={{

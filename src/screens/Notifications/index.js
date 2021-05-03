@@ -105,7 +105,7 @@ const Notifications = ({navigation}) => {
     return (
       <Text
         style={{
-          fontSize: 25,
+          fontSize: 24,
           fontFamily: 'Proxima Nova',
           width: 200,
           fontWeight: '700'

@@ -6,7 +6,7 @@ import {
   Dimensions,
   ActivityIndicator,
 } from 'react-native';
-import TrendingVideo from '../Search/profileVideoList';
+import TrendingVideo from '../Search/trendingVideo';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
 import Feather from 'react-native-vector-icons/Feather';

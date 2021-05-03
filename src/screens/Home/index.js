@@ -242,9 +242,9 @@ const Home = ({navigation, route}) => {
       <TouchableOpacity>
         <Text
           style={{
-            fontSize: 25,
+            fontSize: 24,
             fontFamily: 'LilyScriptOne-Regular',
-            width: 100,
+            width: 200,
           }}>
           Livebox
         </Text>

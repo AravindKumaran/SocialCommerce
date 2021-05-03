@@ -33,7 +33,7 @@ export default class Searchbar extends React.Component {
           fontFamily: 'Proxima Nova',
           fontSize: 15,
           fontWeight: '400',
-          color: '#51565E',
+          color: '#ffffff',
           left: 5,
         }}
         searchIcon={{left: 6, size: 25, color: '#ffffff'}}
