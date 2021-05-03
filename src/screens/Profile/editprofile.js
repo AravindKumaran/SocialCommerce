@@ -8,6 +8,7 @@ import {
   Image,
   ToastAndroid,
   ScrollView,
+  ImageBackground,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
@@ -104,59 +105,62 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   };
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {loading && <LoadingIndicator visible={loading} />}
-      <View style={{padding: 30}}>
-        <View style={{alignItems: 'center'}}>
-          <ImagePickerBottomSheet
-            imageUri={userImageUri}
-            onChangeImage={(uri) => setUserImageUri(uri)}
-            tStyle={{color: 'white', fontSize: 12}}
-          />
+    <ImageBackground
+      source={require('../../assets/images/Background1.png')}
+      style={styles.container}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        {loading && <LoadingIndicator visible={loading} />}
+        <View style={{padding: 30}}>
+          <View style={{alignItems: 'center'}}>
+            <ImagePickerBottomSheet
+              imageUri={userImageUri}
+              onChangeImage={(uri) => setUserImageUri(uri)}
+              tStyle={{color: 'white', fontSize: 12}}
+            />
+          </View>
         </View>
-      </View>
-      <View style={{padding: 0, alignItems: 'center'}}>
-        <View style={{top: 20}}>
-          <Text
-            style={{
-              color: '#FFFFFF',
-              fontFamily: 'Proxima Nova',
-              fontWeight: '400',
-              fontSize: 12,
-              left: 10,
-            }}>
-            Username
-          </Text>
-          <TextInput
-            style={styles.input}
-            // value={username}
-            defaultValue={username}
-            onChangeText={(e) => setUsername(e)}
-          />
+        <View style={{padding: 0, alignItems: 'center'}}>
+          <View style={{top: 20}}>
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Proxima Nova',
+                fontWeight: '400',
+                fontSize: 12,
+                left: 10,
+              }}>
+              Username
+            </Text>
+            <TextInput
+              style={styles.input}
+              // value={username}
+              defaultValue={username}
+              onChangeText={(e) => setUsername(e)}
+            />
+          </View>
+
+          <View style={{top: 50}}>
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Proxima Nova',
+                fontWeight: '400',
+                fontSize: 12,
+                left: 10,
+              }}>
+              Bio
+            </Text>
+            <TextInput
+              style={styles.input1}
+              // value={bio}
+              defaultValue={bio}
+              onChangeText={(e) => setBio(e)}
+              maxLength={50}
+            />
+          </View>
         </View>
 
-        <View style={{top: 50}}>
-          <Text
-            style={{
-              color: '#FFFFFF',
-              fontFamily: 'Proxima Nova',
-              fontWeight: '400',
-              fontSize: 12,
-              left: 10,
-            }}>
-            Bio
-          </Text>
-          <TextInput
-            style={styles.input1}
-            // value={bio}
-            defaultValue={bio}
-            onChangeText={(e) => setBio(e)}
-            maxLength={50}
-          />
-        </View>
-      </View>
-
-      {/* <View style={{alignItems: 'center', paddingTop: 100}}>
+        {/* <View style={{alignItems: 'center', paddingTop: 100}}>
         <LinearGradient
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
@@ -175,10 +179,11 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
           </TouchableOpacity>
         </LinearGradient>
       </View> */}
-      <View style={{alignItems: 'center', paddingTop: 50, margin: 20}}>
-        <AppButton onPress={handleRevert} title="Submit" />
-      </View>
-    </ScrollView>
+        <View style={{alignItems: 'center', paddingTop: 50, margin: 20}}>
+          <AppButton onPress={handleRevert} title="Submit" />
+        </View>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 export default EditProfile;
@@ -188,7 +193,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: 5,
     paddingHorizontal: 10,
-    backgroundColor: '#1A1A1A',
+    // backgroundColor: '#1A1A1A',
   },
   user: {
     height: 140,
@@ -202,7 +207,7 @@ const styles = StyleSheet.create({
     height: 50,
     padding: 10,
     top: 10,
-    backgroundColor: '#1A1A1A',
+    // backgroundColor: '#1A1A1A',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,
@@ -219,7 +224,7 @@ const styles = StyleSheet.create({
     height: 120,
     padding: 10,
     top: 10,
-    backgroundColor: '#1A1A1A',
+    // backgroundColor: '#1A1A1A',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
     borderTopLeftRadius: 10,

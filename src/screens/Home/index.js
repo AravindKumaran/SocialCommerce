@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  ImageBackground,
 } from 'react-native';
 import Post from '../../components/Post';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
@@ -260,60 +261,64 @@ const Home = ({navigation, route}) => {
   };
 
   return (
-    <View style={styles.mainContainer}>
-      {loading && <LoadingIndicator visible={loading} />}
-      <Header
-        leftComponent={<MyCustomLeftComponent />}
-        rightComponent={<MyCustomRightComponent />}
-        containerStyle={{
-          backgroundColor: '#20232A',
-          borderColor: '#20232A',
-        }}
-      />
-      {/* <Image
+    <ImageBackground
+      source={require('../../assets/images/Background2.png')}
+      style={styles.container}>
+      <View style={styles.container}>
+        {loading && <LoadingIndicator visible={loading} />}
+        <Header
+          leftComponent={<MyCustomLeftComponent />}
+          rightComponent={<MyCustomRightComponent />}
+          containerStyle={{
+            backgroundColor: '#20232A',
+            borderColor: '#20232A',
+          }}
+        />
+        {/* <Image
         source={require('../../assets/images/Logo13.png')}
         size={15}
         style={styles.img1}
       />
       <Text style={styles.text}>Livebox</Text> */}
 
-      {/* <TouchableOpacity style={styles.cart}>
+        {/* <TouchableOpacity style={styles.cart}>
         <Feather name={'shopping-cart'} size={20} color="transparent" />
       </TouchableOpacity> */}
 
-      <FlatList
-        data={posts}
-        ref={flatListRef}
-        // getItemLayout={(data, index) => ({
-        //   length: vpHeight + 10,
-        //   offset: vpHeight * 1.07 * index,
-        //   index,
-        // })}
-        renderItem={_renderItem}
-        showsVerticalScrollIndicator={false}
-        snapToAlignment={'start'}
-        decelerationRate={'fast'}
-        snapToInterval={Dimensions.get('window').height + 40}
-        borderRadius={50}
-        viewabilityConfig={_viewabilityConfig.current}
-        onViewableItemsChanged={_onViewableItemsChanged.current}
-        onEndReached={getMorePosts}
-        onEndReachedThreshold={0.5}
-        keyExtractor={(item) => item.id.toString()}
-        refreshing={refreshing}
-        onRefresh={handleRefresh}
-        ListFooterComponent={renderFooter}
-      />
-    </View>
+        <FlatList
+          data={posts}
+          ref={flatListRef}
+          // getItemLayout={(data, index) => ({
+          //   length: vpHeight + 10,
+          //   offset: vpHeight * 1.07 * index,
+          //   index,
+          // })}
+          renderItem={_renderItem}
+          showsVerticalScrollIndicator={false}
+          snapToAlignment={'start'}
+          decelerationRate={'fast'}
+          snapToInterval={Dimensions.get('window').height + 40}
+          borderRadius={50}
+          viewabilityConfig={_viewabilityConfig.current}
+          onViewableItemsChanged={_onViewableItemsChanged.current}
+          onEndReached={getMorePosts}
+          onEndReachedThreshold={0.5}
+          keyExtractor={(item) => item.id.toString()}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          ListFooterComponent={renderFooter}
+        />
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     position: 'absolute',
-    // padding: 10,
     width: '100%',
     height: '100%',
+    // padding: 10,
     // top: 34,
     // paddingTop: 0,
     // paddingLeft: 4,

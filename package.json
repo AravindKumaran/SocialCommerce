@@ -25,6 +25,7 @@
     "aws-amplify": "^3.3.13",
     "aws-amplify-react-native": "^4.2.10",
     "in-viewport": "^3.6.0",
+    "lottie-react-native": "^4.0.2",
     "moment": "^2.29.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

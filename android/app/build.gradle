@@ -253,6 +253,8 @@ dependencies {
 
     compile "com.android.support:appcompat-v7:25.0.1"
 
+    implementation project(':lottie-react-native')
+
     // implementation project(':react-native-inappbrowser-reborn')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
