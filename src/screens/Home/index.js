@@ -92,7 +92,7 @@ const Home = ({navigation, route}) => {
                 }}
                 size={25}
                 style={{
-                  bottom: 2,
+                  bottom: 5,
                   width: 25,
                   height: 25,
                   borderRadius: 12,

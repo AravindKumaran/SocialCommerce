@@ -199,11 +199,7 @@ const ProfileScreen = ({navigation, route}) => {
     c.setOptions({
       tabBarIcon: ({focused, tintColor}) => (
         <>
-          <Image
-            source={require('../../assets/images/Profile_icon.png')}
-            size={25}
-            style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
-          />
+          <Feather name={'user'} size={22.5} style={{bottom: 5}} />
           {focused && <ActiveStyle />}
         </>
       ),
