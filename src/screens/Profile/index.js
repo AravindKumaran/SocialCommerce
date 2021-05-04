@@ -142,7 +142,7 @@ const ProfileScreen = ({navigation, route}) => {
                     : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
                 }}
                 size={25}
-                style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+                style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -163,7 +163,7 @@ const ProfileScreen = ({navigation, route}) => {
                     : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
                 }}
                 size={25}
-                style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+                style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -202,7 +202,7 @@ const ProfileScreen = ({navigation, route}) => {
           <Image
             source={require('../../assets/images/Profile_icon.png')}
             size={25}
-            style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+            style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
           />
           {focused && <ActiveStyle />}
         </>
@@ -250,7 +250,7 @@ const ProfileScreen = ({navigation, route}) => {
                   }}
                   size={25}
                   style={{
-                    bottom: 2,
+                    bottom: 5,
                     width: 25,
                     height: 25,
                     borderRadius: 12,
@@ -289,7 +289,7 @@ const ProfileScreen = ({navigation, route}) => {
                 : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
             }}
             size={25}
-            style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+            style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
           />
           {focused && <ActiveStyle />}
         </>

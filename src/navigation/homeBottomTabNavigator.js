@@ -68,7 +68,7 @@ export const getTabBarIcon = (focused, props, imgUri) => {
               : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${imgUri}`,
           }}
           size={25}
-          style={{bottom: 2, width: 25, height: 25}}
+          style={{bottom: 5, width: 25, height: 25}}
         />
       </>
     );
@@ -91,7 +91,7 @@ export const getTabBarIcon = (focused, props, imgUri) => {
         <Image
           source={require('../assets/images/Profile_icon.png')}
           size={25}
-          style={{bottom: 2, width: 32, height: 32}}
+          style={{bottom: 5, width: 32, height: 32}}
         />
 
         {focused && <ActiveStyle />}
@@ -173,11 +173,13 @@ const HomeBottomTabNavigator = () => {
 
   const TabBar = (props) => {
     return (
-      <LinearGradient
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 0}}
-        colors={['red', 'yellow']}
-      />
+      <React.Fragment>
+        <ImageBackground
+          source={require('../assets/images/Background3.png')}
+          style={{width: '100%', height: 60}}>
+          <TabBar {...props} />
+        </ImageBackground>
+      </React.Fragment>
     );
   };
 
@@ -211,7 +213,13 @@ const HomeBottomTabNavigator = () => {
         },
       }}
       tabBarComponent={(props) => {
-        return <TabBar {...props} />;
+        <React.Fragment>
+          <ImageBackground
+            source={require('../assets/images/Background3.png')}
+            style={{flex: 1, backgroundColor: 'transparent'}}>
+            <TabBar {...props} />
+          </ImageBackground>
+        </React.Fragment>;
       }}>
       <Tab.Screen
         name={'Home'}
