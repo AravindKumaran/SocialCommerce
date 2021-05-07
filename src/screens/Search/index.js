@@ -49,11 +49,7 @@ const ActiveStyle = () => (
 const cat = [
   {
     src: require('../../assets/images/Men1.png'),
-    name: 'Men',
-  },
-  {
-    src: require('../../assets/images/Women1.png'),
-    name: 'Women',
+    name: 'Fashion',
   },
   {
     src: require('../../assets/images/Jewel1.png'),
@@ -67,7 +63,32 @@ const cat = [
     src: require('../../assets/images/Beauty1.png'),
     name: 'Beauty',
   },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Travel',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Food',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Movies & Series',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Sports',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Finance',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'DIY',
+  },
 ];
+
 const brands = [
   {
     src: require('../../assets/images/L1.png'),
