@@ -10,6 +10,11 @@
       "StackName": "amplify-livebox-staging-62739",
       "StackId": "arn:aws:cloudformation:ap-south-1:276950829219:stack/amplify-livebox-staging-62739/5297c890-aefd-11eb-904d-064c28fb8054",
       "AmplifyAppId": "d227ay0oake0y"
+    },
+    "categories": {
+      "auth": {
+        "liveboxfb4fb847": {}
+      }
     }
   },
   "demo": {
