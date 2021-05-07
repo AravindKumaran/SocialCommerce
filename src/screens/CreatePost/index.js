@@ -72,12 +72,18 @@ const veryIntensiveTask = async (taskDataArguments) => {
 };
 
 const categoryItems = [
-  {label: 'Men', value: 'Men'},
-  {label: 'Women', value: 'Women'},
+  {label: 'Fashion', value: 'Fashion'},
   {label: 'Jewellery', value: 'Jewellery'},
   {label: 'Fitness', value: 'Fitness'},
   {label: 'Beauty', value: 'Beauty'},
+  {label: 'Travel', value: 'Travel'},
+  {label: 'Food', value: 'Food'},
+  {label: 'Movies & Series', value: 'Movies & Series'},
+  {label: 'Sports', value: 'Sports'},
+  {label: 'Finance', value: 'Finance'},
+  {label: 'DIY', value: 'DIY'},
 ];
+
 const brandItems = [
   {label: 'Adidas', value: 'Adidas'},
   {label: 'Armani', value: 'Armani'},

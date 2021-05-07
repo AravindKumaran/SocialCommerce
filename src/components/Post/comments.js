@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import {API, graphqlOperation, Hub, Auth} from 'aws-amplify';
-import {getPost, listComments} from '../../graphql/queries';
+import {getPost, listComments, getComment} from '../../graphql/queries';
 import TimeAgo from 'react-native-timeago';
 
 import LoadingIndicator from '../Common/LoadingIndicator';
@@ -31,7 +31,9 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import Feather from 'react-native-vector-icons/Feather';
 
-const Comments = ({postId, postUserId, curUser}) => {
+import useInfiniteScroll from './useInfiniteScroll';
+
+const Comments = ({postId, postUserId, curUser, route}) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cmtText, setCmtText] = useState('');
@@ -243,7 +245,10 @@ const Comments = ({postId, postUserId, curUser}) => {
   //   parent?.goBack();
   // };
 
-  const refRBSheet = useRef();
+  const refScrollView = useRef(null);
+  const moveTo = () => {
+    refScrollView.current.scrollTo({y: 250, animated: true});
+  };
 
   return (
     <View style={styles.container}>
@@ -259,7 +264,10 @@ const Comments = ({postId, postUserId, curUser}) => {
         Comments ({comments.length})
       </AppText>
 
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+        ref={refScrollView}>
         <View style={styles.cmList}>
           {comments.length > 0 &&
             comments.map((cm) => (
@@ -326,16 +334,18 @@ const Comments = ({postId, postUserId, curUser}) => {
         </View>
       </ScrollView>
 
-      <Feather
-        name="chevron-down"
-        size={30}
-        color="#999999"
-        style={{
-          alignContent: 'center',
-          alignSelf: 'center',
-          alignItems: 'center',
-        }}
-      />
+      <TouchableOpacity onPress={moveTo}>
+        <Feather
+          name="chevron-down"
+          size={30}
+          color="#999999"
+          style={{
+            alignContent: 'center',
+            alignSelf: 'center',
+            alignItems: 'center',
+          }}
+        />
+      </TouchableOpacity>
 
       <View style={styles.commentForm}>
         <KeyboardAvoidingView
