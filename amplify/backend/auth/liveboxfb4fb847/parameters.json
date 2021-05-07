@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "tiktoke6667396_identitypool_e6667396",
+    "identityPoolName": "liveboxfb4fb847_identitypool_fb4fb847",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "tiktoke6667396",
-    "userPoolName": "tiktoke6667396_userpool_e6667396",
+    "resourceNameTruncated": "livebofb4fb847",
+    "userPoolName": "liveboxfb4fb847_userpool_fb4fb847",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -20,7 +20,7 @@
     "requiredAttributes": [
         "email"
     ],
-    "userpoolClientGenerateSecret": true,
+    "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
         "email"
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "tiktoke6667396_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "livebofb4fb847_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "e6667396",
-    "resourceName": "tiktoke6667396",
+    "sharedId": "fb4fb847",
+    "resourceName": "liveboxfb4fb847",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -46,15 +46,26 @@
         ]
     },
     "useDefault": "defaultSocial",
-    "userPoolGroupList": [],
-    "dependsOn": [],
     "hostedUI": true,
-    "serviceName": "Cognito",
-    "hostedUIDomainName": "tiktok24dfe314-24dfe314",
-    "authProvidersUserPool": [
-        "Facebook",
-        "Google"
+    "usernameAttributes": [
+        "email"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"tiktok://\"],\"LogoutURLs\":[\"tiktok://\"]}"
+    "userPoolGroupList": [
+        "livebox123"
+    ],
+    "serviceName": "Cognito",
+    "usernameCaseSensitive": false,
+    "dependsOn": [],
+    "userPoolGroups": true,
+    "adminQueries": false,
+    "triggers": "{}",
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
+    "hostedUIDomainName": "livebox951e0a7a-951e0a7a",
+    "authProvidersUserPool": [],
+    "hostedUIProviderMeta": "[]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"livebox://\"],\"LogoutURLs\":[\"livebox://\"]}",
+    "authProviders": []
 }

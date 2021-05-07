@@ -1,6 +1,6 @@
 {
   "api": {
-    "tiktok": {
+    "livebox": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -18,15 +18,31 @@
     }
   },
   "auth": {
-    "tiktoke6667396": {
+    "liveboxfb4fb847": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false
+    },
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "liveboxfb4fb847",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ]
     }
   },
   "storage": {
-    "tiktokclone": {
+    "liveboxstore": {
       "service": "S3",
       "providerPlugin": "awscloudformation"
     }
