@@ -139,7 +139,64 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             />
           </View>
 
-          <View style={{top: 50}}>
+          <View style={{top: 40}}>
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Proxima Nova',
+                fontWeight: '400',
+                fontSize: 12,
+                left: 10,
+              }}>
+              Facebook Link
+            </Text>
+            <TextInput
+              style={styles.input}
+              // value={username}
+              // defaultValue={username}
+              // onChangeText={(e) => setUsername(e)}
+            />
+          </View>
+
+          <View style={{top: 60}}>
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Proxima Nova',
+                fontWeight: '400',
+                fontSize: 12,
+                left: 10,
+              }}>
+              Instagram Link
+            </Text>
+            <TextInput
+              style={styles.input}
+              // value={username}
+              // defaultValue={username}
+              // onChangeText={(e) => setUsername(e)}
+            />
+          </View>
+
+          <View style={{top: 80}}>
+            <Text
+              style={{
+                color: '#FFFFFF',
+                fontFamily: 'Proxima Nova',
+                fontWeight: '400',
+                fontSize: 12,
+                left: 10,
+              }}>
+              YouTube Link
+            </Text>
+            <TextInput
+              style={styles.input}
+              // value={username}
+              // defaultValue={username}
+              // onChangeText={(e) => setUsername(e)}
+            />
+          </View>
+
+          <View style={{top: 150}}>
             <Text
               style={{
                 color: '#FFFFFF',
@@ -179,7 +236,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
           </TouchableOpacity>
         </LinearGradient>
       </View> */}
-        <View style={{alignItems: 'center', paddingTop: 50, margin: 20}}>
+        <View style={{alignItems: 'center', paddingTop: 150, margin: 20}}>
           <AppButton onPress={handleRevert} title="Submit" />
         </View>
       </ScrollView>

@@ -7,7 +7,7 @@ import {
   Modal,
   Text,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
@@ -104,7 +104,7 @@ const Brands = () => {
   return (
     <View style={styles.container}>
       <Image
-        style={{top: 0, left: 10}}
+        style={{top: 0, left: 0, width: '90%', alignSelf: 'center'}}
         source={require('../../assets/images/Line2.png')}
         size={15}
       />

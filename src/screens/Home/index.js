@@ -254,7 +254,10 @@ const Home = ({navigation, route}) => {
 
   const MyCustomRightComponent = () => {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        style={{
+          top: 4,
+        }}>
         <Feather name={'shopping-cart'} size={25} color="white" />
       </TouchableOpacity>
     );

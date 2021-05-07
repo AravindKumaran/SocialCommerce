@@ -247,7 +247,8 @@ const Comments = ({postId, postUserId, curUser, route}) => {
 
   const refScrollView = useRef(null);
   const moveTo = () => {
-    refScrollView.current.scrollTo({y: 250, animated: true});
+    // refScrollView.current.scrollTo({y: 250, animated: true});
+    refScrollView.current.scrollToEnd();
   };
 
   return (
