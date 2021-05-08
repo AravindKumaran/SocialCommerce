@@ -19,8 +19,6 @@ export const createUser = /* GraphQL */ `
           description
           likes
           thumbnail
-          category
-          brand
           userID
           songID
           createdAt
@@ -64,7 +62,6 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       username
-      name
       imageUri
       bio
       posts {
@@ -74,8 +71,6 @@ export const updateUser = /* GraphQL */ `
           description
           likes
           thumbnail
-          category
-          brand
           userID
           songID
           createdAt
@@ -119,7 +114,6 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       username
-      name
       imageUri
       bio
       posts {
@@ -129,8 +123,6 @@ export const deleteUser = /* GraphQL */ `
           description
           likes
           thumbnail
-          category
-          brand
           userID
           songID
           createdAt
@@ -180,51 +172,6 @@ export const createPost = /* GraphQL */ `
       category
       brand
       userID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postId
-          userID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
       createdAt
       updatedAt
     }
@@ -241,13 +188,10 @@ export const updatePost = /* GraphQL */ `
       description
       likes
       thumbnail
-      category
-      brand
       userID
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -305,13 +249,10 @@ export const deletePost = /* GraphQL */ `
       description
       likes
       thumbnail
-      category
-      brand
       userID
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -372,7 +313,6 @@ export const createComment = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -400,13 +340,10 @@ export const createComment = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -445,7 +382,6 @@ export const updateComment = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -473,13 +409,10 @@ export const updateComment = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -518,7 +451,6 @@ export const deleteComment = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -546,13 +478,10 @@ export const deleteComment = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -671,7 +600,6 @@ export const createUserNotification = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -699,13 +627,10 @@ export const createUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -751,7 +676,6 @@ export const updateUserNotification = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -779,13 +703,10 @@ export const updateUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -831,7 +752,6 @@ export const deleteUserNotification = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -859,13 +779,10 @@ export const deleteUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
