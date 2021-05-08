@@ -6,7 +6,6 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser {
       id
       username
-      name
       imageUri
       bio
       posts {
@@ -16,8 +15,6 @@ export const onCreateUser = /* GraphQL */ `
           description
           likes
           thumbnail
-          category
-          brand
           userID
           songID
           createdAt
@@ -58,7 +55,6 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser {
       id
       username
-      name
       imageUri
       bio
       posts {
@@ -68,8 +64,6 @@ export const onUpdateUser = /* GraphQL */ `
           description
           likes
           thumbnail
-          category
-          brand
           userID
           songID
           createdAt
@@ -110,7 +104,6 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser {
       id
       username
-      name
       imageUri
       bio
       posts {
@@ -120,8 +113,6 @@ export const onDeleteUser = /* GraphQL */ `
           description
           likes
           thumbnail
-          category
-          brand
           userID
           songID
           createdAt
@@ -165,13 +156,10 @@ export const onCreatePost = /* GraphQL */ `
       description
       likes
       thumbnail
-      category
-      brand
       userID
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -226,13 +214,10 @@ export const onUpdatePost = /* GraphQL */ `
       description
       likes
       thumbnail
-      category
-      brand
       userID
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -287,13 +272,10 @@ export const onDeletePost = /* GraphQL */ `
       description
       likes
       thumbnail
-      category
-      brand
       userID
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -351,7 +333,6 @@ export const onCreateComment = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -379,13 +360,10 @@ export const onCreateComment = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -421,7 +399,6 @@ export const onUpdateComment = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -449,13 +426,10 @@ export const onUpdateComment = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -491,7 +465,6 @@ export const onDeleteComment = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -519,13 +492,10 @@ export const onDeleteComment = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -623,7 +593,6 @@ export const onCreateUserNotification = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -651,13 +620,10 @@ export const onCreateUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -700,7 +666,6 @@ export const onUpdateUserNotification = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -728,13 +693,10 @@ export const onUpdateUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
@@ -777,7 +739,6 @@ export const onDeleteUserNotification = /* GraphQL */ `
       user {
         id
         username
-        name
         imageUri
         bio
         posts {
@@ -805,13 +766,10 @@ export const onDeleteUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
-        category
-        brand
         userID
         user {
           id
           username
-          name
           imageUri
           bio
           createdAt
