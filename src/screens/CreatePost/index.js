@@ -92,6 +92,16 @@ const brandItems = [
   {label: 'Hugo Boss', value: 'Hugo Boss'},
 ];
 
+const languages = [
+  {label: 'English', value: 'English'},
+  {label: 'Hindi', value: 'Hindi'},
+  {label: 'Tamil', value: 'Tamil'},
+  {label: 'Malayalam', value: 'Malayalam'},
+  {label: 'Telugu', value: 'Telugu'},
+  {label: 'Marathi', value: 'Marathi'},
+  {label: 'Bengali', value: 'Bengali'},
+];
+
 const CreatePost = () => {
   const route = useRoute();
   const navigation = useNavigation();
@@ -279,6 +289,28 @@ const CreatePost = () => {
           selectedLabelStyle={{color: 'white'}}
         />
       </View>
+
+      {/* <View style={{marginHorizontal: 20, paddingBottom: 20}}>
+        <AppText style={{color: 'white', fontSize: 12}}>Language</AppText>
+        <DropDownPicker
+          items={languages}
+          placeholder="Select the Language"
+          containerStyle={{
+            height: 40,
+            borderRadius: 30,
+            marginVertical: 5,
+          }}
+          style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          dropDownStyle={{backgroundColor: '#20232A'}}
+          onChangeItem={(item) => setBrand(item.value)}
+          placeholderStyle={{color: 'white', fontSize: 12}}
+          arrowColor={{color: 'white'}}
+          selectedLabelStyle={{color: 'white'}}
+        />
+      </View> */}
 
       {user ? (
         <View style={styles.button}>

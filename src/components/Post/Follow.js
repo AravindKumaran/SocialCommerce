@@ -100,7 +100,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
               source={{
                 uri: currentPost.user?.imageUri?.startsWith('https')
                   ? currentPost.user?.imageUri
-                  : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${currentPost.user?.imageUri}`,
+                  : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${currentPost.user?.imageUri}`,
               }}
               size={35}
               style={{height: 60, width: 60, borderRadius: 30}}

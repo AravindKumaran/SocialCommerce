@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "liveboxfb4fb847_identitypool_fb4fb847",
+    "identityPoolName": "tiktoke6667396_identitypool_e6667396",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "livebofb4fb847",
-    "userPoolName": "liveboxfb4fb847_userpool_fb4fb847",
+    "resourceNameTruncated": "tiktoke6667396",
+    "userPoolName": "tiktoke6667396_userpool_e6667396",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -20,7 +20,7 @@
     "requiredAttributes": [
         "email"
     ],
-    "userpoolClientGenerateSecret": false,
+    "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
         "email"
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "livebofb4fb847_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "tiktoke6667396_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "fb4fb847",
-    "resourceName": "liveboxfb4fb847",
+    "sharedId": "e6667396",
+    "resourceName": "tiktoke6667396",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -45,27 +45,12 @@
             "Arn"
         ]
     },
-    "useDefault": "defaultSocial",
-    "hostedUI": true,
-    "usernameAttributes": [
-        "email"
-    ],
+    "useDefault": "default",
     "userPoolGroupList": [
-        "livebox123"
+        "livebox"
     ],
-    "serviceName": "Cognito",
-    "usernameCaseSensitive": false,
     "dependsOn": [],
-    "userPoolGroups": true,
-    "adminQueries": false,
-    "triggers": "{}",
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": [],
-    "hostedUIDomainName": "livebox951e0a7a-951e0a7a",
-    "authProvidersUserPool": [],
-    "hostedUIProviderMeta": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"livebox://\"],\"LogoutURLs\":[\"livebox://\"]}",
+    "hostedUI": true,
+    "serviceName": "Cognito",
     "authProviders": []
 }

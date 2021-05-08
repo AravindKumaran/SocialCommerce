@@ -25,7 +25,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   const [userImageUri, setUserImageUri] = useState(
     user.imageUri.startsWith('https')
       ? user.imageUri
-      : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
+      : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
   );
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
@@ -86,9 +86,9 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
 
       if (imgKey !== user.imageUri) {
         setUserImageUri(
-          `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${imgKey}`,
+          `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${imgKey}`,
         );
-        user.imageUri = `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${imgKey}`;
+        user.imageUri = `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${imgKey}`;
       }
 
       user.bio = bio;
