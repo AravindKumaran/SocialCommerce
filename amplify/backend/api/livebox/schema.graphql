@@ -9,6 +9,9 @@ type User @model {
   followers: [Follow]
   notifications: [UserNotification]
     @connection(keyName: "byUser", fields: ["id"])
+  facebook: String
+  youtube: String
+  instagram: String
 }
 
 type Follow {

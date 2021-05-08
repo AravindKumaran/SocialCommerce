@@ -101,6 +101,9 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
+      facebook
+      youtube
+      instagram
       createdAt
       updatedAt
     }
