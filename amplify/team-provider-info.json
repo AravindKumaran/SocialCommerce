@@ -13,7 +13,8 @@
     },
     "categories": {
       "auth": {
-        "liveboxfb4fb847": {}
+        "liveboxfb4fb847": {},
+        "userPoolGroups": {}
       }
     }
   },

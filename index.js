@@ -8,7 +8,7 @@ import {name as appName} from './app.json';
 
 import Amplify from 'aws-amplify';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
-import config from './aws-exports';
+import config from './src/aws-exports';
 
 async function urlOpener(url, redirectUrl) {
   await InAppBrowser.closeAuth();
