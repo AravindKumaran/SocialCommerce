@@ -84,7 +84,7 @@ const ProfileScreen = ({navigation, route}) => {
         bypassCache: true,
       });
 
-      // console.log('UserResw', userInfo.attributes);
+      console.log('UserInfo', userInfo.attributes);
 
       const userRes = await API.graphql(
         graphqlOperation(getUser, {
@@ -92,12 +92,13 @@ const ProfileScreen = ({navigation, route}) => {
           limit: 2,
         }),
       );
-
-      // console.log('UserRews', userRes.data.getUser.posts.items.length);
+      
+      console.log('UserRews', userRes);
+      //console.log('UserRews', userRes.data.getUser.posts.items.length);
 
       // console.log('USer', userRes.data.listUsers.items.length);
       if (!userRes?.data?.getUser) {
-        const identity = JSON.parse(userInfo.attributes.identities);
+        const identity = JSON.parse(userInfo.attributes?.identities);
         const provider = identity[0].providerName;
         let uri;
         if (userInfo.attributes?.picture) {
