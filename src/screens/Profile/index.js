@@ -139,7 +139,7 @@ const ProfileScreen = ({navigation, route}) => {
                 source={{
                   uri: res?.data?.createUser.imageUri.startsWith('https')
                     ? res?.data?.createUser.imageUri
-                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
+                    : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
                 }}
                 size={25}
                 style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -160,7 +160,7 @@ const ProfileScreen = ({navigation, route}) => {
                 source={{
                   uri: userRes.data?.getUser?.imageUri.startsWith('https')
                     ? userRes.data?.getUser?.imageUri
-                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
+                    : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
                 }}
                 size={25}
                 style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -242,7 +242,7 @@ const ProfileScreen = ({navigation, route}) => {
                   source={{
                     uri: value?.startsWith('https')
                       ? value
-                      : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${value}`,
+                      : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${value}`,
                   }}
                   size={25}
                   style={{
@@ -282,7 +282,7 @@ const ProfileScreen = ({navigation, route}) => {
             source={{
               uri: user.imageUri.startsWith('https')
                 ? user.imageUri
-                : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
+                : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
             }}
             size={25}
             style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -631,7 +631,7 @@ const ProfileScreen = ({navigation, route}) => {
                   source={{
                     uri: user.imageUri.startsWith('https')
                       ? user.imageUri
-                      : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
+                      : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
                   }}
                 />
               </View>

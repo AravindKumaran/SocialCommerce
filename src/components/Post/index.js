@@ -134,7 +134,7 @@ const Post = (props) => {
   useEffect(() => {
     if (!props.post?.videoUri?.startsWith('https')) {
       setVideoUri(
-        `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${props.post?.videoUri}`,
+        `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.videoUri}`,
       );
     } else {
       setVideoUri(props.post?.videoUri);
@@ -425,7 +425,7 @@ const Post = (props) => {
               style={styles.video}
               poster={
                 props.post?.thumbnail
-                  ? `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${props.post?.thumbnail}`
+                  ? `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1/public/${props.post?.thumbnail}`
                   : ''
               }
               posterResizeMode="cover"

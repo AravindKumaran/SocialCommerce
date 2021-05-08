@@ -88,7 +88,7 @@ const Home = ({navigation, route}) => {
                 source={{
                   uri: value?.startsWith('https')
                     ? value
-                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${value}`,
+                    : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${value}`,
                 }}
                 size={25}
                 style={{
