@@ -18,6 +18,18 @@ import {listUsers} from '../../graphql/queries';
 import {updateUser} from '../../graphql/mutations';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
+import DropDownPicker from 'react-native-dropdown-picker';
+import AppText from '../../components/Common/AppText';
+
+const languages = [
+  {label: 'English', value: 'English'},
+  {label: 'Hindi', value: 'Hindi'},
+  {label: 'Tamil', value: 'Tamil'},
+  {label: 'Malayalam', value: 'Malayalam'},
+  {label: 'Telugu', value: 'Telugu'},
+  {label: 'Marathi', value: 'Marathi'},
+  {label: 'Bengali', value: 'Bengali'},
+];
 
 const EditProfile = ({user, saveUser, closeSheet}) => {
   console.log('UUSer', user.id, saveUser);
@@ -29,6 +41,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   );
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
+  const [language, setLanguage] = useState();
 
   const [message] = useState('Please enter required values!');
   const [message1] = useState('Username already exists!');
@@ -196,7 +209,31 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             />
           </View>
 
-          <View style={{top: 150}}>
+          <View style={{top: 100, width: '100%'}}>
+            <AppText style={{color: 'white', fontSize: 12}}>Language</AppText>
+            <DropDownPicker
+              items={languages}
+              placeholder="Select the Language"
+              containerStyle={{
+                height: 40,
+                borderRadius: 30,
+                marginVertical: 5,
+              }}
+              style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
+              itemStyle={{
+                justifyContent: 'flex-start',
+              }}
+              dropDownStyle={{backgroundColor: '#20232A'}}
+              onChangeItem={(item) => setLanguage(item.value)}
+              placeholderStyle={{color: 'white', fontSize: 12}}
+              arrowColor={{color: 'white'}}
+              selectedLabelStyle={{color: 'white'}}
+              multiple={true}
+              defaultValue={0}
+            />
+          </View>
+
+          <View style={{top: 170}}>
             <Text
               style={{
                 color: '#FFFFFF',
@@ -236,7 +273,8 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
           </TouchableOpacity>
         </LinearGradient>
       </View> */}
-        <View style={{alignItems: 'center', paddingTop: 150, margin: 20}}>
+
+        <View style={{alignItems: 'center', paddingTop: 190, margin: 20}}>
           <AppButton onPress={handleRevert} title="Submit" />
         </View>
       </ScrollView>
