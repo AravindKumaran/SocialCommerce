@@ -116,11 +116,14 @@ const Categories = () => {
   const [active, setActive] = useState('categories');
   const [usersList, setUsersList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [category, setcategory] = useState('');
 
   const handleActive = (value) => {
     setActive(value);
   };
-
+  const handleCategory = (value) => {
+    setcategory(value);
+  };
   const handleSearch = async (value) => {
     console.log('Insider', value);
     if (value.length > 3) {
@@ -207,7 +210,10 @@ const Categories = () => {
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.cat}>
               {cat.map((c, i) => (
-                <TouchableOpacity key={`${c.name}-${i}`} style={styles.catItem}>
+                <TouchableOpacity
+                  key={`${c.name}-${i}`}
+                  onPress={() => handleCategory(c.name)}
+                  style={styles.catItem}>
                   <Image
                     style={
                       {
@@ -250,7 +256,13 @@ const Categories = () => {
             </View>
           </ScrollView>
         )}
-        <View>{active === 'categories' ? <Trending /> : <Brands />}</View>
+        <View>
+          {active === 'categories' ? (
+            <Trending category={category} />
+          ) : (
+            <Brands />
+          )}
+        </View>
       </ScrollView>
     </View>
   );
