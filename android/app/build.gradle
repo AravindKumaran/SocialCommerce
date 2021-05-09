@@ -155,9 +155,9 @@ def enableHermes = project.ext.react.get("enableHermes", false);
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-     dexOptions {
+    dexOptions {
         javaMaxHeapSize "4g"
-     }
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -245,11 +245,15 @@ dependencies {
 
     implementation 'com.android.support:multidex:1.0.3'
 
+    implementation 'com.google.firebase:firebase-analytics:17.4.1'
+
     compile project(':react-native-splash-screen')
 
     // compile project(':react-native-webview-bridge')
 
     compile "com.android.support:appcompat-v7:25.0.1"
+
+    implementation project(':lottie-react-native')
 
     // implementation project(':react-native-inappbrowser-reborn')
 
@@ -293,3 +297,5 @@ android {
 dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

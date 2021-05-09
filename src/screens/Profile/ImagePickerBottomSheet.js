@@ -9,14 +9,15 @@ import {
   Alert,
   TouchableOpacity,
   ToastAndroid,
+  ScrollView,
 } from 'react-native';
 
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Feather from 'react-native-vector-icons/Feather';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
-import AppText from './AppText';
-import AppButton from './AppButton';
+import AppText from '../../components/Common/AppText';
+import AppButton from '../../components/Common/AppButton';
 
 const ImagePickerBottomSheet = ({
   imageUri,
@@ -82,7 +83,7 @@ const ImagePickerBottomSheet = ({
   };
 
   return (
-    <View>
+    <View style={{}}>
       <View style={[styles.container, cStyle]}>
         {imageUri && (
           <Image
@@ -143,33 +144,51 @@ const ImagePickerBottomSheet = ({
             borderTopLeftRadius: 25,
           },
         }}>
+        {/* <ScrollView showsVerticalScrollIndicator={false}> */}
         <View
           style={{
             alignItems: 'center',
             justifyContent: 'center',
-            marginHorizontal: 20,
-            marginBottom: 10,
+            margin: 30,
+            bottom: 0,
           }}>
-          <AppText style={{marginVertical: 15, fontSize: 22}}>
-            Upload Image
-          </AppText>
-          <AppButton
-            title="Take Photo"
-            iconName="camera"
-            txtStyle={{textAlign: 'center', width: '-100%'}}
-            onPress={openCamera}
-          />
-          <AppButton
-            title="Choose From Library"
-            iconName="image"
-            txtStyle={{textAlign: 'center', width: '-100%'}}
-            onPress={openImageLibrary}
-          />
-          <AppButton
-            title="Cancel"
-            onPress={() => refRBSheet.current.close()}
-          />
+          <AppText style={{fontSize: 22, top: 15}}>Upload Image</AppText>
+          <View
+            style={{
+              alignSelf: 'center',
+              alignItems: 'center',
+              alignContent: 'center',
+            }}>
+            <AppButton
+              title="Take Photo"
+              iconName="camera"
+              txtStyle={{textAlign: 'center', width: '-100%'}}
+              onPress={openCamera}
+            />
+            <View
+              style={{
+                bottom: 20,
+              }}>
+              <AppButton
+                title="Choose From Library"
+                iconName="image"
+                txtStyle={{textAlign: 'center', width: '-100%'}}
+                onPress={openImageLibrary}
+              />
+            </View>
+            <View
+              style={{
+                bottom: 40,
+              }}>
+              <AppButton
+                title="Cancel"
+                iconName="x"
+                onPress={() => refRBSheet.current.close()}
+              />
+            </View>
+          </View>
         </View>
+        {/* </ScrollView> */}
       </RBSheet>
     </View>
   );

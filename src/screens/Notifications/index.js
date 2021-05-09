@@ -14,6 +14,7 @@ import {useIsFocused} from '@react-navigation/native';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import NotifItem from './NotifItem';
 import AppText from '../../components/Common/AppText';
+import {Header} from 'react-native-elements';
 
 const checkYesterday = () => {
   const today = new Date();
@@ -100,9 +101,30 @@ const Notifications = ({navigation}) => {
     getAllNotifications();
   }, []);
 
+  const MyCustomLeftComponent = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 24,
+          fontFamily: 'Proxima Nova',
+          width: 200,
+          fontWeight: '700'
+        }}>
+        Notifications
+      </Text>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <View style={{marginBottom: 20, padding: 15}}>
+      <Header
+        leftComponent={<MyCustomLeftComponent />}
+        containerStyle={{
+          backgroundColor: '#20232A',
+          borderColor: '#20232A',
+        }}
+      />
+      {/* <View style={{marginBottom: 20, padding: 15}}>
         <Text style={styles.text}>Notifications</Text>
         <View
           style={{
@@ -110,13 +132,13 @@ const Notifications = ({navigation}) => {
             borderBottomColor: '#51565D',
             borderBottomWidth: 1,
           }}
-        />
-        {/* <Image
+        /> */}
+      {/* <Image
           source={require('../../assets/images/Line5.png')}
           size={25}
           style={{width: '100%', paddingTop: 5, top: 10, }}
         /> */}
-      </View>
+      {/* </View> */}
       {/* {loading && <Text>Loading...</Text>} */}
       {loading && <LoadingIndicator visible={loading} />}
       {/* <AppButton title="Google" onPress={onGoogle} /> */}
@@ -124,12 +146,18 @@ const Notifications = ({navigation}) => {
       {todayNotif.length === 0 &&
         yesterdayNotif.length === 0 &&
         olderNotif.length === 0 && (
-          <View style={{alignItems: 'center', justifyContent: 'center'}}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 10,
+            }}>
             <AppText style={{color: '#fff'}}>No Notifications!</AppText>
           </View>
         )}
 
       <ScrollView
+        style={{marginTop: 10}}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }>

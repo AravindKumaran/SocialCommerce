@@ -45,16 +45,12 @@
             "Arn"
         ]
     },
-    "useDefault": "defaultSocial",
-    "userPoolGroupList": [],
+    "useDefault": "default",
+    "userPoolGroupList": [
+        "livebox"
+    ],
     "dependsOn": [],
     "hostedUI": true,
     "serviceName": "Cognito",
-    "hostedUIDomainName": "tiktok24dfe314-24dfe314",
-    "authProvidersUserPool": [
-        "Facebook",
-        "Google"
-    ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"tiktok://\"],\"LogoutURLs\":[\"tiktok://\"]}"
+    "authProviders": []
 }

@@ -68,10 +68,10 @@ const TrendingVideo = ({
         }}
         style={[
           {
-            width: vpWidth * 0.33,
+            width: vpWidth * 0.3,
             // height: fullScreen ? vpHeight - 80 : height,
-            height: 200,
-            margin: 2,
+            height: 160,
+            margin: 5,
             elevation: 5,
             // borderRadius: 4,
           },

@@ -68,7 +68,7 @@ const ProfileVideoList = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
-      <View style={{height: 65}}>
+      <View style={{height: 75}}>
         <Text
           style={{
             textAlign: 'center',
@@ -76,6 +76,7 @@ const ProfileVideoList = ({navigation, route}) => {
             color: '#fff',
             fontSize: 20,
             padding: 10,
+            top: 25,
           }}>
           Your Videos
         </Text>

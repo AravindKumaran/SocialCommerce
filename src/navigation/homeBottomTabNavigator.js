@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef, useContext} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/Home';
@@ -6,20 +6,13 @@ import Camera from '../screens/Camera';
 import Search from '../screens/Search';
 import Notifications from '../screens/Notifications';
 import ProfileScreen from '../screens/Profile/index';
-import {
-  Image,
-  Text,
-  View,
-  TouchableOpacity,
-  BackHandler,
-  Keyboard,
-} from 'react-native';
+import {View, Image, Text, TouchableOpacity, Keyboard} from 'react-native';
 import {color} from 'react-native-reanimated';
-import LinearGradient from 'react-native-linear-gradient';
-import Container from '../navigation/container';
 import ProfileVideoList from '../screens/Profile/ProfileVideoList';
 import TrendingVideoList from '../screens/Search/TrendingVideoList';
 import NotifVideoPlay from '../screens/Notifications/NotifVideoPlay';
+import Feather from 'react-native-vector-icons/Feather';
+import {useNavigation} from '@react-navigation/native';
 
 const ActiveStyle = () => (
   <>
@@ -62,13 +55,14 @@ export const getTabBarIcon = (focused, props, imgUri) => {
     return (
       <>
         <Image
-          source={{
-            uri: imgUri.startsWith('https')
-              ? imgUri
-              : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${imgUri}`,
-          }}
+          source={require('../assets/images/Profile_icon.png')}
+          // source={{
+          //   uri: imgUri.startsWith('https')
+          //     ? imgUri
+          //     : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${imgUri}`,
+          // }}
           size={25}
-          style={{bottom: 2, width: 25, height: 25}}
+          style={{bottom: 5, width: 25, height: 25}}
         />
       </>
     );
@@ -80,7 +74,7 @@ export const getTabBarIcon = (focused, props, imgUri) => {
           source={{
             uri: imgUri.startsWith('https')
               ? imgUri
-              : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${imgUri}`,
+              : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${imgUri}`,
           }}
           size={25}
           style={{bottom: 2, width: 25, height: 25}}
@@ -88,11 +82,7 @@ export const getTabBarIcon = (focused, props, imgUri) => {
       ) : (
 
       )} */}
-        <Image
-          source={require('../assets/images/Profile_icon.png')}
-          size={25}
-          style={{bottom: 2, width: 32, height: 32}}
-        />
+        <Feather name={'user'} size={22.5} style={{bottom: 5}} />
 
         {focused && <ActiveStyle />}
       </>
@@ -173,136 +163,162 @@ const HomeBottomTabNavigator = () => {
 
   const TabBar = (props) => {
     return (
-      <LinearGradient
-        start={{x: 0, y: 0}}
-        end={{x: 1, y: 0}}
-        colors={['red', 'yellow']}
-      />
+      <React.Fragment>
+        <ImageBackground
+          source={require('../assets/images/Background3.png')}
+          style={{width: '100%', height: 60}}>
+          <TabBar {...props} />
+        </ImageBackground>
+      </React.Fragment>
     );
   };
 
+  const navigation = useNavigation();
+
   return (
-    // <Container>
-    <Tab.Navigator
-      tabBarOptions={{
-        keyboardHidesTabBar: true,
-        tabStyle: {
-          backgroundColor: '#20232A',
-          height: 65,
-          bottom: 10,
-          borderTopEndRadius: 20,
-          borderTopStartRadius: 20,
-        },
-        inactiveTintColor: '#FFFFFF',
-        activeTintColor: '#21FFFC',
-        showLabel: false,
-        showIcon: true,
-        indicatorStyle: {
-          opacity: 0.2,
-        },
-        style: {
-          borderRadius: 20,
-          backgroundColor: '#20232A',
-          position: 'absolute',
-          bottom: -10,
-          padding: 10,
-          height: 65,
-          zIndex: 8,
-        },
-      }}
-      tabBarComponent={(props) => {
-        return <TabBar {...props} />;
-      }}>
-      <Tab.Screen
-        name={'Home'}
-        component={Home}
-        options={{
-          tabBarIcon: ({focused, color}) => (
-            <>
-              <Image
-                source={require('../assets/images/home1.png')}
-                width={25}
-                height={25}
-                tintColor={color}
-                style={{bottom: 5, width: 20, height: 20}}
-              />
-              {focused && <ActiveStyle />}
-            </>
-          ),
+    <>
+      <Tab.Navigator
+        tabBarOptions={{
+          keyboardHidesTabBar: true,
+          tabStyle: {
+            backgroundColor: '#20232A',
+            height: 65,
+            bottom: 10,
+            borderTopEndRadius: 20,
+            borderTopStartRadius: 20,
+          },
+          inactiveTintColor: '#FFFFFF',
+          activeTintColor: '#21FFFC',
+          showLabel: false,
+          showIcon: true,
+          indicatorStyle: {
+            opacity: 0.2,
+          },
+          style: {
+            borderRadius: 20,
+            backgroundColor: '#20232A',
+            position: 'absolute',
+            bottom: -10,
+            padding: 10,
+            height: 65,
+            zIndex: 8,
+          },
         }}
-      />
-      <Tab.Screen
-        name={'Search'}
-        component={ExploreNavigator}
-        options={{
-          tabBarIcon: ({focused, color}) => (
-            <>
-              <Image
-                source={require('../assets/images/explore1.png')}
-                width={25}
-                height={25}
-                tintColor={color}
-                style={{bottom: 5, width: 20, height: 20}}
-              />
-              {focused && <ActiveStyle />}
-            </>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={'Upload'}
-        component={Camera}
-        options={() => ({
-          tabBarIcon: ({focused, color}) => (
-            <>
-              {!didKeyboardShow && (
+        tabBarComponent={(props) => {
+          <React.Fragment>
+            <ImageBackground
+              source={require('../assets/images/Background3.png')}
+              style={{flex: 1, backgroundColor: 'transparent'}}>
+              <TabBar {...props} />
+            </ImageBackground>
+          </React.Fragment>;
+        }}>
+        <Tab.Screen
+          name={'Home'}
+          component={Home}
+          options={{
+            tabBarIcon: ({focused, color}) => (
+              <>
                 <Image
-                  source={require('../assets/images/Plus.png')}
-                  style={{
-                    top: focused ? 0 : -30,
-                    width: 65,
-                    height: 65,
-                    borderRadius: 37,
-                    bottom: focused ? -20 : 20,
-                    zIndex: 1,
-                  }}
+                  source={require('../assets/images/home1.png')}
+                  width={25}
+                  height={25}
+                  tintColor={color}
+                  style={{bottom: 5, width: 20, height: 20}}
                 />
-              )}
-            </>
-          ),
-          tabBarLabel: () => null,
-          tabBarVisible: false,
-        })}
-      />
-      <Tab.Screen
-        name={'Notification'}
-        component={NotifNavigator}
-        options={{
-          tabBarIcon: ({focused, color}) => (
-            <>
-              <Image
-                source={require('../assets/images/notification1.png')}
-                width={25}
-                height={25}
-                tintColor={color}
-                style={{bottom: 5, width: 20, height: 20}}
-              />
-              {focused && <ActiveStyle />}
-            </>
-          ),
+                {focused && <ActiveStyle />}
+              </>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name={'Search'}
+          component={ExploreNavigator}
+          options={{
+            tabBarIcon: ({focused, color}) => (
+              <>
+                <Image
+                  source={require('../assets/images/explore1.png')}
+                  width={25}
+                  height={25}
+                  tintColor={color}
+                  style={{bottom: 5, width: 20, height: 20}}
+                />
+                {focused && <ActiveStyle />}
+              </>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name={'Upload'}
+          component={Camera}
+          options={() => ({
+            tabBarIcon: ({focused, color}) => (
+              <>
+                {!didKeyboardShow && (
+                  <Image
+                    source={require('../assets/images/Plus.png')}
+                    style={{
+                      top: focused ? 0 : -30,
+                      width: 65,
+                      height: 65,
+                      borderRadius: 37,
+                      bottom: focused ? -20 : 20,
+                      zIndex: 1,
+                    }}
+                  />
+                )}
+              </>
+            ),
+            tabBarLabel: () => null,
+            tabBarVisible: false,
+          })}
+        />
+        <Tab.Screen
+          name={'Notification'}
+          component={NotifNavigator}
+          options={{
+            tabBarIcon: ({focused, color}) => (
+              <>
+                <Image
+                  source={require('../assets/images/notification1.png')}
+                  width={25}
+                  height={25}
+                  tintColor={color}
+                  style={{bottom: 5, width: 20, height: 20}}
+                />
+                {focused && <ActiveStyle />}
+              </>
+            ),
+          }}
+        />
+        <Tab.Screen
+          name={'Profile'}
+          component={ProfileNavigator}
+          options={(props) => ({
+            tabBarIcon: ({focused, tintColor}) =>
+              // <CustomTabIcon focused={focused} />
+              getTabBarIcon(focused, props),
+          })}
+        />
+      </Tab.Navigator>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('Camera');
         }}
-      />
-      <Tab.Screen
-        name={'Profile'}
-        component={ProfileNavigator}
-        options={(props) => ({
-          tabBarIcon: ({focused, tintColor}) =>
-            // <CustomTabIcon focused={focused} />
-            getTabBarIcon(focused, props),
-        })}
-      />
-    </Tab.Navigator>
-    // </Container>
+        style={{
+          backgroundColor: 'transparent',
+          zIndex: 1,
+          position: 'absolute',
+          bottom: 20,
+          height: 65,
+          width: 65,
+          alignSelf: 'center',
+          borderRadius: 35,
+        }}>
+        <Text style={{fontSize: 30, color: 'transparent'}}>Hello</Text>
+      </TouchableOpacity>
+    </>
   );
 };
 

@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 18,
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
+    fontSize: 14,
+    // textTransform: 'uppercase',
+    fontWeight: '700',
     width: '100%',
     textAlign: 'center',
     fontFamily: 'Proxima Nova',

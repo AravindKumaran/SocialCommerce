@@ -29,6 +29,8 @@ import DoubleClick from '../Post/doubletap';
 import Follow from './Follow';
 import {NavigationActions} from 'react-navigation';
 import Feather from 'react-native-vector-icons/Feather';
+import * as Animatable from 'react-native-animatable';
+import LottieView from 'lottie-react-native';
 
 const Post = (props) => {
   // console.log('Props', props.post);
@@ -53,6 +55,39 @@ const Post = (props) => {
   const [user, setUser] = useState(null);
 
   const [message] = useState('Please sign in first');
+
+  const fadeIn = {
+    from: {
+      opacity: 0,
+    },
+    to: {
+      opacity: 1,
+    },
+  };
+
+  const fadeOut = {
+    from: {
+      opacity: 1,
+    },
+    to: {
+      opacity: 0,
+    },
+  };
+
+  const zoomOut = {
+    0: {
+      opacity: 1,
+      scale: 1,
+    },
+    0.5: {
+      opacity: 1,
+      scale: 0.3,
+    },
+    1: {
+      opacity: 0,
+      scale: 0,
+    },
+  };
 
   useEffect(() => {
     Hub.listen('auth', ({payload: {event, data}}) => {
@@ -99,7 +134,7 @@ const Post = (props) => {
   useEffect(() => {
     if (!props.post?.videoUri?.startsWith('https')) {
       setVideoUri(
-        `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${props.post?.videoUri}`,
+        `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.videoUri}`,
       );
     } else {
       setVideoUri(props.post?.videoUri);
@@ -390,7 +425,7 @@ const Post = (props) => {
               style={styles.video}
               poster={
                 props.post?.thumbnail
-                  ? `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${props.post?.thumbnail}`
+                  ? `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.thumbnail}`
                   : ''
               }
               posterResizeMode="cover"
@@ -425,28 +460,38 @@ const Post = (props) => {
           </View>
 
           {showLikeIcon && (
-            <View
+            // <Animatable.View
+            //   animation={(fadeIn, fadeOut)}
+            //   style={{
+            //     position: 'absolute',
+            //     bottom: '60%',
+            //     left: '40%',
+            //     height: 80,
+            //     width: 80,
+            //     backgroundColor: `rgba(0, 0, 0, 0.3)`,
+            //     borderRadius: 60,
+            //     alignItems: 'center',
+            //     justifyContent: 'center',
+            //     padding: 25,
+            //   }}>
+            //   <Image
+            //     source={require('../../assets/images/Cl3.png')}
+            //     size={50}
+            //     style={{height: 50, width: 50}}
+            //   />
+            // </Animatable.View>
+            <LottieView
+              source={require('../../assets/images/likejson.json')}
               style={{
-                position: 'absolute',
-                bottom: '50%',
-                left: '30%',
-                height: 120,
-                width: 120,
-                backgroundColor: `rgba(0, 0, 0, 0.3)`,
-                borderRadius: 60,
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 25,
-              }}>
-              <Image
-                source={require('../../assets/images/Cl3.png')}
-                size={50}
-                style={{height: 50, width: 50}}
-              />
-            </View>
+                bottom: '20%',
+              }}
+              autoPlay
+              loop
+            />
           )}
           {showMutedIcon && (
-            <View
+            <Animatable.View
+              animation={zoomOut}
               style={{
                 position: 'absolute',
                 bottom: '60%',
@@ -464,10 +509,11 @@ const Post = (props) => {
               ) : (
                 <Feather name="volume" size={75} color="#fff" />
               )}
-            </View>
+            </Animatable.View>
           )}
           {showPauseIcon && (
-            <View
+            <Animatable.View
+              animation={zoomOut}
               style={{
                 position: 'absolute',
                 bottom: '60%',
@@ -485,7 +531,7 @@ const Post = (props) => {
               ) : (
                 <Feather name="pause" size={50} color="#fff" />
               )}
-            </View>
+            </Animatable.View>
           )}
 
           <View style={styles.uiContainer}>
@@ -629,7 +675,7 @@ const Post = (props) => {
                 ref={refRBSheet}
                 height={Dimensions.get('window').height - 300}
                 animationType="fade"
-                closeOnDragDown={true}
+                closeOnDragDown={false}
                 customStyles={{
                   wrapper: {
                     backgroundColor: 'rgba(0,0,0,.6)',
@@ -652,13 +698,23 @@ const Post = (props) => {
                     position: 'absolute',
                   }}
                 /> */}
+                <View style={{marginTop: 22, height: 40, width: 40}}>
+                  <TouchableOpacity
+                    onPress={() => refRBSheet.current.close()}
+                    style={{
+                      top: 0,
+                      left: 10,
+                      position: 'absolute',
+                    }}>
+                    <Feather name="chevron-left" size={30} color="#20232A" />
+                  </TouchableOpacity>
+                </View>
                 <Comments
                   postId={props.post?.id}
                   postUserId={props.post.user?.id}
                   curUser={user}
                 />
               </RBSheet>
-
               {/* {isClicked ?  : <></>} */}
 
               {/* <View style={styles.iconContainer}>

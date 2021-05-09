@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  ImageBackground,
 } from 'react-native';
 import Post from '../../components/Post';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
@@ -18,6 +19,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Header} from 'react-native-elements';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -86,11 +88,11 @@ const Home = ({navigation, route}) => {
                 source={{
                   uri: value?.startsWith('https')
                     ? value
-                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${value}`,
+                    : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${value}`,
                 }}
                 size={25}
                 style={{
-                  bottom: 2,
+                  bottom: 5,
                   width: 25,
                   height: 25,
                   borderRadius: 12,
@@ -235,59 +237,97 @@ const Home = ({navigation, route}) => {
     );
   };
 
+  const MyCustomLeftComponent = () => {
+    return (
+      <TouchableOpacity>
+        <Text
+          style={{
+            fontSize: 24,
+            fontFamily: 'LilyScriptOne-Regular',
+            width: 200,
+          }}>
+          Livebox
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const MyCustomRightComponent = () => {
+    return (
+      <TouchableOpacity
+        style={{
+          top: 4,
+        }}>
+        <Feather name={'shopping-cart'} size={25} color="white" />
+      </TouchableOpacity>
+    );
+  };
+
   return (
-    <View style={styles.mainContainer}>
-      {loading && <LoadingIndicator visible={loading} />}
-      <Image
+    <ImageBackground
+      source={require('../../assets/images/Background2.png')}
+      style={styles.container}>
+      <View style={styles.container}>
+        {loading && <LoadingIndicator visible={loading} />}
+        <Header
+          leftComponent={<MyCustomLeftComponent />}
+          rightComponent={<MyCustomRightComponent />}
+          containerStyle={{
+            backgroundColor: '#20232A',
+            borderColor: '#20232A',
+          }}
+        />
+        {/* <Image
         source={require('../../assets/images/Logo13.png')}
         size={15}
         style={styles.img1}
       />
-      <Text style={styles.text}>Livebox</Text>
+      <Text style={styles.text}>Livebox</Text> */}
 
-      <TouchableOpacity style={styles.cart}>
+        {/* <TouchableOpacity style={styles.cart}>
         <Feather name={'shopping-cart'} size={20} color="transparent" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
-      <FlatList
-        data={posts}
-        ref={flatListRef}
-        // getItemLayout={(data, index) => ({
-        //   length: vpHeight + 10,
-        //   offset: vpHeight * 1.07 * index,
-        //   index,
-        // })}
-        renderItem={_renderItem}
-        showsVerticalScrollIndicator={false}
-        snapToAlignment={'start'}
-        decelerationRate={'fast'}
-        snapToInterval={Dimensions.get('window').height + 40}
-        borderRadius={50}
-        viewabilityConfig={_viewabilityConfig.current}
-        onViewableItemsChanged={_onViewableItemsChanged.current}
-        onEndReached={getMorePosts}
-        onEndReachedThreshold={0.5}
-        keyExtractor={(item) => item.id.toString()}
-        refreshing={refreshing}
-        onRefresh={handleRefresh}
-        ListFooterComponent={renderFooter}
-      />
-    </View>
+        <FlatList
+          data={posts}
+          ref={flatListRef}
+          // getItemLayout={(data, index) => ({
+          //   length: vpHeight + 10,
+          //   offset: vpHeight * 1.07 * index,
+          //   index,
+          // })}
+          renderItem={_renderItem}
+          showsVerticalScrollIndicator={false}
+          snapToAlignment={'start'}
+          decelerationRate={'fast'}
+          snapToInterval={Dimensions.get('window').height + 40}
+          borderRadius={50}
+          viewabilityConfig={_viewabilityConfig.current}
+          onViewableItemsChanged={_onViewableItemsChanged.current}
+          onEndReached={getMorePosts}
+          onEndReachedThreshold={0.5}
+          keyExtractor={(item) => item.id.toString()}
+          refreshing={refreshing}
+          onRefresh={handleRefresh}
+          ListFooterComponent={renderFooter}
+        />
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     position: 'absolute',
-    padding: 10,
     width: '100%',
     height: '100%',
-    top: 34,
-    paddingTop: 0,
-    paddingLeft: 4,
-    paddingRight: 4,
-    paddingBottom: 0,
-    marginRight: 4,
+    // padding: 10,
+    // top: 34,
+    // paddingTop: 0,
+    // paddingLeft: 4,
+    // paddingRight: 4,
+    // paddingBottom: 0,
+    // marginRight: 4,
     backgroundColor: '#20232A',
   },
 

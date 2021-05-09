@@ -16,6 +16,7 @@ import Brands from '../Search/brands3';
 import Trending from '../Search/trending3';
 import {API, graphqlOperation} from 'aws-amplify';
 import {searchUsersList} from '../../graphql/queries';
+import {Header} from 'react-native-elements';
 
 const ActiveStyle = () => (
   <View style={{alignItems: 'center'}}>
@@ -48,11 +49,7 @@ const ActiveStyle = () => (
 const cat = [
   {
     src: require('../../assets/images/Men1.png'),
-    name: 'Men',
-  },
-  {
-    src: require('../../assets/images/Women1.png'),
-    name: 'Women',
+    name: 'Fashion',
   },
   {
     src: require('../../assets/images/Jewel1.png'),
@@ -66,7 +63,32 @@ const cat = [
     src: require('../../assets/images/Beauty1.png'),
     name: 'Beauty',
   },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Travel',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Food',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Movies & Series',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Sports',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'Finance',
+  },
+  {
+    src: require('../../assets/images/Beauty1.png'),
+    name: 'DIY',
+  },
 ];
+
 const brands = [
   {
     src: require('../../assets/images/L1.png'),
@@ -120,9 +142,29 @@ const Categories = () => {
     }
   };
 
+  const MyCustomLeftComponent = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 25,
+          fontFamily: 'LilyScriptOne-Regular',
+          width: 200,
+        }}>
+        Search
+      </Text>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <ScrollView nestedScrollEnabled={true}>
+      {/* <Header
+        leftComponent={<MyCustomLeftComponent />}
+        containerStyle={{
+          backgroundColor: '#20232A',
+          borderColor: '#20232A',
+        }}
+      /> */}
+      <ScrollView nestedScrollEnabled={true} style={{marginTop: 25}}>
         <Searchhbar onSearch={handleSearch} />
 
         <View style={styles.choose}>
@@ -241,11 +283,12 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '400',
     fontFamily: 'Proxima Nova',
+    fontSize: 12,
   },
   text1: {
     fontWeight: '700',
     fontFamily: 'Proxima Nova',
-    fontSize: 16,
+    fontSize: 14,
     marginHorizontal: 25,
     marginTop: -45,
   },

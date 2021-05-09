@@ -73,9 +73,9 @@ const veryIntensiveTask = async (taskDataArguments) => {
 
 const categoryItems = [
   {label: 'Fashion', value: 'Fashion'},
-  {label: 'Beauty', value: 'Beauty'},
   {label: 'Jewellery', value: 'Jewellery'},
   {label: 'Fitness', value: 'Fitness'},
+  {label: 'Beauty', value: 'Beauty'},
   {label: 'Travel', value: 'Travel'},
   {label: 'Food', value: 'Food'},
   {label: 'Movies & Series', value: 'Movies & Series'},
@@ -83,12 +83,23 @@ const categoryItems = [
   {label: 'Finance', value: 'Finance'},
   {label: 'DIY', value: 'DIY'},
 ];
+
 const brandItems = [
   {label: 'Adidas', value: 'Adidas'},
   {label: 'Armani', value: 'Armani'},
   {label: 'Beats', value: 'Beats'},
   {label: 'Bose', value: 'Bose'},
   {label: 'Hugo Boss', value: 'Hugo Boss'},
+];
+
+const languages = [
+  {label: 'English', value: 'English'},
+  {label: 'Hindi', value: 'Hindi'},
+  {label: 'Tamil', value: 'Tamil'},
+  {label: 'Malayalam', value: 'Malayalam'},
+  {label: 'Telugu', value: 'Telugu'},
+  {label: 'Marathi', value: 'Marathi'},
+  {label: 'Bengali', value: 'Bengali'},
 ];
 
 const CreatePost = () => {
@@ -233,13 +244,6 @@ const CreatePost = () => {
         }
         title="Edit Video"
       />
-      <TextInput
-        value={description}
-        onChangeText={(text) => setDescription(text)}
-        numberOfLines={5}
-        placeholder={'Hashtag'}
-        style={styles.textInput}
-      />
 
       <View style={{marginHorizontal: 20}}>
         <AppText style={{color: 'white', fontSize: 12}}>Categories</AppText>
@@ -260,10 +264,11 @@ const CreatePost = () => {
           onChangeItem={(item) => setCategory(item.value)}
           placeholderStyle={{color: 'white', fontSize: 12}}
           arrowColor={{color: 'white'}}
+          selectedLabelStyle={{color: 'white'}}
         />
       </View>
 
-      <View style={{marginHorizontal: 20, paddingBottom: 130}}>
+      <View style={{marginHorizontal: 20, paddingBottom: 20}}>
         <AppText style={{color: 'white', fontSize: 12}}>Brand</AppText>
         <DropDownPicker
           items={brandItems}
@@ -281,8 +286,31 @@ const CreatePost = () => {
           onChangeItem={(item) => setBrand(item.value)}
           placeholderStyle={{color: 'white', fontSize: 12}}
           arrowColor={{color: 'white'}}
+          selectedLabelStyle={{color: 'white'}}
         />
       </View>
+
+      {/* <View style={{marginHorizontal: 20, paddingBottom: 20}}>
+        <AppText style={{color: 'white', fontSize: 12}}>Language</AppText>
+        <DropDownPicker
+          items={languages}
+          placeholder="Select the Language"
+          containerStyle={{
+            height: 40,
+            borderRadius: 30,
+            marginVertical: 5,
+          }}
+          style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          dropDownStyle={{backgroundColor: '#20232A'}}
+          onChangeItem={(item) => setBrand(item.value)}
+          placeholderStyle={{color: 'white', fontSize: 12}}
+          arrowColor={{color: 'white'}}
+          selectedLabelStyle={{color: 'white'}}
+        />
+      </View> */}
 
       {user ? (
         <View style={styles.button}>

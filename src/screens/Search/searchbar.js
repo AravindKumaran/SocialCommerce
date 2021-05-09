@@ -1,23 +1,43 @@
-import React, {useState, useRef} from 'react';
+import React from 'react';
+import {Component} from 'react';
+import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
+import {Col, Row, Grid} from 'react-native-easy-grid';
+
 import {SearchBar} from 'react-native-elements';
 
-const SearchhBar = ({onSearch}) => {
-  const [search, setSearch] = useState('');
-
-  const updateSearch = (search) => {
-    setSearch(search);
-    onSearch(search);
+export default class Searchbar extends React.Component {
+  state = {
+    search: '',
   };
-  return (
-    <>
+
+  updateSearch = (search) => {
+    this.setState({search});
+  };
+
+  render() {
+    const {search} = this.state;
+
+    return (
       <SearchBar
         containerStyle={{
           borderRadius: 40,
           width: '100%',
-          backgroundColor: '#20232A',
-          top: -1,
+          backgroundColor: 'transparent',
+          borderBottomWidth: 1,
+          borderBottomColor: '#585858',
         }}
-        inputContainerStyle={{borderRadius: 30, color: '#20232A', backgroundColor: '#282D34'}}
+        inputContainerStyle={{
+          borderRadius: 30,
+          color: '#181818',
+          height: 40,
+          backgroundColor: 'transparent',
+          borderWidth: 1,
+          borderColor: '#3F464F',
+          borderBottomWidth: 1,
+          borderBottomColor: '#3F464F',
+          margin: 8,
+          bottom: 5,
+        }}
         inputStyle={{
           fontFamily: 'Proxima Nova',
           fontSize: 15,
@@ -27,11 +47,10 @@ const SearchhBar = ({onSearch}) => {
         }}
         searchIcon={{left: 6, size: 25, color: '#ffffff'}}
         placeholder="Search"
-        onChangeText={updateSearch}
+        placeholderTextColor="#ffffff"
+        onChangeText={this.updateSearch}
         value={search}
       />
-    </>
-  );
-};
-
-export default SearchhBar;
+    );
+  }
+}

@@ -30,7 +30,7 @@ const NotifItem = ({item}) => {
             source={{
               uri: item?.user?.imageUri.startsWith('https')
                 ? item?.user?.imageUri
-                : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${item?.user?.imageUri}`,
+                : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${item?.user?.imageUri}`,
             }}
             style={{
               height: 35,
@@ -70,7 +70,7 @@ const NotifItem = ({item}) => {
             source={{
               uri: item?.post?.thumbnail.startsWith('https')
                 ? item?.post?.thumbnail
-                : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${item.post?.thumbnail}`,
+                : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${item.post?.thumbnail}`,
             }}
             style={{
               height: 35,

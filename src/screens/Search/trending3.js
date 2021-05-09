@@ -104,7 +104,7 @@ const Trending = () => {
   return (
     <View style={styles.container}>
       <Image
-        style={{top: 0, left: 10}}
+        style={{top: 0, left: 0, width: '90%', alignSelf: 'center'}}
         source={require('../../assets/images/Line2.png')}
         size={15}
       />
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     textAlign: 'center',
     fontFamily: 'Proxima Nova',
-    fontSize: 16,
+    fontSize: 14,
     top: 15,
   },
 });

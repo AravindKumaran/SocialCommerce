@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "834847276371",
+    "project_id": "livebox-9c627",
+    "storage_bucket": "livebox-9c627.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834847276371:android:70ee143ed512ffb4a7b5a6",
+        "android_client_info": {
+          "package_name": "com.livebox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "834847276371-0436l75j2gl9jqka7k08jeh5ncfr8pk2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtonHwPpgPu-JiIOxsQiHG3kxDdIudyLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "834847276371-0436l75j2gl9jqka7k08jeh5ncfr8pk2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

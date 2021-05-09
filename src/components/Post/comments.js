@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 
 import {
   StyleSheet,
@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import {API, graphqlOperation, Hub, Auth} from 'aws-amplify';
-import {getPost, listComments} from '../../graphql/queries';
+import {getPost, listComments, getComment} from '../../graphql/queries';
 import TimeAgo from 'react-native-timeago';
 
 import LoadingIndicator from '../Common/LoadingIndicator';
@@ -29,8 +29,11 @@ import {
   createUserNotification,
 } from '../../graphql/mutations';
 import {useNavigation} from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/Feather';
 
-const Comments = ({postId, postUserId, curUser}) => {
+import useInfiniteScroll from './useInfiniteScroll';
+
+const Comments = ({postId, postUserId, curUser, route}) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cmtText, setCmtText] = useState('');
@@ -242,6 +245,12 @@ const Comments = ({postId, postUserId, curUser}) => {
   //   parent?.goBack();
   // };
 
+  const refScrollView = useRef(null);
+  const moveTo = () => {
+    // refScrollView.current.scrollTo({y: 250, animated: true});
+    refScrollView.current.scrollToEnd();
+  };
+
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} bgc="blue" />}
@@ -251,19 +260,15 @@ const Comments = ({postId, postUserId, curUser}) => {
           fontSize: 16,
           marginVertical: 10,
           fontWeight: '700',
+          marginTop: -35,
         }}>
         Comments ({comments.length})
       </AppText>
 
-      {/* <TouchableOpacity
-        // onPress={() => {
-        //   navigation.goBack()
-        // }}
-        style={{bottom: 35, left: 5}}>
-        <Feather name="chevron-left" size={30} color="#000000" />
-      </TouchableOpacity> */}
-
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        style={styles.container}
+        showsVerticalScrollIndicator={false}
+        ref={refScrollView}>
         <View style={styles.cmList}>
           {comments.length > 0 &&
             comments.map((cm) => (
@@ -329,6 +334,19 @@ const Comments = ({postId, postUserId, curUser}) => {
             ))}
         </View>
       </ScrollView>
+
+      <TouchableOpacity onPress={moveTo}>
+        <Feather
+          name="chevron-down"
+          size={30}
+          color="#999999"
+          style={{
+            alignContent: 'center',
+            alignSelf: 'center',
+            alignItems: 'center',
+          }}
+        />
+      </TouchableOpacity>
 
       <View style={styles.commentForm}>
         <KeyboardAvoidingView

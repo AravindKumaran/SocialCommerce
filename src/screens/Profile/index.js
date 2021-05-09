@@ -25,6 +25,7 @@ import Videos from '../Profile/videos';
 import {useIsFocused, CommonActions} from '@react-navigation/native';
 import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Header} from 'react-native-elements';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -70,6 +71,10 @@ const ProfileScreen = ({navigation, route}) => {
   const refRBSheet2 = useRef();
 
   const isFocused = useIsFocused();
+
+  function closeSheets() {
+    refRBSheet.current.close();
+  }
 
   const checkUser = async () => {
     setLoading(true);
@@ -134,10 +139,10 @@ const ProfileScreen = ({navigation, route}) => {
                 source={{
                   uri: res?.data?.createUser.imageUri.startsWith('https')
                     ? res?.data?.createUser.imageUri
-                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
+                    : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
                 }}
                 size={25}
-                style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+                style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -155,10 +160,10 @@ const ProfileScreen = ({navigation, route}) => {
                 source={{
                   uri: userRes.data?.getUser?.imageUri.startsWith('https')
                     ? userRes.data?.getUser?.imageUri
-                    : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
+                    : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
                 }}
                 size={25}
-                style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+                style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
               />
               {focused && <ActiveStyle />}
             </>
@@ -194,11 +199,7 @@ const ProfileScreen = ({navigation, route}) => {
     c.setOptions({
       tabBarIcon: ({focused, tintColor}) => (
         <>
-          <Image
-            source={require('../../assets/images/Profile_icon.png')}
-            size={25}
-            style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
-          />
+          <Feather name={'user'} size={22.5} style={{bottom: 5}} />
           {focused && <ActiveStyle />}
         </>
       ),
@@ -241,11 +242,11 @@ const ProfileScreen = ({navigation, route}) => {
                   source={{
                     uri: value?.startsWith('https')
                       ? value
-                      : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${value}`,
+                      : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${value}`,
                   }}
                   size={25}
                   style={{
-                    bottom: 2,
+                    bottom: 5,
                     width: 25,
                     height: 25,
                     borderRadius: 12,
@@ -281,10 +282,10 @@ const ProfileScreen = ({navigation, route}) => {
             source={{
               uri: user.imageUri.startsWith('https')
                 ? user.imageUri
-                : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
+                : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
             }}
             size={25}
-            style={{bottom: 2, width: 25, height: 25, borderRadius: 12}}
+            style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
           />
           {focused && <ActiveStyle />}
         </>
@@ -293,8 +294,28 @@ const ProfileScreen = ({navigation, route}) => {
     setUser(user);
   };
 
+  const MyCustomLeftComponent = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 25,
+          fontFamily: 'LilyScriptOne-Regular',
+          width: 200,
+        }}>
+        Profile
+      </Text>
+    );
+  };
+
   return (
     <View style={styles.container}>
+      {/* <Header
+        leftComponent={<MyCustomLeftComponent />}
+        containerStyle={{
+          backgroundColor: '#20232A',
+          borderColor: '#20232A',
+        }}
+      /> */}
       <ScrollView nestedScrollEnabled={true}>
         {loading && <LoadingIndicator visible={loading} />}
         {!user ? (
@@ -363,6 +384,7 @@ const ProfileScreen = ({navigation, route}) => {
                       ref={refRBSheet}
                       height={Dimensions.get('window').height - 140}
                       animationType="fade"
+                      closeOnDragDown={false}
                       customStyles={{
                         wrapper: {
                           backgroundColor: 'rgba(0,0,0,.6)',
@@ -380,7 +402,11 @@ const ProfileScreen = ({navigation, route}) => {
                           bottom: 85,
                         },
                       }}>
-                      <EditProfile user={user} saveUser={handleUpdateUser} />
+                      <EditProfile
+                        user={user}
+                        saveUser={handleUpdateUser}
+                        closeSheet={closeSheets}
+                      />
                     </RBSheet>
 
                     {!route?.params?.postUser && (
@@ -454,7 +480,7 @@ const ProfileScreen = ({navigation, route}) => {
                           color: '#FFFFFF',
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
-                          fontSize: 14,
+                          fontSize: 16,
                           left: 35,
                         }}>
                         {user?.followers?.length || 0}
@@ -465,6 +491,7 @@ const ProfileScreen = ({navigation, route}) => {
                       ref={refRBSheet1}
                       height={Dimensions.get('window').height - 140}
                       animationType="fade"
+                      closeOnDragDown={false}
                       customStyles={{
                         wrapper: {
                           backgroundColor: 'rgba(0,0,0,.6)',
@@ -506,7 +533,7 @@ const ProfileScreen = ({navigation, route}) => {
                           color: '#FFFFFF',
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
-                          fontSize: 14,
+                          fontSize: 16,
                           left: 35,
                         }}>
                         {user?.following?.length || 0}
@@ -517,6 +544,7 @@ const ProfileScreen = ({navigation, route}) => {
                       ref={refRBSheet2}
                       height={Dimensions.get('window').height - 140}
                       animationType="fade"
+                      closeOnDragDown={false}
                       customStyles={{
                         wrapper: {
                           backgroundColor: 'rgba(0,0,0,.6)',
@@ -557,7 +585,7 @@ const ProfileScreen = ({navigation, route}) => {
                           color: '#FFFFFF',
                           fontFamily: 'Proxima Nova',
                           fontWeight: '700',
-                          fontSize: 14,
+                          fontSize: 16,
                           left: 25,
                         }}>
                         {user?.posts?.items?.length || 0}
@@ -603,7 +631,7 @@ const ProfileScreen = ({navigation, route}) => {
                   source={{
                     uri: user.imageUri.startsWith('https')
                       ? user.imageUri
-                      : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${user.imageUri}`,
+                      : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
                   }}
                 />
               </View>
