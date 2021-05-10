@@ -32,7 +32,7 @@ const languages = [
 ];
 
 const EditProfile = ({user, saveUser, closeSheet}) => {
-  console.log('USer', user.id, saveUser);
+  console.log('User', user.id, saveUser);
   const [username, setUsername] = useState(user.username);
   const [userImageUri, setUserImageUri] = useState(
     user.imageUri.startsWith('https')
@@ -42,7 +42,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState();
-
+  
   //Social media links
   const [facebook, setFacebook] = useState(user?.facebook.startsWith('https') ? user.facebook : '' || '')
   const [instagram, setInstagram] = useState(user?.instagram.startsWith('https') ? user.instagram : '' || '')
@@ -51,12 +51,21 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   const [message] = useState('Please enter required values!');
   const [message1] = useState('Username already exists!');
 
+  const [message2] = useState('Please enter a valid url')
+
   const handleRevert = async () => {
     if (!username || !userImageUri) {
       ToastAndroid.show(message, ToastAndroid.SHORT);
 
       return;
     }
+
+    if(user.facebook && !facebook.startsWith('https') || user.instagram && !instagram.startsWith('https') || user.youtube && !youtube.startsWith('https')) {
+      ToastAndroid.show(message2, ToastAndroid.SHORT);
+
+      return;
+    }
+
     console.log('username', username);
     console.log('bio', bio);
     console.log('uri', userImageUri);
@@ -114,6 +123,9 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
 
       user.bio = bio;
       user.username = username;
+      user.facebook = facebook;
+      user.instagram = instagram;
+      user.youtube = youtube;
 
       console.log('Ress', res3);
       saveUser(res3?.data?.updateUser);
