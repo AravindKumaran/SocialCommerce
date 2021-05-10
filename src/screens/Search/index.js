@@ -16,6 +16,7 @@ import Brands from '../Search/brands3';
 import Trending from '../Search/trending3';
 import {API, graphqlOperation} from 'aws-amplify';
 import {searchUsersList} from '../../graphql/queries';
+import {listPosts} from '../../graphql/queries';
 import {Header} from 'react-native-elements';
 
 const ActiveStyle = () => (
@@ -114,26 +115,46 @@ const brands = [
 
 const Categories = () => {
   const [active, setActive] = useState('categories');
+  const [searchedData, setSearchedData] = useState(null);
   const [usersList, setUsersList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [brand, setBrand] = useState('');
 
   const handleActive = (value) => {
     setActive(value);
+    setBrand('');
+    setSearchedData(null);
+  };
+
+  const handleBrandSelection = (value) => {
+    setBrand(value);
+    setSearchedData(null);
   };
 
   const handleSearch = async (value) => {
     console.log('Insider', value);
-    if (value.length > 3) {
+    if (value.length >= 3) {
       try {
         setLoading(true);
-        const res = await API.graphql(
-          graphqlOperation(searchUsersList, {
+        const response = await API.graphql(
+          graphqlOperation(listPosts, {
             filter: {
-              username: {eq: value},
+              or: [
+                {description: {contains: value}},
+                {category: {contains: value}},
+                {brand: {contains: value}},
+              ],
             },
           }),
         );
-        console.log('ress', res.data.listUsers.items);
+
+        const allItems = response.data.listPosts.items;
+        const sortedItems = allItems.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
+
+        setSearchedData(sortedItems);
+
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -141,6 +162,34 @@ const Categories = () => {
       }
     }
   };
+
+  /*const getMoreSearchedPosts = async () => {
+    try {
+      setLoading(true);
+      if (nextToken) {
+        const response = await API.graphql(
+          graphqlOperation(listPosts, (brand!=='')?{
+            limit: curLimit + 15,
+            filter: {
+              brand:{eq: brand}
+            },
+            nextToken,
+          }:{
+            limit: curLimit + 15,
+            nextToken
+          })
+        );
+        console.log('AllItems', curLimit);
+        setCurLimit((lim) => lim + 15);
+        setNextToken(response.data.listPosts.nextToken);
+        setUris((post) => [...post, ...response.data.listPosts.items]);
+        setLoader(false);
+      }
+    } catch (error) {
+      console.log('Pagination Error', error);
+      setLoader(false);
+    }
+  };*/
 
   const MyCustomLeftComponent = () => {
     return (
@@ -250,7 +299,13 @@ const Categories = () => {
             </View>
           </ScrollView>
         )}
-        <View>{active === 'categories' ? <Trending /> : <Brands />}</View>
+        <View>
+          {active === 'categories' ? (
+            <Trending searchedData={searchedData} />
+          ) : (
+            <Brands brand={brand} searchedData={searchedData} />
+          )}
+        </View>
       </ScrollView>
     </View>
   );

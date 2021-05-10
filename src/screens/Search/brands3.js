@@ -7,7 +7,7 @@ import {
   Modal,
   Text,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
@@ -18,7 +18,7 @@ import FullScreenVideo from './fullScreenVideo';
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-const Brands = () => {
+const Brands = ({brand, searchedData}) => {
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(12);
@@ -28,9 +28,19 @@ const Brands = () => {
     const fetchPost = async () => {
       try {
         const response = await API.graphql(
-          graphqlOperation(listPosts, {
-            limit: curLimit,
-          }),
+          graphqlOperation(
+            listPosts,
+            brand !== ''
+              ? {
+                  limit: curLimit,
+                  filter: {
+                    brand: {eq: brand},
+                  },
+                }
+              : {
+                  limit: curLimit,
+                },
+          ),
         );
         const allItems = response.data.listPosts.items;
         const sortedItems = allItems.sort(
@@ -47,17 +57,28 @@ const Brands = () => {
     };
 
     fetchPost();
-  }, []);
+  }, [brand]);
 
   const getMorePosts = async () => {
     try {
       setLoader(true);
       if (nextToken) {
         const response = await API.graphql(
-          graphqlOperation(listPosts, {
-            limit: curLimit + 15,
-            nextToken,
-          }),
+          graphqlOperation(
+            listPosts,
+            brand !== ''
+              ? {
+                  limit: curLimit + 15,
+                  filter: {
+                    brand: {eq: brand},
+                  },
+                  nextToken,
+                }
+              : {
+                  limit: curLimit + 15,
+                  nextToken,
+                },
+          ),
         );
         console.log('AllItems', curLimit);
         setCurLimit((lim) => lim + 15);
@@ -108,18 +129,36 @@ const Brands = () => {
         source={require('../../assets/images/Line2.png')}
         size={15}
       />
-      <Text style={styles.text2}>Top Trending</Text>
-      <FlatList
-        nestedScrollEnabled={true}
-        data={uris}
-        numColumns={3}
-        renderItem={_renderItem}
-        onEndReached={getMorePosts}
-        onEndReachedThreshold={0.5}
-        keyExtractor={(item) => item.id.toString()}
-        style={{height: Dimensions.get('window').height}}
-        ListFooterComponent={renderFooter}
-      />
+      {searchedData == null ? (
+        <View>
+          <Text style={styles.text2}>Top Trending</Text>
+          <FlatList
+            nestedScrollEnabled={true}
+            data={uris}
+            numColumns={3}
+            renderItem={_renderItem}
+            onEndReached={getMorePosts}
+            onEndReachedThreshold={0.5}
+            keyExtractor={(item) => item.id.toString()}
+            style={{height: Dimensions.get('window').height}}
+            ListFooterComponent={renderFooter}
+          />
+        </View>
+      ) : (
+        <View>
+          <FlatList
+            nestedScrollEnabled={true}
+            data={searchedData}
+            numColumns={3}
+            renderItem={_renderItem}
+            // onEndReached={}
+            onEndReachedThreshold={0.5}
+            keyExtractor={(item) => item.id.toString()}
+            style={{height: Dimensions.get('window').height}}
+            ListFooterComponent={renderFooter}
+          />
+        </View>
+      )}
     </View>
   );
 };
