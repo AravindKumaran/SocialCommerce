@@ -55,7 +55,7 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
     <View
       style={[
         {position: 'absolute', right: 20, bottom: 0, top: 50},
-        isTouched ? {top: -60} : '',
+        // isTouched ? {top: -60} : '',
       ]}>
       {isLiked ? (
         <TouchableOpacity onPress={handleLike} style={{height: 50}}>

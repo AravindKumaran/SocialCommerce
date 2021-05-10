@@ -66,7 +66,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
           bottom: 0,
           top: -20,
         },
-        isTouched ? {top: -130} : '',
+        // isTouched ? {top: -130} : '',
       ]}>
       {isFollow ? (
         <>
