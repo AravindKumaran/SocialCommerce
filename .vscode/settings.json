@@ -1,0 +1,30 @@
+{
+  "files.exclude": {
+    "amplify/.config": true,
+    "amplify/**/*-parameters.json": true,
+    "amplify/**/amplify.state": true,
+    "amplify/**/transform.conf.json": true,
+    "amplify/#current-cloud-backend": true,
+    "amplify/backend/amplify-meta.json": true,
+    "amplify/backend/awscloudformation": true,
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/.idea": true,
+    "**/.metadata": true,
+    "**/.packages": true,
+    "**/pubspec.lock": true,
+    "**/shop_state.iml": true,
+    "**/ios": true,
+    "**/package-lock.json": true,
+    "**/README.md": true,
+    "node_modules": true,
+    "__tests__": true,
+    ".vscode": true
+  },
+  "java.configuration.updateBuildConfiguration": "disabled",
+  "explorerExclude.backup": null
+}

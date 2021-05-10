@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="horizontal"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:gravity="center_vertical"
+android:paddingLeft="100dip"
+android:paddingRight="100dip"
+android:paddingTop="100dip"
+android:paddingBottom="100dip"
+android:background="#292929">
+
+<ImageView
+    android:src="@drawable/launch_screen"
+    android:layout_width="130.39dp"
+    android:layout_height="130.39dp"
+    android:viewportWidth="130.39"
+    android:viewportHeight="130.39"
+    android:layout_marginLeft="35.25dp"
+    android:adjustViewBounds="true"
+    android:scaleType="fitXY"/>
+
+<TextView
+    android:id="@+id/livebox"
+    android:fontFamily="@font/lilyscriptone_regular"
+    android:layout_width="500dp"
+    android:layout_height="48dp"
+    android:layout_marginTop="130dp"
+    android:layout_marginLeft="50.25dp"
+    android:text="@string/livebox"
+    android:textAppearance="@style/livebox"
+    android:gravity="top" />
+ 
+
+</RelativeLayout>
