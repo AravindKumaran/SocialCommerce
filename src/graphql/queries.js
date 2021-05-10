@@ -216,6 +216,8 @@ export const listPosts = /* GraphQL */ `
         comments {
           nextToken
         }
+        brand
+        category
         createdAt
         updatedAt
       }
