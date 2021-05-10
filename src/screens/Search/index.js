@@ -119,6 +119,8 @@ const Categories = () => {
   const [usersList, setUsersList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [brand, setBrand] = useState('');
+  const [category, setcategory] = useState('');
+
 
   const handleActive = (value) => {
     setActive(value);
@@ -129,6 +131,11 @@ const Categories = () => {
   const handleBrandSelection = (value) => {
     setBrand(value);
     setSearchedData(null);
+  };
+
+  const handleCategory = (value) => {
+    setcategory(value);
+    setSearchedData(null)
   };
 
   const handleSearch = async (value) => {
@@ -256,7 +263,7 @@ const Categories = () => {
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.cat}>
               {cat.map((c, i) => (
-                <TouchableOpacity key={`${c.name}-${i}`} style={styles.catItem}>
+                <TouchableOpacity onPress={() => handleCategory(c.name)} key={`${c.name}-${i}`} style={styles.catItem}>
                   <Image
                     style={
                       {
@@ -285,7 +292,7 @@ const Categories = () => {
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.cat}>
               {brands.map((b, i) => (
-                <TouchableOpacity key={`${b.name}-${i}`} style={styles.catItem}>
+                <TouchableOpacity key={`${b.name}-${i}`} onPress={() => handleBrandSelection(b.name)} style={styles.catItem}>
                   <Image
                     style={{height: 75, width: 75}}
                     source={b.src}
@@ -301,7 +308,7 @@ const Categories = () => {
         )}
         <View>
           {active === 'categories' ? (
-            <Trending searchedData={searchedData} />
+            <Trending category={category} searchedData={searchedData} />
           ) : (
             <Brands brand={brand} searchedData={searchedData} />
           )}
