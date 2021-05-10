@@ -168,7 +168,7 @@ const Post = (props) => {
         if (user) {
           console.log('Cpost.likes', cPost.likes);
           cPost.likes.push(user.email);
-          // cPost.user = { id: user.email, email: user.email, username: user.username };
+  
           if (likeIconRef.current) {
             clearTimeout(likeIconRef.current);
           }
@@ -196,7 +196,7 @@ const Post = (props) => {
                 userID: user.email,
                 notificationID: res.data.createNotification.id,
                 read: false,
-                ownerID: cPost.user.id,
+                ownerID: cPost.userID,
                 postID: cPost.id,
               },
             }),
