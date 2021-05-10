@@ -24,6 +24,9 @@ export const getUser = /* GraphQL */ `
         userName
         imgUri
       }
+      facebook
+      instagram
+      youtube
       createdAt
       updatedAt
     }
@@ -57,6 +60,9 @@ export const listUsers = /* GraphQL */ `
         notifications {
           nextToken
         }
+        facebook
+        instagram
+        youtube
         createdAt
         updatedAt
       }
@@ -109,6 +115,9 @@ export const getPost = /* GraphQL */ `
           userName
           imgUri
         }
+        facebook
+        instagram
+        youtube
         notifications {
           nextToken
         }
@@ -190,6 +199,9 @@ export const listPosts = /* GraphQL */ `
             userName
             imgUri
           }
+          facebook
+          instagram
+          youtube
           createdAt
           updatedAt
         }
@@ -240,6 +252,9 @@ export const getComment = /* GraphQL */ `
         notifications {
           nextToken
         }
+        facebook
+        instagram
+        youtube
         createdAt
         updatedAt
       }

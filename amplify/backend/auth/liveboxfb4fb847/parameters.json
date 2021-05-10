@@ -22,12 +22,8 @@
     ],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [
-        "email"
-    ],
-    "userpoolClientReadAttributes": [
-        "email"
-    ],
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
     "userpoolClientLambdaRole": "livebofb4fb847_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "sharedId": "fb4fb847",
@@ -45,27 +41,22 @@
             "Arn"
         ]
     },
-    "useDefault": "defaultSocial",
-    "hostedUI": true,
+    "useDefault": "manual",
+    "hostedUI": false,
     "usernameAttributes": [
         "email"
     ],
-    "userPoolGroupList": [
-        "livebox123"
-    ],
+    "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
     "dependsOn": [],
-    "userPoolGroups": true,
+    "userPoolGroups": false,
     "adminQueries": false,
     "triggers": "{}",
     "parentStack": {
         "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "hostedUIDomainName": "livebox951e0a7a-951e0a7a",
-    "authProvidersUserPool": [],
-    "hostedUIProviderMeta": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"livebox://\"],\"LogoutURLs\":[\"livebox://\"]}",
-    "authProviders": []
+    "authProviders": [],
+    "thirdPartyAuth": false
 }
