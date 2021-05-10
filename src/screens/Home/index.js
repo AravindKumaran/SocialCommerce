@@ -252,13 +252,13 @@ const Home = ({navigation, route}) => {
     );
   };
 
-  const MyCustomRightComponent = () => {
-    return (
-      <TouchableOpacity>
-        <Feather name={'shopping-cart'} size={25} color="white" />
-      </TouchableOpacity>
-    );
-  };
+  // const MyCustomRightComponent = () => {
+  //   return (
+  //     <TouchableOpacity>
+  //       <Feather name={'shopping-cart'} size={25} color="white" />
+  //     </TouchableOpacity>
+  //   );
+  // };
 
   return (
     <ImageBackground
@@ -268,7 +268,7 @@ const Home = ({navigation, route}) => {
         {loading && <LoadingIndicator visible={loading} />}
         <Header
           leftComponent={<MyCustomLeftComponent />}
-          rightComponent={<MyCustomRightComponent />}
+          // rightComponent={<MyCustomRightComponent />}
           containerStyle={{
             backgroundColor: '#20232A',
             borderColor: '#20232A',
