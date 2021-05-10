@@ -11,9 +11,9 @@ export default class Searchbar extends React.Component {
   };
 
   updateSearch = (search) => {
-    this.setState({search});
+    this.setState({search},()=>this.props.onSearch(this.state.search));   
   };
-
+  
   render() {
     const {search} = this.state;
 

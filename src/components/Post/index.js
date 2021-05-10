@@ -55,6 +55,7 @@ const Post = (props) => {
   const [user, setUser] = useState(null);
 
   const [message] = useState('Please sign in first');
+  const [message1] = useState('Coming Soon!');
 
   const fadeIn = {
     from: {
@@ -393,6 +394,10 @@ const Post = (props) => {
     setIsLoading(false);
   };
 
+  const showToast = () => {
+    ToastAndroid.show(message1, ToastAndroid.SHORT);
+  };
+
   return (
     <View style={styles.container}>
       <DoubleClick
@@ -425,7 +430,7 @@ const Post = (props) => {
               style={styles.video}
               poster={
                 props.post?.thumbnail
-                  ? `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1/public/${props.post?.thumbnail}`
+                  ? `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.thumbnail}`
                   : ''
               }
               posterResizeMode="cover"
@@ -595,18 +600,19 @@ const Post = (props) => {
                 }}
                 onPress={() => {
                   setTouched(!isTouched);
+                  showToast();
                 }}>
                 <>
-                  {!isTouched ? (
-                    <Image
-                      style={{height: 45, width: 45, opacity: 0.7}}
-                      source={require('../../assets/images/Product_icon.png')}
-                      size={25}
-                    />
-                  ) : (
+                  {/* {!isTouched ? ( */}
+                  <Image
+                    style={{height: 45, width: 45, opacity: 0.7}}
+                    source={require('../../assets/images/Product_icon.png')}
+                    size={25}
+                  />
+                  {/* ) : (
                     <Image
                       style={{
-                        top: -110,
+                        // top: -110,
                         position: 'absolute',
                         right: 0,
                         height: 45,
@@ -616,8 +622,8 @@ const Post = (props) => {
                       source={require('../../assets/images/Product_icon1.png')}
                       size={25}
                     />
-                  )}
-                  {isTouched && <Product />}
+                  )} */}
+                  {/* {isTouched && <Product />} */}
                 </>
               </TouchableOpacity>
               {/* </Modal> */}
@@ -648,13 +654,13 @@ const Post = (props) => {
                 }}
                 onPress={() => refRBSheet.current.open()}>
                 <>
-                  {!isTouched ? (
-                    <Image
-                      style={{height: 45, width: 45, opacity: 0.7}}
-                      source={require('../../assets/images/Comment_icon.png')}
-                      size={25}
-                    />
-                  ) : (
+                  {/* {!isTouched ? ( */}
+                  <Image
+                    style={{height: 45, width: 45, opacity: 0.7}}
+                    source={require('../../assets/images/Comment_icon.png')}
+                    size={25}
+                  />
+                  {/* ) : (
                     <Image
                       style={{
                         top: 50,
@@ -667,7 +673,7 @@ const Post = (props) => {
                       source={require('../../assets/images/Comment_icon.png')}
                       size={25}
                     />
-                  )}
+                  )} */}
                 </>
               </TouchableOpacity>
 
@@ -725,35 +731,35 @@ const Post = (props) => {
 
             <View style={styles.bottomContainer}>
               <>
-                {!isTouched ? (
-                  <>
-                    <TouchableOpacity
-                      style={{left: 10}}
-                      onPress={() =>
-                        // navigation.navigate('Profile', {
-                        //   postUser: props.post.user,
-                        // })
-                        navigation.navigate('Profile', {
-                          screen: 'Profile',
-                          params: {
-                            postUser: props.post.user,
-                          },
-                        })
-                      }>
-                      <Text style={styles.handle}>{post?.user?.username}</Text>
-                    </TouchableOpacity>
-                    <View style={{flexDirection: 'row', top: 25}}>
-                      <Image
-                        source={require('../../assets/images/Dot.png')}
-                        size={25}
-                        style={{bottom: 18, left: 10}}
-                      />
-                      <Text style={styles.description}>{post.description}</Text>
-                    </View>
-                  </>
-                ) : (
+                {/* {!isTouched ? ( */}
+                <>
+                  <TouchableOpacity
+                    style={{left: 10}}
+                    onPress={() =>
+                      // navigation.navigate('Profile', {
+                      //   postUser: props.post.user,
+                      // })
+                      navigation.navigate('Profile', {
+                        screen: 'Profile',
+                        params: {
+                          postUser: props.post.user,
+                        },
+                      })
+                    }>
+                    <Text style={styles.handle}>{post?.user?.username}</Text>
+                  </TouchableOpacity>
+                  <View style={{flexDirection: 'row', top: 25}}>
+                    <Image
+                      source={require('../../assets/images/Dot.png')}
+                      size={25}
+                      style={{bottom: 18, left: 10}}
+                    />
+                    <Text style={styles.description}>{post.description}</Text>
+                  </View>
+                </>
+                {/* ) : (
                   <View />
-                )}
+                )} */}
               </>
             </View>
 

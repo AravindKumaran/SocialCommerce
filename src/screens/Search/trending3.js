@@ -18,7 +18,7 @@ import FullScreenVideo from './fullScreenVideo';
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-const Trending = () => {
+const Trending = ({searchedData}) => {
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(12);
@@ -108,18 +108,36 @@ const Trending = () => {
         source={require('../../assets/images/Line2.png')}
         size={15}
       />
-      <Text style={styles.text2}>Top Trending</Text>
-      <FlatList
-        nestedScrollEnabled={true}
-        data={uris}
-        numColumns={3}
-        renderItem={_renderItem}
-        onEndReached={getMorePosts}
-        onEndReachedThreshold={0.5}
-        keyExtractor={(item) => item.id.toString()}
-        style={{height: Dimensions.get('window').height}}
-        ListFooterComponent={renderFooter}
-      />
+      {searchedData == null ? (
+        <View>
+          <Text style={styles.text2}>Top Trending</Text>
+          <FlatList
+            nestedScrollEnabled={true}
+            data={uris}
+            numColumns={3}
+            renderItem={_renderItem}
+            onEndReached={getMorePosts}
+            onEndReachedThreshold={0.5}
+            keyExtractor={(item) => item.id.toString()}
+            style={{height: Dimensions.get('window').height}}
+            ListFooterComponent={renderFooter}
+          />
+        </View>
+      ) : (
+        <View>
+          <FlatList
+            nestedScrollEnabled={true}
+            data={searchedData}
+            numColumns={3}
+            renderItem={_renderItem}
+            //onEndReached={}
+            onEndReachedThreshold={0.5}
+            keyExtractor={(item) => item.id.toString()}
+            style={{height: Dimensions.get('window').height}}
+            ListFooterComponent={renderFooter}
+          />
+        </View>
+      )}
     </View>
   );
 };
