@@ -18,19 +18,26 @@ import FullScreenVideo from './fullScreenVideo';
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-const Trending = ({searchedData}) => {
+const Trending = ({category, searchedData}) => {
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(12);
   const [isLoader, setLoader] = useState(false);
 
+  console.log('Category', category)
+
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await API.graphql(
-          graphqlOperation(listPosts, {
+          graphqlOperation(listPosts, (category!=='')?{
             limit: curLimit,
-          }),
+            filter: {              
+              category: {eq: category}
+            }    
+          }:{
+            limit: curLimit
+          })
         );
         const allItems = response.data.listPosts.items;
         const sortedItems = allItems.sort(
@@ -47,17 +54,23 @@ const Trending = ({searchedData}) => {
     };
 
     fetchPost();
-  }, []);
+  }, [category]);
 
   const getMorePosts = async () => {
     try {
       setLoader(true);
       if (nextToken) {
         const response = await API.graphql(
-          graphqlOperation(listPosts, {
+          graphqlOperation(listPosts, (category!=='')?{
             limit: curLimit + 15,
+            filter: {
+              category:{eq: category}
+            },
             nextToken,
-          }),
+          }:{
+            limit: curLimit + 15,
+            nextToken
+          })
         );
         console.log('AllItems', curLimit);
         setCurLimit((lim) => lim + 15);
