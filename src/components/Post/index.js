@@ -155,6 +155,7 @@ const Post = (props) => {
 
   const handlePostLike = async (cPost) => {
     if (cPost) {
+      console.log('cPost', cPost)
       if (cPost.likes === null) {
         cPost.likes = [];
       }
@@ -167,6 +168,7 @@ const Post = (props) => {
         if (user) {
           console.log('Cpost.likes', cPost.likes);
           cPost.likes.push(user.email);
+          // cPost.user = { id: user.email, email: user.email, username: user.username };
           if (likeIconRef.current) {
             clearTimeout(likeIconRef.current);
           }
