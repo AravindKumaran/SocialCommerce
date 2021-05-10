@@ -3802,6 +3802,36 @@
                           "defaultValue": null
                       },
                       {
+                        "name": "facebook",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                      },
+                      {
+                        "name": "instagram",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                      },
+                      {
+                        "name": "youtube",
+                        "description": null,
+                        "type": {
+                            "kind": "INPUT_OBJECT",
+                            "name": "ModelStringInput",
+                            "ofType": null
+                        },
+                        "defaultValue": null
+                      },
+                      {
                           "name": "and",
                           "description": null,
                           "type": {

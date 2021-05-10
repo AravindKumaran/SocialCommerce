@@ -32,7 +32,7 @@ const languages = [
 ];
 
 const EditProfile = ({user, saveUser, closeSheet}) => {
-  console.log('UUSer', user.id, saveUser);
+  console.log('USer', user.id, saveUser);
   const [username, setUsername] = useState(user.username);
   const [userImageUri, setUserImageUri] = useState(
     user.imageUri.startsWith('https')
@@ -44,9 +44,9 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   const [language, setLanguage] = useState();
 
   //Social media links
-  const [facebook, setFacebook] = useState(user?.facebook || '')
-  const [instagram, setInstagram] = useState(user?.instagram || '')
-  const [youtube, setYoutube] = useState(user?.youtube || '')
+  const [facebook, setFacebook] = useState(user?.facebook.startsWith('https') ? user.facebook : '' || '')
+  const [instagram, setInstagram] = useState(user?.instagram.startsWith('https') ? user.instagram : '' || '')
+  const [youtube, setYoutube] = useState(user?.youtube.startsWith('https') ? user.youtube : '' || '')
 
   const [message] = useState('Please enter required values!');
   const [message1] = useState('Username already exists!');
@@ -97,6 +97,9 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             id: user.id,
             username,
             bio,
+            facebook,
+            instagram,
+            youtube,
             imageUri: imgKey,
           },
         }),
@@ -208,8 +211,8 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             </Text>
             <TextInput
               style={styles.input}
-              value={youtube}
-              //defaultValue={youtube}
+              //value={youtube}
+              defaultValue={youtube}
               onChangeText={(e) => setYoutube(e)}
             />
           </View>
