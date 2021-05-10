@@ -1,70 +1,523 @@
-type User @model {
-  id: String!
-  username: String!
-  name: String
-  imageUri: String
-  bio: String
-  posts: [Post] @connection(keyName: "byUser", fields: ["id"])
-  following: [Follow]
-  followers: [Follow]
-  notifications: [UserNotification]
-    @connection(keyName: "byUser", fields: ["id"])
+schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type Comment {
+  createdAt: AWSDateTime!
+  id: ID!
+  likes: [String]
+  post: Post
+  postId: ID!
+  text: String!
+  updatedAt: AWSDateTime!
+  user: User
+  userID: String!
 }
 
 type Follow {
+  imgUri: String!
   userId: String!
   userName: String!
-  imgUri: String!
 }
 
-type Post @model @key(name: "byUser", fields: ["userID"]) {
-  id: ID!
-  videoUri: String!
-  description: String!
-  likes: [String]
-  thumbnail: String
+type ModelCommentConnection {
+  items: [Comment]
+  nextToken: String
+}
 
-  category: String!
+type ModelNotificationConnection {
+  items: [Notification]
+  nextToken: String
+}
+
+type ModelPostConnection {
+  items: [Post]
+  nextToken: String
+}
+
+type ModelSongConnection {
+  items: [Song]
+  nextToken: String
+}
+
+type ModelUserConnection {
+  items: [User]
+  nextToken: String
+}
+
+type ModelUserNotificationConnection {
+  items: [UserNotification]
+  nextToken: String
+}
+
+type Mutation {
+  createComment(condition: ModelCommentConditionInput, input: CreateCommentInput!): Comment
+  createNotification(condition: ModelNotificationConditionInput, input: CreateNotificationInput!): Notification
+  createPost(condition: ModelPostConditionInput, input: CreatePostInput!): Post
+  createSong(condition: ModelSongConditionInput, input: CreateSongInput!): Song
+  createUser(condition: ModelUserConditionInput, input: CreateUserInput!): User
+  createUserNotification(condition: ModelUserNotificationConditionInput, input: CreateUserNotificationInput!): UserNotification
+  deleteComment(condition: ModelCommentConditionInput, input: DeleteCommentInput!): Comment
+  deleteNotification(condition: ModelNotificationConditionInput, input: DeleteNotificationInput!): Notification
+  deletePost(condition: ModelPostConditionInput, input: DeletePostInput!): Post
+  deleteSong(condition: ModelSongConditionInput, input: DeleteSongInput!): Song
+  deleteUser(condition: ModelUserConditionInput, input: DeleteUserInput!): User
+  deleteUserNotification(condition: ModelUserNotificationConditionInput, input: DeleteUserNotificationInput!): UserNotification
+  updateComment(condition: ModelCommentConditionInput, input: UpdateCommentInput!): Comment
+  updateNotification(condition: ModelNotificationConditionInput, input: UpdateNotificationInput!): Notification
+  updatePost(condition: ModelPostConditionInput, input: UpdatePostInput!): Post
+  updateSong(condition: ModelSongConditionInput, input: UpdateSongInput!): Song
+  updateUser(condition: ModelUserConditionInput, input: UpdateUserInput!): User
+  updateUserNotification(condition: ModelUserNotificationConditionInput, input: UpdateUserNotificationInput!): UserNotification
+}
+
+type Notification {
+  createdAt: AWSDateTime!
+  id: ID!
+  message: String!
+  updatedAt: AWSDateTime!
+}
+
+type Post {
   brand: String!
-
-  userID: String!
-  user: User @connection(fields: ["userID"])
-
-  songID: ID!
-  song: Song @connection(fields: ["songID"])
-
-  comments: [Comment] @connection(keyName: "commentsByPostId", fields: ["id"])
-}
-
-type Comment @model @key(name: "commentsByPostId", fields: ["postId"]) {
+  category: String!
+  comments(filter: ModelCommentFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelCommentConnection
+  createdAt: AWSDateTime!
+  description: String!
   id: ID!
-  postId: ID!
-  userID: String!
-  text: String!
   likes: [String]
-  user: User @connection(fields: ["userID"])
-  post: Post @connection(fields: ["postId"])
+  song: Song
+  songID: ID!
+  thumbnail: String
+  updatedAt: AWSDateTime!
+  user: User
+  userID: String!
+  videoUri: String!
 }
 
-type Song @model {
+type Query {
+  getComment(id: ID!): Comment
+  getNotification(id: ID!): Notification
+  getPost(id: ID!): Post
+  getSong(id: ID!): Song
+  getUser(id: ID!): User
+  getUserNotification(id: ID!): UserNotification
+  listComments(filter: ModelCommentFilterInput, limit: Int, nextToken: String): ModelCommentConnection
+  listNotifications(filter: ModelNotificationFilterInput, limit: Int, nextToken: String): ModelNotificationConnection
+  listPosts(filter: ModelPostFilterInput, limit: Int, nextToken: String): ModelPostConnection
+  listSongs(filter: ModelSongFilterInput, limit: Int, nextToken: String): ModelSongConnection
+  listUserNotifications(filter: ModelUserNotificationFilterInput, limit: Int, nextToken: String): ModelUserNotificationConnection
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection
+}
+
+type Song {
+  createdAt: AWSDateTime!
   id: ID!
-  name: String!
   imageUri: String
+  name: String!
+  updatedAt: AWSDateTime!
 }
 
-type Notification @model {
+type Subscription {
+  onCreateComment: Comment @aws_subscribe(mutations : ["createComment"])
+  onCreateNotification: Notification @aws_subscribe(mutations : ["createNotification"])
+  onCreatePost: Post @aws_subscribe(mutations : ["createPost"])
+  onCreateSong: Song @aws_subscribe(mutations : ["createSong"])
+  onCreateUser: User @aws_subscribe(mutations : ["createUser"])
+  onCreateUserNotification: UserNotification @aws_subscribe(mutations : ["createUserNotification"])
+  onDeleteComment: Comment @aws_subscribe(mutations : ["deleteComment"])
+  onDeleteNotification: Notification @aws_subscribe(mutations : ["deleteNotification"])
+  onDeletePost: Post @aws_subscribe(mutations : ["deletePost"])
+  onDeleteSong: Song @aws_subscribe(mutations : ["deleteSong"])
+  onDeleteUser: User @aws_subscribe(mutations : ["deleteUser"])
+  onDeleteUserNotification: UserNotification @aws_subscribe(mutations : ["deleteUserNotification"])
+  onUpdateComment: Comment @aws_subscribe(mutations : ["updateComment"])
+  onUpdateNotification: Notification @aws_subscribe(mutations : ["updateNotification"])
+  onUpdatePost: Post @aws_subscribe(mutations : ["updatePost"])
+  onUpdateSong: Song @aws_subscribe(mutations : ["updateSong"])
+  onUpdateUser: User @aws_subscribe(mutations : ["updateUser"])
+  onUpdateUserNotification: UserNotification @aws_subscribe(mutations : ["updateUserNotification"])
+}
+
+type User {
+  bio: String
+  createdAt: AWSDateTime!
+  facebook: String
+  followers: [Follow]
+  following: [Follow]
+  id: String!
+  imageUri: String
+  instagram: String
+  name: String
+  notifications(filter: ModelUserNotificationFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelUserNotificationConnection
+  posts(filter: ModelPostFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelPostConnection
+  updatedAt: AWSDateTime!
+  username: String!
+  youtube: String
+}
+
+type UserNotification {
+  createdAt: AWSDateTime!
   id: ID!
+  notification: Notification
+  notificationID: ID!
+  ownerID: String!
+  post: Post
+  postID: ID!
+  read: Boolean!
+  updatedAt: AWSDateTime!
+  user: User
+  userID: String!
+}
+
+enum ModelAttributeTypes {
+  _null
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+input CreateCommentInput {
+  id: ID
+  likes: [String]
+  postId: ID!
+  text: String!
+  userID: String!
+}
+
+input CreateNotificationInput {
+  id: ID
   message: String!
 }
 
-type UserNotification @model @key(name: "byUser", fields: ["userID"]) {
-  id: ID!
+input CreatePostInput {
+  brand: String!
+  category: String!
+  description: String!
+  id: ID
+  likes: [String]
+  songID: ID!
+  thumbnail: String
   userID: String!
+  videoUri: String!
+}
+
+input CreateSongInput {
+  id: ID
+  imageUri: String
+  name: String!
+}
+
+input CreateUserInput {
+  bio: String
+  followers: [FollowInput]
+  following: [FollowInput]
+  id: String!
+  imageUri: String
+  name: String
+  username: String!
+}
+
+input CreateUserNotificationInput {
+  id: ID
+  notificationID: ID!
   ownerID: String!
   postID: ID!
-  user: User @connection(fields: ["userID"])
-  post: Post @connection(fields: ["postID"])
-  notificationID: ID!
-  notification: Notification @connection(fields: ["notificationID"])
   read: Boolean!
+  userID: String!
+}
+
+input DeleteCommentInput {
+  id: ID
+}
+
+input DeleteNotificationInput {
+  id: ID
+}
+
+input DeletePostInput {
+  id: ID
+}
+
+input DeleteSongInput {
+  id: ID
+}
+
+input DeleteUserInput {
+  id: ID
+}
+
+input DeleteUserNotificationInput {
+  id: ID
+}
+
+input FollowInput {
+  imgUri: String!
+  userId: String!
+  userName: String!
+}
+
+input ModelBooleanInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  eq: Boolean
+  ne: Boolean
+}
+
+input ModelCommentConditionInput {
+  and: [ModelCommentConditionInput]
+  likes: ModelStringInput
+  not: ModelCommentConditionInput
+  or: [ModelCommentConditionInput]
+  postId: ModelIDInput
+  text: ModelStringInput
+  userID: ModelStringInput
+}
+
+input ModelCommentFilterInput {
+  and: [ModelCommentFilterInput]
+  id: ModelIDInput
+  likes: ModelStringInput
+  not: ModelCommentFilterInput
+  or: [ModelCommentFilterInput]
+  postId: ModelIDInput
+  text: ModelStringInput
+  userID: ModelStringInput
+}
+
+input ModelFloatInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  between: [Float]
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+}
+
+input ModelIDInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input ModelNotificationConditionInput {
+  and: [ModelNotificationConditionInput]
+  message: ModelStringInput
+  not: ModelNotificationConditionInput
+  or: [ModelNotificationConditionInput]
+}
+
+input ModelNotificationFilterInput {
+  and: [ModelNotificationFilterInput]
+  id: ModelIDInput
+  message: ModelStringInput
+  not: ModelNotificationFilterInput
+  or: [ModelNotificationFilterInput]
+}
+
+input ModelPostConditionInput {
+  and: [ModelPostConditionInput]
+  brand: ModelStringInput
+  category: ModelStringInput
+  description: ModelStringInput
+  likes: ModelStringInput
+  not: ModelPostConditionInput
+  or: [ModelPostConditionInput]
+  songID: ModelIDInput
+  thumbnail: ModelStringInput
+  userID: ModelStringInput
+  videoUri: ModelStringInput
+}
+
+input ModelPostFilterInput {
+  and: [ModelPostFilterInput]
+  brand: ModelStringInput
+  category: ModelStringInput
+  description: ModelStringInput
+  id: ModelIDInput
+  likes: ModelStringInput
+  not: ModelPostFilterInput
+  or: [ModelPostFilterInput]
+  songID: ModelIDInput
+  thumbnail: ModelStringInput
+  userID: ModelStringInput
+  videoUri: ModelStringInput
+}
+
+input ModelSizeInput {
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input ModelSongConditionInput {
+  and: [ModelSongConditionInput]
+  imageUri: ModelStringInput
+  name: ModelStringInput
+  not: ModelSongConditionInput
+  or: [ModelSongConditionInput]
+}
+
+input ModelSongFilterInput {
+  and: [ModelSongFilterInput]
+  id: ModelIDInput
+  imageUri: ModelStringInput
+  name: ModelStringInput
+  not: ModelSongFilterInput
+  or: [ModelSongFilterInput]
+}
+
+input ModelStringInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+  size: ModelSizeInput
+}
+
+input ModelUserConditionInput {
+  and: [ModelUserConditionInput]
+  bio: ModelStringInput
+  imageUri: ModelStringInput
+  name: ModelStringInput
+  not: ModelUserConditionInput
+  or: [ModelUserConditionInput]
+  username: ModelStringInput
+}
+
+input ModelUserFilterInput {
+  and: [ModelUserFilterInput]
+  bio: ModelStringInput
+  id: ModelStringInput
+  imageUri: ModelStringInput
+  name: ModelStringInput
+  not: ModelUserFilterInput
+  or: [ModelUserFilterInput]
+  username: ModelStringInput
+}
+
+input ModelUserNotificationConditionInput {
+  and: [ModelUserNotificationConditionInput]
+  not: ModelUserNotificationConditionInput
+  notificationID: ModelIDInput
+  or: [ModelUserNotificationConditionInput]
+  ownerID: ModelStringInput
+  postID: ModelIDInput
+  read: ModelBooleanInput
+  userID: ModelStringInput
+}
+
+input ModelUserNotificationFilterInput {
+  and: [ModelUserNotificationFilterInput]
+  id: ModelIDInput
+  not: ModelUserNotificationFilterInput
+  notificationID: ModelIDInput
+  or: [ModelUserNotificationFilterInput]
+  ownerID: ModelStringInput
+  postID: ModelIDInput
+  read: ModelBooleanInput
+  userID: ModelStringInput
+}
+
+input UpdateCommentInput {
+  id: ID!
+  likes: [String]
+  postId: ID
+  text: String
+  userID: String
+}
+
+input UpdateNotificationInput {
+  id: ID!
+  message: String
+}
+
+input UpdatePostInput {
+  brand: String
+  category: String
+  description: String
+  id: ID!
+  likes: [String]
+  songID: ID
+  thumbnail: String
+  userID: String
+  videoUri: String
+}
+
+input UpdateSongInput {
+  id: ID!
+  imageUri: String
+  name: String
+}
+
+input UpdateUserInput {
+  bio: String
+  facebook: String
+  followers: [FollowInput]
+  following: [FollowInput]
+  id: String!
+  imageUri: String
+  instagram: String
+  name: String
+  username: String
+  youtube: String
+}
+
+input UpdateUserNotificationInput {
+  id: ID!
+  notificationID: ID
+  ownerID: String
+  postID: ID
+  read: Boolean
+  userID: String
 }
