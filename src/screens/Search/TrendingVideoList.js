@@ -57,15 +57,15 @@ const TrendingVideoList = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
-      <View style={{height: 75}}>
+      <View style={{height: 78}}>
         <Text
           style={{
-            textAlign: 'center',
+            textAlign: 'left',
             fontWeight: 'bold',
             color: '#fff',
             fontSize: 20,
             padding: 10,
-            top: 25,
+            top: 28,
           }}>
           {route?.params?.title || 'Top Trending'}
         </Text>

@@ -92,7 +92,7 @@ const ProfileScreen = ({navigation, route}) => {
           limit: 2,
         }),
       );
-      
+
       console.log('UserRews', userRes);
       //console.log('UserRews', userRes.data.getUser.posts.items.length);
 
@@ -200,7 +200,16 @@ const ProfileScreen = ({navigation, route}) => {
     c.setOptions({
       tabBarIcon: ({focused, tintColor}) => (
         <>
-          <Feather name={'user'} size={22.5} style={{bottom: 5}} />
+          <Image
+            source={require('../../assets/images/Profile_icon.png')}
+            // source={{
+            //   uri: imgUri.startsWith('https')
+            //     ? imgUri
+            //     : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${imgUri}`,
+            // }}
+            size={25}
+            style={{bottom: 5, width: 25, height: 25}}
+          />
           {focused && <ActiveStyle />}
         </>
       ),
