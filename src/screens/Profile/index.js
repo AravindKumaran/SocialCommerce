@@ -173,7 +173,7 @@ const ProfileScreen = ({navigation, route}) => {
       }
       setLoading(false);
     } catch (error) {
-      console.log('Error', error);
+      console.log('Checkuser Error', error);
       setLoading(false);
       setUser(null);
     }
@@ -216,13 +216,13 @@ const ProfileScreen = ({navigation, route}) => {
     });
   };
 
-  useEffect(() => {
+  useEffect(() => {    
     if (!route?.params?.postUser) {
       Hub.listen('auth', ({payload: {event, data}}) => {
         switch (event) {
           case 'signIn':
           case 'cognitoHostedUI':
-            checkUser();
+            //checkUser();
             break;
           case 'signOut':
             setUser(null);
@@ -236,9 +236,10 @@ const ProfileScreen = ({navigation, route}) => {
     }
   }, []);
 
-  useEffect(() => {
+  useEffect(() => {    
     const onOtherUser = async () => {
       if (!route?.params?.postUser) {
+        console.log('isfocused useeffect')
         checkUser();
       } else {
         setUser(route?.params?.postUser);
