@@ -20,6 +20,7 @@ const TrendingVideoList = ({navigation, route}) => {
   const flatListRef = useRef(null);
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [muteAll, setMuteAll] = useState(false);
 
   useEffect(() => {
     if (route?.params?.idx) {
@@ -43,6 +44,8 @@ const TrendingVideoList = ({navigation, route}) => {
       post={item}
       currentIndex={index}
       currentVisibleIndex={currentVisibleIndex}
+      muteAll={muteAll}
+      setMuteAll={setMuteAll}
     />
   );
 

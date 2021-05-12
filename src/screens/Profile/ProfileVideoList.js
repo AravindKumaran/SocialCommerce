@@ -36,6 +36,7 @@ const ProfileVideoList = ({navigation, route}) => {
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [muteAll, setMuteAll] = useState(false);
   const focused = useIsFocused();
   // console.log('Fic', focused);
 
@@ -68,6 +69,8 @@ const ProfileVideoList = ({navigation, route}) => {
       post={item}
       currentIndex={index}
       currentVisibleIndex={currentVisibleIndex}
+      muteAll={muteAll}
+      setMuteAll={setMuteAll}
     />
   );
 

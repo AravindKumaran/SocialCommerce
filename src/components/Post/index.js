@@ -512,7 +512,7 @@ const Post = (props) => {
               {props?.muteAll || muted ? (
                 <Feather name="volume-x" size={50} color="#fff" />
               ) : (
-                <Feather name="volume" size={75} color="#fff" />
+                <Feather name="volume-2" size={50} color="#fff" />
               )}
             </Animatable.View>
           )}
@@ -532,7 +532,7 @@ const Post = (props) => {
                 padding: 15,
               }}>
               {paused ? (
-                <Feather name="play" size={60} color="#fff" />
+                <Feather name="play" size={50} color="#fff" />
               ) : (
                 <Feather name="pause" size={50} color="#fff" />
               )}
@@ -755,6 +755,23 @@ const Post = (props) => {
                       style={{bottom: 18, left: 10}}
                     />
                     <Text style={styles.description}>{post.description}</Text>
+                    <View style={{flexDirection: 'row', bottom: 5, right: 30}}>
+                      <Feather name="eye" size={20} color="#fff" />
+                      <Text
+                        style={{
+                          paddingLeft: 5,
+                          color: '#fff',
+                          fontFamily: 'Proxima Nova',
+                          fontSize: 10,
+                          fontWeight: '400',
+                          justifyContent: 'center',
+                          alignContent: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                        }}>
+                        <Text>12,000</Text> <Text>Views</Text>
+                      </Text>
+                    </View>
                   </View>
                 </>
                 {/* ) : (
