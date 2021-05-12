@@ -33,7 +33,7 @@ import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
 
 const Post = (props) => {
-  // console.log('Props', props.post);
+  //console.log('Props', props?.post?.user?.followers);
   const [post, setPost] = useState(props.post);
   // const navigation = useNavigation();
   const navigation = props.navigation;
@@ -91,6 +91,7 @@ const Post = (props) => {
   };
 
   useEffect(() => {
+    
     Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
@@ -151,6 +152,14 @@ const Post = (props) => {
       setPaused(true);
     }
   }, [props.currentVisibleIndex]);
+
+  useEffect(() => {
+    if(post?.user?.followers !== props.post?.user?.followers){
+      //console.log('post usereff', post?.user?.followers)
+      //console.log('props post usereff', props.post?.user?.followers)
+      setPost(props.post)
+    }    
+  }, [props.post]);
 
   // const onload = {() => {props.currentIndex === props.currentVisibleIndex}}
 
@@ -290,7 +299,8 @@ const Post = (props) => {
               }),
             );
           }
-
+          props.setFollowRerender(true)
+          props.setFollowRerender(false)
           console.log('FollowDone');
         }
       } catch (error) {
@@ -339,6 +349,8 @@ const Post = (props) => {
               }
             }
           }
+          props.setFollowRerender(true)
+          props.setFollowRerender(false)
           console.log('UnfollowDone');
         }
       } catch (error) {
