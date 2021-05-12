@@ -76,6 +76,8 @@ const Home = ({navigation, route}) => {
   const [muteAll, setMuteAll] = useState(false);
   const flatListRef = useRef(null);
 
+  const [followRerender, setFollowRerender] = useState(false);
+
   useEffect(() => {
     const setUserIcon = async () => {
       const value = await AsyncStorage.getItem('userImg');
@@ -118,6 +120,17 @@ const Home = ({navigation, route}) => {
   }, [route?.params?.idx]);
 
   useEffect(() => {
+    if (route?.params?.idx) {
+      console.log('Routeeitem');
+      // setPosts((post) => [route?.params?.item, ...post]);
+
+      flatListRef.current.scrollToIndex({index: route?.params?.idx});
+      setCurrentVisibleIndex(route?.params?.idx);
+    }
+  }, [route?.params?.idx]);
+
+  useEffect(() => {
+    //console.log('home useeffect')
     const fetchPost = async () => {
       try {
         setLoading(true);
@@ -147,6 +160,38 @@ const Home = ({navigation, route}) => {
     fetchPost();
   }, [navigation, route?.params?.newPost]);
 
+  useEffect(() => {
+    //console.log('home useeffect')
+    const fetchPost = async () => {
+      try {
+        //setLoading(true);
+        const response = await API.graphql(
+          graphqlOperation(listPosts, {
+            limit: curLimit,
+          }),
+        );
+        const allItems = response.data.listPosts.items;
+        const sortedItems = allItems.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        );
+        console.log('sortedItemsInside', sortedItems.length, sortedItems[0]);
+        setNextToken(response.data.listPosts.nextToken);
+        // if (route?.params?.newPost) {
+        //   setPosts([route?.params?.newPost, ...sortedItems]);
+        // } else {
+        // }
+        setPosts(sortedItems);
+        //setLoading(false);
+      } catch (e) {
+        console.error(e);
+        //setLoading(false);
+      }
+    };
+    if(followRerender){
+      fetchPost();
+    }    
+  }, [followRerender]);
+
   const getMorePosts = async () => {
     try {
       setLoader(true);
@@ -171,6 +216,7 @@ const Home = ({navigation, route}) => {
   };
 
   const handleRefresh = async () => {
+    console.log('refresh call')
     try {
       setRefreshing(true);
       const response = await API.graphql(
@@ -203,6 +249,7 @@ const Home = ({navigation, route}) => {
       navigation={navigation}
       muteAll={muteAll}
       setMuteAll={setMuteAll}
+      setFollowRerender={setFollowRerender}
     />
   );
 
