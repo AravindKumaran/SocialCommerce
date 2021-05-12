@@ -220,7 +220,8 @@ const CreatePost = () => {
           />
         </View>
       </View>
-      <AppButton
+
+      {/* <AppButton
         onPress={() =>
           VESDK.openEditor({
             uri: videoUrii,
@@ -233,7 +234,7 @@ const CreatePost = () => {
             .catch((err) => console.log('Error', err))
         }
         title="Edit Video"
-      />
+      /> */}
 
       <View style={{marginHorizontal: 20}}>
         <AppText style={{color: 'white', fontSize: 12}}>Categories</AppText>

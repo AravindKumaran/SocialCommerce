@@ -12,6 +12,21 @@ import {
 import {useIsFocused} from '@react-navigation/native';
 import Post from '../../components/Post';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import {Header} from 'react-native-elements';
+
+const MyCustomLeftComponent = () => {
+  return (
+    <Text
+      style={{
+        fontSize: 24,
+        fontFamily: 'Proxima Nova',
+        width: 200,
+        fontWeight: '700',
+      }}>
+      Your Videos
+    </Text>
+  );
+};
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -68,19 +83,13 @@ const ProfileVideoList = ({navigation, route}) => {
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
-      <View style={{height: 78}}>
-        <Text
-          style={{
-            textAlign: 'left',
-            fontWeight: 'bold',
-            color: '#fff',
-            fontSize: 20,
-            padding: 10,
-            top: 28,
-          }}>
-          Your Videos
-        </Text>
-      </View>
+      <Header
+        leftComponent={<MyCustomLeftComponent />}
+        containerStyle={{
+          backgroundColor: '#20232A',
+          borderColor: '#20232A',
+        }}
+      />
       <FlatList
         data={posts}
         ref={flatListRef}

@@ -242,7 +242,7 @@ const Home = ({navigation, route}) => {
       <TouchableOpacity>
         <Text
           style={{
-            fontSize: 24,
+            fontSize: 23,
             fontFamily: 'LilyScriptOne-Regular',
             width: 200,
           }}>

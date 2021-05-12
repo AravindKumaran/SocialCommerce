@@ -128,7 +128,7 @@ const Camera = () => {
         onPress={() => {
           navigation.goBack();
         }}
-        style={{position: 'absolute', top: 10, left: 10}}>
+        style={{position: 'absolute', marginTop: '5%', marginLeft: '3%'}}>
         <Feather name="x" size={30} color="#fff" />
       </TouchableOpacity>
       <View style={styles.right}>

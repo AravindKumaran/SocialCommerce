@@ -12,6 +12,7 @@ import {
   SafeAreaView,
   FlatList,
   ImageBase,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
@@ -20,65 +21,31 @@ import Followers from './followers';
 
 const ActiveStyle = () => (
   <>
-    <Image
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 65,
-        transform: [
-          {
-            rotate: '-180deg',
-          },
-        ],
-      }}
-      source={require('../../assets/images/blur.png')}
-      width={15}
-      height={15}
-    />
-    <View
-      style={{
-        width: 27,
-        height: 4,
-        borderRadius: 14,
-        position: 'absolute',
-        top: 0,
-        borderBottomColor: '#21FFFC',
-        borderBottomWidth: 4,
-        left: 90,
-        zIndex: 1,
-      }}></View>
-  </>
-);
-
-const ActiveStyle1 = () => (
-  <>
-    <Image
-      style={{
-        position: 'absolute',
-        top: 0,
-        right: 65,
-        transform: [
-          {
-            rotate: '-180deg',
-          },
-        ],
-      }}
-      source={require('../../assets/images/blur.png')}
-      width={5}
-      height={5}
-    />
-    <View
-      style={{
-        width: 27,
-        height: 4,
-        borderRadius: 14,
-        position: 'absolute',
-        top: 0,
-        borderBottomColor: '#21FFFC',
-        borderBottomWidth: 4,
-        right: 93,
-        zIndex: 1,
-      }}></View>
+    <View style={{alignItems: 'center'}}>
+      <Image
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 15,
+          transform: [
+            {
+              rotate: '-180deg',
+            },
+          ],
+        }}
+        source={require('../../assets/images/blur.png')}
+        width={15}
+        height={15}
+      />
+      <View
+        style={{
+          width: 27,
+          right: 2,
+          borderRadius: 14,
+          borderBottomColor: '#21FFFC',
+          borderBottomWidth: 4,
+        }}></View>
+    </View>
   </>
 );
 
@@ -87,62 +54,65 @@ const Following = ({data, followerData}) => {
   const [isPressed, setPressed] = useState(true);
   const [actualData, setData] = useState(data);
 
+  const [active, setActive] = useState('following');
+
+  const handleActive = (value) => {
+    setActive(value);
+  };
+
   return (
     <ImageBackground
       source={require('../../assets/images/Background1.png')}
       style={styles.container}>
       <SafeAreaView style={styles.container}>
         <View style={styles.container}>
-          <View style={{alignItems: 'center', padding: 5}}>
-            <View style={{top: 20, right: 80}}>
-              <TouchableOpacity
+          <View style={styles.choose}>
+            <View>
+              {active === 'followers' ? <ActiveStyle /> : <></>}
+              <TouchableWithoutFeedback
                 onPress={() => {
                   if (isTouched === false) {
                     setData(followerData);
                   }
-                  setTouched(!isTouched);
-                  setPressed(!isPressed);
+                  handleActive('followers');
                 }}>
                 <Text
-                  style={{
-                    color: !isTouched ? '#FFFFFF' : '#21FFFC',
-                    fontFamily: 'Proxima Nova',
-                    fontWeight: '700',
-                    fontSize: 14,
-                  }}>
+                  style={[
+                    styles.text1,
+                    {color: active === 'followers' ? '#21FFFC' : '#FFFFFF'},
+                  ]}>
                   Followers
                 </Text>
-              </TouchableOpacity>
+              </TouchableWithoutFeedback>
             </View>
-            <View style={{left: 80}}>
-              <TouchableOpacity
+            <View>
+              {active === 'following' ? <ActiveStyle /> : <></>}
+              <TouchableWithoutFeedback
                 onPress={() => {
                   setData(data);
-                  setPressed(!isPressed);
-                  setTouched(!isTouched);
+                  handleActive('following');
                 }}>
                 <Text
-                  style={{
-                    color: !isPressed ? '#FFFFFF' : '#21FFFC',
-                    fontFamily: 'Proxima Nova',
-                    fontWeight: '700',
-                    fontSize: 14,
-                  }}>
+                  style={[
+                    styles.text1,
+                    {color: active === 'following' ? '#21FFFC' : '#FFFFFF'},
+                  ]}>
                   Following
                 </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{top: 10}}>
-              <Image source={require('../../assets/images/Pline.png')} />
+              </TouchableWithoutFeedback>
             </View>
           </View>
 
-          <View style={{top: 10}}>
+          <View style={{top: 20}}>
+            <Image source={require('../../assets/images/Pline.png')} />
+          </View>
+
+          <View style={{top: 30}}>
             <Searchbar />
           </View>
 
           <View style={{padding: 20}}>
-            <ScrollView showsVerticalScrollIndicator={false} style={{top: 50}}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{top: 20}}>
               <View>
                 {actualData?.length > 0 &&
                   actualData.map((v, i) => {
@@ -172,35 +142,35 @@ const Following = ({data, followerData}) => {
                             <Feather name={'more-vertical'} size={25} />
                           </TouchableOpacity>
                         </View>
-                        <View style={{margin: -25}}>
+                        <TouchableOpacity style={styles.Rectangle1}>
                           <LinearGradient
                             start={{x: 0, y: 0}}
                             end={{x: 1, y: 0}}
                             colors={['#252525', '#252525', '#252525']}
-                            style={styles.Rectangle1}>
-                            <TouchableOpacity>
-                              <Text
-                                style={{
-                                  color: '#FFFFFF',
-                                  fontFamily: 'Proxima Nova',
-                                  fontWeight: '400',
-                                  fontSize: 14,
-                                }}>
-                                Following
-                              </Text>
-                            </TouchableOpacity>
+                            style={{
+                              width: 120,
+                              height: 30,
+                              alignItems: 'center',
+                              borderRadius: 15,
+                            }}>
+                            <Text
+                              style={{
+                                color: '#FFFFFF',
+                                fontFamily: 'Proxima Nova',
+                                fontWeight: '400',
+                                fontSize: 14,
+                                top: 5,
+                              }}>
+                              Following
+                            </Text>
                           </LinearGradient>
-                        </View>
+                        </TouchableOpacity>
                       </View>
                     );
                   })}
               </View>
             </ScrollView>
           </View>
-
-          {isTouched && isPressed == false ? <ActiveStyle /> : <></>}
-
-          {isPressed && isTouched == false ? <ActiveStyle1 /> : <></>}
         </View>
       </SafeAreaView>
     </ImageBackground>
@@ -237,13 +207,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   Rectangle1: {
-    width: 100,
+    width: 120,
     height: 30,
     borderRadius: 15,
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-    left: 220,
+    left: 210,
     bottom: 50,
+    margin: -25,
+  },
+  choose: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginVertical: 0,
+  },
+  text1: {
+    fontWeight: '700',
+    fontFamily: 'Proxima Nova',
+    fontSize: 14,
+    marginHorizontal: 25,
+    marginTop: 20,
   },
 });

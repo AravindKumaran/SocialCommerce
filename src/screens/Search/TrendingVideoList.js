@@ -10,6 +10,7 @@ import {
 // import {useIsFocused, CommonActions} from '@react-navigation/native';
 import Post from '../../components/Post';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import {Header} from 'react-native-elements';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -54,22 +55,31 @@ const TrendingVideoList = ({navigation, route}) => {
       setCurrentVisibleIndex(viewableItems[0].index);
     }
   });
+
+  const MyCustomLeftComponent = () => {
+    return (
+      <Text
+        style={{
+          fontSize: 24,
+          fontFamily: 'Proxima Nova',
+          width: 200,
+          fontWeight: '700',
+        }}>
+        Top Trending
+      </Text>
+    );
+  };
+
   return (
     <View style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
-      <View style={{height: 78}}>
-        <Text
-          style={{
-            textAlign: 'left',
-            fontWeight: 'bold',
-            color: '#fff',
-            fontSize: 20,
-            padding: 10,
-            top: 28,
-          }}>
-          {route?.params?.title || 'Top Trending'}
-        </Text>
-      </View>
+      <Header
+        leftComponent={<MyCustomLeftComponent />}
+        containerStyle={{
+          backgroundColor: '#20232A',
+          borderColor: '#20232A',
+        }}
+      />
       <FlatList
         data={posts}
         ref={flatListRef}

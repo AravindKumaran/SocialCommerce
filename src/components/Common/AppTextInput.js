@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontSize: 12,
-    fontWeight: '400',
-    color: '#959595',
+    fontWeight: '700',
+    color: '#000000',
     flex: 1,
     textAlignVertical: 'top',
     width: '100%',

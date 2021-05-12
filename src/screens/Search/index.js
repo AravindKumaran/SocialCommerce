@@ -121,7 +121,6 @@ const Categories = () => {
   const [brand, setBrand] = useState('');
   const [category, setcategory] = useState('');
 
-
   const handleActive = (value) => {
     setActive(value);
     setBrand('');
@@ -135,7 +134,7 @@ const Categories = () => {
 
   const handleCategory = (value) => {
     setcategory(value);
-    setSearchedData(null)
+    setSearchedData(null);
   };
 
   const handleSearch = async (value) => {
@@ -220,7 +219,7 @@ const Categories = () => {
           borderColor: '#20232A',
         }}
       /> */}
-      <ScrollView nestedScrollEnabled={true} style={{marginTop: 25}}>
+      <ScrollView nestedScrollEnabled={true} style={{marginTop: '6%'}}>
         <Searchhbar onSearch={handleSearch} />
 
         <View style={styles.choose}>
@@ -263,7 +262,10 @@ const Categories = () => {
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.cat}>
               {cat.map((c, i) => (
-                <TouchableOpacity onPress={() => handleCategory(c.name)} key={`${c.name}-${i}`} style={styles.catItem}>
+                <TouchableOpacity
+                  onPress={() => handleCategory(c.name)}
+                  key={`${c.name}-${i}`}
+                  style={styles.catItem}>
                   <Image
                     style={
                       {
@@ -292,7 +294,10 @@ const Categories = () => {
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.cat}>
               {brands.map((b, i) => (
-                <TouchableOpacity key={`${b.name}-${i}`} onPress={() => handleBrandSelection(b.name)} style={styles.catItem}>
+                <TouchableOpacity
+                  key={`${b.name}-${i}`}
+                  onPress={() => handleBrandSelection(b.name)}
+                  style={styles.catItem}>
                   <Image
                     style={{height: 75, width: 75}}
                     source={b.src}

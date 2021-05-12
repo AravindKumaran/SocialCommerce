@@ -216,7 +216,7 @@ const ProfileScreen = ({navigation, route}) => {
     });
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     if (!route?.params?.postUser) {
       Hub.listen('auth', ({payload: {event, data}}) => {
         switch (event) {
@@ -236,10 +236,10 @@ const ProfileScreen = ({navigation, route}) => {
     }
   }, []);
 
-  useEffect(() => {    
+  useEffect(() => {
     const onOtherUser = async () => {
       if (!route?.params?.postUser) {
-        console.log('isfocused useeffect')
+        console.log('isfocused useeffect');
         checkUser();
       } else {
         setUser(route?.params?.postUser);
