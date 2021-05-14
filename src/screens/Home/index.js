@@ -187,9 +187,9 @@ const Home = ({navigation, route}) => {
         //setLoading(false);
       }
     };
-    if(followRerender){
+    if (followRerender) {
       fetchPost();
-    }    
+    }
   }, [followRerender]);
 
   const getMorePosts = async () => {
@@ -216,7 +216,7 @@ const Home = ({navigation, route}) => {
   };
 
   const handleRefresh = async () => {
-    console.log('refresh call')
+    console.log('refresh call');
     try {
       setRefreshing(true);
       const response = await API.graphql(

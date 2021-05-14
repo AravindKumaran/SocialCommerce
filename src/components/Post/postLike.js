@@ -6,24 +6,38 @@ import {
   TouchableOpacity,
   View,
   ToastAndroid,
+  Text,
 } from 'react-native';
+
+const user = {
+  __typename: 'User',
+  createdAt: '2021-01-01T17:03:46.393Z',
+  email: 'asfiidarlachu@gmail.com',
+  id: '0914c457-106d-4937-b44f-f430e611a52a',
+  imageUri: 'https://hieumobile.com/wp-content/uploads/avatar-among-us-6.jpg',
+  updatedAt: '2021-01-01T17:03:46.393Z',
+  username: 'Asfiya begum',
+};
 
 const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     const loadLikes = async () => {
-      // console.log('FirstCall', user);
       if (likes?.length > 0) {
-        if (user) {
-          const checkLiked = likes.findIndex((id) => {
-            return user.email === id;
-          });
-          if (checkLiked !== -1) {
-            setIsLiked(true);
+        try {
+          if (user) {
+            const checkLiked = likes.findIndex((id) => user.email === id);
+            if (checkLiked !== -1) {
+              setIsLiked(true);
+            }
+          } else {
+            likes.forEach((like) => {
+              setIsLiked(false);
+            });
           }
-        } else {
-          likes.forEach(() => setIsLiked(false));
+        } catch (error) {
+          console.log('Error');
         }
       }
     };
@@ -58,25 +72,75 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
         // isTouched ? {top: -60} : '',
       ]}>
       {isLiked ? (
-        <TouchableOpacity onPress={handleLike} style={{height: 50}}>
-          <Image
-            style={{height: 45, width: 45, opacity: 0.7}}
-            source={require('../../assets/images/Like_icon1.png')}
-            size={25}
-          />
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity onPress={handleLike} style={{height: 50}}>
-          <Image
+        <>
+          <TouchableOpacity onPress={handleLike} style={{height: 50}}>
+            <Image
+              style={{height: 45, width: 45, opacity: 0.7}}
+              source={require('../../assets/images/Like_icon1.png')}
+              size={25}
+            />
+          </TouchableOpacity>
+          <View
             style={{
-              height: 45,
-              width: 45,
-              opacity: 0.7,
-            }}
-            source={require('../../assets/images/Like_icon.png')}
-            size={25}
-          />
-        </TouchableOpacity>
+              backgroundColor: '#FF5050',
+              height: 15,
+              width: 25,
+              borderRadius: 10,
+              left: 10,
+              bottom: 12,
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 10,
+                fontWeight: '400',
+                textAlign: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                alignContent: 'center',
+              }}>
+              {likes.length}
+            </Text>
+          </View>
+        </>
+      ) : (
+        <>
+          <TouchableOpacity onPress={handleLike} style={{height: 50}}>
+            <Image
+              style={{
+                height: 45,
+                width: 45,
+                opacity: 0.7,
+              }}
+              source={require('../../assets/images/Like_icon.png')}
+              size={25}
+            />
+          </TouchableOpacity>
+          <View
+            style={{
+              backgroundColor: '#FF5050',
+              height: 15,
+              width: 25,
+              borderRadius: 10,
+              left: 10,
+              bottom: 12,
+              justifyContent: 'center',
+            }}>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 10,
+                fontWeight: '400',
+                textAlign: 'center',
+                alignItems: 'center',
+                alignSelf: 'center',
+                alignContent: 'center',
+              }}>
+              {likes.length - 0}
+            </Text>
+          </View>
+        </>
       )}
     </View>
   );

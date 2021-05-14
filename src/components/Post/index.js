@@ -91,7 +91,6 @@ const Post = (props) => {
   };
 
   useEffect(() => {
-    
     Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
@@ -154,11 +153,11 @@ const Post = (props) => {
   }, [props.currentVisibleIndex]);
 
   useEffect(() => {
-    if(post?.user?.followers !== props.post?.user?.followers){
+    if (post?.user?.followers !== props.post?.user?.followers) {
       //console.log('post usereff', post?.user?.followers)
       //console.log('props post usereff', props.post?.user?.followers)
-      setPost(props.post)
-    }    
+      setPost(props.post);
+    }
   }, [props.post]);
 
   // const onload = {() => {props.currentIndex === props.currentVisibleIndex}}
@@ -299,8 +298,8 @@ const Post = (props) => {
               }),
             );
           }
-          props.setFollowRerender(true)
-          props.setFollowRerender(false)
+          props.setFollowRerender(true);
+          props.setFollowRerender(false);
           console.log('FollowDone');
         }
       } catch (error) {
@@ -349,8 +348,8 @@ const Post = (props) => {
               }
             }
           }
-          props.setFollowRerender(true)
-          props.setFollowRerender(false)
+          props.setFollowRerender(true);
+          props.setFollowRerender(false);
           console.log('UnfollowDone');
         }
       } catch (error) {
