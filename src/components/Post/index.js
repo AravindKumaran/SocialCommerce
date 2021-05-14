@@ -32,7 +32,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
 
-const Post = (props) => {
+const Post = (
+  props,
+  {comments, cmtText, comCount, getComments, handleSumbit},
+) => {
   //console.log('Props', props?.post?.user?.followers);
   const [post, setPost] = useState(props.post);
   // const navigation = useNavigation();
@@ -671,6 +674,57 @@ const Post = (props) => {
                     source={require('../../assets/images/Comment_icon.png')}
                     size={25}
                   />
+
+                  {comments?.length > 0 ? (
+                    <View
+                      style={{
+                        backgroundColor: '#69FA89',
+                        height: 15,
+                        width: 25,
+                        borderRadius: 10,
+                        left: 10,
+                        bottom: 8,
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#3E4446',
+                          fontSize: 10,
+                          fontWeight: '400',
+                          textAlign: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          alignContent: 'center',
+                        }}>
+                        {comments?.length}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        backgroundColor: '#69FA89',
+                        height: 15,
+                        width: 25,
+                        borderRadius: 10,
+                        left: 10,
+                        bottom: 8,
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#3E4446',
+                          fontSize: 10,
+                          fontWeight: '400',
+                          textAlign: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          alignContent: 'center',
+                        }}>
+                        0
+                      </Text>
+                    </View>
+                  )}
+
                   {/* ) : (
                     <Image
                       style={{
@@ -766,23 +820,23 @@ const Post = (props) => {
                       style={{bottom: 18, left: 10}}
                     />
                     <Text style={styles.description}>{post.description}</Text>
-                    <View style={{flexDirection: 'row', bottom: 5, right: 30}}>
-                      <Feather name="eye" size={20} color="#fff" />
-                      <Text
-                        style={{
-                          paddingLeft: 5,
-                          color: '#fff',
-                          fontFamily: 'Proxima Nova',
-                          fontSize: 10,
-                          fontWeight: '400',
-                          justifyContent: 'center',
-                          alignContent: 'center',
-                          alignItems: 'center',
-                          alignSelf: 'center',
-                        }}>
-                        <Text>12,000</Text> <Text>Views</Text>
-                      </Text>
-                    </View>
+                  </View>
+                  <View style={{flexDirection: 'row', bottom: 0, left: 10}}>
+                    <Feather name="eye" size={20} color="#fff" />
+                    <Text
+                      style={{
+                        paddingLeft: 5,
+                        color: '#fff',
+                        fontFamily: 'Proxima Nova',
+                        fontSize: 10,
+                        fontWeight: '400',
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                      }}>
+                      <Text>12,000</Text> <Text>Views</Text>
+                    </Text>
                   </View>
                 </>
                 {/* ) : (
