@@ -32,7 +32,10 @@ import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
 
-const Post = (props) => {
+const Post = (
+  props,
+  {comments, cmtText, comCount, getComments, handleSumbit},
+) => {
   //console.log('Props', props?.post?.user?.followers);
   const [post, setPost] = useState(props.post);
   // const navigation = useNavigation();
@@ -93,7 +96,6 @@ const Post = (props) => {
   };
 
   useEffect(() => {
-    
     Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
@@ -167,11 +169,11 @@ const Post = (props) => {
   }, [props.currentVisibleIndex]);
 
   useEffect(() => {
-    if(post?.user?.followers !== props.post?.user?.followers){
+    if (post?.user?.followers !== props.post?.user?.followers) {
       //console.log('post usereff', post?.user?.followers)
       //console.log('props post usereff', props.post?.user?.followers)
-      setPost(props.post)
-    }    
+      setPost(props.post);
+    }
   }, [props.post]);
 
   // const onload = {() => {props.currentIndex === props.currentVisibleIndex}}
@@ -312,8 +314,8 @@ const Post = (props) => {
               }),
             );
           }
-          props.setFollowRerender(true)
-          props.setFollowRerender(false)
+          props.setFollowRerender(true);
+          props.setFollowRerender(false);
           console.log('FollowDone');
         }
       } catch (error) {
@@ -362,8 +364,8 @@ const Post = (props) => {
               }
             }
           }
-          props.setFollowRerender(true)
-          props.setFollowRerender(false)
+          props.setFollowRerender(true);
+          props.setFollowRerender(false);
           console.log('UnfollowDone');
         }
       } catch (error) {
@@ -685,6 +687,57 @@ const Post = (props) => {
                     source={require('../../assets/images/Comment_icon.png')}
                     size={25}
                   />
+
+                  {comments?.length > 0 ? (
+                    <View
+                      style={{
+                        backgroundColor: '#69FA89',
+                        height: 15,
+                        width: 25,
+                        borderRadius: 10,
+                        left: 10,
+                        bottom: 8,
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#3E4446',
+                          fontSize: 10,
+                          fontWeight: '400',
+                          textAlign: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          alignContent: 'center',
+                        }}>
+                        {comments?.length}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        backgroundColor: '#69FA89',
+                        height: 15,
+                        width: 25,
+                        borderRadius: 10,
+                        left: 10,
+                        bottom: 8,
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#3E4446',
+                          fontSize: 10,
+                          fontWeight: '400',
+                          textAlign: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          alignContent: 'center',
+                        }}>
+                        0
+                      </Text>
+                    </View>
+                  )}
+
                   {/* ) : (
                     <Image
                       style={{
@@ -779,24 +832,24 @@ const Post = (props) => {
                       size={25}
                       style={{bottom: 18, left: 10}}
                     />
-                    <Text style={styles.description}>{post.description}</Text>
-                    <View style={{flexDirection: 'row', bottom: 15, right: 30}}>
-                      <Feather name="eye" size={20} color="#fff" />
-                      <Text
-                        style={{
-                          paddingLeft: 5,
-                          color: '#fff',
-                          fontFamily: 'Proxima Nova',
-                          fontSize: 10,
-                          fontWeight: '400',
-                          justifyContent: 'center',
-                          alignContent: 'center',
-                          alignItems: 'center',
-                          alignSelf: 'center',
-                        }}>
-                        <Text>{views}</Text> <Text>Views</Text>
-                      </Text>
-                    </View>
+                    <Text style={styles.description}>{post.description}</Text>                    
+                  </View>
+                  <View style={{flexDirection: 'row', bottom: 0, left: 10}}>
+                    <Feather name="eye" size={20} color="#fff" />
+                    <Text
+                      style={{
+                        paddingLeft: 5,
+                        color: '#fff',
+                        fontFamily: 'Proxima Nova',
+                        fontSize: 10,
+                        fontWeight: '400',
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                      }}>
+                      <Text>{views}</Text> <Text>Views</Text>
+                    </Text>
                   </View>
                 </>
                 {/* ) : (
