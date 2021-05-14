@@ -169,6 +169,7 @@ export const listPosts = /* GraphQL */ `
         description
         thumbnail
         likes
+        views
         userID
         user {
           id

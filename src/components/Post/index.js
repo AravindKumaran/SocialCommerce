@@ -57,6 +57,8 @@ const Post = (props) => {
   const [message] = useState('Please sign in first');
   const [message1] = useState('Coming Soon!');
 
+  const [views, setViews] = useState(props.post.views === null? 0:props.post.views);
+
   const fadeIn = {
     from: {
       opacity: 0,
@@ -143,10 +145,21 @@ const Post = (props) => {
     }
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (props.currentIndex === props.currentVisibleIndex) {
       // vidRef.current.resume();
       setPaused(false);
+
+      //increase view count by 1
+      if(props.post){         
+        const viewsCount = views+1;
+        setViews(viewsCount)
+        await API.graphql(
+          graphqlOperation(updatePost, {
+            input: {id: props.post.id, views:viewsCount},
+          }),
+        );
+      }      
     } else {
       // vidRef.current.pause();
       setPaused(true);
@@ -767,7 +780,7 @@ const Post = (props) => {
                       style={{bottom: 18, left: 10}}
                     />
                     <Text style={styles.description}>{post.description}</Text>
-                    <View style={{flexDirection: 'row', bottom: 5, right: 30}}>
+                    <View style={{flexDirection: 'row', bottom: 15, right: 30}}>
                       <Feather name="eye" size={20} color="#fff" />
                       <Text
                         style={{
@@ -781,7 +794,7 @@ const Post = (props) => {
                           alignItems: 'center',
                           alignSelf: 'center',
                         }}>
-                        <Text>12,000</Text> <Text>Views</Text>
+                        <Text>{views}</Text> <Text>Views</Text>
                       </Text>
                     </View>
                   </View>

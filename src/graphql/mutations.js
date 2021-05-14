@@ -171,6 +171,7 @@ export const createPost = /* GraphQL */ `
       videoUri
       description
       likes
+      views
       thumbnail
       category
       brand
