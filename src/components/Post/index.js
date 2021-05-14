@@ -60,7 +60,9 @@ const Post = (
   const [message] = useState('Please sign in first');
   const [message1] = useState('Coming Soon!');
 
-  const [views, setViews] = useState(props.post.views === null? 0:props.post.views);
+  const [views, setViews] = useState(
+    props.post.views === null ? 0 : props.post.views,
+  );
 
   const fadeIn = {
     from: {
@@ -153,15 +155,15 @@ const Post = (
       setPaused(false);
 
       //increase view count by 1
-      if(props.post){         
-        const viewsCount = views+1;
-        setViews(viewsCount)
+      if (props.post) {
+        const viewsCount = views + 1;
+        setViews(viewsCount);
         await API.graphql(
           graphqlOperation(updatePost, {
-            input: {id: props.post.id, views:viewsCount},
+            input: {id: props.post.id, views: viewsCount},
           }),
         );
-      }      
+      }
     } else {
       // vidRef.current.pause();
       setPaused(true);
@@ -832,7 +834,7 @@ const Post = (
                       size={25}
                       style={{bottom: 18, left: 10}}
                     />
-                    <Text style={styles.description}>{post.description}</Text>                    
+                    <Text style={styles.description}>{post.description}</Text>
                   </View>
                   <View style={{flexDirection: 'row', bottom: 0, left: 10}}>
                     <Feather name="eye" size={20} color="#fff" />

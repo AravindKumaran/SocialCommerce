@@ -259,7 +259,7 @@ const CreatePost = () => {
         />
       </View>
 
-      <View style={{marginHorizontal: 20, paddingBottom: 20}}>
+      <View style={{marginHorizontal: 20, paddingBottom: 50}}>
         <AppText style={{color: 'white', fontSize: 12}}>Brand</AppText>
         <DropDownPicker
           items={brandItems}

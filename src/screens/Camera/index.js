@@ -131,7 +131,7 @@ const Camera = () => {
         style={{position: 'absolute', marginTop: '5%', marginLeft: '3%'}}>
         <Feather name="x" size={30} color="#fff" />
       </TouchableOpacity>
-      <View style={styles.right}>
+      {/* <View style={styles.right}>
         <TouchableOpacity style={{position: 'absolute', alignItems: 'center'}}>
           <Image
             source={require('../../assets/images/flip.png')}
@@ -159,7 +159,7 @@ const Camera = () => {
           <Feather name="volume-2" size={30} color="#fff" />
           <Text>Volume</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <TouchableOpacity
         onPress={onRecord}
         style={isRecording ? styles.buttonStop : styles.buttonRecord}
