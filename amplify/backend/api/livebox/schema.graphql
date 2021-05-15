@@ -95,6 +95,7 @@ type Post {
   user: User
   userID: String!
   videoUri: String!
+  views: Int
 }
 
 type Query {
@@ -150,6 +151,7 @@ type User {
   id: String!
   imageUri: String
   instagram: String
+  languages: [String]
   name: String
   notifications(filter: ModelUserNotificationFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelUserNotificationConnection
   posts(filter: ModelPostFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelPostConnection
@@ -213,6 +215,7 @@ input CreatePostInput {
   thumbnail: String
   userID: String!
   videoUri: String!
+  views: Int
 }
 
 input CreateSongInput {
@@ -365,6 +368,7 @@ input ModelPostConditionInput {
   thumbnail: ModelStringInput
   userID: ModelStringInput
   videoUri: ModelStringInput
+  views: ModelIntInput
 }
 
 input ModelPostFilterInput {
@@ -380,6 +384,7 @@ input ModelPostFilterInput {
   thumbnail: ModelStringInput
   userID: ModelStringInput
   videoUri: ModelStringInput
+  views: ModelIntInput
 }
 
 input ModelSizeInput {
@@ -429,6 +434,7 @@ input ModelUserConditionInput {
   and: [ModelUserConditionInput]
   bio: ModelStringInput
   imageUri: ModelStringInput
+  languages: ModelStringInput
   name: ModelStringInput
   not: ModelUserConditionInput
   or: [ModelUserConditionInput]
@@ -440,6 +446,7 @@ input ModelUserFilterInput {
   bio: ModelStringInput
   id: ModelStringInput
   imageUri: ModelStringInput
+  languages: ModelStringInput
   name: ModelStringInput
   not: ModelUserFilterInput
   or: [ModelUserFilterInput]
@@ -469,6 +476,10 @@ input ModelUserNotificationFilterInput {
   userID: ModelStringInput
 }
 
+input PostOrderByLikes {
+  likes: ModelSortDirection
+}
+
 input UpdateCommentInput {
   id: ID!
   likes: [String]
@@ -492,6 +503,7 @@ input UpdatePostInput {
   thumbnail: String
   userID: String
   videoUri: String
+  views: Int
 }
 
 input UpdateSongInput {
@@ -508,6 +520,7 @@ input UpdateUserInput {
   id: String!
   imageUri: String
   instagram: String
+  languages: [String]
   name: String
   username: String
   youtube: String

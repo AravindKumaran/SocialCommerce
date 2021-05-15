@@ -79,6 +79,8 @@ const ProfileScreen = ({navigation, route}) => {
   const checkUser = async () => {
     setLoading(true);
     // console.log('Im calling');
+
+
     try {
       const userInfo = await Auth.currentAuthenticatedUser({
         bypassCache: true,
@@ -88,18 +90,25 @@ const ProfileScreen = ({navigation, route}) => {
 
       const userRes = await API.graphql(
         graphqlOperation(getUser, {
-          id: userInfo.attributes.email,
+          id: userInfo?.attributes?.email,
           limit: 2,
         }),
       );
       
-      console.log('UserRews', userRes);
+      console.log('UserRes', userRes);
       //console.log('UserRews', userRes.data.getUser.posts.items.length);
 
       // console.log('USer', userRes.data.listUsers.items.length);
-      if (!userRes?.data?.getUser) {
-        const identity = JSON.parse(userInfo.attributes?.identities);
-        const provider = identity[0].providerName;
+
+      //If the User is created from cognito ui but not stored in db
+      if (!userRes?.data?.getUser || !userRes) {
+        let identity, provider;
+
+        if(userInfo.attributes?.identities) {
+          identity = JSON.parse(userInfo.attributes?.identities);
+          provider = identity[0].providerName;
+        }
+        
         let uri;
         if (userInfo.attributes?.picture) {
           if (provider === 'Facebook') {
@@ -130,6 +139,7 @@ const ProfileScreen = ({navigation, route}) => {
         const res = await API.graphql(
           graphqlOperation(createUser, {input: newUser}),
         );
+        
         setUser(res?.data?.createUser);
         await AsyncStorage.setItem('userImg', uri);
         c.setOptions({
@@ -194,9 +204,10 @@ const ProfileScreen = ({navigation, route}) => {
 
   const handleLogout = async () => {
     console.log('User', user);
-    Auth.signOut();
     setUser(null);
+    Auth.signOut();
     await AsyncStorage.removeItem('userImg');
+    console.log('logged out!')
     c.setOptions({
       tabBarIcon: ({focused, tintColor}) => (
         <>
@@ -210,6 +221,7 @@ const ProfileScreen = ({navigation, route}) => {
   useEffect(() => {
     if (!route?.params?.postUser) {
       Hub.listen('auth', ({payload: {event, data}}) => {
+        console.log('event', event)
         switch (event) {
           case 'signIn':
           case 'cognitoHostedUI':
@@ -217,6 +229,7 @@ const ProfileScreen = ({navigation, route}) => {
             break;
           case 'signOut':
             setUser(null);
+            console.log('User', user);
             break;
           case 'signIn_failure':
           case 'cognitoHostedUI_failure':

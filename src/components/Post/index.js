@@ -175,10 +175,12 @@ const Post = (props) => {
           likeIconRef.current = setTimeout(() => {
             setShowLikeIcon(false);
           }, 1000);
-          const likes = cPost.likes;
+          const likes = cPost.likes, 
+          likesCount = cPost.likes.length;
+
           await API.graphql(
             graphqlOperation(updatePost, {
-              input: {id: cPost.id, likes},
+              input: {id: cPost.id, likes, likesCount},
             }),
           );
           const res = await API.graphql(
@@ -219,10 +221,12 @@ const Post = (props) => {
           );
           if (likesIndex !== -1) {
             cPost.likes.splice(likesIndex, 1);
-            const likes = cPost.likes;
+            const likes = cPost.likes,
+            likesCount = likes.length;
+
             const res = await API.graphql(
               graphqlOperation(updatePost, {
-                input: {id: cPost.id, likes},
+                input: {id: cPost.id, likes, likesCount},
               }),
             );
 

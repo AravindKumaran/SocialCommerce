@@ -30,7 +30,7 @@ const getRandomImage = () => {
   return randomImages[Math.floor(Math.random() * randomImages.length)];
 };
 
-const App: () => React$Node = () => {
+const App = () => {
   useEffect(() => {
     SplashScreen.hide();
     const fetchUser = async () => {

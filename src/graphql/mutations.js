@@ -19,6 +19,8 @@ export const createUser = /* GraphQL */ `
           description
           likes
           thumbnail
+          category
+          brand
           userID
           songID
           createdAt
@@ -62,8 +64,13 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       username
+      name
       imageUri
       bio
+      facebook
+      instagram
+      youtube
+      languages
       posts {
         items {
           id
@@ -71,6 +78,8 @@ export const updateUser = /* GraphQL */ `
           description
           likes
           thumbnail
+          category
+          brand
           userID
           songID
           createdAt
@@ -101,9 +110,6 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
-      facebook
-      instagram
-      youtube
       createdAt
       updatedAt
     }
@@ -117,8 +123,10 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       username
+      name
       imageUri
       bio
+      languages
       posts {
         items {
           id
@@ -126,6 +134,8 @@ export const deleteUser = /* GraphQL */ `
           description
           likes
           thumbnail
+          category
+          brand
           userID
           songID
           createdAt
@@ -175,6 +185,51 @@ export const createPost = /* GraphQL */ `
       category
       brand
       userID
+      user {
+        id
+        username
+        name
+        imageUri
+        bio
+        posts {
+          nextToken
+        }
+        following {
+          userId
+          userName
+          imgUri
+        }
+        followers {
+          userId
+          userName
+          imgUri
+        }
+        notifications {
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      songID
+      song {
+        id
+        name
+        imageUri
+        createdAt
+        updatedAt
+      }
+      comments {
+        items {
+          id
+          postId
+          userID
+          text
+          likes
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -191,12 +246,16 @@ export const updatePost = /* GraphQL */ `
       description
       likes
       thumbnail
+      category
+      brand
       userID
       user {
         id
         username
+        name
         imageUri
         bio
+        languages
         posts {
           nextToken
         }
@@ -252,12 +311,16 @@ export const deletePost = /* GraphQL */ `
       description
       likes
       thumbnail
+      category
+      brand
       userID
       user {
         id
         username
+        name
         imageUri
         bio
+        languages
         posts {
           nextToken
         }
@@ -316,8 +379,10 @@ export const createComment = /* GraphQL */ `
       user {
         id
         username
+        name
         imageUri
         bio
+        languages
         posts {
           nextToken
         }
@@ -343,12 +408,16 @@ export const createComment = /* GraphQL */ `
         description
         likes
         thumbnail
+        category
+        brand
         userID
         user {
           id
           username
+          name
           imageUri
           bio
+          languages
           createdAt
           updatedAt
         }
@@ -385,8 +454,10 @@ export const updateComment = /* GraphQL */ `
       user {
         id
         username
+        name
         imageUri
         bio
+        languages
         posts {
           nextToken
         }
@@ -412,12 +483,16 @@ export const updateComment = /* GraphQL */ `
         description
         likes
         thumbnail
+        category
+        brand
         userID
         user {
           id
           username
+          name
           imageUri
           bio
+          languages
           createdAt
           updatedAt
         }
@@ -454,8 +529,10 @@ export const deleteComment = /* GraphQL */ `
       user {
         id
         username
+        name
         imageUri
         bio
+        languages
         posts {
           nextToken
         }
@@ -481,12 +558,16 @@ export const deleteComment = /* GraphQL */ `
         description
         likes
         thumbnail
+        category
+        brand
         userID
         user {
           id
           username
+          name
           imageUri
           bio
+          languages
           createdAt
           updatedAt
         }
@@ -603,8 +684,10 @@ export const createUserNotification = /* GraphQL */ `
       user {
         id
         username
+        name
         imageUri
         bio
+        languages
         posts {
           nextToken
         }
@@ -630,12 +713,16 @@ export const createUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
+        category
+        brand
         userID
         user {
           id
           username
+          name
           imageUri
           bio
+          languages
           createdAt
           updatedAt
         }
@@ -679,8 +766,10 @@ export const updateUserNotification = /* GraphQL */ `
       user {
         id
         username
+        name
         imageUri
         bio
+        languages
         posts {
           nextToken
         }
@@ -706,12 +795,16 @@ export const updateUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
+        category
+        brand
         userID
         user {
           id
           username
+          name
           imageUri
           bio
+          languages
           createdAt
           updatedAt
         }
@@ -755,8 +848,10 @@ export const deleteUserNotification = /* GraphQL */ `
       user {
         id
         username
+        name
         imageUri
         bio
+        languages
         posts {
           nextToken
         }
@@ -782,12 +877,16 @@ export const deleteUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
+        category
+        brand
         userID
         user {
           id
           username
+          name
           imageUri
           bio
+          languages
           createdAt
           updatedAt
         }
