@@ -27,13 +27,14 @@ import styles from './styles';
 import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
 import Follow from './Follow';
+import ViewsCount from './ViewsCount';
 import {NavigationActions} from 'react-navigation';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
 
 const Post = (props) => {
-  // console.log('Props', props.post);
+  //console.log('Props', props?.post?.user?.followers);
   const [post, setPost] = useState(props.post);
   // const navigation = useNavigation();
   const navigation = props.navigation;
@@ -142,7 +143,7 @@ const Post = (props) => {
     }
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (props.currentIndex === props.currentVisibleIndex) {
       // vidRef.current.resume();
       setPaused(false);
@@ -151,6 +152,32 @@ const Post = (props) => {
       setPaused(true);
     }
   }, [props.currentVisibleIndex]);
+
+  const handleView = async (value) => {
+    // console.log('on handle view');
+    if (post) {      
+      try {
+        post.views = value;
+        await API.graphql(
+          graphqlOperation(updatePost, {
+            input: {id: post.id, views: post.views},
+          }),
+        ); 
+        // console.log('view increased');       
+      } catch (error) {
+        console.log('Please Login', error);
+        ToastAndroid.show(message, ToastAndroid.SHORT);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if(post?.user?.followers !== props.post?.user?.followers){
+      //console.log('post usereff', post?.user?.followers)
+      //console.log('props post usereff', props.post?.user?.followers)
+      setPost(props.post)
+    }    
+  }, [props.post]);
 
   // const onload = {() => {props.currentIndex === props.currentVisibleIndex}}
 
@@ -292,6 +319,8 @@ const Post = (props) => {
               }),
             );
           }
+          props.setFollowRerender(true)
+          props.setFollowRerender(false)
 
           console.log('FollowDone');
         }
@@ -341,6 +370,8 @@ const Post = (props) => {
               }
             }
           }
+          props.setFollowRerender(true)
+          props.setFollowRerender(false)
           console.log('UnfollowDone');
         }
       } catch (error) {
@@ -757,6 +788,28 @@ const Post = (props) => {
                       style={{bottom: 18, left: 10}}
                     />
                     <Text style={styles.description}>{post.description}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row', bottom: 0, left: 10}}>
+                    <Feather name="eye" size={20} color="#fff" />
+                    <Text
+                      style={{
+                        paddingLeft: 5,
+                        color: '#fff',
+                        fontFamily: 'Proxima Nova',
+                        fontSize: 10,
+                        fontWeight: '400',
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                      }}>
+                      <ViewsCount
+                        OnIncView={handleView}
+                        currentPost={post}
+                        currentIndex={props.currentIndex}
+                        currentVisibleIndex={props.currentVisibleIndex}
+                      />
+                    </Text>
                   </View>
                 </>
                 {/* ) : (
