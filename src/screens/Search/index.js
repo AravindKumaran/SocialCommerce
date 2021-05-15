@@ -161,7 +161,7 @@ const Categories = () => {
         let sortedItems = allItems.filter(item => item.likes).sort(
           (a, b) => (b.likes.length) - (a.likes.length)
         );
-        setSearchedData(sortedItems);
+        setSearchedData(sortedItems.concat(allItems.filter(item => item.likes === null)));
 
         setLoading(false);
       } catch (err) {
