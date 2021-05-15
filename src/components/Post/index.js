@@ -27,6 +27,7 @@ import styles from './styles';
 import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
 import Follow from './Follow';
+import ViewsCount from './ViewsCount';
 import {NavigationActions} from 'react-navigation';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
@@ -59,10 +60,6 @@ const Post = (
 
   const [message] = useState('Please sign in first');
   const [message1] = useState('Coming Soon!');
-
-  const [views, setViews] = useState(
-    props.post.views === null ? 0 : props.post.views,
-  );
 
   const fadeIn = {
     from: {
@@ -152,23 +149,30 @@ const Post = (
   useEffect(async () => {
     if (props.currentIndex === props.currentVisibleIndex) {
       // vidRef.current.resume();
-      setPaused(false);
-
-      //increase view count by 1
-      if (props.post) {
-        const viewsCount = views + 1;
-        setViews(viewsCount);
-        await API.graphql(
-          graphqlOperation(updatePost, {
-            input: {id: props.post.id, views: viewsCount},
-          }),
-        );
-      }
+      setPaused(false);     
     } else {
       // vidRef.current.pause();
       setPaused(true);
     }
   }, [props.currentVisibleIndex]);
+
+  const handleView = async (value) => {
+    // console.log('on handle view');
+    if (post) {      
+      try {
+        post.views = value;
+        await API.graphql(
+          graphqlOperation(updatePost, {
+            input: {id: post.id, views: post.views},
+          }),
+        ); 
+        // console.log('view increased');       
+      } catch (error) {
+        console.log('Please Login', error);
+        ToastAndroid.show(message, ToastAndroid.SHORT);
+      }
+    }
+  }
 
   useEffect(() => {
     if (post?.user?.followers !== props.post?.user?.followers) {
@@ -854,7 +858,12 @@ const Post = (
                         alignItems: 'center',
                         alignSelf: 'center',
                       }}>
-                      <Text>{views}</Text> <Text>Views</Text>
+                      <ViewsCount
+                        OnIncView={handleView}
+                        currentPost={post}
+                        currentIndex={props.currentIndex}
+                        currentVisibleIndex={props.currentVisibleIndex}
+                      />
                     </Text>
                   </View>
                 </>
