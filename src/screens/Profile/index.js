@@ -455,6 +455,7 @@ const ProfileScreen = ({navigation, route}) => {
                         fontFamily: 'Proxima Nova',
                         fontWeight: '700',
                         fontSize: 13,
+                        textAlign: 'center',
                       }}>
                       {` (${user.username}) `}
                     </Text>

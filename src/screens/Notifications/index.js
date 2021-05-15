@@ -108,7 +108,7 @@ const Notifications = ({navigation}) => {
           fontSize: 24,
           fontFamily: 'Proxima Nova',
           width: 200,
-          fontWeight: '700'
+          fontWeight: '700',
         }}>
         Notifications
       </Text>
@@ -157,7 +157,7 @@ const Notifications = ({navigation}) => {
         )}
 
       <ScrollView
-        style={{marginTop: 10}}
+        style={{marginTop: 10, marginBottom: 50}}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }>

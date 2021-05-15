@@ -838,7 +838,7 @@ const Post = (
                       size={25}
                       style={{bottom: 18, left: 10}}
                     />
-                    <Text style={styles.description}>{post.description}</Text>                    
+                    <Text style={styles.description}>{post.description}</Text>
                   </View>
                   <View style={{flexDirection: 'row', bottom: 0, left: 10}}>
                     <Feather name="eye" size={20} color="#fff" />

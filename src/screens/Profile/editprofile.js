@@ -42,16 +42,22 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
   const [language, setLanguage] = useState();
-  
+
   //Social media links
-  const [facebook, setFacebook] = useState(user?.facebook.startsWith('https') ? user.facebook : '' || '')
-  const [instagram, setInstagram] = useState(user?.instagram.startsWith('https') ? user.instagram : '' || '')
-  const [youtube, setYoutube] = useState(user?.youtube.startsWith('https') ? user.youtube : '' || '')
+  const [facebook, setFacebook] = useState(
+    user?.facebook?.startsWith('https') ? user.facebook : '' || '',
+  );
+  const [instagram, setInstagram] = useState(
+    user?.instagram?.startsWith('https') ? user.instagram : '' || '',
+  );
+  const [youtube, setYoutube] = useState(
+    user?.youtube?.startsWith('https') ? user.youtube : '' || '',
+  );
 
   const [message] = useState('Please enter required values!');
   const [message1] = useState('Username already exists!');
 
-  const [message2] = useState('Please enter a valid url')
+  const [message2] = useState('Please enter a valid url');
 
   const handleRevert = async () => {
     if (!username || !userImageUri) {
@@ -60,7 +66,11 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
       return;
     }
 
-    if(user.facebook && !facebook.startsWith('https') || user.instagram && !instagram.startsWith('https') || user.youtube && !youtube.startsWith('https')) {
+    if (
+      (user.facebook && !facebook.startsWith('https')) ||
+      (user.instagram && !instagram.startsWith('https')) ||
+      (user.youtube && !youtube.startsWith('https'))
+    ) {
       ToastAndroid.show(message2, ToastAndroid.SHORT);
 
       return;
@@ -229,27 +239,33 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             />
           </View>
 
-          <View style={{top: 100, width: '100%'}}>
+          <View style={{top: 100, width: '90%'}}>
             <AppText style={{color: 'white', fontSize: 12}}>Language</AppText>
             <DropDownPicker
               items={languages}
               placeholder="Select the Language"
               containerStyle={{
-                height: 40,
+                height: 50,
                 borderRadius: 30,
                 marginVertical: 5,
               }}
-              style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
+              style={{
+                backgroundColor: 'transparent',
+                borderColor: '#3F464F',
+              }}
               itemStyle={{
                 justifyContent: 'flex-start',
               }}
               dropDownStyle={{backgroundColor: '#20232A'}}
               onChangeItem={(item) => setLanguage(item.value)}
+              // onChangeItemMultiple={(item) => {
+              //   setLanguage(item.value), console.log(item.value);
+              // }}
               placeholderStyle={{color: 'white', fontSize: 12}}
               arrowColor={{color: 'white'}}
               selectedLabelStyle={{color: 'white'}}
               multiple={true}
-              defaultValue={0}
+              defaultValue={false}
             />
           </View>
 
