@@ -32,8 +32,11 @@ import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
 
-const Post = (props) => {
-  // console.log('Props', props.post);
+const Post = (
+  props,
+  {comments, cmtText, comCount, getComments, handleSumbit},
+) => {
+  //console.log('Props', props?.post?.user?.followers);
   const [post, setPost] = useState(props.post);
   // const navigation = useNavigation();
   const navigation = props.navigation;
@@ -56,6 +59,10 @@ const Post = (props) => {
 
   const [message] = useState('Please sign in first');
   const [message1] = useState('Coming Soon!');
+
+  const [views, setViews] = useState(
+    props.post.views === null ? 0 : props.post.views,
+  );
 
   const fadeIn = {
     from: {
@@ -142,15 +149,34 @@ const Post = (props) => {
     }
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (props.currentIndex === props.currentVisibleIndex) {
       // vidRef.current.resume();
       setPaused(false);
+
+      //increase view count by 1
+      if (props.post) {
+        const viewsCount = views + 1;
+        setViews(viewsCount);
+        await API.graphql(
+          graphqlOperation(updatePost, {
+            input: {id: props.post.id, views: viewsCount},
+          }),
+        );
+      }
     } else {
       // vidRef.current.pause();
       setPaused(true);
     }
   }, [props.currentVisibleIndex]);
+
+  useEffect(() => {
+    if (post?.user?.followers !== props.post?.user?.followers) {
+      //console.log('post usereff', post?.user?.followers)
+      //console.log('props post usereff', props.post?.user?.followers)
+      setPost(props.post);
+    }
+  }, [props.post]);
 
   // const onload = {() => {props.currentIndex === props.currentVisibleIndex}}
 
@@ -294,7 +320,8 @@ const Post = (props) => {
               }),
             );
           }
-
+          props.setFollowRerender(true);
+          props.setFollowRerender(false);
           console.log('FollowDone');
         }
       } catch (error) {
@@ -343,6 +370,8 @@ const Post = (props) => {
               }
             }
           }
+          props.setFollowRerender(true);
+          props.setFollowRerender(false);
           console.log('UnfollowDone');
         }
       } catch (error) {
@@ -516,7 +545,7 @@ const Post = (props) => {
               {props?.muteAll || muted ? (
                 <Feather name="volume-x" size={50} color="#fff" />
               ) : (
-                <Feather name="volume" size={75} color="#fff" />
+                <Feather name="volume-2" size={50} color="#fff" />
               )}
             </Animatable.View>
           )}
@@ -536,7 +565,7 @@ const Post = (props) => {
                 padding: 15,
               }}>
               {paused ? (
-                <Feather name="play" size={60} color="#fff" />
+                <Feather name="play" size={50} color="#fff" />
               ) : (
                 <Feather name="pause" size={50} color="#fff" />
               )}
@@ -664,6 +693,57 @@ const Post = (props) => {
                     source={require('../../assets/images/Comment_icon.png')}
                     size={25}
                   />
+
+                  {comments?.length > 0 ? (
+                    <View
+                      style={{
+                        backgroundColor: '#69FA89',
+                        height: 15,
+                        width: 25,
+                        borderRadius: 10,
+                        left: 10,
+                        bottom: 8,
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#3E4446',
+                          fontSize: 10,
+                          fontWeight: '400',
+                          textAlign: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          alignContent: 'center',
+                        }}>
+                        {comments?.length}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        backgroundColor: '#69FA89',
+                        height: 15,
+                        width: 25,
+                        borderRadius: 10,
+                        left: 10,
+                        bottom: 8,
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#3E4446',
+                          fontSize: 10,
+                          fontWeight: '400',
+                          textAlign: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          alignContent: 'center',
+                        }}>
+                        0
+                      </Text>
+                    </View>
+                  )}
+
                   {/* ) : (
                     <Image
                       style={{
@@ -759,6 +839,23 @@ const Post = (props) => {
                       style={{bottom: 18, left: 10}}
                     />
                     <Text style={styles.description}>{post.description}</Text>
+                  </View>
+                  <View style={{flexDirection: 'row', bottom: 0, left: 10}}>
+                    <Feather name="eye" size={20} color="#fff" />
+                    <Text
+                      style={{
+                        paddingLeft: 5,
+                        color: '#fff',
+                        fontFamily: 'Proxima Nova',
+                        fontSize: 10,
+                        fontWeight: '400',
+                        justifyContent: 'center',
+                        alignContent: 'center',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                      }}>
+                      <Text>{views}</Text> <Text>Views</Text>
+                    </Text>
                   </View>
                 </>
                 {/* ) : (

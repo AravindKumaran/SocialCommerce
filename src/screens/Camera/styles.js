@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    marginTop: 20,
+    marginTop: '5%',
     backgroundColor: '#20232A',
   },
   preview: {
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff4343',
     zIndex: 1,
     borderWidth: 2,
-    borderColor: 'white'
+    borderColor: 'white',
   },
   buttonStop: {
     alignSelf: 'center',
@@ -33,14 +33,14 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     backgroundColor: '#ff4343',
     borderWidth: 2,
-    borderColor: 'white'
+    borderColor: 'white',
   },
   gallery: {
     position: 'absolute',
     alignSelf: 'flex-end',
     justifyContent: 'flex-end',
     top: '93%',
-    right: 30
+    right: 30,
   },
   right: {
     position: 'absolute',
@@ -49,8 +49,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginRight: 15,
     right: 20,
-    top: '10%'
-  }
+    marginTop: '35%',
+  },
 });
 
 export default styles;

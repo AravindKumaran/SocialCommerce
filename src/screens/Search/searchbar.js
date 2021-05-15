@@ -1,8 +1,4 @@
 import React from 'react';
-import {Component} from 'react';
-import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
-import {Col, Row, Grid} from 'react-native-easy-grid';
-
 import {SearchBar} from 'react-native-elements';
 
 export default class Searchbar extends React.Component {
@@ -11,9 +7,19 @@ export default class Searchbar extends React.Component {
   };
 
   updateSearch = (search) => {
-    this.setState({search},()=>this.props.onSearch(this.state.search));   
+    this.setState({search}, () => this.props.onSearch(this.state.search));
   };
-  
+
+  foc = (event) => {
+    if (event.key === 'Enter') {
+      this.updateSearch;
+      console.log('not pressed');
+    } else {
+      this.props.onSearch(this.state.search);
+      console.log('pressed');
+    }
+  };
+
   render() {
     const {search} = this.state;
 
@@ -50,6 +56,7 @@ export default class Searchbar extends React.Component {
         placeholderTextColor="#ffffff"
         onChangeText={this.updateSearch}
         value={search}
+        onEndEditing={this.foc}
       />
     );
   }

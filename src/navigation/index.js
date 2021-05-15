@@ -36,23 +36,23 @@ const RootNavigation = () => {
               fontFamily: 'Proxima Nova',
               fontWeight: '700',
             },
-            headerRight: () => (
-              <TouchableOpacity
-              // onPress={() => {
-              //   navigation.goBack();
-              // }}
-              >
-                <Feather
-                  name="x"
-                  size={25}
-                  color="white"
-                  style={{
-                    marginRight: 10,
-                    paddingRight: 20,
-                  }}
-                />
-              </TouchableOpacity>
-            ),
+            // headerRight: () => (
+            //   <TouchableOpacity
+            //   // onPress={() => {
+            //   //   navigation.goBack();
+            //   // }}
+            //   >
+            //     <Feather
+            //       name="x"
+            //       size={25}
+            //       color="white"
+            //       style={{
+            //         marginRight: 10,
+            //         paddingRight: 20,
+            //       }}
+            //     />
+            //   </TouchableOpacity>
+            // ),
             // headerStyle: () =>
           }}
           name="CreatePost"

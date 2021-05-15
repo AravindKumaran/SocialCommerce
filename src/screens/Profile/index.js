@@ -183,7 +183,7 @@ const ProfileScreen = ({navigation, route}) => {
       }
       setLoading(false);
     } catch (error) {
-      console.log('Error', error);
+      console.log('Checkuser Error', error);
       setLoading(false);
       setUser(null);
     }
@@ -211,7 +211,16 @@ const ProfileScreen = ({navigation, route}) => {
     c.setOptions({
       tabBarIcon: ({focused, tintColor}) => (
         <>
-          <Feather name={'user'} size={22.5} style={{bottom: 5}} />
+          <Image
+            source={require('../../assets/images/Profile_icon.png')}
+            // source={{
+            //   uri: imgUri.startsWith('https')
+            //     ? imgUri
+            //     : `https://tiktok23f096015e564dd1964361d5c47fb832221214-demo.s3.us-east-2.amazonaws.com/public/${imgUri}`,
+            // }}
+            size={25}
+            style={{bottom: 5, width: 25, height: 25}}
+          />
           {focused && <ActiveStyle />}
         </>
       ),
@@ -225,7 +234,7 @@ const ProfileScreen = ({navigation, route}) => {
         switch (event) {
           case 'signIn':
           case 'cognitoHostedUI':
-            checkUser();
+            //checkUser();
             break;
           case 'signOut':
             setUser(null);
@@ -243,6 +252,7 @@ const ProfileScreen = ({navigation, route}) => {
   useEffect(() => {
     const onOtherUser = async () => {
       if (!route?.params?.postUser) {
+        console.log('isfocused useeffect');
         checkUser();
       } else {
         setUser(route?.params?.postUser);
@@ -458,6 +468,7 @@ const ProfileScreen = ({navigation, route}) => {
                         fontFamily: 'Proxima Nova',
                         fontWeight: '700',
                         fontSize: 13,
+                        textAlign: 'center',
                       }}>
                       {` (${user.username}) `}
                     </Text>

@@ -62,7 +62,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   const [message] = useState('Please enter required values!');
   const [message1] = useState('Username already exists!');
 
-  const [message2] = useState('Please enter a valid url')
+  const [message2] = useState('Please enter a valid url');
 
   const handleRevert = async () => {
 
@@ -242,17 +242,20 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             />
           </View>
 
-          <View style={{top: 100, width: '100%'}}>
+          <View style={{top: 100, width: '90%'}}>
             <AppText style={{color: 'white', fontSize: 12}}>Language</AppText>
             <DropDownPicker
               items={languages}
               placeholder="Select the Language"
               containerStyle={{
-                height: 40,
+                height: 50,
                 borderRadius: 30,
                 marginVertical: 5,
               }}
-              style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
+              style={{
+                backgroundColor: 'transparent',
+                borderColor: '#3F464F',
+              }}
               itemStyle={{
                 justifyContent: 'flex-start',
               }}
@@ -262,7 +265,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
               arrowColor={{color: 'white'}}
               selectedLabelStyle={{color: 'white'}}
               multiple={true}
-              defaultValue={0}
+              defaultValue={false}
             />
           </View>
 

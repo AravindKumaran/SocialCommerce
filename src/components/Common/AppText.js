@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: 5,
     fontWeight: '400',
-    color: '#000',
+    color: '#000000',
     fontFamily: 'Proxima Nova'
   },
 });

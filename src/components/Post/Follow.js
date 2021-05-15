@@ -11,22 +11,31 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const checkFollowings = async () => {
-      if (currentPost?.user?.followers?.length > 0) {
-        if (user) {
-          const checkFollow = currentPost?.user?.followers.findIndex(
+    //console.log(currentPost?.user?.username)
+    const checkFollowings = async () => {      
+      if (currentPost?.user?.followers?.length > 0) {        
+        if (user) {          
+          const checkFollow = currentPost?.user?.followers.findIndex(            
             (f) => user.email === f.userId,
           );
-          if (checkFollow !== -1) {
+          if (checkFollow != -1) {
             setIsFollow(true);
-          }
-        } else {
-          currentPost?.user?.followers.forEach(() => setIsFollow(false));
-        }
-      }
+          }else{
+            setIsFollow(false)
+          }                   
+        } 
+        // else {
+        //   currentPost?.user?.followers.forEach(() => setIsFollow(false));
+        // }
+      }  
+      else{
+        setIsFollow(false)
+      }       
     };
     checkFollowings();
-  }, [user]);
+  }, [user, currentPost]);
+
+  //useEffect(()=>console.log('isfollow',isFollow),[isFollow])
 
   const handleFollow = async () => {
     if (user?.email === currentPost.user.id) {
@@ -58,6 +67,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   };
 
   return (
+    
     <View
       style={[
         {

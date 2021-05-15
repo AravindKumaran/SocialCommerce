@@ -27,11 +27,14 @@ const TrendingVideo = ({
   isProfile,
   isCategory,
   data,
+  muted,
+  props,
 }) => {
   const [paused, setPaused] = useState(true);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
   const navigation = useNavigation();
 
   const onSeeking = (currentVideoTime) => setCurrentTime(currentVideoTime);
@@ -88,7 +91,7 @@ const TrendingVideo = ({
         posterResizeMode="cover"
         repeat={idx === 0}
         paused={idx !== 0}
-        muted={true}
+        muted={props?.muteAll || muted || true}
         onProgress={onProgress}
         onLoad={onLoad}
       />

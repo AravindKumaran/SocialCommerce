@@ -3,15 +3,11 @@ import React, {useState, useEffect, useRef} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
   TouchableOpacity,
   Image,
   ToastAndroid,
 } from 'react-native';
 import AppText from '../Common/AppText';
-import {Auth} from 'aws-amplify';
-
-import Feather from 'react-native-vector-icons/Feather';
 
 const user = {
   __typename: 'User',

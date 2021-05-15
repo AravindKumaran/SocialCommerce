@@ -168,6 +168,7 @@ export const listPosts = /* GraphQL */ `
         thumbnail
         category
         brand
+        views
         userID
         user {
           id
