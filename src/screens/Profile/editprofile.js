@@ -21,14 +21,14 @@ import AppButton from '../../components/Common/AppButton';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AppText from '../../components/Common/AppText';
 
-const languages = [
-  {label: 'English', value: 'English'},
-  {label: 'Hindi', value: 'Hindi'},
-  {label: 'Tamil', value: 'Tamil'},
-  {label: 'Malayalam', value: 'Malayalam'},
-  {label: 'Telugu', value: 'Telugu'},
-  {label: 'Marathi', value: 'Marathi'},
-  {label: 'Bengali', value: 'Bengali'},
+let languages = [
+  {label: 'English', value: 'English', disabled: false},
+  {label: 'Hindi', value: 'Hindi', disabled: false},
+  {label: 'Tamil', value: 'Tamil', disabled: false},
+  {label: 'Malayalam', value: 'Malayalam', disabled: false},
+  {label: 'Telugu', value: 'Telugu', disabled: false},
+  {label: 'Marathi', value: 'Marathi', disabled: false},
+  {label: 'Bengali', value: 'Bengali', disabled: false},
 ];
 
 const EditProfile = ({user, saveUser, closeSheet}) => {
@@ -41,36 +41,38 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   );
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
-  const [language, setLanguage] = useState();
+  const [language, setLanguage] = useState(user?.languages ? user.languages : []);
+  let l = language;
+  //drop down items
+
+  // languages.forEach(item => {
+  //   if(user?.languages && user.languages.includes(item.value)) {
+  //     item.disabled = true;
+  //   }
+  // })
+
+  // console.log('drop_down_items', languages)
 
   //Social media links
-  const [facebook, setFacebook] = useState(
-    user?.facebook?.startsWith('https') ? user.facebook : '' || '',
-  );
-  const [instagram, setInstagram] = useState(
-    user?.instagram?.startsWith('https') ? user.instagram : '' || '',
-  );
-  const [youtube, setYoutube] = useState(
-    user?.youtube?.startsWith('https') ? user.youtube : '' || '',
-  );
+  const [facebook, setFacebook] = useState(user?.facebook?.startsWith('https') ? user.facebook : '')
+  const [instagram, setInstagram] = useState(user?.instagram?.startsWith('https') ? user.instagram : '')
+  const [youtube, setYoutube] = useState(user?.youtube?.startsWith('https') ? user.youtube : '')
 
+  console.log('facebook', user.facebook)
   const [message] = useState('Please enter required values!');
   const [message1] = useState('Username already exists!');
 
   const [message2] = useState('Please enter a valid url');
 
   const handleRevert = async () => {
+
     if (!username || !userImageUri) {
       ToastAndroid.show(message, ToastAndroid.SHORT);
 
       return;
     }
 
-    if (
-      (user.facebook && !facebook.startsWith('https')) ||
-      (user.instagram && !instagram.startsWith('https')) ||
-      (user.youtube && !youtube.startsWith('https'))
-    ) {
+    if(facebook && !facebook.startsWith('https') || instagram && !instagram.startsWith('https') || youtube && !youtube.startsWith('https')) {
       ToastAndroid.show(message2, ToastAndroid.SHORT);
 
       return;
@@ -120,6 +122,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             instagram,
             youtube,
             imageUri: imgKey,
+            languages: language
           },
         }),
       );
@@ -257,10 +260,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
                 justifyContent: 'flex-start',
               }}
               dropDownStyle={{backgroundColor: '#20232A'}}
-              onChangeItem={(item) => setLanguage(item.value)}
-              // onChangeItemMultiple={(item) => {
-              //   setLanguage(item.value), console.log(item.value);
-              // }}
+              onChangeItem={(item) => setLanguage(item)}
               placeholderStyle={{color: 'white', fontSize: 12}}
               arrowColor={{color: 'white'}}
               selectedLabelStyle={{color: 'white'}}

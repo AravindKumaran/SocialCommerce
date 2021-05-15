@@ -37,12 +37,12 @@ const Videos = ({userId, postLength}) => {
         );
 
         const allItems = response.data.listPosts.items;
-        const sortedItems = allItems.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        let sortedItems = allItems.filter(item => item.likes).sort(
+          (a, b) => (b.likes.length) - (a.likes.length)
         );
         console.log('sortedItemsProfile', sortedItems.length, sortedItems[0]);
         setNextToken(response.data.listPosts.nextToken);
-        setPosts(sortedItems);
+        setPosts(sortedItems.concat(allItems.filter(item => item.likes === null)));
         setLoading(false);
       } catch (e) {
         console.log('Caledd');

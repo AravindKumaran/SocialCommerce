@@ -27,7 +27,7 @@ const TrendingVideoList = ({navigation, route}) => {
       // flatListRef.current.scrollToIndex({index: route?.params?.idx});
       setLoading(true);
       // const allPosts = [...posts];
-      const allPosts = [...route?.params?.data];
+      let allPosts = [...route?.params?.data];
       const prev = allPosts[route?.params?.idx];
       allPosts.splice(route?.params?.idx, 1);
       // console.log('Prev', prev);

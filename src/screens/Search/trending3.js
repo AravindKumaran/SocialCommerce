@@ -40,13 +40,20 @@ const Trending = ({category, searchedData}) => {
           })
         );
         const allItems = response.data.listPosts.items;
-        const sortedItems = allItems.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        // const sortedItems = allItems.sort(
+        //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        // );
+        //Sort Items
+        let sortedItems = allItems.filter(item => item.likes).sort(
+          (a, b) => (b.likes.length) - (a.likes.length)
         );
-        console.log('sortedItems', response.data.listPosts.nextToken);
+
+        console.log('sortedItems', sortedItems.map(item => item?.likes?.length));
+        //console.log('sortedItems', response.data.listPosts.nextToken);
         setNextToken(response.data.listPosts.nextToken);
 
-        setUris(sortedItems);
+        //Append undefined likes to sortedItems
+        setUris(sortedItems.concat(allItems.filter(item => item.likes === null))); 
       } catch (e) {
         console.log('Caledd');
         console.error(e);

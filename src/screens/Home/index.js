@@ -136,7 +136,7 @@ const Home = ({navigation, route}) => {
         setLoading(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
-            limit: curLimit,
+            limit: curLimit
           }),
         );
         const allItems = response.data.listPosts.items;

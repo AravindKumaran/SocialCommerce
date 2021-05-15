@@ -12,7 +12,18 @@ export const getUser = /* GraphQL */ `
       posts {
         items {
           id
+          videoUri
+          description
+          likes
+          thumbnail
+          category
+          brand
+          userID
+          songID
+          createdAt
+          updatedAt
         }
+        nextToken
       }
       following {
         userId
@@ -23,6 +34,19 @@ export const getUser = /* GraphQL */ `
         userId
         userName
         imgUri
+      }
+      notifications {
+        items {
+          id
+          userID
+          ownerID
+          postID
+          notificationID
+          read
+          createdAt
+          updatedAt
+        }
+        nextToken
       }
       facebook
       instagram
@@ -42,6 +66,7 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         username
+        name
         imageUri
         bio
         posts {
@@ -60,27 +85,6 @@ export const listUsers = /* GraphQL */ `
         notifications {
           nextToken
         }
-        facebook
-        instagram
-        youtube
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const searchUsersList = /* GraphQL */ `
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        username
-        imageUri
         createdAt
         updatedAt
       }
@@ -96,10 +100,13 @@ export const getPost = /* GraphQL */ `
       description
       likes
       thumbnail
+      category
+      brand
       userID
       user {
         id
         username
+        name
         imageUri
         bio
         posts {
@@ -115,9 +122,6 @@ export const getPost = /* GraphQL */ `
           userName
           imgUri
         }
-        facebook
-        instagram
-        youtube
         notifications {
           nextToken
         }
@@ -137,13 +141,6 @@ export const getPost = /* GraphQL */ `
           id
           postId
           userID
-          user {
-            id
-            username
-            imageUri
-            createdAt
-            updatedAt
-          }
           text
           likes
           createdAt
@@ -167,42 +164,18 @@ export const listPosts = /* GraphQL */ `
         id
         videoUri
         description
-        thumbnail
         likes
+        thumbnail
+        category
+        brand
         views
         userID
         user {
           id
           username
+          name
           imageUri
-          posts {
-            items {
-              id
-              videoUri
-              description
-              thumbnail
-              likes
-              userID
-              user {
-                id
-                username
-                imageUri
-              }
-            }
-          }
-          following {
-            userId
-            userName
-            imgUri
-          }
-          followers {
-            userId
-            userName
-            imgUri
-          }
-          facebook
-          instagram
-          youtube
+          bio
           createdAt
           updatedAt
         }
@@ -217,8 +190,6 @@ export const listPosts = /* GraphQL */ `
         comments {
           nextToken
         }
-        brand
-        category
         createdAt
         updatedAt
       }
@@ -237,6 +208,7 @@ export const getComment = /* GraphQL */ `
       user {
         id
         username
+        name
         imageUri
         bio
         posts {
@@ -255,9 +227,6 @@ export const getComment = /* GraphQL */ `
         notifications {
           nextToken
         }
-        facebook
-        instagram
-        youtube
         createdAt
         updatedAt
       }
@@ -267,10 +236,13 @@ export const getComment = /* GraphQL */ `
         description
         likes
         thumbnail
+        category
+        brand
         userID
         user {
           id
           username
+          name
           imageUri
           bio
           createdAt
@@ -311,6 +283,7 @@ export const listComments = /* GraphQL */ `
         user {
           id
           username
+          name
           imageUri
           bio
           createdAt
@@ -322,6 +295,8 @@ export const listComments = /* GraphQL */ `
           description
           likes
           thumbnail
+          category
+          brand
           userID
           songID
           createdAt
@@ -400,6 +375,7 @@ export const getUserNotification = /* GraphQL */ `
       user {
         id
         username
+        name
         imageUri
         bio
         posts {
@@ -427,10 +403,13 @@ export const getUserNotification = /* GraphQL */ `
         description
         likes
         thumbnail
+        category
+        brand
         userID
         user {
           id
           username
+          name
           imageUri
           bio
           createdAt
@@ -482,23 +461,9 @@ export const listUserNotifications = /* GraphQL */ `
         user {
           id
           username
+          name
           imageUri
           bio
-          posts {
-            items {
-              id
-            }
-          }
-          following {
-            userId
-            userName
-            imgUri
-          }
-          followers {
-            userId
-            userName
-            imgUri
-          }
           createdAt
           updatedAt
         }
@@ -508,39 +473,9 @@ export const listUserNotifications = /* GraphQL */ `
           description
           likes
           thumbnail
+          category
+          brand
           userID
-          user {
-            id
-            username
-            imageUri
-            posts {
-              items {
-                id
-                videoUri
-                description
-                thumbnail
-                likes
-                userID
-                user {
-                  id
-                  username
-                  imageUri
-                }
-              }
-            }
-            following {
-              userId
-              userName
-              imgUri
-            }
-            followers {
-              userId
-              userName
-              imgUri
-            }
-            createdAt
-            updatedAt
-          }
           songID
           createdAt
           updatedAt

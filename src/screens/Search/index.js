@@ -155,11 +155,13 @@ const Categories = () => {
         );
 
         const allItems = response.data.listPosts.items;
-        const sortedItems = allItems.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        // const sortedItems = allItems.sort(
+        //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        // );
+        let sortedItems = allItems.filter(item => item.likes).sort(
+          (a, b) => (b.likes.length) - (a.likes.length)
         );
-
-        setSearchedData(sortedItems);
+        setSearchedData(sortedItems.concat(allItems.filter(item => item.likes === null)));
 
         setLoading(false);
       } catch (err) {
