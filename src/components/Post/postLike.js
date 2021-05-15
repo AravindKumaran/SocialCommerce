@@ -21,6 +21,7 @@ const user = {
 
 const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
   const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikes] = useState(likes?.length);
 
   useEffect(() => {
     const loadLikes = async () => {
@@ -55,12 +56,14 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
         console.log('I am called1');
         onUnlike(currentPost);
         setIsLiked(false);
+        setLikes(likes.length)
       }
     } else {
       if (user) {
         console.log('I am called2');
         onLike(currentPost);
         setIsLiked(true);
+        setLikes(likes.length)
       }
     }
   };
@@ -100,7 +103,7 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
                 alignSelf: 'center',
                 alignContent: 'center',
               }}>
-              {likes?.length}
+              {likesCount}
             </Text>
           </View>
         </>
@@ -137,7 +140,7 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
                 alignSelf: 'center',
                 alignContent: 'center',
               }}>
-              0
+              {likesCount || 0}
             </Text>
           </View>
         </>
