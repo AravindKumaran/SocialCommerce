@@ -32,7 +32,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
 
-const Post = (props) => {
+const Post = (props, {comments}) => {
   // console.log('Props', props.post);
   const [post, setPost] = useState(props.post);
   // const navigation = useNavigation();
@@ -90,7 +90,7 @@ const Post = (props) => {
     },
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
@@ -179,7 +179,7 @@ const Post = (props) => {
 
           await API.graphql(
             graphqlOperation(updatePost, {
-              input: {id: cPost.id, likes}
+              input: {id: cPost.id, likes},
             }),
           );
           const res = await API.graphql(
@@ -514,7 +514,7 @@ const Post = (props) => {
               {props?.muteAll || muted ? (
                 <Feather name="volume-x" size={50} color="#fff" />
               ) : (
-                <Feather name="volume" size={75} color="#fff" />
+                <Feather name="volume-2" size={50} color="#fff" />
               )}
             </Animatable.View>
           )}
@@ -534,7 +534,7 @@ const Post = (props) => {
                 padding: 15,
               }}>
               {paused ? (
-                <Feather name="play" size={60} color="#fff" />
+                <Feather name="play" size={50} color="#fff" />
               ) : (
                 <Feather name="pause" size={50} color="#fff" />
               )}
@@ -662,6 +662,56 @@ const Post = (props) => {
                     source={require('../../assets/images/Comment_icon.png')}
                     size={25}
                   />
+
+                  {comments?.length > 0 ? (
+                    <View
+                      style={{
+                        backgroundColor: '#69FA89',
+                        height: 15,
+                        width: 25,
+                        borderRadius: 10,
+                        left: 10,
+                        bottom: 8,
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#3E4446',
+                          fontSize: 10,
+                          fontWeight: '400',
+                          textAlign: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          alignContent: 'center',
+                        }}>
+                        {comments?.length}
+                      </Text>
+                    </View>
+                  ) : (
+                    <View
+                      style={{
+                        backgroundColor: '#69FA89',
+                        height: 15,
+                        width: 25,
+                        borderRadius: 10,
+                        left: 10,
+                        bottom: 8,
+                        justifyContent: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#3E4446',
+                          fontSize: 10,
+                          fontWeight: '400',
+                          textAlign: 'center',
+                          alignItems: 'center',
+                          alignSelf: 'center',
+                          alignContent: 'center',
+                        }}>
+                        0
+                      </Text>
+                    </View>
+                  )}
                   {/* ) : (
                     <Image
                       style={{
