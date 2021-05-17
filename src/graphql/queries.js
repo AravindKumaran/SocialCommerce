@@ -175,6 +175,34 @@ export const listPosts = /* GraphQL */ `
           username
           name
           imageUri
+          posts {
+            items {
+              id
+              videoUri
+              description
+              thumbnail
+              likes
+              userID
+              user {
+                id
+                username
+                imageUri
+              }
+            }
+          }
+          following {
+            userId
+            userName
+            imgUri
+          }
+          followers {
+            userId
+            userName
+            imgUri
+          }
+          facebook
+          instagram
+          youtube
           bio
           createdAt
           updatedAt
