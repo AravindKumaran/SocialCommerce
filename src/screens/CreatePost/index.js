@@ -261,7 +261,23 @@ const CreatePost = () => {
 
       <View style={{marginHorizontal: 20, paddingBottom: 50}}>
         <AppText style={{color: 'white', fontSize: 12}}>Brand</AppText>
-        <DropDownPicker
+        <TextInput
+          style={{
+            backgroundColor: '#20232A',
+            borderColor: '#3F464F',
+            borderWidth: 1,
+            height: 40,
+            borderRadius: 5,
+            fontSize: 12,
+            paddingHorizontal: 15,
+            color: 'white',
+          }}
+          placeholder="Enter the Brand"
+          onChangeText={(text) => setBrand(text)}
+          placeholderTextColor="white"
+        />
+
+        {/* <DropDownPicker
           items={brandItems}
           placeholder="Select the Brand"
           containerStyle={{
@@ -278,7 +294,7 @@ const CreatePost = () => {
           placeholderStyle={{color: 'white', fontSize: 12}}
           arrowColor={{color: 'white'}}
           selectedLabelStyle={{color: 'white'}}
-        />
+        /> */}
       </View>
 
       {user ? (
