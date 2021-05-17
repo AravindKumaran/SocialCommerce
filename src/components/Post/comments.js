@@ -33,7 +33,7 @@ import Feather from 'react-native-vector-icons/Feather';
 
 import useInfiniteScroll from './useInfiniteScroll';
 
-const Comments = ({postId, postUserId, curUser, route}) => {
+const Comments = ({postId, postUserId, curUser, route, setCommentss}) => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [cmtText, setCmtText] = useState('');
@@ -94,7 +94,7 @@ const Comments = ({postId, postUserId, curUser, route}) => {
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
         setComments(sortedItems);
-
+        setCommentss(sortedItems);
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -204,8 +204,9 @@ const Comments = ({postId, postUserId, curUser, route}) => {
             input: cmtt,
           }),
         );
-        // console.log('ress', res.data.createComment);
+        console.log('ress', res.data.createComment);
         setComments([res.data.createComment, ...comments]);
+        setCommentss([res.data.createComment, ...comments]);
         const res33 = await API.graphql(
           graphqlOperation(createNotification, {
             input: {

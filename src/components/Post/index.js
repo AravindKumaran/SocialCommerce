@@ -55,6 +55,8 @@ const Post = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
 
+  const [commentss, setCommentss] = useState(props.post?.comments?.items);
+
   const [message] = useState('Please sign in first');
   const [message1] = useState('Coming Soon!');
 
@@ -155,28 +157,28 @@ const Post = (props) => {
 
   const handleView = async (value) => {
     // console.log('on handle view');
-    if (post) {      
+    if (post) {
       try {
         post.views = value;
         await API.graphql(
           graphqlOperation(updatePost, {
             input: {id: post.id, views: post.views},
           }),
-        ); 
-        // console.log('view increased');       
+        );
+        // console.log('view increased');
       } catch (error) {
         console.log('Please Login', error);
         ToastAndroid.show(message, ToastAndroid.SHORT);
       }
     }
-  }
+  };
 
   useEffect(() => {
-    if(post?.user?.followers !== props.post?.user?.followers){
+    if (post?.user?.followers !== props.post?.user?.followers) {
       //console.log('post usereff', post?.user?.followers)
       //console.log('props post usereff', props.post?.user?.followers)
-      setPost(props.post)
-    }    
+      setPost(props.post);
+    }
   }, [props.post]);
 
   // const onload = {() => {props.currentIndex === props.currentVisibleIndex}}
@@ -319,8 +321,8 @@ const Post = (props) => {
               }),
             );
           }
-          props.setFollowRerender(true)
-          props.setFollowRerender(false)
+          props.setFollowRerender(true);
+          props.setFollowRerender(false);
 
           console.log('FollowDone');
         }
@@ -370,8 +372,8 @@ const Post = (props) => {
               }
             }
           }
-          props.setFollowRerender(true)
-          props.setFollowRerender(false)
+          props.setFollowRerender(true);
+          props.setFollowRerender(false);
           console.log('UnfollowDone');
         }
       } catch (error) {
@@ -694,55 +696,30 @@ const Post = (props) => {
                     size={25}
                   />
 
-                  {comments?.length > 0 ? (
-                    <View
+                  <View
+                    style={{
+                      backgroundColor: '#69FA89',
+                      height: 15,
+                      width: 25,
+                      borderRadius: 10,
+                      left: 10,
+                      bottom: 8,
+                      justifyContent: 'center',
+                    }}>
+                    <Text
                       style={{
-                        backgroundColor: '#69FA89',
-                        height: 15,
-                        width: 25,
-                        borderRadius: 10,
-                        left: 10,
-                        bottom: 8,
-                        justifyContent: 'center',
+                        color: '#3E4446',
+                        fontSize: 10,
+                        fontWeight: '400',
+                        textAlign: 'center',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                        alignContent: 'center',
                       }}>
-                      <Text
-                        style={{
-                          color: '#3E4446',
-                          fontSize: 10,
-                          fontWeight: '400',
-                          textAlign: 'center',
-                          alignItems: 'center',
-                          alignSelf: 'center',
-                          alignContent: 'center',
-                        }}>
-                        {comments?.length}
-                      </Text>
-                    </View>
-                  ) : (
-                    <View
-                      style={{
-                        backgroundColor: '#69FA89',
-                        height: 15,
-                        width: 25,
-                        borderRadius: 10,
-                        left: 10,
-                        bottom: 8,
-                        justifyContent: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#3E4446',
-                          fontSize: 10,
-                          fontWeight: '400',
-                          textAlign: 'center',
-                          alignItems: 'center',
-                          alignSelf: 'center',
-                          alignContent: 'center',
-                        }}>
-                        0
-                      </Text>
-                    </View>
-                  )}
+                      {commentss?.length > 0 ? commentss.length : 0}
+                    </Text>
+                  </View>
+
                   {/* ) : (
                     <Image
                       style={{
@@ -802,6 +779,7 @@ const Post = (props) => {
                   postId={props.post?.id}
                   postUserId={props.post.user?.id}
                   curUser={user}
+                  setCommentss={setCommentss}
                 />
               </RBSheet>
               {/* {isClicked ?  : <></>} */}

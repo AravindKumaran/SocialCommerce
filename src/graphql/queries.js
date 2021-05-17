@@ -216,6 +216,15 @@ export const listPosts = /* GraphQL */ `
           updatedAt
         }
         comments {
+          items {
+            id
+            postId
+            userID
+            text
+            likes
+            createdAt
+            updatedAt
+          }
           nextToken
         }
         createdAt
