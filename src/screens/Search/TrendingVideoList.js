@@ -23,7 +23,7 @@ const TrendingVideoList = ({navigation, route}) => {
   const [muteAll, setMuteAll] = useState(false);
 
   useEffect(() => {
-    if (route?.params?.idx) {
+    if (route?.params?.idx >= 0) {
       // flatListRef.current.scrollToIndex({index: route?.params?.idx});
       setLoading(true);
       // const allPosts = [...posts];

@@ -64,9 +64,9 @@ const Trending = ({category, searchedData}) => {
   }, [category]);
 
   const getMorePosts = async () => {
-    try {
-      setLoader(true);
+    try {      
       if (nextToken) {
+        setLoader(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, (category!=='')?{
             limit: curLimit + 15,

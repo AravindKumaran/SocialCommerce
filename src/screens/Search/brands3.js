@@ -64,9 +64,9 @@ const Brands = ({brand, searchedData}) => {
   }, [brand]);
 
   const getMorePosts = async () => {
-    try {
-      setLoader(true);
+    try {      
       if (nextToken) {
+        setLoader(true);
         const response = await API.graphql(
           graphqlOperation(
             listPosts,
