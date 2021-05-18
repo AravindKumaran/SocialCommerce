@@ -32,6 +32,7 @@ import {NavigationActions} from 'react-navigation';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
+import Share from 'react-native-share';
 
 const Post = (props) => {
   //console.log('Props', props?.post?.user?.followers);
@@ -433,6 +434,24 @@ const Post = (props) => {
     ToastAndroid.show(message1, ToastAndroid.SHORT);
   };
 
+  const myCustomShare = async () => {
+    const shareOptions = {
+      title: 'Share via',
+      message: 'Enter your message: ',
+      url: 'https://www.youtube.com/',
+      social: Share.Social.WHATSAPP,
+      whatsAppNumber: '919999999999',
+      filename: 'test',
+    };
+
+    try {
+      const ShareResponse = await Share.shareSingle(shareOptions);
+      console.log(JSON.stringify(ShareResponse));
+    } catch (error) {
+      console.log('Error => ', error);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <DoubleClick
@@ -788,6 +807,40 @@ const Post = (props) => {
                 <Fontisto name={'share-a'} size={35} color="white" />
                 <Text style={styles.statsLabel}>{post.shares}</Text>
               </View> */}
+
+              <TouchableOpacity
+                style={{
+                  position: 'absolute',
+                  right: 20,
+                  bottom: 0,
+                  zIndex: 1,
+                  bottom: 30,
+                }}
+                onPress={myCustomShare}>
+                <>
+                  {/* {!isTouched ? ( */}
+                  <Image
+                    style={{height: 45, width: 45, opacity: 0.7}}
+                    source={require('../../assets/images/Whatsapp.png')}
+                    size={25}
+                  />
+                  {/* ) : (
+                    <Image
+                      style={{
+                        // top: -110,
+                        position: 'absolute',
+                        right: 0,
+                        height: 45,
+                        width: 45,
+                        opacity: 0.7,
+                      }}
+                      source={require('../../assets/images/Product_icon1.png')}
+                      size={25}
+                    />
+                  )} */}
+                  {/* {isTouched && <Product />} */}
+                </>
+              </TouchableOpacity>
             </View>
 
             <View style={styles.bottomContainer}>
