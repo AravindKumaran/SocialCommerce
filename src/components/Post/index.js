@@ -321,8 +321,8 @@ const Post = (props) => {
               }),
             );
           }
-          props.setFollowRerender(true);
-          props.setFollowRerender(false);
+          props.setPostRerender(true);
+          props.setPostRerender(false);
 
           console.log('FollowDone');
         }
@@ -372,8 +372,8 @@ const Post = (props) => {
               }
             }
           }
-          props.setFollowRerender(true);
-          props.setFollowRerender(false);
+          props.setPostRerender(true);
+          props.setPostRerender(false);
           console.log('UnfollowDone');
         }
       } catch (error) {

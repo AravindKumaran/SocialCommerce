@@ -19,6 +19,8 @@ import {getUser} from './src/graphql/queries';
 
 import SplashScreen from 'react-native-splash-screen';
 
+import Store from './src/context/Store';
+
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-3.jpg',
@@ -66,7 +68,9 @@ const App = () => {
     <>
       <StatusBar barStyle="light-content" />
       <SafeAreaView style={{flex: 1, backgroundColor: 'black'}}>
-        <Navigation />
+        <Store>
+          <Navigation />
+        </Store>
       </SafeAreaView>
     </>
   );

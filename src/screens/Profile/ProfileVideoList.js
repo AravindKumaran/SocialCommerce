@@ -48,7 +48,7 @@ const ProfileVideoList = ({navigation, route}) => {
   // }, [focused]);
 
   useEffect(() => {
-    if (route?.params?.idx) {
+    if (route?.params?.idx>=0) {
       // flatListRef.current.scrollToIndex({index: route?.params?.idx});
       // setCurrentVisibleIndex(route?.params?.idx);
       setLoading(true);

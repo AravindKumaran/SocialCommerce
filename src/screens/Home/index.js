@@ -20,6 +20,7 @@ import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Header} from 'react-native-elements';
+import UploadProgress from '../CreatePost/UploadProgress';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -76,7 +77,7 @@ const Home = ({navigation, route}) => {
   const [muteAll, setMuteAll] = useState(false);
   const flatListRef = useRef(null);
 
-  const [followRerender, setFollowRerender] = useState(false);
+  const [postRerender, setPostRerender] = useState(false);
 
   useEffect(() => {
     const setUserIcon = async () => {
@@ -161,10 +162,8 @@ const Home = ({navigation, route}) => {
   }, [navigation, route?.params?.newPost]);
 
   useEffect(() => {
-    //console.log('home useeffect')
     const fetchPost = async () => {
       try {
-        //setLoading(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
             limit: curLimit,
@@ -176,21 +175,15 @@ const Home = ({navigation, route}) => {
         );
         console.log('sortedItemsInside', sortedItems.length, sortedItems[0]);
         setNextToken(response.data.listPosts.nextToken);
-        // if (route?.params?.newPost) {
-        //   setPosts([route?.params?.newPost, ...sortedItems]);
-        // } else {
-        // }
         setPosts(sortedItems);
-        //setLoading(false);
       } catch (e) {
         console.error(e);
-        //setLoading(false);
       }
     };
-    if (followRerender) {
+    if (postRerender) {
       fetchPost();
     }
-  }, [followRerender]);
+  }, [postRerender]);
 
   const getMorePosts = async () => {
     try {
@@ -249,7 +242,7 @@ const Home = ({navigation, route}) => {
       navigation={navigation}
       muteAll={muteAll}
       setMuteAll={setMuteAll}
-      setFollowRerender={setFollowRerender}
+      setPostRerender={setPostRerender}
     />
   );
 
@@ -311,7 +304,7 @@ const Home = ({navigation, route}) => {
     <ImageBackground
       source={require('../../assets/images/Background2.png')}
       style={styles.container}>
-      <View style={styles.container}>
+      <View style={styles.container}>        
         {loading && <LoadingIndicator visible={loading} />}
         <Header
           leftComponent={<MyCustomLeftComponent />}
@@ -321,6 +314,12 @@ const Home = ({navigation, route}) => {
             borderColor: '#20232A',
           }}
         />
+
+        <UploadProgress 
+          uploadingPost={route?.params?.uploadingPost}
+          setPostRerender={setPostRerender}
+        />
+        
         {/* <Image
         source={require('../../assets/images/Logo13.png')}
         size={15}
