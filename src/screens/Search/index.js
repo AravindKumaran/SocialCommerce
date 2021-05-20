@@ -14,6 +14,7 @@ import {
 import Searchhbar from '../../screens/Search/searchbar';
 import Brands from '../Search/brands3';
 import Trending from '../Search/trending3';
+import HashTag from './hashtag';
 import {API, graphqlOperation} from 'aws-amplify';
 import {searchUsersList} from '../../graphql/queries';
 import {listPosts} from '../../graphql/queries';
@@ -158,10 +159,12 @@ const Categories = () => {
         // const sortedItems = allItems.sort(
         //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         // );
-        let sortedItems = allItems.filter(item => item.likes).sort(
-          (a, b) => (b.likes.length) - (a.likes.length)
+        let sortedItems = allItems
+          .filter((item) => item.likes)
+          .sort((a, b) => b.likes.length - a.likes.length);
+        setSearchedData(
+          sortedItems.concat(allItems.filter((item) => item.likes === null)),
         );
-        setSearchedData(sortedItems.concat(allItems.filter(item => item.likes === null)));
 
         setLoading(false);
       } catch (err) {
@@ -258,6 +261,22 @@ const Categories = () => {
               </Text>
             </TouchableWithoutFeedback>
           </View>
+          <View>
+            {active === 'hashtag' ? (
+              <ActiveStyle />
+            ) : (
+              <View style={{height: 52}} />
+            )}
+            <TouchableWithoutFeedback onPress={() => handleActive('hashtag')}>
+              <Text
+                style={[
+                  styles.text1,
+                  {color: active === 'hashtag' ? '#21FFFC' : '#FFFFFF'},
+                ]}>
+                # Challenges
+              </Text>
+            </TouchableWithoutFeedback>
+          </View>
         </View>
 
         {active === 'categories' && (
@@ -313,13 +332,24 @@ const Categories = () => {
             </View>
           </ScrollView>
         )}
-        <View>
+
+        {active === 'categories' && (
+          <Trending category={category} searchedData={searchedData} />
+        )}
+        {active === 'brands' && (
+          <Brands brand={brand} searchedData={searchedData} />
+        )}
+        {active === 'hashtag' && (
+          <HashTag category={category} searchedData={searchedData} />
+        )}
+
+        {/* <View>
           {active === 'categories' ? (
             <Trending category={category} searchedData={searchedData} />
           ) : (
             <Brands brand={brand} searchedData={searchedData} />
           )}
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );
