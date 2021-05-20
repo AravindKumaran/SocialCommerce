@@ -26,6 +26,7 @@ const TrendingVideo = ({
   style,
   isProfile,
   isCategory,
+  isSeeProfile,
   data,
   muted,
   props,
@@ -41,10 +42,13 @@ const TrendingVideo = ({
 
   const handleClick = () => {
     console.log('Clicked');
+    console.log('isCategory', isCategory);
     if (isProfile) {
       navigation.navigate('ProfileVideoList', {idx, item, data});
     } else if (isCategory) {
-      navigation.navigate('TrendingVideoList', {idx, item, data});
+      navigation.navigate('TrendingVideoList', {idx, item, data, isCategory});
+    }else if (isSeeProfile) {
+      navigation.navigate('SeeProfileVideoList', {idx, item, data});
     }
   };
 

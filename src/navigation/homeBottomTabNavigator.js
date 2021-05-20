@@ -2,6 +2,8 @@ import React, {useState, useEffect, useRef} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../screens/Home';
+import SeeProfile from '../screens/Home/SeeProfile';
+import SeeProfileVideoList from '../screens/Home/SeeProfileVideoList';
 import Camera from '../screens/Camera';
 import Search from '../screens/Search';
 import Notifications from '../screens/Notifications';
@@ -100,6 +102,26 @@ export const getTabBarIcon = (focused, props, imgUri) => {
 };
 
 const Stack = createStackNavigator();
+
+const HomeNavigator = () => (
+  <Stack.Navigator initialRouteName="Home">
+    <Stack.Screen
+      name="Home"
+      component={Home}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="SeeProfile"
+      component={SeeProfile}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="SeeProfileVideoList"
+      component={SeeProfileVideoList}
+      options={{headerShown: false}}
+    />
+  </Stack.Navigator>
+);
 
 const ProfileNavigator = () => (
   <Stack.Navigator initialRouteName="Profile">
@@ -224,7 +246,7 @@ const HomeBottomTabNavigator = () => {
         }}>
         <Tab.Screen
           name={'Home'}
-          component={Home}
+          component={HomeNavigator}
           options={{
             tabBarIcon: ({focused, color}) => (
               <>

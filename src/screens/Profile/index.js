@@ -63,7 +63,8 @@ const ActiveStyle = () => (
   </>
 );
 
-const ProfileScreen = ({navigation, route}) => {
+const ProfileScreen = ({navigation, route, postUser}) => {
+
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
@@ -79,7 +80,6 @@ const ProfileScreen = ({navigation, route}) => {
   const checkUser = async () => {
     setLoading(true);
     // console.log('Im calling');
-
 
     try {
       const userInfo = await Auth.currentAuthenticatedUser({
@@ -228,7 +228,8 @@ const ProfileScreen = ({navigation, route}) => {
   };
 
   useEffect(() => {
-    if (!route?.params?.postUser) {
+    console.log('pro use emp', postUser);
+    if (!postUser) {
       Hub.listen('auth', ({payload: {event, data}}) => {
         console.log('event', event)
         switch (event) {
@@ -251,11 +252,11 @@ const ProfileScreen = ({navigation, route}) => {
 
   useEffect(() => {
     const onOtherUser = async () => {
-      if (!route?.params?.postUser) {
+      if (!postUser) {
         console.log('isfocused useeffect');
         checkUser();
       } else {
-        setUser(route?.params?.postUser);
+        setUser(postUser);
         const value = await AsyncStorage.getItem('userImg');
         if (value) {
           c.setOptions({
@@ -285,16 +286,6 @@ const ProfileScreen = ({navigation, route}) => {
 
     onOtherUser();
   }, [isFocused === true]);
-
-  useEffect(() => {
-    if (isFocused === false) {
-      navigation.dispatch({
-        ...CommonActions.setParams({postUser: null}),
-        source: route.key,
-      });
-      // console.log('I am called', isFocused, route?.params?.postUser);
-    }
-  }, [!isFocused === false]);
 
   const handleUpdateUser = (user) => {
     console.log('I am called');
@@ -392,7 +383,7 @@ const ProfileScreen = ({navigation, route}) => {
 
                 <View style={{alignItems: 'center'}}>
                   <View style={{top: 110, position: 'absolute'}}>
-                    {!route?.params?.postUser && (
+                    {!postUser && (
                       <TouchableOpacity
                         style={{
                           bottom: 0,
@@ -433,7 +424,7 @@ const ProfileScreen = ({navigation, route}) => {
                       />
                     </RBSheet>
 
-                    {!route?.params?.postUser && (
+                    {!postUser && (
                       <TouchableOpacity
                         onPress={handleLogout}
                         style={{
@@ -661,7 +652,7 @@ const ProfileScreen = ({navigation, route}) => {
                 />
               </View>
             </View>
-            {/* {!route?.params?.postUser && (
+            {/* {!postUser && (
             <View style={{margin: 20}}>
               <AppButton onPress={handleLogout} title="Logout" />
             </View>
@@ -671,6 +662,8 @@ const ProfileScreen = ({navigation, route}) => {
                 <Videos
                   userId={user.id}
                   postLength={user?.posts?.items?.length}
+                  isProfile={!postUser?true:false}
+                  isSeeProfile={postUser?true:false}
                 />
               )}
             </View>
