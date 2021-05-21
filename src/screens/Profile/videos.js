@@ -15,7 +15,7 @@ import LoadingIndicator from '../../components/Common/LoadingIndicator';
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-const Videos = ({userId, postLength}) => {
+const Videos = ({userId, postLength, isProfile, isSeeProfile}) => {
   console.log('ghg', userId, postLength);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -85,7 +85,8 @@ const Videos = ({userId, postLength}) => {
       videoUri={item.videoUri}
       idx={index}
       item={item}
-      isProfile={true}
+      isProfile={isProfile}
+      isSeeProfile={isSeeProfile}
       data={posts}
       poster={item?.thumbnail}
     />
