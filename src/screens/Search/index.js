@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState, useCallback} from 'react';
 
 import {
   StyleSheet,
@@ -9,6 +9,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 
 import Searchhbar from '../../screens/Search/searchbar';
@@ -19,6 +20,10 @@ import {API, graphqlOperation} from 'aws-amplify';
 import {searchUsersList} from '../../graphql/queries';
 import {listPosts} from '../../graphql/queries';
 import {Header} from 'react-native-elements';
+
+import RBSheet from 'react-native-raw-bottom-sheet';
+import Feather from 'react-native-vector-icons/Feather';
+import Settings from '../Settings';
 
 const ActiveStyle = () => (
   <View style={{alignItems: 'center'}}>
@@ -122,6 +127,8 @@ const Categories = () => {
   const [brand, setBrand] = useState('');
   const [category, setcategory] = useState('');
 
+  const refRBSheet3 = useRef();
+
   const handleActive = (value) => {
     setActive(value);
     setBrand('');
@@ -224,6 +231,37 @@ const Categories = () => {
           borderColor: '#20232A',
         }}
       /> */}
+      <View style={{top: 0}}>
+        <TouchableOpacity
+          onPress={() => refRBSheet3.current.open()}
+          style={{left: 20, alignSelf: 'center', top: 10}}>
+          <Feather style={{top: 0, right: 0}} name={'activity'} size={20} />
+        </TouchableOpacity>
+      </View>
+      <RBSheet
+        ref={refRBSheet3}
+        height={Dimensions.get('window').height - 140}
+        animationType="fade"
+        closeOnDragDown={false}
+        customStyles={{
+          wrapper: {
+            backgroundColor: 'rgba(0,0,0,.6)',
+            padding: 10,
+          },
+          draggableIcon: {
+            backgroundColor: '#000',
+          },
+          container: {
+            backgroundColor: '#1A1A1A',
+            borderBottomLeftRadius: 10,
+            borderBottomRightRadius: 10,
+            borderTopLeftRadius: 10,
+            borderTopRightRadius: 10,
+            bottom: 85,
+          },
+        }}>
+        <Settings />
+      </RBSheet>
       <ScrollView nestedScrollEnabled={true} style={{marginTop: '6%'}}>
         <Searchhbar onSearch={handleSearch} />
 
@@ -288,16 +326,6 @@ const Categories = () => {
                   key={`${c.name}-${i}`}
                   style={styles.catItem}>
                   <Image
-                    style={
-                      {
-                        // height: 50,
-                        // width: 50,
-                        // borderWidth: 0.5,
-                        // borderRadius: 25,
-                        // borderColor: '#A1A1A1',
-                        // backgroundColor: '#20232A',
-                      }
-                    }
                     source={c.src}
                     size={15}
                     style={{height: 75, width: 75}}

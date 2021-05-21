@@ -69,6 +69,7 @@ const ProfileScreen = ({navigation, route}) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const refRBSheet2 = useRef();
+  const refRBSheet3 = useRef();
 
   const isFocused = useIsFocused();
 
@@ -79,7 +80,6 @@ const ProfileScreen = ({navigation, route}) => {
   const checkUser = async () => {
     setLoading(true);
     // console.log('Im calling');
-
 
     try {
       const userInfo = await Auth.currentAuthenticatedUser({
@@ -94,7 +94,7 @@ const ProfileScreen = ({navigation, route}) => {
           limit: 2,
         }),
       );
-      
+
       console.log('UserRes', userRes);
       //console.log('UserRews', userRes.data.getUser.posts.items.length);
 
@@ -104,11 +104,11 @@ const ProfileScreen = ({navigation, route}) => {
       if (!userRes?.data?.getUser || !userRes) {
         let identity, provider;
 
-        if(userInfo.attributes?.identities) {
+        if (userInfo.attributes?.identities) {
           identity = JSON.parse(userInfo.attributes?.identities);
           provider = identity[0].providerName;
         }
-        
+
         let uri;
         if (userInfo.attributes?.picture) {
           if (provider === 'Facebook') {
@@ -139,7 +139,7 @@ const ProfileScreen = ({navigation, route}) => {
         const res = await API.graphql(
           graphqlOperation(createUser, {input: newUser}),
         );
-        
+
         setUser(res?.data?.createUser);
         await AsyncStorage.setItem('userImg', uri);
         c.setOptions({
@@ -207,7 +207,7 @@ const ProfileScreen = ({navigation, route}) => {
     setUser(null);
     Auth.signOut();
     await AsyncStorage.removeItem('userImg');
-    console.log('logged out!')
+    console.log('logged out!');
     c.setOptions({
       tabBarIcon: ({focused, tintColor}) => (
         <>
@@ -230,7 +230,7 @@ const ProfileScreen = ({navigation, route}) => {
   useEffect(() => {
     if (!route?.params?.postUser) {
       Hub.listen('auth', ({payload: {event, data}}) => {
-        console.log('event', event)
+        console.log('event', event);
         switch (event) {
           case 'signIn':
           case 'cognitoHostedUI':
@@ -620,6 +620,7 @@ const ProfileScreen = ({navigation, route}) => {
 
                   <View style={{top: 90}}>
                     <TouchableOpacity
+                      onPress={() => refRBSheet3.current.open()}
                       style={{left: 20, alignSelf: 'center', top: 10}}>
                       <Feather
                         style={{top: 10, right: 35}}
@@ -638,6 +639,33 @@ const ProfileScreen = ({navigation, route}) => {
                       </Text>
                     </TouchableOpacity>
                   </View>
+                  <RBSheet
+                    ref={refRBSheet3}
+                    height={Dimensions.get('window').height - 140}
+                    animationType="fade"
+                    closeOnDragDown={false}
+                    customStyles={{
+                      wrapper: {
+                        backgroundColor: 'rgba(0,0,0,.6)',
+                        padding: 10,
+                      },
+                      draggableIcon: {
+                        backgroundColor: '#000',
+                      },
+                      container: {
+                        backgroundColor: '#1A1A1A',
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        bottom: 85,
+                      },
+                    }}>
+                    <Following
+                      data={user.following}
+                      followerData={user.followers}
+                    />
+                  </RBSheet>
                 </View>
               </View>
 
