@@ -30,6 +30,7 @@ const HashTagVideo = ({
   muted,
   props,
 }) => {
+  // console.log('HashTagVideo render');
   const [paused, setPaused] = useState(true);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);

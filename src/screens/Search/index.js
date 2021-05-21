@@ -340,7 +340,7 @@ const Categories = () => {
           <Brands brand={brand} searchedData={searchedData} />
         )}
         {active === 'hashtag' && (
-          <HashTag category={category} searchedData={searchedData} />
+          <HashTag />
         )}
 
         {/* <View>

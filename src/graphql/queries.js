@@ -164,6 +164,7 @@ export const listPosts = /* GraphQL */ `
         id
         videoUri
         description
+        hashTag
         likes
         thumbnail
         category

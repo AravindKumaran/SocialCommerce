@@ -882,6 +882,22 @@
                             "deprecationReason": null
                         },
                         {
+                            "name": "hashTag",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "LIST",
+                                "name": null,
+                                "ofType": {
+                                    "kind": "SCALAR",
+                                    "name": "String",
+                                    "ofType": null
+                                }
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
+                        },
+                        {
                             "name": "likes",
                             "description": null,
                             "args": [],
@@ -2019,6 +2035,16 @@
                         },
                         {
                             "name": "description",
+                            "description": null,
+                            "type": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelStringInput",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "hashTag",
                             "description": null,
                             "type": {
                                 "kind": "INPUT_OBJECT",
