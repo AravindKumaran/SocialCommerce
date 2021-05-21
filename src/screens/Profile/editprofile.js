@@ -41,7 +41,9 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   );
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
-  const [language, setLanguage] = useState(user?.languages ? user.languages : []);
+  const [language, setLanguage] = useState(
+    user?.languages ? user.languages : [],
+  );
   let l = language;
   //drop down items
 
@@ -54,25 +56,34 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   // console.log('drop_down_items', languages)
 
   //Social media links
-  const [facebook, setFacebook] = useState(user?.facebook?.startsWith('https') ? user.facebook : '')
-  const [instagram, setInstagram] = useState(user?.instagram?.startsWith('https') ? user.instagram : '')
-  const [youtube, setYoutube] = useState(user?.youtube?.startsWith('https') ? user.youtube : '')
+  const [facebook, setFacebook] = useState(
+    user?.facebook?.startsWith('https') ? user.facebook : '',
+  );
+  const [instagram, setInstagram] = useState(
+    user?.instagram?.startsWith('https') ? user.instagram : '',
+  );
+  const [youtube, setYoutube] = useState(
+    user?.youtube?.startsWith('https') ? user.youtube : '',
+  );
 
-  console.log('facebook', user.facebook)
+  console.log('facebook', user.facebook);
   const [message] = useState('Please enter required values!');
   const [message1] = useState('Username already exists!');
 
   const [message2] = useState('Please enter a valid url');
 
   const handleRevert = async () => {
-
     if (!username || !userImageUri) {
       ToastAndroid.show(message, ToastAndroid.SHORT);
 
       return;
     }
 
-    if(facebook && !facebook.startsWith('https') || instagram && !instagram.startsWith('https') || youtube && !youtube.startsWith('https')) {
+    if (
+      (facebook && !facebook.startsWith('https')) ||
+      (instagram && !instagram.startsWith('https')) ||
+      (youtube && !youtube.startsWith('https'))
+    ) {
       ToastAndroid.show(message2, ToastAndroid.SHORT);
 
       return;
@@ -122,7 +133,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             instagram,
             youtube,
             imageUri: imgKey,
-            languages: language
+            languages: language,
           },
         }),
       );

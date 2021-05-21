@@ -13,10 +13,9 @@ import {
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
 
-
 import FullScreenVideo from './fullScreenVideo';
 import HashTagVideoList from './HashTagVideoList';
-import { log } from 'react-native-reanimated';
+import {log} from 'react-native-reanimated';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -39,20 +38,16 @@ const hashTags = [
   },
 ];
 
-const HashTag = () => {  
-
+const HashTag = () => {
   return (
     <View style={styles.container}>
-      
-      {hashTags.map( (h,i) => (        
+      {hashTags.map((h, i) => (
         <View key={`${h.name}-${i}`}>
-          <Text style={styles.hashTag}>{h.name }</Text>
+          <Text style={styles.hashTag}>{h.name}</Text>
           <Text style={styles.trending}>Trending Hashtag</Text>
           <Text style={styles.views}>24.2M Views</Text>
-          
-          <HashTagVideoList
-             hashTagName={h.name}
-          />
+
+          <HashTagVideoList hashTagName={h.name} />
         </View>
       ))}
     </View>
@@ -62,7 +57,7 @@ const HashTag = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginLeft: 10,    
+    marginLeft: 10,
   },
   hashTag: {
     color: '#FFFFFF',

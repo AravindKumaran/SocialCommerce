@@ -7,7 +7,7 @@ import Product from '../screens/Product';
 import {TouchableOpacity} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Camera from '../screens/Camera/index';
-
+import Settings from '../screens/Settings/index';
 // import createMaterialTopTabNavigator from './homeTopTabNavigator';
 
 const Stack = createStackNavigator();
@@ -59,6 +59,7 @@ const RootNavigation = () => {
           component={CreatePost}
         />
         <Stack.Screen name="Camera" component={Camera} />
+        <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );

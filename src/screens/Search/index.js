@@ -367,9 +367,7 @@ const Categories = () => {
         {active === 'brands' && (
           <Brands brand={brand} searchedData={searchedData} />
         )}
-        {active === 'hashtag' && (
-          <HashTag />
-        )}
+        {active === 'hashtag' && <HashTag />}
 
         {/* <View>
           {active === 'categories' ? (
