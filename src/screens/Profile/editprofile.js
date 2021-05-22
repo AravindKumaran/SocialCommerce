@@ -29,6 +29,7 @@ let languages = [
   {label: 'Telugu', value: 'Telugu', disabled: false},
   {label: 'Marathi', value: 'Marathi', disabled: false},
   {label: 'Bengali', value: 'Bengali', disabled: false},
+  {label: 'Kannada', value: 'Kannada', disabled: false},
 ];
 
 const EditProfile = ({user, saveUser, closeSheet}) => {

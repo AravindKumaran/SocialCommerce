@@ -72,10 +72,10 @@ const HashTagVideo = ({
         }}
         style={[
           {
-            width: 110,
+            width: 135,
             // height: fullScreen ? vpHeight - 80 : height,
-            height: 175,
-            margin: 5,
+            height: 200,
+            margin: 2,
             elevation: 5,
             // borderRadius: 4,
           },

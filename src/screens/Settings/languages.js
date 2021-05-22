@@ -44,19 +44,28 @@ const Languages = ({closeSheet}) => {
             <ImageBackground
               source={require('../../assets/images/languagesquare.png')}
               style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text style={styles.text2}>Aa</Text>
+              <Text
+                style={[
+                  styles.text2,
+                  {color: english ? '#21FFFC' : '#FFFFFF'},
+                ]}>
+                Aa
+              </Text>
             </ImageBackground>
-            <Text style={styles.text3}>English</Text>
+            <Text
+              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
+              English
+            </Text>
           </TouchableOpacity>
           {english ? (
             <Image
               source={require('../../assets/images/selectedcircle.png')}
-              style={styles.image1}
+              style={[styles.image1, {left: 140}]}
             />
           ) : (
             <Image
               source={require('../../assets/images/unselectedcircle.png')}
-              style={styles.image1}
+              style={[styles.image1, {left: 140}]}
             />
           )}
         </View>
@@ -68,9 +77,15 @@ const Languages = ({closeSheet}) => {
             <ImageBackground
               source={require('../../assets/images/languagesquare.png')}
               style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text style={styles.text2}>Aa</Text>
+              <Text
+                style={[styles.text2, {color: tamil ? '#21FFFC' : '#FFFFFF'}]}>
+                ஆ
+              </Text>
             </ImageBackground>
-            <Text style={styles.text3}>Tamil</Text>
+            <Text
+              style={[styles.text3, {color: tamil ? '#21FFFC' : '#FFFFFF'}]}>
+              Tamil
+            </Text>
           </TouchableOpacity>
           {tamil ? (
             <Image
@@ -92,9 +107,15 @@ const Languages = ({closeSheet}) => {
             <ImageBackground
               source={require('../../assets/images/languagesquare.png')}
               style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text style={styles.text2}>Aa</Text>
+              <Text
+                style={[styles.text2, {color: hindi ? '#21FFFC' : '#FFFFFF'}]}>
+                अ
+              </Text>
             </ImageBackground>
-            <Text style={styles.text3}>Hindi</Text>
+            <Text
+              style={[styles.text3, {color: hindi ? '#21FFFC' : '#FFFFFF'}]}>
+              Hindi
+            </Text>
           </TouchableOpacity>
           {hindi ? (
             <Image
@@ -105,6 +126,166 @@ const Languages = ({closeSheet}) => {
             <Image
               source={require('../../assets/images/unselectedcircle.png')}
               style={styles.image1}
+            />
+          )}
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => setEnglish(true)}>
+            <ImageBackground
+              source={require('../../assets/images/languagesquare.png')}
+              style={{width: 45, height: 45, justifyContent: 'center'}}>
+              <Text
+                style={[
+                  styles.text2,
+                  {color: english ? '#21FFFC' : '#FFFFFF'},
+                ]}>
+                Aa
+              </Text>
+            </ImageBackground>
+            <Text
+              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
+              Malayalam
+            </Text>
+          </TouchableOpacity>
+          {english ? (
+            <Image
+              source={require('../../assets/images/selectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/unselectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
+            />
+          )}
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => setEnglish(true)}>
+            <ImageBackground
+              source={require('../../assets/images/languagesquare.png')}
+              style={{width: 45, height: 45, justifyContent: 'center'}}>
+              <Text
+                style={[
+                  styles.text2,
+                  {color: english ? '#21FFFC' : '#FFFFFF'},
+                ]}>
+                Aa
+              </Text>
+            </ImageBackground>
+            <Text
+              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
+              Telugu
+            </Text>
+          </TouchableOpacity>
+          {english ? (
+            <Image
+              source={require('../../assets/images/selectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/unselectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
+            />
+          )}
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => setEnglish(true)}>
+            <ImageBackground
+              source={require('../../assets/images/languagesquare.png')}
+              style={{width: 45, height: 45, justifyContent: 'center'}}>
+              <Text
+                style={[
+                  styles.text2,
+                  {color: english ? '#21FFFC' : '#FFFFFF'},
+                ]}>
+                Aa
+              </Text>
+            </ImageBackground>
+            <Text
+              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
+              Marathi
+            </Text>
+          </TouchableOpacity>
+          {english ? (
+            <Image
+              source={require('../../assets/images/selectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/unselectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
+            />
+          )}
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => setEnglish(true)}>
+            <ImageBackground
+              source={require('../../assets/images/languagesquare.png')}
+              style={{width: 45, height: 45, justifyContent: 'center'}}>
+              <Text
+                style={[
+                  styles.text2,
+                  {color: english ? '#21FFFC' : '#FFFFFF'},
+                ]}>
+                Aa
+              </Text>
+            </ImageBackground>
+            <Text
+              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
+              Bengali
+            </Text>
+          </TouchableOpacity>
+          {english ? (
+            <Image
+              source={require('../../assets/images/selectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/unselectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
+            />
+          )}
+        </View>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => setEnglish(true)}>
+            <ImageBackground
+              source={require('../../assets/images/languagesquare.png')}
+              style={{width: 45, height: 45, justifyContent: 'center'}}>
+              <Text
+                style={[
+                  styles.text2,
+                  {color: english ? '#21FFFC' : '#FFFFFF'},
+                ]}>
+                Aa
+              </Text>
+            </ImageBackground>
+            <Text
+              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
+              Kannada
+            </Text>
+          </TouchableOpacity>
+          {english ? (
+            <Image
+              source={require('../../assets/images/selectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
+            />
+          ) : (
+            <Image
+              source={require('../../assets/images/unselectedcircle.png')}
+              style={[styles.image1, {left: 140}]}
             />
           )}
         </View>
@@ -152,7 +333,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignSelf: 'center',
     alignItems: 'center',
-    left: 100,
+    left: 150,
   },
 });
 
