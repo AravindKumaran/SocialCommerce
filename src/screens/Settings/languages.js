@@ -141,7 +141,7 @@ const Languages = ({closeSheet}) => {
                   styles.text2,
                   {color: english ? '#21FFFC' : '#FFFFFF'},
                 ]}>
-                Aa
+                ആ
               </Text>
             </ImageBackground>
             <Text
@@ -173,7 +173,7 @@ const Languages = ({closeSheet}) => {
                   styles.text2,
                   {color: english ? '#21FFFC' : '#FFFFFF'},
                 ]}>
-                Aa
+                ఆ
               </Text>
             </ImageBackground>
             <Text
@@ -205,7 +205,7 @@ const Languages = ({closeSheet}) => {
                   styles.text2,
                   {color: english ? '#21FFFC' : '#FFFFFF'},
                 ]}>
-                Aa
+                आ
               </Text>
             </ImageBackground>
             <Text
@@ -237,7 +237,7 @@ const Languages = ({closeSheet}) => {
                   styles.text2,
                   {color: english ? '#21FFFC' : '#FFFFFF'},
                 ]}>
-                Aa
+                আ
               </Text>
             </ImageBackground>
             <Text
@@ -269,7 +269,7 @@ const Languages = ({closeSheet}) => {
                   styles.text2,
                   {color: english ? '#21FFFC' : '#FFFFFF'},
                 ]}>
-                Aa
+                ಹಸು
               </Text>
             </ImageBackground>
             <Text
