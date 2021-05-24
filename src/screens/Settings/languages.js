@@ -60,17 +60,17 @@ const Languages = ({closeSheet}) => {
           {english ? (
             <Image
               source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 137}]}
             />
           ) : (
             <Image
               source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 137}]}
             />
           )}
         </View>
 
-        <View style={{flexDirection: 'row', marginTop: 30}}>
+        <View style={{flexDirection: 'row', marginTop: 20}}>
           <TouchableOpacity
             style={{flexDirection: 'row'}}
             onPress={() => setTamil(true)}>
@@ -100,7 +100,7 @@ const Languages = ({closeSheet}) => {
           )}
         </View>
 
-        <View style={{flexDirection: 'row', marginTop: 30}}>
+        <View style={{flexDirection: 'row', marginTop: 20}}>
           <TouchableOpacity
             style={{flexDirection: 'row'}}
             onPress={() => setHindi(true)}>
@@ -129,7 +129,7 @@ const Languages = ({closeSheet}) => {
             />
           )}
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row',marginTop: 20}}>
           <TouchableOpacity
             style={{flexDirection: 'row'}}
             onPress={() => setEnglish(true)}>
@@ -152,16 +152,16 @@ const Languages = ({closeSheet}) => {
           {english ? (
             <Image
               source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 117}]}
             />
           ) : (
             <Image
               source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 117}]}
             />
           )}
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row',marginTop: 20}}>
           <TouchableOpacity
             style={{flexDirection: 'row'}}
             onPress={() => setEnglish(true)}>
@@ -184,16 +184,16 @@ const Languages = ({closeSheet}) => {
           {english ? (
             <Image
               source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 142}]}
             />
           ) : (
             <Image
               source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 142}]}
             />
           )}
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row',marginTop: 20}}>
           <TouchableOpacity
             style={{flexDirection: 'row'}}
             onPress={() => setEnglish(true)}>
@@ -216,16 +216,16 @@ const Languages = ({closeSheet}) => {
           {english ? (
             <Image
               source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 138}]}
             />
           ) : (
             <Image
               source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 138}]}
             />
           )}
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row',marginTop: 20}}>
           <TouchableOpacity
             style={{flexDirection: 'row'}}
             onPress={() => setEnglish(true)}>
@@ -257,7 +257,7 @@ const Languages = ({closeSheet}) => {
             />
           )}
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{flexDirection: 'row',marginTop: 20}}>
           <TouchableOpacity
             style={{flexDirection: 'row'}}
             onPress={() => setEnglish(true)}>
@@ -280,12 +280,12 @@ const Languages = ({closeSheet}) => {
           {english ? (
             <Image
               source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 134}]}
             />
           ) : (
             <Image
               source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
+              style={[styles.image1, {left: 134}]}
             />
           )}
         </View>
