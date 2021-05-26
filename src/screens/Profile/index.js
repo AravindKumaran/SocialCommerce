@@ -26,6 +26,7 @@ import {useIsFocused, CommonActions} from '@react-navigation/native';
 import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Header} from 'react-native-elements';
+import {LoginButton, AccessToken} from 'react-native-fbsdk';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -64,7 +65,6 @@ const ActiveStyle = () => (
 );
 
 const ProfileScreen = ({navigation, route, postUser}) => {
-
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
@@ -344,7 +344,21 @@ const ProfileScreen = ({navigation, route, postUser}) => {
               marginTop: 300,
             }}>
             <Text style={{fontSize: 22, margin: 5}}>You are not logged in</Text>
-            <AppButton title="Login" onPress={handleLogin} />
+            <LoginButton
+              onLoginFinished={(error, result) => {
+                if (error) {
+                  console.log('login has error: ' + result.error);
+                } else if (result.isCancelled) {
+                  console.log('login is cancelled.');
+                } else {
+                  AccessToken.getCurrentAccessToken().then((data) => {
+                    console.log(data);
+                  });
+                }
+              }}
+              onLogoutFinished={() => console.log('logout.')}
+            />
+            {/* <AppButton title="Login" onPress={handleLogin} /> */}
           </View>
         ) : (
           <View
@@ -691,8 +705,8 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                 <Videos
                   userId={user.id}
                   postLength={user?.posts?.items?.length}
-                  isProfile={!postUser?true:false}
-                  isSeeProfile={postUser?true:false}
+                  isProfile={!postUser ? true : false}
+                  isSeeProfile={postUser ? true : false}
                 />
               )}
             </View>
