@@ -243,7 +243,6 @@ const Categories = () => {
     <>
       <Header
         leftComponent={<MyCustomLeftComponent />}
-        rightComponent={<MyCustomRightComponent />}
         containerStyle={{
           backgroundColor: '#20232A',
           borderColor: '#20232A',

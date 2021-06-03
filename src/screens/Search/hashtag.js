@@ -45,7 +45,7 @@ const HashTag = () => {
         <View key={`${h.name}-${i}`}>
           <Text style={styles.hashTag}>{h.name}</Text>
           <Text style={styles.trending}>Trending Hashtag</Text>
-          <Text style={styles.views}>24.2M Views</Text>
+          {/* <Text style={styles.views}>24.2M Views</Text> */}
 
           <HashTagVideoList hashTagName={h.name} />
         </View>

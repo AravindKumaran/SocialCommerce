@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Dimensions,
   Alert,
+  ImageBackground,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
@@ -27,6 +28,7 @@ import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Header} from 'react-native-elements';
 import {LoginButton, AccessToken} from 'react-native-fbsdk';
+import Settings from '../Settings';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -64,6 +66,21 @@ const ActiveStyle = () => (
   </>
 );
 
+const logos = [
+  {
+    src: require('../../assets/images/Fblogo.png'),
+  },
+  {
+    src: require('../../assets/images/Instagramlogo.png'),
+  },
+  {
+    src: require('../../assets/images/Youtubelogo.png'),
+  },
+  {
+    src: require('../../assets/images/Twitterlogo.png'),
+  },
+];
+
 const ProfileScreen = ({navigation, route, postUser}) => {
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
@@ -71,6 +88,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
   const [loading, setLoading] = useState(false);
   const refRBSheet2 = useRef();
   const refRBSheet3 = useRef();
+  const refRBSheet4 = useRef();
 
   const isFocused = useIsFocused();
 
@@ -323,6 +341,28 @@ const ProfileScreen = ({navigation, route, postUser}) => {
     );
   };
 
+  const initUser = (token) => {
+    fetch(
+      'https://graph.facebook.com/v2.5/me?fields=email,first_name,last_name,friends&access_token=' +
+        token,
+    )
+      .then((response) => {
+        response.json().then((json) => {
+          const ID = json.id;
+          console.log('ID ' + ID);
+
+          const EM = json.email;
+          console.log('Email ' + EM);
+
+          const FN = json.first_name;
+          console.log('First Name ' + FN);
+        });
+      })
+      .catch(() => {
+        console.log('ERROR GETTING DATA FROM FACEBOOK');
+      });
+  };
+
   return (
     <View style={styles.container}>
       {/* <Header
@@ -332,7 +372,9 @@ const ProfileScreen = ({navigation, route, postUser}) => {
           borderColor: '#20232A',
         }}
       /> */}
-      <ScrollView nestedScrollEnabled={true}>
+      <ScrollView
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}>
         {loading && <LoadingIndicator visible={loading} />}
         {!user ? (
           <View
@@ -344,41 +386,173 @@ const ProfileScreen = ({navigation, route, postUser}) => {
               marginTop: 300,
             }}>
             <Text style={{fontSize: 22, margin: 5}}>You are not logged in</Text>
-            <LoginButton
+
+            {/* <LoginButton
+              publishPermissions={['publish_actions']}
+              readPermissions={['public_profile']}
+              permissions={['email']}
               onLoginFinished={(error, result) => {
                 if (error) {
-                  console.log('login has error: ' + result.error);
+                  console.log('login has error: ', result.error);
                 } else if (result.isCancelled) {
                   console.log('login is cancelled.');
                 } else {
                   AccessToken.getCurrentAccessToken().then((data) => {
-                    console.log(data);
+                    const {accessToken} = data;
+                    // console.log(accessToken);
+                    initUser(accessToken);
                   });
                 }
               }}
-              onLogoutFinished={() => console.log('logout.')}
-            />
-            {/* <AppButton title="Login" onPress={handleLogin} /> */}
+              onLogoutFinished={() => {
+                console.log('Logout');
+              }}
+            /> */}
+
+            <AppButton title="Login" onPress={handleLogin} />
           </View>
         ) : (
-          <View
-            style={styles.container}
-            // showsVerticalScrollIndicator={false}
-          >
-            <View style={{top: 0, height: 400}}>
+          <View style={styles.container}>
+            <View
+              style={{
+                position: 'absolute',
+                top: 0,
+                width: '100%',
+              }}>
+              {!postUser && (
+                <>
+                  <TouchableOpacity
+                    style={{
+                      top: 150,
+                      height: 50,
+                      alignItems: 'flex-end',
+                      paddingRight: 30,
+                    }}
+                    onPress={() => refRBSheet4.current.open()}>
+                    <ImageBackground
+                      style={{
+                        backgroundColor: '#1C1D21',
+                        height: 50,
+                        width: 50,
+                        borderRadius: 50,
+                        justifyContent: 'center',
+                        elevation: 10,
+                        borderTopWidth: 1,
+                        borderTopColor: '#949494',
+                      }}>
+                      <Feather
+                        style={styles.chart}
+                        name={'bar-chart'}
+                        size={20}
+                      />
+                    </ImageBackground>
+                  </TouchableOpacity>
+                </>
+              )}
+              <Image
+                style={styles.user}
+                // source={{
+                //   uri: `https://graph.facebook.com/220891159509908/picture?height=500`,
+                // }}
+                source={{
+                  uri: user?.imageUri?.startsWith('https')
+                    ? user.imageUri
+                    : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
+                }}
+              />
+              {!postUser && (
+                <>
+                  <TouchableOpacity
+                    onPress={() => refRBSheet.current.open()}
+                    style={{
+                      top: 150,
+                      height: 50,
+                      alignItems: 'flex-end',
+                      position: 'absolute',
+                      paddingLeft: 30,
+                    }}>
+                    <ImageBackground
+                      style={{
+                        backgroundColor: '#1C1D21',
+                        height: 50,
+                        width: 50,
+                        borderRadius: 50,
+                        justifyContent: 'center',
+                        elevation: 10,
+                        borderTopWidth: 1,
+                        borderTopColor: '#949494',
+                      }}>
+                      <Feather
+                        name={'edit'}
+                        size={20}
+                        style={{alignSelf: 'center'}}
+                      />
+                    </ImageBackground>
+                  </TouchableOpacity>
+                  <RBSheet
+                    ref={refRBSheet4}
+                    height={Dimensions.get('window').height - 140}
+                    animationType="fade"
+                    closeOnDragDown={false}
+                    customStyles={{
+                      wrapper: {
+                        backgroundColor: 'rgba(0,0,0,.6)',
+                        padding: 10,
+                      },
+                      draggableIcon: {
+                        backgroundColor: '#000',
+                      },
+                      container: {
+                        backgroundColor: '#1A1A1A',
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        bottom: 85,
+                      },
+                    }}>
+                    <Settings />
+                  </RBSheet>
+                </>
+              )}
+            </View>
+            <View style={{marginTop: 150, position: 'absolute'}}>
+              <RBSheet
+                ref={refRBSheet}
+                height={Dimensions.get('window').height - 140}
+                animationType="fade"
+                closeOnDragDown={false}
+                customStyles={{
+                  wrapper: {
+                    backgroundColor: 'rgba(0,0,0,.6)',
+                    padding: 10,
+                  },
+                  draggableIcon: {
+                    backgroundColor: '#000',
+                  },
+                  container: {
+                    backgroundColor: '#1A1A1A',
+                    borderBottomLeftRadius: 10,
+                    borderBottomRightRadius: 10,
+                    borderTopLeftRadius: 10,
+                    borderTopRightRadius: 10,
+                    bottom: 85,
+                  },
+                }}>
+                <EditProfile
+                  user={user}
+                  saveUser={handleUpdateUser}
+                  closeSheet={closeSheets}
+                />
+              </RBSheet>
+            </View>
+
+            <View style={{marginTop: 100, height: 400}}>
               <View style={{top: 80, marginHorizontal: '4%'}}>
                 <View>
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}
-                    colors={['#141414', '#232323']}
-                    style={styles.Rectangle}>
-                    <View />
-                  </LinearGradient>
-
                   <Image
                     style={{
-                      top: 180,
+                      top: 160,
                       position: 'absolute',
                       left: 5,
                       width: '98%',
@@ -387,7 +561,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   />
                   <Image
                     style={{
-                      top: 245,
+                      top: 225,
                       position: 'absolute',
                       left: 5,
                       width: '98%',
@@ -397,66 +571,6 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                 </View>
 
                 <View style={{alignItems: 'center'}}>
-                  <View style={{top: 110, position: 'absolute'}}>
-                    {!postUser && (
-                      <TouchableOpacity
-                        style={{
-                          bottom: 0,
-                          right: '750%',
-                          height: 50,
-                        }}
-                        onPress={() => refRBSheet.current.open()}>
-                        <Feather name={'edit'} size={20} />
-                      </TouchableOpacity>
-                    )}
-
-                    <RBSheet
-                      ref={refRBSheet}
-                      height={Dimensions.get('window').height - 140}
-                      animationType="fade"
-                      closeOnDragDown={false}
-                      customStyles={{
-                        wrapper: {
-                          backgroundColor: 'rgba(0,0,0,.6)',
-                          padding: 10,
-                        },
-                        draggableIcon: {
-                          backgroundColor: '#000',
-                        },
-                        container: {
-                          backgroundColor: '#1A1A1A',
-                          borderBottomLeftRadius: 10,
-                          borderBottomRightRadius: 10,
-                          borderTopLeftRadius: 10,
-                          borderTopRightRadius: 10,
-                          bottom: 85,
-                        },
-                      }}>
-                      <EditProfile
-                        user={user}
-                        saveUser={handleUpdateUser}
-                        closeSheet={closeSheets}
-                      />
-                    </RBSheet>
-
-                    {!postUser && (
-                      <TouchableOpacity
-                        onPress={handleLogout}
-                        style={{
-                          bottom: 0,
-                          left: '750%',
-                          position: 'absolute',
-                          height: 50,
-                        }}>
-                        <Feather
-                          style={styles.chart}
-                          name={'bar-chart'}
-                          size={20}
-                        />
-                      </TouchableOpacity>
-                    )}
-                  </View>
-
                   <View style={{position: 'absolute', zIndex: 1, top: '62.5%'}}>
                     <Text
                       style={{
@@ -624,27 +738,6 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                     </TouchableOpacity>
                   </View>
 
-                  <View style={{top: 90}}>
-                    <TouchableOpacity
-                      onPress={() => refRBSheet3.current.open()}
-                      style={{left: 20, alignSelf: 'center', top: 10}}>
-                      <Feather
-                        style={{top: 10, right: 35}}
-                        name={'activity'}
-                        size={20}
-                      />
-                      <Text
-                        style={{
-                          color: '#FFFFFF',
-                          fontFamily: 'Proxima Nova',
-                          fontWeight: '700',
-                          fontSize: 14,
-                          bottom: 10,
-                        }}>
-                        View Analytics
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
                   <RBSheet
                     ref={refRBSheet3}
                     height={Dimensions.get('window').height - 140}
@@ -674,27 +767,8 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   </RBSheet>
                 </View>
               </View>
-
-              <View
-                style={{
-                  zIndex: -1,
-                  position: 'absolute',
-                  bottom: 440,
-                  width: '100%',
-                }}>
-                <Image
-                  style={styles.user}
-                  // source={{
-                  //   uri: `https://graph.facebook.com/220891159509908/picture?height=500`,
-                  // }}
-                  source={{
-                    uri: user.imageUri.startsWith('https')
-                      ? user.imageUri
-                      : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
-                  }}
-                />
-              </View>
             </View>
+
             {/* {!postUser && (
             <View style={{margin: 20}}>
               <AppButton onPress={handleLogout} title="Logout" />
@@ -726,6 +800,7 @@ const styles = StyleSheet.create({
   },
   chart: {
     transform: [{scaleX: -1}, {rotate: '90deg'}],
+    alignSelf: 'center',
   },
   Rectangle: {
     top: 100,
@@ -741,15 +816,16 @@ const styles = StyleSheet.create({
     borderRightColor: '#FFFFFF',
   },
   user: {
-    height: 300,
-    width: '100%',
-    // borderRadius: 200,
+    height: 200,
+    width: 200,
+    borderRadius: 200,
     resizeMode: 'cover',
     zIndex: 1,
     position: 'absolute',
-    // alignSelf: 'center',
-    borderBottomRightRadius: 350,
-    borderBottomLeftRadius: 350,
+    alignSelf: 'center',
+    borderWidth: 10,
+    borderColor: '#232323',
+    marginTop: 50,
   },
   mediaImageContainer: {
     width: 180,
