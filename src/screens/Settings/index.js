@@ -27,26 +27,26 @@ const settingsmenu = [
     src: require('../../assets/images/languageset.png'),
     name: 'Languages',
   },
-  {
-    src: require('../../assets/images/whatsappset.png'),
-    name: 'Invite friends via WhatsApp',
-  },
-  {
-    src: require('../../assets/images/notificationset.png'),
-    name: 'Notifications',
-  },
-  {
-    src: require('../../assets/images/accountset.png'),
-    name: 'Account',
-  },
-  {
-    src: require('../../assets/images/ratingset.png'),
-    name: 'Rate us',
-  },
-  {
-    src: require('../../assets/images/feedbackset.png'),
-    name: 'Feedback',
-  },
+  // {
+  //   src: require('../../assets/images/whatsappset.png'),
+  //   name: 'Invite friends via WhatsApp',
+  // },
+  // {
+  //   src: require('../../assets/images/notificationset.png'),
+  //   name: 'Notifications',
+  // },
+  // {
+  //   src: require('../../assets/images/accountset.png'),
+  //   name: 'Account',
+  // },
+  // {
+  //   src: require('../../assets/images/ratingset.png'),
+  //   name: 'Rate us',
+  // },
+  // {
+  //   src: require('../../assets/images/feedbackset.png'),
+  //   name: 'Feedback',
+  // },
   {
     src: require('../../assets/images/logoutset.png'),
     name: 'Logout',
@@ -126,9 +126,9 @@ const Settings = () => {
               Settings
             </Text>
           </View>
-          <View style={{marginTop: 20}}>
+          {/* <View style={{marginTop: 20}}>
             <Searchbar />
-          </View>
+          </View> */}
           <View style={styles.button}>
             <ScrollView showsVerticalScrollIndicator={false}>
               <View style={styles.cat}>
@@ -174,7 +174,7 @@ const Settings = () => {
         {settings === 'Account' && <Account />}
         {settings === 'Rate us' && <Rating />}
         {settings === 'Feedback' && <Feedback />}
-        {settings === 'Logout' && <Languages />}
+        {/* {settings === 'Logout' && <Feedback />} */}
       </ImageBackground>
     </>
   );

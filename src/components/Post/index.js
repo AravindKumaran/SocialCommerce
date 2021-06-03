@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ToastAndroid,
+  ImageBackground,
 } from 'react-native';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
@@ -651,6 +652,7 @@ const Post = (props) => {
                   bottom: 0,
                   zIndex: 1,
                   top: 105,
+                  flexDirection: 'row',
                 }}
                 onPress={() => {
                   setTouched(!isTouched);
@@ -658,24 +660,49 @@ const Post = (props) => {
                 }}>
                 <>
                   {/* {!isTouched ? ( */}
-                  <Image
+                  {/* <Image
                     style={{height: 45, width: 45, opacity: 0.7}}
                     source={require('../../assets/images/Product_icon.png')}
                     size={25}
+                  /> */}
+                  <ImageBackground
+                    style={{
+                      backgroundColor: '#363E45',
+                      height: 50,
+                      width: 50,
+                      borderRadius: 50,
+                      opacity: 0.3,
+                      justifyContent: 'center',
+                    }}></ImageBackground>
+                  <Image
+                    style={{
+                      height: 25,
+                      width: 20,
+                      alignSelf: 'center',
+                      right: 35,
+                      bottom: 72.5,
+                    }}
+                    source={require('../../assets/images/Cl7.png')}
                   />
                   {/* ) : (
-                    <Image
-                      style={{
-                        // top: -110,
-                        position: 'absolute',
-                        right: 0,
-                        height: 45,
-                        width: 45,
-                        opacity: 0.7,
-                      }}
-                      source={require('../../assets/images/Product_icon1.png')}
-                      size={25}
-                    />
+                    <ImageBackground
+                    style={{
+                      backgroundColor: '#363E45',
+                      height: 50,
+                      width: 50,
+                      borderRadius: 50,
+                      opacity: 0.3,
+                      justifyContent: 'center',
+                    }}></ImageBackground>
+                  <Image
+                    style={{
+                      height: 25,
+                      width: 20,
+                      alignSelf: 'center',
+                      right: 35,
+                    }}
+                    source={require('../../assets/images/Cl6.png')}
+                  />
                   )} */}
                   {/* {isTouched && <Product />} */}
                 </>
@@ -705,25 +732,48 @@ const Post = (props) => {
                   bottom: 0,
                   top: 160,
                   zIndex: 1,
+                  flexDirection: 'row',
                 }}
                 onPress={() => refRBSheet.current.open()}>
                 <>
                   {/* {!isTouched ? ( */}
-                  <Image
+                  {/* <Image
                     style={{height: 45, width: 45, opacity: 0.7}}
                     source={require('../../assets/images/Comment_icon.png')}
                     size={25}
-                  />
+                  /> */}
+                  <ImageBackground
+                    style={{
+                      backgroundColor: '#363E45',
+                      height: 50,
+                      width: 50,
+                      borderRadius: 50,
+                      opacity: 0.3,
+                      left: 25,
 
+                      justifyContent: 'center',
+                    }}></ImageBackground>
+
+                  <Image
+                    style={{
+                      height: 20,
+                      width: 20,
+                      alignSelf: 'center',
+                      right: 10,
+                      bottom: 42.5,
+                    }}
+                    source={require('../../assets/images/Cl5.png')}
+                  />
                   <View
                     style={{
                       backgroundColor: '#69FA89',
                       height: 15,
                       width: 25,
                       borderRadius: 10,
-                      left: 10,
-                      bottom: 8,
+                      top: 40,
+                      right: 32.5,
                       justifyContent: 'center',
+                      zIndex: 1,
                     }}>
                     <Text
                       style={{
@@ -738,7 +788,6 @@ const Post = (props) => {
                       {commentss?.length > 0 ? commentss.length : 0}
                     </Text>
                   </View>
-
                   {/* ) : (
                     <Image
                       style={{
@@ -815,28 +864,53 @@ const Post = (props) => {
                   bottom: 0,
                   zIndex: 1,
                   bottom: 30,
+                  flexDirection: 'row',
                 }}
                 onPress={myCustomShare}>
                 <>
                   {/* {!isTouched ? ( */}
-                  <Image
+                  {/* <Image
                     style={{height: 45, width: 45, opacity: 0.7}}
                     source={require('../../assets/images/Whatsapp.png')}
                     size={25}
+                  /> */}
+                  <ImageBackground
+                    style={{
+                      backgroundColor: '#363E45',
+                      height: 50,
+                      width: 50,
+                      borderRadius: 50,
+                      opacity: 0.3,
+                      justifyContent: 'center',
+                    }}></ImageBackground>
+                  <Image
+                    style={{
+                      height: 20,
+                      width: 20,
+                      alignSelf: 'center',
+                      right: 35,
+                    }}
+                    source={require('../../assets/images/Cl8.png')}
                   />
                   {/* ) : (
-                    <Image
-                      style={{
-                        // top: -110,
-                        position: 'absolute',
-                        right: 0,
-                        height: 45,
-                        width: 45,
-                        opacity: 0.7,
-                      }}
-                      source={require('../../assets/images/Product_icon1.png')}
-                      size={25}
-                    />
+                         <ImageBackground
+                    style={{
+                      backgroundColor: '#363E45',
+                      height: 50,
+                      width: 50,
+                      borderRadius: 50,
+                      opacity: 0.3,
+                      justifyContent: 'center',
+                    }}></ImageBackground>
+                  <Image
+                    style={{
+                      height: 20,
+                      width: 20,
+                      alignSelf: 'center',
+                      right: 35,
+                    }}
+                    source={require('../../assets/images/Cl6.png')}
+                  />
                   )} */}
                   {/* {isTouched && <Product />} */}
                 </>

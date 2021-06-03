@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginRight: 5,
     bottom: 120,
-    right: -10,
+    left: 35,
   },
   profilePicture: {
     width: 50,

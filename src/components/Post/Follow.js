@@ -12,25 +12,24 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
 
   useEffect(() => {
     //console.log(currentPost?.user?.username)
-    const checkFollowings = async () => {      
-      if (currentPost?.user?.followers?.length > 0) {        
-        if (user) {          
-          const checkFollow = currentPost?.user?.followers.findIndex(            
+    const checkFollowings = async () => {
+      if (currentPost?.user?.followers?.length > 0) {
+        if (user) {
+          const checkFollow = currentPost?.user?.followers.findIndex(
             (f) => user.email === f.userId,
           );
           if (checkFollow != -1) {
             setIsFollow(true);
-          }else{
-            setIsFollow(false)
-          }                   
-        } 
+          } else {
+            setIsFollow(false);
+          }
+        }
         // else {
         //   currentPost?.user?.followers.forEach(() => setIsFollow(false));
         // }
-      }  
-      else{
-        setIsFollow(false)
-      }       
+      } else {
+        setIsFollow(false);
+      }
     };
     checkFollowings();
   }, [user, currentPost]);
@@ -60,17 +59,16 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   const seeProfile = () => {
     navigation.navigate('SeeProfile', {
       screen: 'SeeProfile',
-      postUser: currentPost.user
+      postUser: currentPost.user,
     });
   };
 
   return (
-    
     <View
       style={[
         {
           position: 'absolute',
-          right: 15,
+          right: 35,
           bottom: 0,
           top: -20,
         },

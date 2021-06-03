@@ -71,27 +71,27 @@ const cat = [
     name: 'Beauty',
   },
   {
-    src: require('../../assets/images/Beauty1.png'),
+    src: require('../../assets/images/Travel1.png'),
     name: 'Travel',
   },
   {
-    src: require('../../assets/images/Beauty1.png'),
+    src: require('../../assets/images/Food1.png'),
     name: 'Food',
   },
   {
-    src: require('../../assets/images/Beauty1.png'),
+    src: require('../../assets/images/Movies1.png'),
     name: 'Movies & Series',
   },
   {
-    src: require('../../assets/images/Beauty1.png'),
+    src: require('../../assets/images/Sports1.png'),
     name: 'Sports',
   },
   {
-    src: require('../../assets/images/Beauty1.png'),
+    src: require('../../assets/images/Finance1.png'),
     name: 'Finance',
   },
   {
-    src: require('../../assets/images/Beauty1.png'),
+    src: require('../../assets/images/Diy1.png'),
     name: 'DIY',
   },
 ];
@@ -209,60 +209,74 @@ const Categories = () => {
     }
   };*/
 
+  const refScrollView = useRef(null);
+  const moveTo = () => {
+    refScrollView.current?.scrollTo({x: 0, y: 0, animated: true});
+  };
+
   const MyCustomLeftComponent = () => {
     return (
-      <Text
-        style={{
-          fontSize: 25,
-          fontFamily: 'LilyScriptOne-Regular',
-          width: 200,
-        }}>
-        Search
-      </Text>
+      <TouchableOpacity onPress={moveTo}>
+        <Text
+          style={{
+            fontSize: 23,
+            fontFamily: 'LilyScriptOne-Regular',
+            width: 200,
+          }}>
+          Livebox
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const MyCustomRightComponent = () => {
+    return (
+      <TouchableOpacity
+        onPress={() => refRBSheet3.current.open()}
+        style={{left: 10, alignSelf: 'center', top: 5}}>
+        <Feather style={{top: 0, right: 0}} name={'settings'} size={25} />
+      </TouchableOpacity>
     );
   };
 
   return (
-    <View style={styles.container}>
-      {/* <Header
+    <>
+      <Header
         leftComponent={<MyCustomLeftComponent />}
+        rightComponent={<MyCustomRightComponent />}
         containerStyle={{
           backgroundColor: '#20232A',
           borderColor: '#20232A',
         }}
-      /> */}
-      <View style={{top: 0}}>
-        <TouchableOpacity
-          onPress={() => refRBSheet3.current.open()}
-          style={{left: 20, alignSelf: 'center', top: 10}}>
-          <Feather style={{top: 0, right: 0}} name={'activity'} size={20} />
-        </TouchableOpacity>
-      </View>
-      <RBSheet
-        ref={refRBSheet3}
-        height={Dimensions.get('window').height - 140}
-        animationType="fade"
-        closeOnDragDown={false}
-        customStyles={{
-          wrapper: {
-            backgroundColor: 'rgba(0,0,0,.6)',
-            padding: 10,
-          },
-          draggableIcon: {
-            backgroundColor: '#000',
-          },
-          container: {
-            backgroundColor: '#1A1A1A',
-            borderBottomLeftRadius: 10,
-            borderBottomRightRadius: 10,
-            borderTopLeftRadius: 10,
-            borderTopRightRadius: 10,
-            bottom: 85,
-          },
-        }}>
-        <Settings />
-      </RBSheet>
-      <ScrollView nestedScrollEnabled={true} style={{marginTop: '6%'}}>
+      />
+      <ScrollView
+        nestedScrollEnabled={true}
+        style={styles.container}
+        ref={refScrollView}>
+        <RBSheet
+          ref={refRBSheet3}
+          height={Dimensions.get('window').height - 140}
+          animationType="fade"
+          closeOnDragDown={false}
+          customStyles={{
+            wrapper: {
+              backgroundColor: 'rgba(0,0,0,.6)',
+              padding: 10,
+            },
+            draggableIcon: {
+              backgroundColor: '#000',
+            },
+            container: {
+              backgroundColor: '#1A1A1A',
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+              bottom: 85,
+            },
+          }}>
+          <Settings />
+        </RBSheet>
         <Searchhbar onSearch={handleSearch} />
 
         <View style={styles.choose}>
@@ -283,7 +297,7 @@ const Categories = () => {
               </Text>
             </TouchableWithoutFeedback>
           </View>
-          <View>
+          {/* <View>
             {active === 'brands' ? (
               <ActiveStyle />
             ) : (
@@ -298,7 +312,7 @@ const Categories = () => {
                 Brands
               </Text>
             </TouchableWithoutFeedback>
-          </View>
+          </View> */}
           <View>
             {active === 'hashtag' ? (
               <ActiveStyle />
@@ -377,7 +391,7 @@ const Categories = () => {
           )}
         </View> */}
       </ScrollView>
-    </View>
+    </>
   );
 };
 

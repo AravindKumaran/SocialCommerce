@@ -7,6 +7,7 @@ import {
   View,
   ToastAndroid,
   Text,
+  ImageBackground,
 } from 'react-native';
 
 const user = {
@@ -76,11 +77,31 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
       ]}>
       {isLiked ? (
         <>
-          <TouchableOpacity onPress={handleLike} style={{height: 50}}>
-            <Image
+          <TouchableOpacity
+            onPress={handleLike}
+            style={{height: 50, flexDirection: 'row'}}>
+            {/* <Image
               style={{height: 45, width: 45, opacity: 0.7}}
               source={require('../../assets/images/Like_icon1.png')}
               size={25}
+            /> */}
+            <ImageBackground
+              style={{
+                backgroundColor: '#363E45',
+                height: 50,
+                width: 50,
+                borderRadius: 50,
+                opacity: 0.3,
+                justifyContent: 'center',
+              }}></ImageBackground>
+            <Image
+              style={{
+                height: 20,
+                width: 20,
+                alignSelf: 'center',
+                right: 35,
+              }}
+              source={require('../../assets/images/Cl4.png')}
             />
           </TouchableOpacity>
           <View
@@ -89,7 +110,7 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
               height: 15,
               width: 25,
               borderRadius: 10,
-              left: 10,
+              left: 12.5,
               bottom: 12,
               justifyContent: 'center',
             }}>
@@ -109,8 +130,10 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
         </>
       ) : (
         <>
-          <TouchableOpacity onPress={handleLike} style={{height: 50}}>
-            <Image
+          <TouchableOpacity
+            onPress={handleLike}
+            style={{height: 50, flexDirection: 'row'}}>
+            {/* <Image
               style={{
                 height: 45,
                 width: 45,
@@ -118,6 +141,24 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
               }}
               source={require('../../assets/images/Like_icon.png')}
               size={25}
+            /> */}
+            <ImageBackground
+              style={{
+                backgroundColor: '#363E45',
+                height: 50,
+                width: 50,
+                borderRadius: 50,
+                opacity: 0.3,
+                justifyContent: 'center',
+              }}></ImageBackground>
+            <Image
+              style={{
+                height: 20,
+                width: 20,
+                alignSelf: 'center',
+                right: 35,
+              }}
+              source={require('../../assets/images/Cl1.png')}
             />
           </TouchableOpacity>
           <View
@@ -126,7 +167,7 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
               height: 15,
               width: 25,
               borderRadius: 10,
-              left: 10,
+              left: 12.5,
               bottom: 12,
               justifyContent: 'center',
             }}>

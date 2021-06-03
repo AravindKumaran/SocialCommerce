@@ -13,283 +13,132 @@ import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import {ImageBackground} from 'react-native';
 
+const languages = [
+  {
+    src: require('../../assets/images/languagesquare.png'),
+    language: 'English',
+    letter: 'Aa',
+    tick: require('../../assets/images/selectedcircle.png'),
+    untick: require('../../assets/images/unselectedcircle.png'),
+  },
+  {
+    src: require('../../assets/images/languagesquare.png'),
+    language: 'Tamil',
+    letter: 'ஆ',
+    tick: require('../../assets/images/selectedcircle.png'),
+    untick: require('../../assets/images/unselectedcircle.png'),
+  },
+  {
+    src: require('../../assets/images/languagesquare.png'),
+    language: 'Hindi',
+    letter: 'अ',
+    tick: require('../../assets/images/selectedcircle.png'),
+    untick: require('../../assets/images/unselectedcircle.png'),
+  },
+  {
+    src: require('../../assets/images/languagesquare.png'),
+    language: 'Malayalam',
+    letter: 'ആ',
+    tick: require('../../assets/images/selectedcircle.png'),
+    untick: require('../../assets/images/unselectedcircle.png'),
+  },
+  {
+    src: require('../../assets/images/languagesquare.png'),
+    language: 'Telugu',
+    letter: 'ఆ',
+    tick: require('../../assets/images/selectedcircle.png'),
+    untick: require('../../assets/images/unselectedcircle.png'),
+  },
+  {
+    src: require('../../assets/images/languagesquare.png'),
+    language: 'Marathi',
+    letter: 'आ',
+    tick: require('../../assets/images/selectedcircle.png'),
+    untick: require('../../assets/images/unselectedcircle.png'),
+  },
+  {
+    src: require('../../assets/images/languagesquare.png'),
+    language: 'Bengali',
+    letter: 'আ',
+    tick: require('../../assets/images/selectedcircle.png'),
+    untick: require('../../assets/images/unselectedcircle.png'),
+  },
+  {
+    src: require('../../assets/images/languagesquare.png'),
+    language: 'Kannada',
+    letter: 'আ',
+    tick: require('../../assets/images/selectedcircle.png'),
+    untick: require('../../assets/images/unselectedcircle.png'),
+  },
+];
+
 const Languages = ({closeSheet}) => {
-  const [english, setEnglish] = useState(false);
-  const [tamil, setTamil] = useState(false);
-  const [hindi, setHindi] = useState(false);
+  const [selected, setSelected] = useState(false);
+
+  const toggleSelected = () => {
+    setSelected(!selected);
+  };
+
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.text1}>Languages</Text>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
+      <ScrollView>
+        <View>
+          <Text style={styles.text1}>Languages</Text>
+          {/* <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+            style={{
+              alignSelf: 'center',
+              alignSelf: 'flex-start',
+              marginLeft: 10,
+              bottom: 20,
+            }}>
+            <Feather name={'chevron-left'} size={20} />
+          </TouchableOpacity> */}
+        </View>
+        <View
           style={{
-            alignSelf: 'center',
-            alignSelf: 'flex-start',
-            marginLeft: 10,
-            bottom: 20,
+            flexDirection: 'column',
+            margin: 20,
           }}>
-          <Feather name={'chevron-left'} size={20} />
-        </TouchableOpacity>
-      </View>
-      <View style={{padding: 30}}>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            style={{flexDirection: 'row'}}
-            onPress={() => setEnglish(true)}>
-            <ImageBackground
-              source={require('../../assets/images/languagesquare.png')}
-              style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text
-                style={[
-                  styles.text2,
-                  {color: english ? '#21FFFC' : '#FFFFFF'},
-                ]}>
-                Aa
-              </Text>
-            </ImageBackground>
-            <Text
-              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
-              English
-            </Text>
-          </TouchableOpacity>
-          {english ? (
-            <Image
-              source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 137}]}
-            />
-          ) : (
-            <Image
-              source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 137}]}
-            />
-          )}
+          {languages.map((c, i) => (
+            <TouchableOpacity
+              style={{paddingBottom: 0}}
+              onPress={() => toggleSelected(true)}>
+              <View style={{flexDirection: 'row'}}>
+                <ImageBackground
+                  source={c.src}
+                  style={{width: 45, height: 45, justifyContent: 'center'}}>
+                  <Text
+                    style={[
+                      styles.text2,
+                      {color: selected ? '#21FFFC' : '#FFFFFF'},
+                    ]}>
+                    {c.letter}
+                  </Text>
+                </ImageBackground>
+                <Text
+                  style={[
+                    styles.text3,
+                    {color: selected ? '#21FFFC' : '#FFFFFF'},
+                  ]}>
+                  {c.language}
+                </Text>
+              </View>
+              <View style={{alignItems: 'flex-end'}}>
+                {selected ? (
+                  <Image source={c.tick} style={[styles.image1]} />
+                ) : (
+                  <Image source={c.untick} style={[styles.image1]} />
+                )}
+              </View>
+            </TouchableOpacity>
+          ))}
         </View>
-
-        <View style={{flexDirection: 'row', marginTop: 20}}>
-          <TouchableOpacity
-            style={{flexDirection: 'row'}}
-            onPress={() => setTamil(true)}>
-            <ImageBackground
-              source={require('../../assets/images/languagesquare.png')}
-              style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text
-                style={[styles.text2, {color: tamil ? '#21FFFC' : '#FFFFFF'}]}>
-                ஆ
-              </Text>
-            </ImageBackground>
-            <Text
-              style={[styles.text3, {color: tamil ? '#21FFFC' : '#FFFFFF'}]}>
-              Tamil
-            </Text>
-          </TouchableOpacity>
-          {tamil ? (
-            <Image
-              source={require('../../assets/images/selectedcircle.png')}
-              style={styles.image1}
-            />
-          ) : (
-            <Image
-              source={require('../../assets/images/unselectedcircle.png')}
-              style={styles.image1}
-            />
-          )}
-        </View>
-
-        <View style={{flexDirection: 'row', marginTop: 20}}>
-          <TouchableOpacity
-            style={{flexDirection: 'row'}}
-            onPress={() => setHindi(true)}>
-            <ImageBackground
-              source={require('../../assets/images/languagesquare.png')}
-              style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text
-                style={[styles.text2, {color: hindi ? '#21FFFC' : '#FFFFFF'}]}>
-                अ
-              </Text>
-            </ImageBackground>
-            <Text
-              style={[styles.text3, {color: hindi ? '#21FFFC' : '#FFFFFF'}]}>
-              Hindi
-            </Text>
-          </TouchableOpacity>
-          {hindi ? (
-            <Image
-              source={require('../../assets/images/selectedcircle.png')}
-              style={styles.image1}
-            />
-          ) : (
-            <Image
-              source={require('../../assets/images/unselectedcircle.png')}
-              style={styles.image1}
-            />
-          )}
-        </View>
-        <View style={{flexDirection: 'row',marginTop: 20}}>
-          <TouchableOpacity
-            style={{flexDirection: 'row'}}
-            onPress={() => setEnglish(true)}>
-            <ImageBackground
-              source={require('../../assets/images/languagesquare.png')}
-              style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text
-                style={[
-                  styles.text2,
-                  {color: english ? '#21FFFC' : '#FFFFFF'},
-                ]}>
-                ആ
-              </Text>
-            </ImageBackground>
-            <Text
-              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
-              Malayalam
-            </Text>
-          </TouchableOpacity>
-          {english ? (
-            <Image
-              source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 117}]}
-            />
-          ) : (
-            <Image
-              source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 117}]}
-            />
-          )}
-        </View>
-        <View style={{flexDirection: 'row',marginTop: 20}}>
-          <TouchableOpacity
-            style={{flexDirection: 'row'}}
-            onPress={() => setEnglish(true)}>
-            <ImageBackground
-              source={require('../../assets/images/languagesquare.png')}
-              style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text
-                style={[
-                  styles.text2,
-                  {color: english ? '#21FFFC' : '#FFFFFF'},
-                ]}>
-                ఆ
-              </Text>
-            </ImageBackground>
-            <Text
-              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
-              Telugu
-            </Text>
-          </TouchableOpacity>
-          {english ? (
-            <Image
-              source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 142}]}
-            />
-          ) : (
-            <Image
-              source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 142}]}
-            />
-          )}
-        </View>
-        <View style={{flexDirection: 'row',marginTop: 20}}>
-          <TouchableOpacity
-            style={{flexDirection: 'row'}}
-            onPress={() => setEnglish(true)}>
-            <ImageBackground
-              source={require('../../assets/images/languagesquare.png')}
-              style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text
-                style={[
-                  styles.text2,
-                  {color: english ? '#21FFFC' : '#FFFFFF'},
-                ]}>
-                आ
-              </Text>
-            </ImageBackground>
-            <Text
-              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
-              Marathi
-            </Text>
-          </TouchableOpacity>
-          {english ? (
-            <Image
-              source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 138}]}
-            />
-          ) : (
-            <Image
-              source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 138}]}
-            />
-          )}
-        </View>
-        <View style={{flexDirection: 'row',marginTop: 20}}>
-          <TouchableOpacity
-            style={{flexDirection: 'row'}}
-            onPress={() => setEnglish(true)}>
-            <ImageBackground
-              source={require('../../assets/images/languagesquare.png')}
-              style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text
-                style={[
-                  styles.text2,
-                  {color: english ? '#21FFFC' : '#FFFFFF'},
-                ]}>
-                আ
-              </Text>
-            </ImageBackground>
-            <Text
-              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
-              Bengali
-            </Text>
-          </TouchableOpacity>
-          {english ? (
-            <Image
-              source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
-            />
-          ) : (
-            <Image
-              source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 140}]}
-            />
-          )}
-        </View>
-        <View style={{flexDirection: 'row',marginTop: 20}}>
-          <TouchableOpacity
-            style={{flexDirection: 'row'}}
-            onPress={() => setEnglish(true)}>
-            <ImageBackground
-              source={require('../../assets/images/languagesquare.png')}
-              style={{width: 45, height: 45, justifyContent: 'center'}}>
-              <Text
-                style={[
-                  styles.text2,
-                  {color: english ? '#21FFFC' : '#FFFFFF'},
-                ]}>
-                ಹಸು
-              </Text>
-            </ImageBackground>
-            <Text
-              style={[styles.text3, {color: english ? '#21FFFC' : '#FFFFFF'}]}>
-              Kannada
-            </Text>
-          </TouchableOpacity>
-          {english ? (
-            <Image
-              source={require('../../assets/images/selectedcircle.png')}
-              style={[styles.image1, {left: 134}]}
-            />
-          ) : (
-            <Image
-              source={require('../../assets/images/unselectedcircle.png')}
-              style={[styles.image1, {left: 134}]}
-            />
-          )}
-        </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -330,10 +179,8 @@ const styles = StyleSheet.create({
   image1: {
     height: 20,
     width: 20,
-    alignContent: 'center',
-    alignSelf: 'center',
-    alignItems: 'center',
-    left: 150,
+    right: 30,
+    bottom: 30,
   },
 });
 

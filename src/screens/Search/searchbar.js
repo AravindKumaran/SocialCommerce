@@ -29,8 +29,10 @@ export default class Searchbar extends React.Component {
           borderRadius: 40,
           width: '100%',
           backgroundColor: 'transparent',
+          borderTopWidth: 1,
+          borderTopColor: 'transparent',
           borderBottomWidth: 1,
-          borderBottomColor: '#585858',
+          borderBottomColor: '#3F464F',
         }}
         inputContainerStyle={{
           borderRadius: 30,
@@ -42,7 +44,6 @@ export default class Searchbar extends React.Component {
           borderBottomWidth: 1,
           borderBottomColor: '#3F464F',
           margin: 8,
-          bottom: 5,
         }}
         inputStyle={{
           fontFamily: 'Proxima Nova',
