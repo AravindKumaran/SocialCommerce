@@ -439,11 +439,12 @@ const Post = (props) => {
     const shareOptions = {
       title: 'Share via',
       message: 'Enter your message: ',
-      url: 'https://www.youtube.com/',
+      url: videoUri,
       social: Share.Social.WHATSAPP,
       whatsAppNumber: '919999999999',
       filename: 'test',
     };
+    console.log('url', videoUri);
 
     try {
       const ShareResponse = await Share.shareSingle(shareOptions);

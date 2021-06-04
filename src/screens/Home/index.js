@@ -91,7 +91,7 @@ const Home = ({navigation, route}) => {
                 source={{
                   uri: value?.startsWith('https')
                     ? value
-                    : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${value}`,
+                    : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${value}`,
                 }}
                 size={25}
                 style={{
