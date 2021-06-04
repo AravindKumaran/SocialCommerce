@@ -38,6 +38,7 @@ const App = () => {
     const fetchUser = async () => {
       // get currently authenticated user
       const userInfo = await Auth.currentAuthenticatedUser({bypassCache: true});
+      console.log(userInfo)
       if (!userInfo) {
         return;
       }
