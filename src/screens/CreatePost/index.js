@@ -101,7 +101,7 @@ const CreatePost = () => {
   const [description, setDescription] = useState('');
   const [thumbnail, setThumbnail] = useState(route.params.thumbnailUri);
   const [category, setCategory] = useState();
-  const [brand, setBrand] = useState();
+  const [brand, setBrand] = useState(user?.brand || '');
   const [videoKey, setVideoKey] = useState(null);
   const [videoUrii, setVideoUrii] = useState(route.params.videoUri);
 
@@ -115,7 +115,7 @@ const CreatePost = () => {
 
   const uploadToStorage = async () => {
     // console.log('gdf', videoUrii, description, category, brand);
-    if (!description || !videoUrii || !thumbnail || !category || !brand) {
+    if (!description || !videoUrii || !thumbnail || !category ) {
       ToastAndroid.show(message, ToastAndroid.SHORT);
       return;
     }
