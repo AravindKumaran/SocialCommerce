@@ -30,7 +30,7 @@ const NotifItem = ({item}) => {
             source={{
               uri: item?.user?.imageUri.startsWith('https')
                 ? item?.user?.imageUri
-                : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${item?.user?.imageUri}`,
+                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${item?.user?.imageUri}`,
             }}
             style={{
               height: 35,
@@ -70,7 +70,7 @@ const NotifItem = ({item}) => {
             source={{
               uri: item?.post?.thumbnail.startsWith('https')
                 ? item?.post?.thumbnail
-                : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${item.post?.thumbnail}`,
+                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${item.post?.thumbnail}`,
             }}
             style={{
               height: 35,

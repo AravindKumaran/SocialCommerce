@@ -82,7 +82,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
               source={{
                 uri: currentPost.user?.imageUri?.startsWith('https')
                   ? currentPost.user?.imageUri
-                  : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${currentPost.user?.imageUri}`,
+                  : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${currentPost.user?.imageUri}`,
               }}
               size={35}
               style={{height: 60, width: 60, borderRadius: 30}}
@@ -106,7 +106,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
               source={{
                 uri: currentPost.user?.imageUri?.startsWith('https')
                   ? currentPost.user?.imageUri
-                  : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${currentPost.user?.imageUri}`,
+                  : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${currentPost.user?.imageUri}`,
               }}
               size={35}
               style={{height: 60, width: 60, borderRadius: 30}}
