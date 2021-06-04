@@ -21,6 +21,7 @@ import Account from './account';
 import Rating from './rating';
 import Feedback from './feedback';
 import Share from 'react-native-share';
+import {Auth} from 'aws-amplify';
 
 const settingsmenu = [
   {
@@ -58,6 +59,12 @@ const Settings = () => {
   const [searchedData, setSearchedData] = useState(null);
   const refRBSheet3 = useRef();
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if(settings=='Logout'){
+      handleLogout();
+    }
+  }, [settings])
 
   const handleCategory = (value) => {
     setSettings(value);
