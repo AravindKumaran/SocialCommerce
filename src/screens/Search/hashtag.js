@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginLeft: 10,
+    marginBottom: 10,
   },
   hashTag: {
     color: '#FFFFFF',

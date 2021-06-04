@@ -28,12 +28,14 @@ import styles from './styles';
 import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
 import Follow from './Follow';
+import Follow1 from './Follow1';
 import ViewsCount from './ViewsCount';
 import {NavigationActions} from 'react-navigation';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
 import Share from 'react-native-share';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Post = (props) => {
   //console.log('Props', props?.post?.user?.followers);
@@ -61,6 +63,8 @@ const Post = (props) => {
 
   const [message] = useState('Please sign in first');
   const [message1] = useState('Coming Soon!');
+
+  const [isFollow, setIsFollow] = useState(false);
 
   const fadeIn = {
     from: {
@@ -922,21 +926,30 @@ const Post = (props) => {
               <>
                 {/* {!isTouched ? ( */}
                 <>
-                  <TouchableOpacity
-                    style={{left: 10}}
-                    onPress={() =>
-                      // navigation.navigate('Profile', {
-                      //   postUser: props.post.user,
-                      // })
-                      navigation.navigate('Profile', {
-                        screen: 'Profile',
-                        params: {
-                          postUser: props.post.user,
-                        },
-                      })
-                    }>
-                    <Text style={styles.handle}>{post?.user?.username}</Text>
-                  </TouchableOpacity>
+                  <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                      style={{left: 10, marginRight: 15}}
+                      onPress={() =>
+                        // navigation.navigate('Profile', {
+                        //   postUser: props.post.user,
+                        // })
+                        navigation.navigate('Profile', {
+                          screen: 'Profile',
+                          params: {
+                            postUser: props.post.user,
+                          },
+                        })
+                      }>
+                      <Text style={styles.handle}>{post?.user?.username}</Text>
+                    </TouchableOpacity>
+                    <Follow1
+                      isTouched={isTouched}
+                      onFollow={handleFollow}
+                      onUnFollow={handleUnFollow}
+                      user={user}
+                      currentPost={post}
+                    />
+                  </View>
                   <View style={{flexDirection: 'row', top: 25}}>
                     <Image
                       source={require('../../assets/images/Dot.png')}

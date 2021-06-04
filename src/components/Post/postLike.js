@@ -158,7 +158,7 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
                 alignSelf: 'center',
                 right: 35,
               }}
-              source={require('../../assets/images/Cl1.png')}
+              source={require('../../assets/images/Cl9.png')}
             />
           </TouchableOpacity>
           <View
