@@ -4,571 +4,109 @@
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
-      id
-      username
-      name
-      imageUri
       bio
-      languages
-      posts {
-        items {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          category
-          brand
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
+      createdAt
+      facebook
+      followers {
+        imgUri
+        userId
+        userName
       }
       following {
+        imgUri
         userId
         userName
-        imgUri
       }
-      followers {
-        userId
-        userName
-        imgUri
-      }
+      id
+      imageUri
+      instagram
+      languages
+      name
       notifications {
-        items {
-          id
-          userID
-          ownerID
-          postID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      createdAt
+      posts {
+        nextToken
+      }
       updatedAt
+      username
+      youtube
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
-      id
-      username
-      name
-      imageUri
       bio
-      languages
-      posts {
-        items {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          category
-          brand
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
+      createdAt
+      facebook
+      followers {
+        imgUri
+        userId
+        userName
       }
       following {
+        imgUri
         userId
         userName
-        imgUri
       }
-      followers {
-        userId
-        userName
-        imgUri
-      }
+      id
+      imageUri
+      instagram
+      languages
+      name
       notifications {
-        items {
-          id
-          userID
-          ownerID
-          postID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      createdAt
+      posts {
+        nextToken
+      }
       updatedAt
+      username
+      youtube
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
-      id
-      username
-      name
-      imageUri
       bio
-      languages
-      posts {
-        items {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          category
-          brand
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
+      createdAt
+      facebook
+      followers {
+        imgUri
+        userId
+        userName
       }
       following {
+        imgUri
         userId
         userName
-        imgUri
       }
-      followers {
-        userId
-        userName
-        imgUri
-      }
+      id
+      imageUri
+      instagram
+      languages
+      name
       notifications {
-        items {
-          id
-          userID
-          ownerID
-          postID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreatePost = /* GraphQL */ `
-  subscription OnCreatePost {
-    onCreatePost {
-      id
-      videoUri
-      description
-      likes
-      thumbnail
-      category
-      brand
-      userID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postId
-          userID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
+      posts {
         nextToken
       }
-      createdAt
       updatedAt
-    }
-  }
-`;
-export const onUpdatePost = /* GraphQL */ `
-  subscription OnUpdatePost {
-    onUpdatePost {
-      id
-      videoUri
-      description
-      likes
-      thumbnail
-      category
-      brand
-      userID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postId
-          userID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeletePost = /* GraphQL */ `
-  subscription OnDeletePost {
-    onDeletePost {
-      id
-      videoUri
-      description
-      likes
-      thumbnail
-      category
-      brand
-      userID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postId
-          userID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment {
-    onCreateComment {
-      id
-      postId
-      userID
-      text
-      likes
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment {
-    onUpdateComment {
-      id
-      postId
-      userID
-      text
-      likes
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment {
-    onDeleteComment {
-      id
-      postId
-      userID
-      text
-      likes
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
+      username
+      youtube
     }
   }
 `;
 export const onCreateSong = /* GraphQL */ `
   subscription OnCreateSong {
     onCreateSong {
-      id
-      name
-      imageUri
       createdAt
+      id
+      imageUri
+      name
       updatedAt
     }
   }
@@ -576,10 +114,10 @@ export const onCreateSong = /* GraphQL */ `
 export const onUpdateSong = /* GraphQL */ `
   subscription OnUpdateSong {
     onUpdateSong {
-      id
-      name
-      imageUri
       createdAt
+      id
+      imageUri
+      name
       updatedAt
     }
   }
@@ -587,20 +125,263 @@ export const onUpdateSong = /* GraphQL */ `
 export const onDeleteSong = /* GraphQL */ `
   subscription OnDeleteSong {
     onDeleteSong {
-      id
-      name
-      imageUri
       createdAt
+      id
+      imageUri
+      name
       updatedAt
+    }
+  }
+`;
+export const onCreatePost = /* GraphQL */ `
+  subscription OnCreatePost {
+    onCreatePost {
+      brand
+      category
+      comments {
+        nextToken
+      }
+      createdAt
+      description
+      id
+      likes
+      songID
+      song {
+        createdAt
+        id
+        imageUri
+        name
+        updatedAt
+      }
+      thumbnail
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      videoUri
+      views
+    }
+  }
+`;
+export const onUpdatePost = /* GraphQL */ `
+  subscription OnUpdatePost {
+    onUpdatePost {
+      brand
+      category
+      comments {
+        nextToken
+      }
+      createdAt
+      description
+      id
+      likes
+      songID
+      song {
+        createdAt
+        id
+        imageUri
+        name
+        updatedAt
+      }
+      thumbnail
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      videoUri
+      views
+    }
+  }
+`;
+export const onDeletePost = /* GraphQL */ `
+  subscription OnDeletePost {
+    onDeletePost {
+      brand
+      category
+      comments {
+        nextToken
+      }
+      createdAt
+      description
+      id
+      likes
+      songID
+      song {
+        createdAt
+        id
+        imageUri
+        name
+        updatedAt
+      }
+      thumbnail
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      videoUri
+      views
+    }
+  }
+`;
+export const onCreateComment = /* GraphQL */ `
+  subscription OnCreateComment {
+    onCreateComment {
+      createdAt
+      id
+      likes
+      postId
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
+      text
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+    }
+  }
+`;
+export const onUpdateComment = /* GraphQL */ `
+  subscription OnUpdateComment {
+    onUpdateComment {
+      createdAt
+      id
+      likes
+      postId
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
+      text
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+    }
+  }
+`;
+export const onDeleteComment = /* GraphQL */ `
+  subscription OnDeleteComment {
+    onDeleteComment {
+      createdAt
+      id
+      likes
+      postId
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
+      text
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
     }
   }
 `;
 export const onCreateNotification = /* GraphQL */ `
   subscription OnCreateNotification {
     onCreateNotification {
+      createdAt
       id
       message
-      createdAt
       updatedAt
     }
   }
@@ -608,9 +389,9 @@ export const onCreateNotification = /* GraphQL */ `
 export const onUpdateNotification = /* GraphQL */ `
   subscription OnUpdateNotification {
     onUpdateNotification {
+      createdAt
       id
       message
-      createdAt
       updatedAt
     }
   }
@@ -618,9 +399,9 @@ export const onUpdateNotification = /* GraphQL */ `
 export const onDeleteNotification = /* GraphQL */ `
   subscription OnDeleteNotification {
     onDeleteNotification {
+      createdAt
       id
       message
-      createdAt
       updatedAt
     }
   }
@@ -628,237 +409,141 @@ export const onDeleteNotification = /* GraphQL */ `
 export const onCreateUserNotification = /* GraphQL */ `
   subscription OnCreateUserNotification {
     onCreateUserNotification {
+      createdAt
       id
-      userID
-      ownerID
-      postID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       notificationID
       notification {
+        createdAt
         id
         message
-        createdAt
         updatedAt
       }
+      ownerID
+      postID
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
       read
-      createdAt
       updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
     }
   }
 `;
 export const onUpdateUserNotification = /* GraphQL */ `
   subscription OnUpdateUserNotification {
     onUpdateUserNotification {
+      createdAt
       id
-      userID
-      ownerID
-      postID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       notificationID
       notification {
+        createdAt
         id
         message
-        createdAt
         updatedAt
       }
+      ownerID
+      postID
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
       read
-      createdAt
       updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
     }
   }
 `;
 export const onDeleteUserNotification = /* GraphQL */ `
   subscription OnDeleteUserNotification {
     onDeleteUserNotification {
+      createdAt
       id
-      userID
-      ownerID
-      postID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       notificationID
       notification {
+        createdAt
         id
         message
-        createdAt
         updatedAt
       }
+      ownerID
+      postID
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
       read
-      createdAt
       updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
     }
   }
 `;

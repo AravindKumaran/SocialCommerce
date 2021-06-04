@@ -1,8 +1,8 @@
 projects:
-  livebox:
+  LiveboxPro-staging:
     schemaPath: src/graphql/schema.json
     includes:
-      - src/graphql/*.js
+      - src/graphql/**/*.js
     excludes:
       - ./amplify/**
     extensions:
@@ -10,6 +10,6 @@ projects:
         codeGenTarget: javascript
         generatedFileName: ''
         docsFilePath: src/graphql
-extensions:
-  amplify:
-    version: 3
+        region: ap-south-1
+        apiId: bbp3andl4ndzdgdqgg32vfrw5m
+        maxDepth: 2

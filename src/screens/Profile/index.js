@@ -66,20 +66,20 @@ const ActiveStyle = () => (
   </>
 );
 
-const logos = [
-  {
-    src: require('../../assets/images/Fblogo.png'),
-  },
-  {
-    src: require('../../assets/images/Instagramlogo.png'),
-  },
-  {
-    src: require('../../assets/images/Youtubelogo.png'),
-  },
-  {
-    src: require('../../assets/images/Twitterlogo.png'),
-  },
-];
+// const logos = [
+//   {
+//     src: require('../../assets/images/Fblogo.png'),
+//   },
+//   {
+//     src: require('../../assets/images/Instagramlogo.png'),
+//   },
+//   {
+//     src: require('../../assets/images/Youtubelogo.png'),
+//   },
+//   {
+//     src: require('../../assets/images/Twitterlogo.png'),
+//   },
+// ];
 
 const ProfileScreen = ({navigation, route, postUser}) => {
   const refRBSheet = useRef();

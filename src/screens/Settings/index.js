@@ -23,10 +23,10 @@ import Feedback from './feedback';
 import Share from 'react-native-share';
 
 const settingsmenu = [
-  // {
-  //   src: require('../../assets/images/languageset.png'),
-  //   name: 'Languages',
-  // },
+  {
+    src: require('../../assets/images/languageset.png'),
+    name: 'Languages',
+  },
   // {
   //   src: require('../../assets/images/whatsappset.png'),
   //   name: 'Invite friends via WhatsApp',

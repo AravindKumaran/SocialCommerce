@@ -4,55 +4,33 @@
 export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
-      id
-      username
-      name
-      imageUri
       bio
-      posts {
-        items {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          category
-          brand
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
+      createdAt
+      facebook
+      followers {
+        imgUri
+        userId
+        userName
       }
       following {
+        imgUri
         userId
         userName
-        imgUri
       }
-      followers {
-        userId
-        userName
-        imgUri
-      }
+      id
+      imageUri
+      instagram
+      languages
+      name
       notifications {
-        items {
-          id
-          userID
-          ownerID
-          postID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      facebook
-      instagram
-      youtube
-      createdAt
+      posts {
+        nextToken
+      }
       updatedAt
+      username
+      youtube
     }
   }
 `;
@@ -64,284 +42,17 @@ export const listUsers = /* GraphQL */ `
   ) {
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
-        username
-        name
-        imageUri
         bio
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
         createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getPost = /* GraphQL */ `
-  query GetPost($id: ID!) {
-    getPost(id: $id) {
-      id
-      videoUri
-      description
-      likes
-      thumbnail
-      category
-      brand
-      userID
-      user {
+        facebook
         id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
         username
-        name
-        imageUri
-        bio
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postId
-          userID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listPosts = /* GraphQL */ `
-  query ListPosts(
-    $filter: ModelPostFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        videoUri
-        description
-        hashTag
-        likes
-        thumbnail
-        category
-        brand
-        views
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          posts {
-            items {
-              id
-              videoUri
-              description
-              thumbnail
-              likes
-              userID
-              user {
-                id
-                username
-                imageUri
-              }
-            }
-          }
-          following {
-            userId
-            userName
-            imgUri
-          }
-          followers {
-            userId
-            userName
-            imgUri
-          }
-          facebook
-          instagram
-          youtube
-          bio
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          items {
-            id
-            postId
-            userID
-            text
-            likes
-            createdAt
-            updatedAt
-          }
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getComment = /* GraphQL */ `
-  query GetComment($id: ID!) {
-    getComment(id: $id) {
-      id
-      postId
-      userID
-      text
-      likes
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listComments = /* GraphQL */ `
-  query ListComments(
-    $filter: ModelCommentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        postId
-        userID
-        text
-        likes
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          createdAt
-          updatedAt
-        }
-        post {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          category
-          brand
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        createdAt
-        updatedAt
+        youtube
       }
       nextToken
     }
@@ -350,10 +61,10 @@ export const listComments = /* GraphQL */ `
 export const getSong = /* GraphQL */ `
   query GetSong($id: ID!) {
     getSong(id: $id) {
-      id
-      name
-      imageUri
       createdAt
+      id
+      imageUri
+      name
       updatedAt
     }
   }
@@ -366,11 +77,137 @@ export const listSongs = /* GraphQL */ `
   ) {
     listSongs(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
-        id
-        name
-        imageUri
         createdAt
+        id
+        imageUri
+        name
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getPost = /* GraphQL */ `
+  query GetPost($id: ID!) {
+    getPost(id: $id) {
+      brand
+      category
+      comments {
+        nextToken
+      }
+      createdAt
+      description
+      id
+      likes
+      songID
+      song {
+        createdAt
+        id
+        imageUri
+        name
+        updatedAt
+      }
+      thumbnail
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      videoUri
+      views
+    }
+  }
+`;
+export const listPosts = /* GraphQL */ `
+  query ListPosts(
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
+      nextToken
+    }
+  }
+`;
+export const getComment = /* GraphQL */ `
+  query GetComment($id: ID!) {
+    getComment(id: $id) {
+      createdAt
+      id
+      likes
+      postId
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
+      text
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+    }
+  }
+`;
+export const listComments = /* GraphQL */ `
+  query ListComments(
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        createdAt
+        id
+        likes
+        postId
+        text
+        updatedAt
+        userID
       }
       nextToken
     }
@@ -379,9 +216,9 @@ export const listSongs = /* GraphQL */ `
 export const getNotification = /* GraphQL */ `
   query GetNotification($id: ID!) {
     getNotification(id: $id) {
+      createdAt
       id
       message
-      createdAt
       updatedAt
     }
   }
@@ -394,9 +231,9 @@ export const listNotifications = /* GraphQL */ `
   ) {
     listNotifications(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        createdAt
         id
         message
-        createdAt
         updatedAt
       }
       nextToken
@@ -406,77 +243,47 @@ export const listNotifications = /* GraphQL */ `
 export const getUserNotification = /* GraphQL */ `
   query GetUserNotification($id: ID!) {
     getUserNotification(id: $id) {
+      createdAt
       id
-      userID
-      ownerID
-      postID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       notificationID
       notification {
+        createdAt
         id
         message
-        createdAt
         updatedAt
       }
+      ownerID
+      postID
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
       read
-      createdAt
       updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
     }
   }
 `;
@@ -492,42 +299,14 @@ export const listUserNotifications = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
+        createdAt
         id
-        userID
+        notificationID
         ownerID
         postID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          createdAt
-          updatedAt
-        }
-        post {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          category
-          brand
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        notificationID
-        notification {
-          id
-          message
-          createdAt
-          updatedAt
-        }
         read
-        createdAt
         updatedAt
+        userID
       }
       nextToken
     }

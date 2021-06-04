@@ -7,52 +7,33 @@ export const createUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     createUser(input: $input, condition: $condition) {
-      id
-      username
-      name
-      imageUri
       bio
-      posts {
-        items {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          category
-          brand
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
+      createdAt
+      facebook
+      followers {
+        imgUri
+        userId
+        userName
       }
       following {
+        imgUri
         userId
         userName
-        imgUri
       }
-      followers {
-        userId
-        userName
-        imgUri
-      }
+      id
+      imageUri
+      instagram
+      languages
+      name
       notifications {
-        items {
-          id
-          userID
-          ownerID
-          postID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      createdAt
+      posts {
+        nextToken
+      }
       updatedAt
+      username
+      youtube
     }
   }
 `;
@@ -62,56 +43,33 @@ export const updateUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     updateUser(input: $input, condition: $condition) {
-      id
-      username
-      name
-      imageUri
       bio
+      createdAt
       facebook
-      instagram
-      youtube
-      languages
-      posts {
-        items {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          category
-          brand
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
+      followers {
+        imgUri
+        userId
+        userName
       }
       following {
+        imgUri
         userId
         userName
-        imgUri
       }
-      followers {
-        userId
-        userName
-        imgUri
-      }
+      id
+      imageUri
+      instagram
+      languages
+      name
       notifications {
-        items {
-          id
-          userID
-          ownerID
-          postID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      createdAt
+      posts {
+        nextToken
+      }
       updatedAt
+      username
+      youtube
     }
   }
 `;
@@ -121,473 +79,33 @@ export const deleteUser = /* GraphQL */ `
     $condition: ModelUserConditionInput
   ) {
     deleteUser(input: $input, condition: $condition) {
-      id
-      username
-      name
-      imageUri
       bio
-      languages
-      posts {
-        items {
-          id
-          videoUri
-          description
-          likes
-          thumbnail
-          category
-          brand
-          userID
-          songID
-          createdAt
-          updatedAt
-        }
-        nextToken
+      createdAt
+      facebook
+      followers {
+        imgUri
+        userId
+        userName
       }
       following {
+        imgUri
         userId
         userName
-        imgUri
       }
-      followers {
-        userId
-        userName
-        imgUri
-      }
+      id
+      imageUri
+      instagram
+      languages
+      name
       notifications {
-        items {
-          id
-          userID
-          ownerID
-          postID
-          notificationID
-          read
-          createdAt
-          updatedAt
-        }
         nextToken
       }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createPost = /* GraphQL */ `
-  mutation CreatePost(
-    $input: CreatePostInput!
-    $condition: ModelPostConditionInput
-  ) {
-    createPost(input: $input, condition: $condition) {
-      id
-      videoUri
-      description
-      likes
-      views
-      thumbnail
-      category
-      brand
-      userID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postId
-          userID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
+      posts {
         nextToken
       }
-      createdAt
       updatedAt
-    }
-  }
-`;
-export const updatePost = /* GraphQL */ `
-  mutation UpdatePost(
-    $input: UpdatePostInput!
-    $condition: ModelPostConditionInput
-  ) {
-    updatePost(input: $input, condition: $condition) {
-      id
-      videoUri
-      description
-      likes
-      thumbnail
-      category
-      brand
-      userID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postId
-          userID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deletePost = /* GraphQL */ `
-  mutation DeletePost(
-    $input: DeletePostInput!
-    $condition: ModelPostConditionInput
-  ) {
-    deletePost(input: $input, condition: $condition) {
-      id
-      videoUri
-      description
-      likes
-      thumbnail
-      category
-      brand
-      userID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      songID
-      song {
-        id
-        name
-        imageUri
-        createdAt
-        updatedAt
-      }
-      comments {
-        items {
-          id
-          postId
-          userID
-          text
-          likes
-          createdAt
-          updatedAt
-        }
-        nextToken
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createComment = /* GraphQL */ `
-  mutation CreateComment(
-    $input: CreateCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    createComment(input: $input, condition: $condition) {
-      id
-      postId
-      userID
-      text
-      likes
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateComment = /* GraphQL */ `
-  mutation UpdateComment(
-    $input: UpdateCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    updateComment(input: $input, condition: $condition) {
-      id
-      postId
-      userID
-      text
-      likes
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteComment = /* GraphQL */ `
-  mutation DeleteComment(
-    $input: DeleteCommentInput!
-    $condition: ModelCommentConditionInput
-  ) {
-    deleteComment(input: $input, condition: $condition) {
-      id
-      postId
-      userID
-      text
-      likes
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
+      username
+      youtube
     }
   }
 `;
@@ -597,10 +115,10 @@ export const createSong = /* GraphQL */ `
     $condition: ModelSongConditionInput
   ) {
     createSong(input: $input, condition: $condition) {
-      id
-      name
-      imageUri
       createdAt
+      id
+      imageUri
+      name
       updatedAt
     }
   }
@@ -611,10 +129,10 @@ export const updateSong = /* GraphQL */ `
     $condition: ModelSongConditionInput
   ) {
     updateSong(input: $input, condition: $condition) {
-      id
-      name
-      imageUri
       createdAt
+      id
+      imageUri
+      name
       updatedAt
     }
   }
@@ -625,11 +143,272 @@ export const deleteSong = /* GraphQL */ `
     $condition: ModelSongConditionInput
   ) {
     deleteSong(input: $input, condition: $condition) {
-      id
-      name
-      imageUri
       createdAt
+      id
+      imageUri
+      name
       updatedAt
+    }
+  }
+`;
+export const createPost = /* GraphQL */ `
+  mutation CreatePost(
+    $input: CreatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    createPost(input: $input, condition: $condition) {
+      brand
+      category
+      comments {
+        nextToken
+      }
+      createdAt
+      description
+      id
+      likes
+      songID
+      song {
+        createdAt
+        id
+        imageUri
+        name
+        updatedAt
+      }
+      thumbnail
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      videoUri
+      views
+    }
+  }
+`;
+export const updatePost = /* GraphQL */ `
+  mutation UpdatePost(
+    $input: UpdatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    updatePost(input: $input, condition: $condition) {
+      brand
+      category
+      comments {
+        nextToken
+      }
+      createdAt
+      description
+      id
+      likes
+      songID
+      song {
+        createdAt
+        id
+        imageUri
+        name
+        updatedAt
+      }
+      thumbnail
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      videoUri
+      views
+    }
+  }
+`;
+export const deletePost = /* GraphQL */ `
+  mutation DeletePost(
+    $input: DeletePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    deletePost(input: $input, condition: $condition) {
+      brand
+      category
+      comments {
+        nextToken
+      }
+      createdAt
+      description
+      id
+      likes
+      songID
+      song {
+        createdAt
+        id
+        imageUri
+        name
+        updatedAt
+      }
+      thumbnail
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      videoUri
+      views
+    }
+  }
+`;
+export const createComment = /* GraphQL */ `
+  mutation CreateComment(
+    $input: CreateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    createComment(input: $input, condition: $condition) {
+      createdAt
+      id
+      likes
+      postId
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
+      text
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+    }
+  }
+`;
+export const updateComment = /* GraphQL */ `
+  mutation UpdateComment(
+    $input: UpdateCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    updateComment(input: $input, condition: $condition) {
+      createdAt
+      id
+      likes
+      postId
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
+      text
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+    }
+  }
+`;
+export const deleteComment = /* GraphQL */ `
+  mutation DeleteComment(
+    $input: DeleteCommentInput!
+    $condition: ModelCommentConditionInput
+  ) {
+    deleteComment(input: $input, condition: $condition) {
+      createdAt
+      id
+      likes
+      postId
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
+      text
+      updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
     }
   }
 `;
@@ -639,9 +418,9 @@ export const createNotification = /* GraphQL */ `
     $condition: ModelNotificationConditionInput
   ) {
     createNotification(input: $input, condition: $condition) {
+      createdAt
       id
       message
-      createdAt
       updatedAt
     }
   }
@@ -652,9 +431,9 @@ export const updateNotification = /* GraphQL */ `
     $condition: ModelNotificationConditionInput
   ) {
     updateNotification(input: $input, condition: $condition) {
+      createdAt
       id
       message
-      createdAt
       updatedAt
     }
   }
@@ -665,9 +444,9 @@ export const deleteNotification = /* GraphQL */ `
     $condition: ModelNotificationConditionInput
   ) {
     deleteNotification(input: $input, condition: $condition) {
+      createdAt
       id
       message
-      createdAt
       updatedAt
     }
   }
@@ -678,79 +457,47 @@ export const createUserNotification = /* GraphQL */ `
     $condition: ModelUserNotificationConditionInput
   ) {
     createUserNotification(input: $input, condition: $condition) {
+      createdAt
       id
-      userID
-      ownerID
-      postID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       notificationID
       notification {
+        createdAt
         id
         message
-        createdAt
         updatedAt
       }
+      ownerID
+      postID
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
       read
-      createdAt
       updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
     }
   }
 `;
@@ -760,79 +507,47 @@ export const updateUserNotification = /* GraphQL */ `
     $condition: ModelUserNotificationConditionInput
   ) {
     updateUserNotification(input: $input, condition: $condition) {
+      createdAt
       id
-      userID
-      ownerID
-      postID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       notificationID
       notification {
+        createdAt
         id
         message
-        createdAt
         updatedAt
       }
+      ownerID
+      postID
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
       read
-      createdAt
       updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
     }
   }
 `;
@@ -842,79 +557,47 @@ export const deleteUserNotification = /* GraphQL */ `
     $condition: ModelUserNotificationConditionInput
   ) {
     deleteUserNotification(input: $input, condition: $condition) {
+      createdAt
       id
-      userID
-      ownerID
-      postID
-      user {
-        id
-        username
-        name
-        imageUri
-        bio
-        languages
-        posts {
-          nextToken
-        }
-        following {
-          userId
-          userName
-          imgUri
-        }
-        followers {
-          userId
-          userName
-          imgUri
-        }
-        notifications {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
-      post {
-        id
-        videoUri
-        description
-        likes
-        thumbnail
-        category
-        brand
-        userID
-        user {
-          id
-          username
-          name
-          imageUri
-          bio
-          languages
-          createdAt
-          updatedAt
-        }
-        songID
-        song {
-          id
-          name
-          imageUri
-          createdAt
-          updatedAt
-        }
-        comments {
-          nextToken
-        }
-        createdAt
-        updatedAt
-      }
       notificationID
       notification {
+        createdAt
         id
         message
-        createdAt
         updatedAt
       }
+      ownerID
+      postID
+      post {
+        brand
+        category
+        createdAt
+        description
+        id
+        likes
+        songID
+        thumbnail
+        updatedAt
+        userID
+        videoUri
+        views
+      }
       read
-      createdAt
       updatedAt
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
     }
   }
 `;

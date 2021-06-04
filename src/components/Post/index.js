@@ -140,7 +140,7 @@ const Post = (props) => {
   useEffect(() => {
     if (!props.post?.videoUri?.startsWith('https')) {
       setVideoUri(
-        `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.videoUri}`,
+        `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.videoUri}`,
       );
     } else {
       setVideoUri(props.post?.videoUri);
@@ -485,7 +485,7 @@ const Post = (props) => {
               style={styles.video}
               poster={
                 props.post?.thumbnail
-                  ? `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.thumbnail}`
+                  ? `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.thumbnail}`
                   : ''
               }
               posterResizeMode="cover"

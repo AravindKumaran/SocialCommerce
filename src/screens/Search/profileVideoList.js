@@ -63,7 +63,7 @@ const TrendingVideo = ({
           uri: convertToProxyURL(
             videoUri.startsWith('https')
               ? videoUri
-              : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${videoUri}`,
+              : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${videoUri}`,
           ),
         }}
         style={[
@@ -82,7 +82,7 @@ const TrendingVideo = ({
           poster
             ? poster.startsWith('https')
               ? poster
-              : `https://liveboxc7d791528cf44cb0b92efd2c8b1c077762739-staging.s3.ap-south-1.amazonaws.com/public/${poster}`
+              : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${poster}`
             : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png'
         }
         posterResizeMode="cover"
