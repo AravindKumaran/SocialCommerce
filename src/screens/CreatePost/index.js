@@ -120,6 +120,11 @@ const CreatePost = () => {
       return;
     }
 
+    //to get hashtags
+    var hashTagRegexp = /\B\#\w\w+\b/g;
+    hashTagResult = description.match(hashTagRegexp);
+    //console.log(hashTagResult);return false;
+
     const fileDetails = {
       videoPath: videoUrii.replace("file://",""), //To remove "file://"
       videoName: videoUrii.split("/").pop(),
@@ -204,6 +209,7 @@ const CreatePost = () => {
           songID: 'baaf848d-fb01-4ea7-9be2-f058e33a39a9',
           category,
           brand,
+          hashTag: hashTagResult?hashTagResult:null
         };
 
         //console.log('newPost', newPost)

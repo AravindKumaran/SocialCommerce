@@ -162,6 +162,7 @@ export const createPost = /* GraphQL */ `
       userID
       videoUri
       views
+      hashTag
     }
   }
 `;
@@ -489,6 +490,7 @@ export const deletePost = /* GraphQL */ `
       userID
       videoUri
       views
+      hashTag
     }
   }
 `;
@@ -816,6 +818,7 @@ export const updatePost = /* GraphQL */ `
       userID
       videoUri
       views
+      hashTag
     }
   }
 `;
