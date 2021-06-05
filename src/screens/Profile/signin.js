@@ -90,7 +90,7 @@ const ProfileScreen = () => {
           originWhitelist={['*']}
           source={{
             uri:
-              'jl4ro811803z.auth.ap-south-1.amazoncognito.com/login?redirect_uri=livebox%3A%2F%2F&response_type=code&client_id=7dcbjoer98feb1f4spbn5p0g4l&identity_provider=google&scope=phone%20email%20openid%20profile%20aws.cognito.signin.user.admin&state=HcXprhpFinnP0yJWLg97AzKH0WvvD348&code_challenge=zyasMIpb4FzSb_x3T91xzwFKlQp_X5o3CV_L60nS1lM&code_challenge_method=S256&errorMessage=Login+option+is+not+available.+Please+try+another+one',
+              'liveboxpro-staging-staging.auth.ap-south-1.amazoncognito.com/login?client_id=2vgh6t8prvit721048v0hfms6f&response_type=token&scope=aws.cognito.signin.user.admin+email+openid+phone+profile&redirect_uri=livebox://',
           }}
           // javaScriptEnabled={true}
           // injectedJavaScript={`window.testMessage = "hello world"`}

@@ -208,9 +208,10 @@ const ProfileScreen = ({navigation, route, postUser}) => {
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
     if (!user) {
       try {
+        event.preventDefault();
         await Auth.federatedSignIn();
         setTimeout(() => {
           checkUser();
@@ -254,7 +255,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
         switch (event) {
           case 'signIn':
           case 'cognitoHostedUI':
-            //checkUser();
+            checkUser();
             break;
           case 'signOut':
             setUser(null);

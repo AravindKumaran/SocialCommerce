@@ -18,6 +18,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import Searchbar from '../../screens/Profile/search';
 import {useNavigation} from '@react-navigation/native';
+import {getUser} from '../../graphql/queries';
+import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
 
 const ActiveStyle = () => (
   <>
@@ -65,10 +67,17 @@ const Followers = ({data, followingData, user, postUser, currentPost}) => {
     setActive(value);
   };
 
-  const seeProfile = () => {
+  const seeProfile = async (selecteduderID) => {
+    console.log('id', selecteduderID);
+    const selectedUserResponse = await API.graphql(
+      graphqlOperation(getUser, {
+        id: selecteduderID,
+      }),
+    );
+    console.log('resId', selectedUserResponse);
     navigation.navigate('SeeProfile', {
       screen: 'SeeProfile',
-      postUser: data,
+      postUser: selectedUserResponse.data.getUser,
     });
   };
 
@@ -130,7 +139,11 @@ const Followers = ({data, followingData, user, postUser, currentPost}) => {
                   actualData.map((v, i) => {
                     return (
                       <View key={`${v.userId}-${i}`}>
-                        <TouchableOpacity style={{}}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            seeProfile(v.userId);
+                          }}
+                          style={{}}>
                           <View>
                             <Image
                               source={{uri: v.imgUri}}
