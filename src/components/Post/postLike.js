@@ -88,18 +88,18 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
             <ImageBackground
               style={{
                 backgroundColor: '#363E45',
-                height: 50,
-                width: 50,
-                borderRadius: 50,
+                height: 55,
+                width: 55,
+                borderRadius: 100,
                 opacity: 0.3,
                 justifyContent: 'center',
               }}></ImageBackground>
             <Image
               style={{
-                height: 20,
-                width: 20,
+                height: 25,
+                width: 25,
                 alignSelf: 'center',
-                right: 35,
+                right: 40,
               }}
               source={require('../../assets/images/Cl4.png')}
             />
@@ -107,17 +107,17 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
           <View
             style={{
               backgroundColor: '#FF5050',
-              height: 15,
-              width: 25,
+              height: 17.5,
+              width: 30,
               borderRadius: 10,
               left: 12.5,
-              bottom: 12,
+              bottom: 10,
               justifyContent: 'center',
             }}>
             <Text
               style={{
                 color: '#fff',
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: '400',
                 textAlign: 'center',
                 alignItems: 'center',
@@ -145,18 +145,18 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
             <ImageBackground
               style={{
                 backgroundColor: '#363E45',
-                height: 50,
-                width: 50,
+                height: 55,
+                width: 55,
                 borderRadius: 50,
                 opacity: 0.3,
                 justifyContent: 'center',
               }}></ImageBackground>
             <Image
               style={{
-                height: 20,
-                width: 20,
+                height: 25,
+                width: 25,
                 alignSelf: 'center',
-                right: 35,
+                right: 40,
               }}
               source={require('../../assets/images/Cl9.png')}
             />
@@ -164,17 +164,17 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
           <View
             style={{
               backgroundColor: '#FF5050',
-              height: 15,
-              width: 25,
+              height: 17.5,
+              width: 30,
               borderRadius: 10,
               left: 12.5,
-              bottom: 12,
+              bottom: 10,
               justifyContent: 'center',
             }}>
             <Text
               style={{
                 color: '#fff',
-                fontSize: 10,
+                fontSize: 12,
                 fontWeight: '400',
                 textAlign: 'center',
                 alignItems: 'center',

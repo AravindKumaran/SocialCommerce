@@ -68,7 +68,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
       style={[
         {
           position: 'absolute',
-          right: 35,
+          right: 40,
           bottom: 0,
           top: -20,
         },
@@ -85,7 +85,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
                   : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${currentPost.user?.imageUri}`,
               }}
               size={35}
-              style={{height: 60, width: 60, borderRadius: 30}}
+              style={{height: 65, width: 65, borderRadius: 50}}
             />
           </TouchableOpacity>
           {/* <TouchableOpacity
@@ -109,7 +109,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
                   : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${currentPost.user?.imageUri}`,
               }}
               size={35}
-              style={{height: 60, width: 60, borderRadius: 30}}
+              style={{height: 65, width: 65, borderRadius: 50}}
             />
           </TouchableOpacity>
           {/* <TouchableOpacity

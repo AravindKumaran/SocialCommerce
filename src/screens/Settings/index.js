@@ -61,10 +61,16 @@ const Settings = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    if(settings=='Logout'){
+    if (settings == 'Logout') {
       handleLogout();
     }
-  }, [settings])
+  }, [settings]);
+
+  useEffect(() => {
+    if (settings == 'Invite friends via WhatsApp') {
+      myCustomShare();
+    }
+  }, [settings]);
 
   const handleCategory = (value) => {
     setSettings(value);
