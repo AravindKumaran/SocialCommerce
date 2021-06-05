@@ -130,7 +130,7 @@ const Followers = ({data, followingData, user, postUser, currentPost}) => {
                   actualData.map((v, i) => {
                     return (
                       <View key={`${v.userId}-${i}`}>
-                        <TouchableOpacity onPress={seeProfile} style={{}}>
+                        <TouchableOpacity style={{}}>
                           <View>
                             <Image
                               source={{uri: v.imgUri}}
