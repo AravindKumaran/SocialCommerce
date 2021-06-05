@@ -38,6 +38,7 @@ import Share from 'react-native-share';
 import LinearGradient from 'react-native-linear-gradient';
 
 const Post = (props) => {
+  //console.log('props.post.user', props.post.user)
   //console.log('Props', props?.post?.user?.followers);
   const [post, setPost] = useState(props.post);
   // const navigation = useNavigation();
@@ -931,19 +932,24 @@ const Post = (props) => {
             <View style={styles.bottomContainer}>
               <>
                 {/* {!isTouched ? ( */}
-                <>
+                <>                  
                   <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity
-                      style={{left: 10, marginRight: 15}}
+                      style={{left: 10}}
                       onPress={() =>
                         // navigation.navigate('Profile', {
                         //   postUser: props.post.user,
                         // })
-                        navigation.navigate('Profile', {
-                          screen: 'Profile',
-                          params: {
-                            postUser: props.post.user,
-                          },
+                        // navigation.navigate('Profile', {
+                        //   screen: 'Profile',
+                        //   params: {
+                        //     postUser: props?.post?.user,
+                        //   },
+                        // })
+
+                        navigation.navigate('SeeProfile', {
+                          screen: 'SeeProfile',
+                          postUser: props?.post?.user
                         })
                       }>
                       <Text style={styles.handle}>{post?.user?.username}</Text>
