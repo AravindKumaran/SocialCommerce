@@ -88,7 +88,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
               style={{height: 60, width: 60, borderRadius: 30}}
             />
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={handleFollow}
             style={{bottom: 17, left: 10, height: 30, width: 40}}>
             <Image
@@ -96,7 +96,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
               size={35}
               style={{height: 17, width: 24, left: 8}}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </>
       ) : (
         <>
@@ -112,7 +112,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
               style={{height: 60, width: 60, borderRadius: 30}}
             />
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={handleFollow}
             style={{bottom: 17, left: 18, height: 20, width: 40}}>
             <Image
@@ -120,7 +120,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
               size={35}
               style={{height: 17, width: 24}}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </>
       )}
     </View>

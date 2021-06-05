@@ -250,6 +250,7 @@ const Categories = () => {
       />
       <ScrollView
         nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}
         style={styles.container}
         ref={refScrollView}>
         <RBSheet

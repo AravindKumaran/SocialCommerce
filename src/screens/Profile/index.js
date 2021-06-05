@@ -389,7 +389,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 paddingHorizontal: 20,
-                marginTop: 50,
+                marginTop: 60,
               }}>
               <View>
                 {!postUser && (
@@ -476,7 +476,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                         }}>
                         <Feather
                           style={styles.chart}
-                          name={'bar-chart'}
+                          name={'settings'}
                           size={20}
                         />
                       </ImageBackground>

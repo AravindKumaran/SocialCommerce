@@ -81,7 +81,6 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#fff',
   },
-
   iconContainer: {
     alignItems: 'center',
   },
@@ -90,6 +89,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     marginTop: 5,
+  },
+  Rectangle1: {
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    top: 5,
+  },
+  text3: {
+    fontFamily: 'Proxima Nova',
+    fontWeight: '700',
+    fontSize: 10,
   },
 });
 

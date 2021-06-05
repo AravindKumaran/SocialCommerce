@@ -122,7 +122,7 @@ function HashTagVideoList({hashTagName}) {
   };
 
   return (
-    <View style={{marginBottom: -500}}>
+    <View style={{marginBottom: '-130%'}}>
       <FlatList
         key={hashTagName}
         nestedScrollEnabled={true}
