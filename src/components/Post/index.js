@@ -274,6 +274,9 @@ const Post = (props) => {
   };
 
   const handleFollow = async (postUser) => {
+    console.log('Login', postUser);
+    console.log('Logins', post.user);
+    console.log('Logi', user);
     if (post) {
       if (post.user.followers === null) {
         post.user.followers = [];
@@ -297,7 +300,7 @@ const Post = (props) => {
             userName: userRes.data.getUser.username,
             imgUri: userRes.data.getUser.imageUri,
           };
-          const frIndex = post.user.followers.findIndex(
+          const frIndex = post?.user?.followers?.findIndex(
             (f) => f.userId === userRes.data.getUser.id,
           );
           if (frIndex === -1) {
@@ -340,6 +343,10 @@ const Post = (props) => {
   };
 
   const handleUnFollow = async (postUser) => {
+    console.log('Login', postUser);
+    console.log('Logins', post.user);
+    console.log('Logi', user);
+
     if (post?.user?.followers.length > 0) {
       try {
         if (user) {
@@ -656,7 +663,7 @@ const Post = (props) => {
                   right: 20,
                   bottom: 0,
                   zIndex: 1,
-                  top: 105,
+                  top: 110,
                   flexDirection: 'row',
                 }}
                 onPress={() => {
@@ -673,19 +680,19 @@ const Post = (props) => {
                   <ImageBackground
                     style={{
                       backgroundColor: '#363E45',
-                      height: 50,
-                      width: 50,
+                      height: 55,
+                      width: 55,
                       borderRadius: 50,
                       opacity: 0.3,
                       justifyContent: 'center',
                     }}></ImageBackground>
                   <Image
                     style={{
-                      height: 25,
-                      width: 20,
+                      height: 30,
+                      width: 25,
                       alignSelf: 'center',
-                      right: 35,
-                      bottom: 72.5,
+                      right: 40,
+                      bottom: 67.5,
                     }}
                     source={require('../../assets/images/Cl7.png')}
                   />
@@ -735,7 +742,7 @@ const Post = (props) => {
                   position: 'absolute',
                   right: 20,
                   bottom: 0,
-                  top: 160,
+                  top: 170,
                   zIndex: 1,
                   flexDirection: 'row',
                 }}
@@ -750,40 +757,39 @@ const Post = (props) => {
                   <ImageBackground
                     style={{
                       backgroundColor: '#363E45',
-                      height: 50,
-                      width: 50,
+                      height: 55,
+                      width: 55,
                       borderRadius: 50,
                       opacity: 0.3,
-                      left: 25,
-
+                      left: 30,
                       justifyContent: 'center',
                     }}></ImageBackground>
 
                   <Image
                     style={{
-                      height: 20,
-                      width: 20,
+                      height: 25,
+                      width: 25,
                       alignSelf: 'center',
                       right: 10,
-                      bottom: 42.5,
+                      bottom: 37.5,
                     }}
                     source={require('../../assets/images/Cl5.png')}
                   />
                   <View
                     style={{
                       backgroundColor: '#69FA89',
-                      height: 15,
-                      width: 25,
+                      height: 17.5,
+                      width: 30,
                       borderRadius: 10,
-                      top: 40,
-                      right: 32.5,
+                      top: 42.5,
+                      right: 37.5,
                       justifyContent: 'center',
                       zIndex: 1,
                     }}>
                     <Text
                       style={{
                         color: '#3E4446',
-                        fontSize: 10,
+                        fontSize: 12,
                         fontWeight: '400',
                         textAlign: 'center',
                         alignItems: 'center',
@@ -868,7 +874,7 @@ const Post = (props) => {
                   right: 20,
                   bottom: 0,
                   zIndex: 1,
-                  bottom: 30,
+                  bottom: 10,
                   flexDirection: 'row',
                 }}
                 onPress={myCustomShare}>
@@ -882,18 +888,18 @@ const Post = (props) => {
                   <ImageBackground
                     style={{
                       backgroundColor: '#363E45',
-                      height: 50,
-                      width: 50,
+                      height: 55,
+                      width: 55,
                       borderRadius: 50,
                       opacity: 0.3,
                       justifyContent: 'center',
                     }}></ImageBackground>
                   <Image
                     style={{
-                      height: 20,
-                      width: 20,
+                      height: 25,
+                      width: 25,
                       alignSelf: 'center',
-                      right: 35,
+                      right: 40,
                     }}
                     source={require('../../assets/images/Cl8.png')}
                   />

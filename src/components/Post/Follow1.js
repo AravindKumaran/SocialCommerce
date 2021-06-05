@@ -82,8 +82,8 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
-              borderWidth: 1,
-              borderColor: '#21FFFC',
+              borderWidth: 2,
+              borderColor: '#585EF7',
             }}
             colors={['transparent', 'transparent', 'transparent']}>
             <Text style={styles.text3}>Unfollow</Text>
