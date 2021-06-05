@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     bottom: 0,
     left: 0,
+    paddingRight: 15,
   },
   description: {
     color: '#fff',

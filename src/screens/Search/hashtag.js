@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginLeft: 10,
-    marginBottom: 10,
   },
   hashTag: {
     color: '#FFFFFF',
@@ -73,6 +72,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Proxima Nova',
     fontSize: 12,
     textAlign: 'left',
+    marginBottom: 20,
   },
   views: {
     color: '#FFFFFF',
