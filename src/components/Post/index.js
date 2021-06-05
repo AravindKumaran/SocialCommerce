@@ -36,6 +36,7 @@ import LottieView from 'lottie-react-native';
 import Share from 'react-native-share';
 
 const Post = (props) => {
+  //console.log('props.post.user', props.post.user)
   //console.log('Props', props?.post?.user?.followers);
   const [post, setPost] = useState(props.post);
   // const navigation = useNavigation();
@@ -928,11 +929,16 @@ const Post = (props) => {
                       // navigation.navigate('Profile', {
                       //   postUser: props.post.user,
                       // })
-                      navigation.navigate('Profile', {
-                        screen: 'Profile',
-                        params: {
-                          postUser: props.post.user,
-                        },
+                      // navigation.navigate('Profile', {
+                      //   screen: 'Profile',
+                      //   params: {
+                      //     postUser: props?.post?.user,
+                      //   },
+                      // })
+
+                      navigation.navigate('SeeProfile', {
+                        screen: 'SeeProfile',
+                        postUser: props?.post?.user
                       })
                     }>
                     <Text style={styles.handle}>{post?.user?.username}</Text>
