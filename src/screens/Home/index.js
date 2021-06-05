@@ -66,6 +66,8 @@ const options = {
 };
 
 const Home = ({navigation, route}) => {
+  //console.log('route?', route)
+  //console.log('route?.params?.uploadingPost', route?.params?.uploadingPost)
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -190,6 +192,7 @@ const Home = ({navigation, route}) => {
       setLoader(true);
       if (nextToken) {
         console.log('loader is true', nextToken);
+        console.log('curlimit', curLimit)
         const response = await API.graphql(
           graphqlOperation(listPosts, {
             limit: curLimit + 10,

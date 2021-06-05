@@ -12,11 +12,11 @@ function UploadProgress({uploadingPost, setPostRerender}) {
     useEffect(async () => {    
         //console.log('upload useeff', state.uploadStarted);    
         if(state.uploadProgress == 100){
-            console.log('uploadProgress',100);     
+            //console.log('uploadProgress',100);     
             if(uploadingPost !== undefined){  
-                //console.log(uploadingPost);              
+                //console.log('uploadingPost',uploadingPost);              
                 const posRes = await API.graphql(
-                graphqlOperation(createPost, {input: uploadingPost}),
+                    graphqlOperation(createPost, {input: uploadingPost}),
                 );
                 console.log('posRes', posRes);
                 setPostRerender(true);
