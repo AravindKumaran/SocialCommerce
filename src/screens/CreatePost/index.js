@@ -127,138 +127,141 @@ const CreatePost = () => {
       thumbnailName: thumbnail.split("/").pop(),
     }
     
-    // Upload.getFileInfo(fileDetails.videoPath).then(metadata => {
+    Upload.getFileInfo(fileDetails.videoPath).then(metadata => {
 
-    //   const uploadVideoOpts = {
-    //     url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
-    //     path: fileDetails.videoPath,
-    //     method: 'POST',
-    //     type: 'multipart',
-    //     field: 'file',
-    //     headers: {
-    //       'content-type': metadata.mimeType, // Customize content-type
-    //       'content-length': `${metadata.size}`
-    //     },
-    //     parameters:{
-    //       key: 'public/'+metadata.name
-    //     },
-    //     //Below are options only supported on Android
-    //     notification: {
-    //       enabled: true
-    //     },
-    //     useUtf8Charset: true
-    //   }
-
-    //   Upload.startUpload(uploadVideoOpts).then((uploadId) => {
-    //     console.log(
-    //       `Upload started with options: ${JSON.stringify(uploadVideoOpts)}`,
-    //     );
-    //     bgu_dispatch({type: 'uploadStarted', payload: true})
-    //     Upload.addListener('progress', uploadId, (data) => {
-    //       //if (data.progress % 5 === 0) {
-    //         bgu_dispatch({type: 'uploadProgress', payload: data.progress})
-    //       //}
-    //       console.log(`Progress: ${data.progress}%`);
-    //     })
-    //     Upload.addListener('error', uploadId, (data) => {
-    //       bgu_dispatch({type: 'uploadError', payload: data.error})
-    //       console.log(`Error: ${data.error}%`)
-    //     })
-    //     Upload.addListener('cancelled', uploadId, (data) => {
-    //       console.log(`Cancelled!`)
-    //     })
-    //     Upload.addListener('completed', uploadId, (data) => {
-    //       // data includes responseCode: number and responseBody: Object
-    //       console.log('Completed!',data);
-    //     })    
-
-    //     //for thumbnail upload
-    //     Upload.getFileInfo(fileDetails.thumbnailPath).then(metadata => {
-    //       const uploadThumbnailOpts = {
-    //         url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
-    //         path: fileDetails.thumbnailPath,
-    //         method: 'POST',
-    //         type: 'multipart',
-    //         field: 'file',
-    //         headers: {
-    //           'content-type': metadata.mimeType, // Customize content-type
-    //           'content-length': `${metadata.size}`
-    //         },
-    //         parameters:{
-    //           key: 'public/'+metadata.name
-    //         },
-    //         //Below are options only supported on Android
-    //         useUtf8Charset: true
-    //       }
-    //       Upload.startUpload(uploadThumbnailOpts)
-    //       .catch((err) => {
-    //         console.log('Upload thumbnail error!', err)
-    //       })
-    //     });
-        
-    //     const newPost = {
-    //       videoUri: fileDetails.videoName,
-    //       description: description,
-    //       thumbnail: fileDetails.thumbnailName,
-    //       userID: user.email,
-    //       songID: '20dee14b-39a9-4321-8ec7-c3380e2f5c27',
-    //       category,
-    //       brand,
-    //     };
-
-    //     navigation.navigate('Home', {
-    //       screen: 'Home',
-    //       params: {
-    //         uploadingPost: newPost,
-    //       },
-    //     });
-
-    //   }).catch((err) => {
-    //     console.log('Upload video error!', err)
-    //   })
-    // });
-      
-    try {      
-      setLoading(true);
-      const response1 = await fetch(videoUrii);
-      const blob1 = await response1.blob();
-      const response2 = await fetch(thumbnail);
-      const blob2 = await response2.blob();
-
-      console.log('Filename', blob1.data);
-      console.log('Thumbnail', blob2.data);
-      const s3Response = await Storage.put(blob1.data.name, blob1, {
-        contentType: blob1.data.type,
-      });
-      console.log('s3Response', s3Response);
-      const s3Response2 = await Storage.put(blob2.data.name, blob2, {
-        contentType: blob2.data.type,
-      });
-      const newPost = {
-        videoUri: s3Response.key,
-        description: description,
-        thumbnail: s3Response2.key,
-        userID: user.email,
-        songID: '20dee14b-39a9-4321-8ec7-c3380e2f5c27',
-        category,
-        brand,
-      };
-
-      const posRes = await API.graphql(
-        graphqlOperation(createPost, {input: newPost}),
-      );
-      console.log('posRes', posRes);
-      setLoading(false);
-      ToastAndroid.show(message1, ToastAndroid.SHORT);
-      navigation.navigate('Home', {
-        screen: 'Home',
-        params: {
-          newPost: true,
+      const uploadVideoOpts = {
+        url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
+        path: fileDetails.videoPath,
+        method: 'POST',
+        type: 'multipart',
+        field: 'file',
+        headers: {
+          'content-type': metadata.mimeType, // Customize content-type
+          'content-length': `${metadata.size}`
         },
-      });
-    } catch (e) {
-      console.error(e);
-    }
+        parameters:{
+          key: 'public/'+metadata.name
+        },
+        //Below are options only supported on Android
+        notification: {
+          enabled: true
+        },
+        useUtf8Charset: true
+      }
+
+      Upload.startUpload(uploadVideoOpts).then((uploadId) => {
+        console.log(
+          `Upload started with options: ${JSON.stringify(uploadVideoOpts)}`,
+        );
+        bgu_dispatch({type: 'uploadStarted', payload: true})
+        Upload.addListener('progress', uploadId, (data) => {
+          //if (data.progress % 5 === 0) {
+            bgu_dispatch({type: 'uploadProgress', payload: data.progress})
+          //}
+          console.log(`Progress: ${data.progress}%`);
+        })
+        Upload.addListener('error', uploadId, (data) => {
+          bgu_dispatch({type: 'uploadError', payload: data.error})
+          console.log(`Error: ${data.error}%`)
+        })
+        Upload.addListener('cancelled', uploadId, (data) => {
+          console.log(`Cancelled!`)
+        })
+        Upload.addListener('completed', uploadId, (data) => {
+          // data includes responseCode: number and responseBody: Object
+          console.log('Completed!',data);
+        })   
+
+        //for thumbnail upload
+        Upload.getFileInfo(fileDetails.thumbnailPath).then(metadata => {
+          const uploadThumbnailOpts = {
+            url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
+            path: fileDetails.thumbnailPath,
+            method: 'POST',
+            type: 'multipart',
+            field: 'file',
+            headers: {
+              'content-type': metadata.mimeType, // Customize content-type
+              'content-length': `${metadata.size}`
+            },
+            parameters:{
+              key: 'public/'+metadata.name
+            },
+            //Below are options only supported on Android
+            useUtf8Charset: true
+          }
+          Upload.startUpload(uploadThumbnailOpts)
+          .catch((err) => {
+            console.log('Upload thumbnail error!', err)
+          })
+        });
+        
+        const newPost = {
+          videoUri: fileDetails.videoName,
+          description: description,
+          thumbnail: fileDetails.thumbnailName,
+          userID: user.email,
+          songID: 'baaf848d-fb01-4ea7-9be2-f058e33a39a9',
+          category,
+          brand,
+        };
+
+        //console.log('newPost', newPost)
+
+        navigation.navigate('Home', {
+          screen: 'Home',         
+          uploadingPost: newPost,          
+        });
+
+      }).catch((err) => {
+        console.log('Upload video error!', err)
+      })
+
+      
+    });
+      
+    // try {      
+    //   setLoading(true);
+    //   const response1 = await fetch(videoUrii);
+    //   const blob1 = await response1.blob();
+    //   const response2 = await fetch(thumbnail);
+    //   const blob2 = await response2.blob();
+
+    //   console.log('Filename', blob1.data);
+    //   console.log('Thumbnail', blob2.data);
+    //   const s3Response = await Storage.put(blob1.data.name, blob1, {
+    //     contentType: blob1.data.type,
+    //   });
+    //   console.log('s3Response', s3Response);
+    //   const s3Response2 = await Storage.put(blob2.data.name, blob2, {
+    //     contentType: blob2.data.type,
+    //   });
+    //   const newPost = {
+    //     videoUri: s3Response.key,
+    //     description: description,
+    //     thumbnail: s3Response2.key,
+    //     userID: user.email,
+    //     songID: '20dee14b-39a9-4321-8ec7-c3380e2f5c27',
+    //     category,
+    //     brand,
+    //   };
+
+    //   const posRes = await API.graphql(
+    //     graphqlOperation(createPost, {input: newPost}),
+    //   );
+    //   console.log('posRes', posRes);
+    //   setLoading(false);
+    //   ToastAndroid.show(message1, ToastAndroid.SHORT);
+    //   navigation.navigate('Home', {
+    //     screen: 'Home',
+    //     params: {
+    //       newPost: true,
+    //     },
+    //   });
+    // } catch (e) {
+    //   console.error(e);
+    // }
+
     // await BackgroundService.start(veryIntensiveTask, options);
     // await BackgroundService.updateNotification({
     //   taskDesc: 'Your video is uploading...',
