@@ -27,7 +27,6 @@ import {useIsFocused, CommonActions} from '@react-navigation/native';
 import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Header} from 'react-native-elements';
-import {LoginButton, AccessToken} from 'react-native-fbsdk';
 import Settings from '../Settings';
 
 const randomImages = [
