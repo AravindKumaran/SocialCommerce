@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -9,8 +9,8 @@ import {
   ToastAndroid,
   ImageBackground,
 } from 'react-native';
-import { useRoute, useNavigation } from '@react-navigation/native';
-import { API, graphqlOperation, Storage, Auth, Hub } from 'aws-amplify';
+import {useRoute, useNavigation} from '@react-navigation/native';
+import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
 import convertToProxyURL from 'react-native-video-cache';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Product from '../../screens/Product/index';
@@ -23,14 +23,14 @@ import {
   createUserNotification,
   updateUser,
 } from '../../graphql/mutations';
-import { getUser } from '../../graphql/queries';
+import {getUser} from '../../graphql/queries';
 import styles from './styles';
 import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
 import Follow from './Follow';
 import Follow1 from './Follow1';
 import ViewsCount from './ViewsCount';
-import { NavigationActions } from 'react-navigation';
+import {NavigationActions} from 'react-navigation';
 import Feather from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
@@ -101,7 +101,7 @@ const Post = (props) => {
   };
 
   useEffect(() => {
-    Hub.listen('auth', ({ payload: { event, data } }) => {
+    Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
         case 'cognitoHostedUI':
@@ -169,7 +169,7 @@ const Post = (props) => {
         post.views = value;
         await API.graphql(
           graphqlOperation(updatePost, {
-            input: { id: post.id, views: post.views },
+            input: {id: post.id, views: post.views},
           }),
         );
         // console.log('view increased');
@@ -215,7 +215,7 @@ const Post = (props) => {
 
           await API.graphql(
             graphqlOperation(updatePost, {
-              input: { id: cPost.id, likes },
+              input: {id: cPost.id, likes},
             }),
           );
           const res = await API.graphql(
@@ -260,7 +260,7 @@ const Post = (props) => {
 
             const res = await API.graphql(
               graphqlOperation(updatePost, {
-                input: { id: cPost.id, likes },
+                input: {id: cPost.id, likes},
               }),
             );
 
@@ -309,10 +309,11 @@ const Post = (props) => {
           );
           if (frIndex === -1) {
             selectedUserResponse.data.getUser.followers.push(fw);
-            const updatedFollowers = selectedUserResponse.data.getUser.followers;
+            const updatedFollowers =
+              selectedUserResponse.data.getUser.followers;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: { id: postUser.id, followers: updatedFollowers },
+                input: {id: postUser.id, followers: updatedFollowers},
               }),
             );
           }
@@ -330,7 +331,7 @@ const Post = (props) => {
             const updatedFollowing = userRes.data.getUser.following;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: { id: user.email, following: updatedFollowing },
+                input: {id: user.email, following: updatedFollowing},
               }),
             );
           }
@@ -360,10 +361,11 @@ const Post = (props) => {
           );
           if (frIndex !== -1) {
             selectedUserResponse.data.getUser.followers.splice(frIndex, 1);
-            const updatedFollowers = selectedUserResponse.data.getUser.followers;
+            const updatedFollowers =
+              selectedUserResponse.data.getUser.followers;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: { id: postUser.id, followers: updatedFollowers },
+                input: {id: postUser.id, followers: updatedFollowers},
               }),
             );
 
@@ -498,7 +500,7 @@ const Post = (props) => {
             <Video
               ref={(ref) => (vidRef.current = ref)}
               // ref={vidRef}
-              source={{ uri: convertToProxyURL(videoUri) }}
+              source={{uri: convertToProxyURL(videoUri)}}
               style={styles.video}
               poster={
                 props.post?.thumbnail
@@ -848,7 +850,7 @@ const Post = (props) => {
                     position: 'absolute',
                   }}
                 /> */}
-                <View style={{ marginTop: 22, height: 40, width: 40 }}>
+                <View style={{marginTop: 22, height: 40, width: 40}}>
                   <TouchableOpacity
                     onPress={() => refRBSheet.current.close()}
                     style={{
@@ -937,9 +939,9 @@ const Post = (props) => {
               <>
                 {/* {!isTouched ? ( */}
                 <>
-                  <View style={{ flexDirection: 'row' }}>
+                  <View style={{flexDirection: 'row'}}>
                     <TouchableOpacity
-                      style={{ left: 10 }}
+                      style={{left: 10}}
                       onPress={() =>
                         // navigation.navigate('Profile', {
                         //   postUser: props.post.user,
@@ -953,7 +955,7 @@ const Post = (props) => {
 
                         navigation.navigate('SeeProfile', {
                           screen: 'SeeProfile',
-                          postUser: props?.post?.user
+                          postUser: props?.post?.user,
                         })
                       }>
                       <Text style={styles.handle}>{post?.user?.username}</Text>
@@ -966,15 +968,15 @@ const Post = (props) => {
                       currentPost={post}
                     />
                   </View>
-                  <View style={{ flexDirection: 'row', top: 25 }}>
+                  <View style={{flexDirection: 'row', top: 25}}>
                     <Image
                       source={require('../../assets/images/Dot.png')}
                       size={25}
-                      style={{ bottom: 18, left: 10 }}
+                      style={{bottom: 18, left: 10}}
                     />
                     <Text style={styles.description}>{post.description}</Text>
                   </View>
-                  <View style={{ flexDirection: 'row', bottom: 0, left: 10 }}>
+                  <View style={{flexDirection: 'row', bottom: 0, left: 10}}>
                     <Feather name="eye" size={20} color="#fff" />
                     <Text
                       style={{

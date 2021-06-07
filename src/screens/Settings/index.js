@@ -22,6 +22,7 @@ import Rating from './rating';
 import Feedback from './feedback';
 import Share from 'react-native-share';
 import {Auth} from 'aws-amplify';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const settingsmenu = [
   {

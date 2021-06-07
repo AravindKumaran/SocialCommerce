@@ -27,7 +27,6 @@ import {useIsFocused, CommonActions} from '@react-navigation/native';
 import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Header} from 'react-native-elements';
-import {LoginButton, AccessToken} from 'react-native-fbsdk';
 import Settings from '../Settings';
 
 const randomImages = [
@@ -208,9 +207,10 @@ const ProfileScreen = ({navigation, route, postUser}) => {
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
     if (!user) {
       try {
+        event.preventDefault();
         await Auth.federatedSignIn();
         setTimeout(() => {
           checkUser();
@@ -254,7 +254,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
         switch (event) {
           case 'signIn':
           case 'cognitoHostedUI':
-            //checkUser();
+            checkUser();
             break;
           case 'signOut':
             setUser(null);

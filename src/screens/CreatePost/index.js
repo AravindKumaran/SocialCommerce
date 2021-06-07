@@ -27,12 +27,6 @@ import AppText from '../../components/Common/AppText';
 
 import {Context} from '../../context/Store';
 
-import {
-  VESDK,
-  VideoEditorModal,
-  Configuration,
-  PESDK,
-} from 'react-native-videoeditorsdk';
 
 // const veryIntensiveTask = async (taskDataArguments) => {
 //   // Example of an infinite loop task

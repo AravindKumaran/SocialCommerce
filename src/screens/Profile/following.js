@@ -17,7 +17,9 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
 import Searchbar from '../../screens/Profile/search';
-import Followers from './followers';
+import {useNavigation} from '@react-navigation/native';
+import {getUser} from '../../graphql/queries';
+import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
 
 const ActiveStyle = () => (
   <>
@@ -49,15 +51,31 @@ const ActiveStyle = () => (
   </>
 );
 
-const Following = ({data, followerData}) => {
+const Following = ({data, followerData, user, postUser, currentPost}) => {
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(true);
   const [actualData, setData] = useState(data);
 
   const [active, setActive] = useState('following');
 
+  const navigation = useNavigation();
+
   const handleActive = (value) => {
     setActive(value);
+  };
+
+  const seeProfile = async (selecteduderID) => {
+    console.log('id', selecteduderID);
+    const selectedUserResponse = await API.graphql(
+      graphqlOperation(getUser, {
+        id: selecteduderID,
+      }),
+    );
+    console.log('resId', selectedUserResponse);
+    navigation.navigate('SeeProfile', {
+      screen: 'SeeProfile',
+      postUser: selectedUserResponse.data.getUser,
+    });
   };
 
   return (
@@ -118,25 +136,31 @@ const Following = ({data, followerData}) => {
                   actualData.map((v, i) => {
                     return (
                       <View key={`${v.userId}-${i}`}>
-                        <View>
-                          <Image
-                            source={{uri: v.imgUri}}
-                            style={{height: 35, width: 35, borderRadius: 20}}
-                          />
-                        </View>
-                        <View>
-                          <Text
-                            style={{
-                              color: '#FFFFFF',
-                              fontFamily: 'Proxima Nova',
-                              fontWeight: '700',
-                              fontSize: 12,
-                              left: 60,
-                              bottom: 25,
-                            }}>
-                            {v.userName}
-                          </Text>
-                        </View>
+                        <TouchableOpacity
+                          onPress={() => {
+                            seeProfile(v.userId);
+                          }}
+                          style={{}}>
+                          <View>
+                            <Image
+                              source={{uri: v.imgUri}}
+                              style={{height: 35, width: 35, borderRadius: 20}}
+                            />
+                          </View>
+                          <View>
+                            <Text
+                              style={{
+                                color: '#FFFFFF',
+                                fontFamily: 'Proxima Nova',
+                                fontWeight: '700',
+                                fontSize: 12,
+                                left: 60,
+                                bottom: 25,
+                              }}>
+                              {v.userName}
+                            </Text>
+                          </View>
+                        </TouchableOpacity>
                         <View>
                           <TouchableOpacity style={{bottom: 50, left: 310}}>
                             <Feather name={'more-vertical'} size={25} />
