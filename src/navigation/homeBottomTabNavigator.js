@@ -15,6 +15,7 @@ import TrendingVideoList from '../screens/Search/TrendingVideoList';
 import NotifVideoPlay from '../screens/Notifications/NotifVideoPlay';
 import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
+import CreatePost from '../screens/CreatePost';
 
 const ActiveStyle = () => (
   <>
@@ -119,6 +120,19 @@ const HomeNavigator = () => (
       name="SeeProfileVideoList"
       component={SeeProfileVideoList}
       options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="CreatePost"
+      component={CreatePost}
+      options={{
+        headerShown: true,
+        title: 'Your Post',
+        headerTitleStyle: {
+          color: 'white',
+          fontFamily: 'Proxima Nova',
+          fontWeight: '700',
+        },           
+      }}
     />
   </Stack.Navigator>
 );

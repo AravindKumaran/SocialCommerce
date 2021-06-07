@@ -153,6 +153,7 @@ export const getPost = /* GraphQL */ `
       userID
       videoUri
       views
+      hashTag
     }
   }
 `;
@@ -417,6 +418,7 @@ export const listPosts = /* GraphQL */ `
         userID
         videoUri
         views
+        hashTag
       }
       nextToken
     }
