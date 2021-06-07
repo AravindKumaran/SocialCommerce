@@ -23,6 +23,7 @@ import Feedback from './feedback';
 import Share from 'react-native-share';
 import {Auth} from 'aws-amplify';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {c} from '../../navigation/homeBottomTabNavigator';
 
 const settingsmenu = [
   {
@@ -120,6 +121,32 @@ const Settings = () => {
       ),
     });
   };
+
+  
+const ActiveStyle = () => (
+  <>
+    <Image
+      style={{
+        position: 'absolute',
+        bottom: 13,
+      }}
+      source={require('../..//assets/images/blur.png')}
+      width={15}
+      height={15}
+      // tintColor={color}
+    />
+    <View
+      style={{
+        width: 27,
+        height: 4,
+        borderRadius: 14,
+        position: 'absolute',
+        bottom: 10,
+        borderBottomColor: '#21FFFC',
+        borderBottomWidth: 4,
+      }}></View>
+  </>
+);
 
   return (
     <>
