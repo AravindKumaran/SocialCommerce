@@ -68,12 +68,12 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
             style={{
               height: 25,
               width: 75,
-              borderRadius: 5,
+              borderRadius: 15,
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
             }}
-            colors={['#5e37f4', '#518bf9', '#21fffc']}>
+            colors={['#3cb2f1', '#3cb2f1', '#3cb2f1']}>
             <Text style={styles.text3}>Follow</Text>
           </LinearGradient>
         </TouchableOpacity>
@@ -85,14 +85,14 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
             style={{
               height: 25,
               width: 75,
-              borderRadius: 7.5,
+              borderRadius: 15,
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
-              borderWidth: 2,
-              borderColor: '#585EF7',
+              borderTopWidth: 1,
+              borderTopColor: '#757575',
             }}
-            colors={['transparent', 'transparent', 'transparent']}>
+            colors={['#252525', '#252525', '#252525']}>
             <Text style={styles.text3}>Following</Text>
           </LinearGradient>
         </TouchableOpacity>

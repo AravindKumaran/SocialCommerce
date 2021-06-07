@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
-    top: 5,
+    height: 30,
   },
   text3: {
     fontFamily: 'Proxima Nova',

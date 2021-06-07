@@ -12,7 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 
-const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
+const Follow2 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   const [isFollow, setIsFollow] = useState(false);
   const [message] = useState('Please login!');
   const [message1] = useState("You can't follow yourself");
@@ -68,13 +68,15 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
             style={{
               height: 25,
               width: 75,
-              borderRadius: 5,
+              borderRadius: 15,
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
+              borderTopWidth: 1,
+              borderTopColor: '#757575',
             }}
-            colors={['#5e37f4', '#518bf9', '#21fffc']}>
-            <Text style={styles.text3}>Follow</Text>
+            colors={['#252525', '#252525', '#252525']}>
+            <Text style={styles.text3}>Following</Text>
           </LinearGradient>
         </TouchableOpacity>
       ) : (
@@ -85,15 +87,13 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
             style={{
               height: 25,
               width: 75,
-              borderRadius: 7.5,
+              borderRadius: 15,
               justifyContent: 'center',
               alignContent: 'center',
               alignItems: 'center',
-              borderWidth: 2,
-              borderColor: '#585EF7',
             }}
-            colors={['transparent', 'transparent', 'transparent']}>
-            <Text style={styles.text3}>Following</Text>
+            colors={['#5e37f4', '#518bf9', '#21fffc']}>
+            <Text style={styles.text3}>Follow</Text>
           </LinearGradient>
         </TouchableOpacity>
       )}
@@ -101,4 +101,4 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   );
 };
 
-export default Follow1;
+export default Follow2;

@@ -254,7 +254,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             />
           </View>
 
-          <View style={{top: 100, width: '90%'}}>
+          {/* <View style={{top: 100, width: '90%'}}>
             <AppText style={{color: 'white', fontSize: 12}}>Language</AppText>
             <DropDownPicker
               items={languages}
@@ -279,9 +279,9 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
               multiple={true}
               defaultValue={false}
             />
-          </View>
+          </View> */}
 
-          <View style={{top: 170}}>
+          <View style={{top: 100}}>
             <Text
               style={{
                 color: '#FFFFFF',
@@ -322,7 +322,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
         </LinearGradient>
       </View> */}
 
-        <View style={{alignItems: 'center', paddingTop: 190, margin: 20}}>
+        <View style={{alignItems: 'center', paddingTop: 100, margin: 20}}>
           <AppButton onPress={handleRevert} title="Submit" />
         </View>
       </ScrollView>

@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import com.airbnb.android.react.lottie.LottiePackage;
+import com.chirag.RNMail.*; 
 // import com.github.alinz.reactnativewebviewbridge.WebViewBridgePackage;
 public class MainApplication extends androidx.multidex.MultiDexApplication implements ReactApplication {
 
@@ -34,6 +35,7 @@ public class MainApplication extends androidx.multidex.MultiDexApplication imple
           // new WebViewBridgePackage();
           new CustomTabsPackage();
           packages.add(new LottiePackage());
+          new RNMail();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           return packages;
         }
