@@ -66,11 +66,11 @@ const settingsmenu = [
   },
 ];
 
-const Settings = () => {
+const Settings = (props) => {
   const [settings, setSettings] = useState('');
   const [searchedData, setSearchedData] = useState(null);
   const refRBSheet3 = useRef();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(props.user);
 
   useEffect(() => {
     if (settings == 'Logout') {
@@ -194,14 +194,14 @@ const Settings = () => {
               <View style={styles.cat}>
                 {settingsmenu.map((c, i) => (
                   <View
+                    key={`${c.name}-${i}`}
                     style={{
                       paddingVertical: 15,
                       marginTop: 10,
                       marginLeft: 30,
                     }}>
                     <TouchableOpacity
-                      onPress={() => handleCategory(c.name)}
-                      key={`${c.name}-${i}`}
+                      onPress={() => handleCategory(c.name)}                      
                       style={styles.catItem}>
                       <Text>
                         <Image
@@ -228,7 +228,7 @@ const Settings = () => {
           </View>
         </ScrollView>
 
-        {settings === 'Languages' && <Languages />}
+        {settings === 'Languages' && <Languages languages={user.languages} user={user} />}
         {settings === 'Invite friends via WhatsApp' && <Invite />}
         {settings === 'Notifications' && <Notifications />}
         {settings === 'Account' && <Account />}
