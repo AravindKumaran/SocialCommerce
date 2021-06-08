@@ -168,7 +168,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                 source={{
                   uri: res?.data?.createUser.imageUri.startsWith('https')
                     ? res?.data?.createUser.imageUri
-                    : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
+                    : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
                 }}
                 size={25}
                 style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -189,7 +189,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                 source={{
                   uri: userRes.data?.getUser?.imageUri.startsWith('https')
                     ? userRes.data?.getUser?.imageUri
-                    : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
+                    : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
                 }}
                 size={25}
                 style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -286,7 +286,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   source={{
                     uri: value?.startsWith('https')
                       ? value
-                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${value}`,
+                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${value}`,
                   }}
                   size={25}
                   style={{
@@ -316,7 +316,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
             source={{
               uri: user.imageUri.startsWith('https')
                 ? user.imageUri
-                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
+                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
             }}
             size={25}
             style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -454,7 +454,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   source={{
                     uri: user?.imageUri?.startsWith('https')
                       ? user.imageUri
-                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
+                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
                   }}
                 />
               </View>

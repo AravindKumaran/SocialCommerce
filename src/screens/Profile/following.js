@@ -59,7 +59,7 @@ const ActiveStyle = () => (
   </>
 );
 
-const Following = ({data, followerData, user}) => {
+const Following = ({data, followerData, user, post}) => {
   const [isTouched, setTouched] = useState(false);
   const [isPressed, setPressed] = useState(true);
   const [actualData, setData] = useState(data);

@@ -59,7 +59,7 @@ const ActiveStyle = () => (
   </>
 );
 
-const Followers = ({data, followingData, user}) => {
+const Followers = ({data, followingData, user, post}) => {
   console.log('followingdata', followingData);
   console.log('data', data);
   console.log('user', user);

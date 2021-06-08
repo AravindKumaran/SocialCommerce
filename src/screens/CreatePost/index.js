@@ -1,4 +1,10 @@
-import React, {useEffect, useRef, useState, useCallback, useContext} from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useCallback,
+  useContext,
+} from 'react';
 import {
   View,
   Text,
@@ -26,7 +32,6 @@ import AppText from '../../components/Common/AppText';
 // import Upload from 'react-native-background-upload';
 
 import {Context} from '../../context/Store';
-
 
 // const veryIntensiveTask = async (taskDataArguments) => {
 //   // Example of an infinite loop task
@@ -70,9 +75,9 @@ const veryIntensiveTask = async (taskDataArguments) => {
 
 const categoryItems = [
   {label: 'Fashion', value: 'Fashion'},
+  {label: 'Beauty', value: 'Beauty'},
   {label: 'Jewellery', value: 'Jewellery'},
   {label: 'Fitness', value: 'Fitness'},
-  {label: 'Beauty', value: 'Beauty'},
   {label: 'Travel', value: 'Travel'},
   {label: 'Food', value: 'Food'},
   {label: 'Movies & Series', value: 'Movies & Series'},
@@ -87,6 +92,16 @@ const brandItems = [
   {label: 'Beats', value: 'Beats'},
   {label: 'Bose', value: 'Bose'},
   {label: 'Hugo Boss', value: 'Hugo Boss'},
+];
+
+const languages = [
+  {label: 'English', value: 'English'},
+  {label: 'Hindi', value: 'Hindi'},
+  {label: 'Tamil', value: 'Tamil'},
+  {label: 'Malayalam', value: 'Malayalam'},
+  {label: 'Telugu', value: 'Telugu'},
+  {label: 'Marathi', value: 'Marathi'},
+  {label: 'Bengali', value: 'Bengali'},
 ];
 
 const CreatePost = () => {
@@ -109,7 +124,7 @@ const CreatePost = () => {
 
   const uploadToStorage = async () => {
     // console.log('gdf', videoUrii, description, category, brand);
-    if (!description || !videoUrii || !thumbnail || !category ) {
+    if (!description || !videoUrii || !thumbnail || !category) {
       ToastAndroid.show(message, ToastAndroid.SHORT);
       return;
     }
@@ -120,16 +135,16 @@ const CreatePost = () => {
     //console.log(hashTagResult);return false;
 
     const fileDetails = {
-      videoPath: videoUrii.replace("file://",""), //To remove "file://"
-      videoName: videoUrii.split("/").pop(),
-      thumbnailPath: thumbnail.replace("file://",""),
-      thumbnailName: thumbnail.split("/").pop(),
-    }
-    
+      videoPath: videoUrii.replace('file://', ''), //To remove "file://"
+      videoName: videoUrii.split('/').pop(),
+      thumbnailPath: thumbnail.replace('file://', ''),
+      thumbnailName: thumbnail.split('/').pop(),
+    };
+
     // Upload.getFileInfo(fileDetails.videoPath).then(metadata => {
 
     //   const uploadVideoOpts = {
-    //     url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
+    //     url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/',
     //     path: fileDetails.videoPath,
     //     method: 'POST',
     //     type: 'multipart',
@@ -169,12 +184,12 @@ const CreatePost = () => {
     //     Upload.addListener('completed', uploadId, (data) => {
     //       // data includes responseCode: number and responseBody: Object
     //       console.log('Completed!',data);
-    //     })   
+    //     })
 
     //     //for thumbnail upload
     //     Upload.getFileInfo(fileDetails.thumbnailPath).then(metadata => {
     //       const uploadThumbnailOpts = {
-    //         url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
+    //         url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/',
     //         path: fileDetails.thumbnailPath,
     //         method: 'POST',
     //         type: 'multipart',
@@ -194,7 +209,7 @@ const CreatePost = () => {
     //         console.log('Upload thumbnail error!', err)
     //       })
     //     });
-        
+
     //     const newPost = {
     //       videoUri: fileDetails.videoName,
     //       description: description,
@@ -208,19 +223,18 @@ const CreatePost = () => {
     //     //console.log('newPost', newPost)
 
     //     navigation.navigate('Home', {
-    //       screen: 'Home',         
-    //       uploadingPost: newPost, 
-    //       hashTag: hashTagResult         
+    //       screen: 'Home',
+    //       uploadingPost: newPost,
+    //       hashTag: hashTagResult
     //     });
 
     //   }).catch((err) => {
     //     console.log('Upload video error!', err)
     //   })
 
-      
     // });
-      
-    try {      
+
+    try {
       setLoading(true);
       const response1 = await fetch(videoUrii);
       const blob1 = await response1.blob();
@@ -306,7 +320,7 @@ const CreatePost = () => {
           <ImagePickerBottomSheet
             imageUri={thumbnail}
             onChangeImage={(uri) => setThumbnail(uri)}
-            title="Add Thumbnail"
+            title="Edit Thumbnail"
             tStyle={{color: 'white', fontSize: 12}}
             cStyle={{
               width: 130,
@@ -316,7 +330,7 @@ const CreatePost = () => {
           />
         </View>
         <View style={{flexDirection: 'column', left: 10, bottom: 10}}>
-          <Text style={styles.text1}>Description</Text>
+          <Text style={styles.text1}>Hashtag</Text>
           <TextInput
             value={description}
             onChangeText={(text) => setDescription(text)}
@@ -378,15 +392,19 @@ const CreatePost = () => {
             fontSize: 12,
             paddingHorizontal: 15,
             color: 'white',
+            marginBottom: 5,
           }}
           placeholder="Enter the Brand"
           onChangeText={(text) => setBrand(text)}
           placeholderTextColor="white"
         />
 
-        {/* <DropDownPicker
-          items={brandItems}
-          placeholder="Select the Brand"
+        <AppText style={{color: 'white', fontSize: 12}}>
+          Select video Language
+        </AppText>
+        <DropDownPicker
+          items={languages}
+          placeholder="Select the Language"
           containerStyle={{
             height: 40,
             borderRadius: 30,
@@ -401,7 +419,7 @@ const CreatePost = () => {
           placeholderStyle={{color: 'white', fontSize: 12}}
           arrowColor={{color: 'white'}}
           selectedLabelStyle={{color: 'white'}}
-        /> */}
+        />
       </View>
 
       {user ? (
