@@ -21,40 +21,51 @@ const Camera = () => {
 
   const navigation = useNavigation();
 
-  const [message] = useState('Please select video of size less than 5mb');
+  const [message] = useState('Please select video of size less than 20mb');
+  const [message1] = useState('Video duration should be less than 3min.');
 
   const onRecord = async () => {
     if (isRecording) {
       camera.current.stopRecording();
     } else {
       const data = await camera.current.recordAsync();
-      ProcessingManager.getVideoInfo(data.uri).then((stats) =>
-        console.log('Before', stats),
-      );
-      const options = {width: 300, height: 400};
-      setCompressing(true);
-      ProcessingManager.compress(data.uri, options).then((d) => {
-        ProcessingManager.getVideoInfo(d.source).then((stats) =>
-          console.log('After', stats),
-        );
-        console.log('data2', d.source);
-        createThumbnail({
-          url: d.source,
-          timeStamp: 10000,
-        })
-          .then((response) => {
-            console.log({response});
-            setCompressing(false);
-            navigation.navigate('CreatePost', {
-              videoUri: d.source,
-              thumbnailUri: response.path,
-            });
-          })
-          .catch((err) => {
-            setCompressing(false);
-            console.log({err});
+      ProcessingManager.getVideoInfo(data.uri).then((stats) =>{
+        console.log('Before', stats);
+
+        if(stats.duration<=180){
+
+          const options = {width: 300, height: 400};
+          setCompressing(true);
+          ProcessingManager.compress(data.uri, options).then((d) => {
+            ProcessingManager.getVideoInfo(d.source).then((stats) =>
+              console.log('After', stats),
+            );
+            console.log('data2', d.source);
+            createThumbnail({
+              url: d.source,
+              timeStamp: 10000,
+            })
+              .then((response) => {
+                console.log({response});
+                setCompressing(false);
+                navigation.navigate('CreatePost', {
+                  videoUri: d.source,
+                  thumbnailUri: response.path,
+                });
+              })
+              .catch((err) => {
+                setCompressing(false);
+                console.log({err});
+              });
           });
-      });
+          
+        }else{
+          setTimeout(() => {
+            ToastAndroid.show(message1, ToastAndroid.SHORT);
+          }, 1000);
+        }
+      });     
+      
     }
   };
 
@@ -66,8 +77,10 @@ const Camera = () => {
       maxHeight: 400,
     };
     launchImageLibrary(options, async (res) => {
-      if (res.fileSize <= 555000000) {
+      if (res.fileSize <= 20971520) { //20mb 
         // console.log('Res', res.uri.replace('content://', 'file:///'));
+        console.log('RNFS.CachesDirectoryPath',RNFS.CachesDirectoryPath);
+        console.log('res.fileName', res.fileName);
         const checkIfExists = await RNFS.exists(
           `${RNFS.CachesDirectoryPath}/${res.fileName}`,
         );
