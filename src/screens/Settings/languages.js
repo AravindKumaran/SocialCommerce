@@ -23,7 +23,6 @@ const languagesList = [
     letter: 'Aa',
     tick: require('../../assets/images/selectedcircle.png'),
     untick: require('../../assets/images/unselectedcircle.png'),
-    selected: false
   },
   {
     src: require('../../assets/images/languagesquare.png'),
@@ -31,7 +30,6 @@ const languagesList = [
     letter: 'ஆ',
     tick: require('../../assets/images/selectedcircle.png'),
     untick: require('../../assets/images/unselectedcircle.png'),
-    selected: false
   },
   {
     src: require('../../assets/images/languagesquare.png'),
@@ -39,7 +37,6 @@ const languagesList = [
     letter: 'अ',
     tick: require('../../assets/images/selectedcircle.png'),
     untick: require('../../assets/images/unselectedcircle.png'),
-    selected: false
   },
   {
     src: require('../../assets/images/languagesquare.png'),
@@ -47,7 +44,6 @@ const languagesList = [
     letter: 'ആ',
     tick: require('../../assets/images/selectedcircle.png'),
     untick: require('../../assets/images/unselectedcircle.png'),
-    selected: false
   },
   {
     src: require('../../assets/images/languagesquare.png'),
@@ -55,7 +51,6 @@ const languagesList = [
     letter: 'ఆ',
     tick: require('../../assets/images/selectedcircle.png'),
     untick: require('../../assets/images/unselectedcircle.png'),
-    selected: false
   },
   {
     src: require('../../assets/images/languagesquare.png'),
@@ -63,7 +58,6 @@ const languagesList = [
     letter: 'आ',
     tick: require('../../assets/images/selectedcircle.png'),
     untick: require('../../assets/images/unselectedcircle.png'),
-    selected: false
   },
   {
     src: require('../../assets/images/languagesquare.png'),
@@ -71,7 +65,6 @@ const languagesList = [
     letter: 'আ',
     tick: require('../../assets/images/selectedcircle.png'),
     untick: require('../../assets/images/unselectedcircle.png'),
-    selected: false
   },
   {
     src: require('../../assets/images/languagesquare.png'),
@@ -79,22 +72,23 @@ const languagesList = [
     letter: 'আ',
     tick: require('../../assets/images/selectedcircle.png'),
     untick: require('../../assets/images/unselectedcircle.png'),
-    selected: false
   },
 ];
 
 const Languages = ({languages, user}) => {
 
-  const [selLanguages, setSelLanguages] = useState(languages?languages:[])
+  const [selLanguages, setSelLanguages] = useState([])
 
   useEffect(() => {
-    console.log(selLanguages)
-  }, [selLanguages?.length]);
+    console.log(languages)
+    setSelLanguages([...languages]);
+
+  }, [languages]);
 
   const selectLanguage = async (l) => {
    try{     
 
-      let langArray = selLanguages;
+      let langArray = languages;
 
       let checkLanguage = langArray.findIndex((lang) => l === lang);
       console.log(checkLanguage);
@@ -173,7 +167,7 @@ const Languages = ({languages, user}) => {
                     <Text
                       style={[
                         styles.text2,
-                        {color: c.selected ? '#21FFFC' : '#FFFFFF'},
+                        {color: selLanguages.findIndex((l) => c.language === l) !== -1 ? '#21FFFC' : '#FFFFFF'},
                       ]}>
                       {c.letter}
                     </Text>
@@ -181,7 +175,7 @@ const Languages = ({languages, user}) => {
                   <Text
                     style={[
                       styles.text3,
-                      {color: c.selected ? '#21FFFC' : '#FFFFFF'},
+                      {color: selLanguages.findIndex((l) => c.language === l) !== -1 ? '#21FFFC' : '#FFFFFF'},
                     ]}>
                     {c.language}
                   </Text>
