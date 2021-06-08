@@ -85,21 +85,19 @@ const languagesList = [
 
 const Languages = ({languages, user}) => {
 
-  const [selLanguages, setSelLanguages] = useState(languages)
+  const [selLanguages, setSelLanguages] = useState(languages?languages:[])
 
   useEffect(() => {
     console.log(selLanguages)
-  }, [selLanguages.length]);
+  }, [selLanguages?.length]);
 
   const selectLanguage = async (l) => {
-   try{
-      let checkLanguage = selLanguages.findIndex((lang) => l === lang);
-      console.log(checkLanguage);
+   try{     
 
       let langArray = selLanguages;
-      if(langArray===null){
-        langArray = [];
-      }
+
+      let checkLanguage = langArray.findIndex((lang) => l === lang);
+      console.log(checkLanguage);
 
       if(checkLanguage==-1){
         
@@ -120,7 +118,7 @@ const Languages = ({languages, user}) => {
         console.log('before splice',langArray);
         langArray.splice(langArray.indexOf(l), 1);
         console.log('after splice', langArray);
-        
+
         setSelLanguages([...langArray]);
 
         const response = await API.graphql(
