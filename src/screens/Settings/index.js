@@ -10,6 +10,7 @@ import {
   ScrollView,
   Image,
   Dimensions,
+  Linking,
 } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Feather from 'react-native-vector-icons/Feather';
@@ -20,6 +21,7 @@ import Notifications from './notifications';
 import Account from './account';
 import Rating from './rating';
 import Feedback from './feedback';
+import Support from './support';
 import Share from 'react-native-share';
 import {Auth} from 'aws-amplify';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -51,6 +53,14 @@ const settingsmenu = [
   //   name: 'Feedback',
   // },
   {
+    src: require('../../assets/images/languageset.png'),
+    name: 'Support',
+  },
+  {
+    src: require('../../assets/images/languageset.png'),
+    name: 'Privacy Policy',
+  },
+  {
     src: require('../../assets/images/logoutset.png'),
     name: 'Logout',
   },
@@ -65,6 +75,12 @@ const Settings = (props) => {
   useEffect(() => {
     if (settings == 'Logout') {
       handleLogout();
+    }
+  }, [settings]);
+
+  useEffect(() => {
+    if (settings == 'Privacy Policy') {
+      Privacypolicy();
     }
   }, [settings]);
 
@@ -97,6 +113,10 @@ const Settings = (props) => {
     }
   };
 
+  const Privacypolicy = () => {
+    return Linking.openURL('https://liveboxapp.com/privacypolicy.html');
+  };
+
   const handleLogout = async () => {
     console.log('User', user);
     setUser(null);
@@ -122,31 +142,30 @@ const Settings = (props) => {
     });
   };
 
-  
-const ActiveStyle = () => (
-  <>
-    <Image
-      style={{
-        position: 'absolute',
-        bottom: 13,
-      }}
-      source={require('../..//assets/images/blur.png')}
-      width={15}
-      height={15}
-      // tintColor={color}
-    />
-    <View
-      style={{
-        width: 27,
-        height: 4,
-        borderRadius: 14,
-        position: 'absolute',
-        bottom: 10,
-        borderBottomColor: '#21FFFC',
-        borderBottomWidth: 4,
-      }}></View>
-  </>
-);
+  const ActiveStyle = () => (
+    <>
+      <Image
+        style={{
+          position: 'absolute',
+          bottom: 13,
+        }}
+        source={require('../..//assets/images/blur.png')}
+        width={15}
+        height={15}
+        // tintColor={color}
+      />
+      <View
+        style={{
+          width: 27,
+          height: 4,
+          borderRadius: 14,
+          position: 'absolute',
+          bottom: 10,
+          borderBottomColor: '#21FFFC',
+          borderBottomWidth: 4,
+        }}></View>
+    </>
+  );
 
   return (
     <>
@@ -215,6 +234,7 @@ const ActiveStyle = () => (
         {settings === 'Account' && <Account />}
         {settings === 'Rate us' && <Rating />}
         {settings === 'Feedback' && <Feedback />}
+        {settings === 'Support' && <Support />}
         {/* {settings === 'Logout' && <Feedback />} */}
       </ImageBackground>
     </>

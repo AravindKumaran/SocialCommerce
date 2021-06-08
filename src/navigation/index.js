@@ -26,8 +26,8 @@ const RootNavigation = () => {
           },
         }}>
         {/* <Stack.Screen name="Home" component={createMaterialTopTabNavigator} /> */}
-        <Stack.Screen name="Home" component={HomeBottomTabNavigator} />        
-        {/* <Stack.Screen
+        <Stack.Screen name="Home" component={HomeBottomTabNavigator} />
+        <Stack.Screen
           options={{
             headerShown: true,
             title: 'Your Post',
@@ -35,11 +35,11 @@ const RootNavigation = () => {
               color: 'white',
               fontFamily: 'Proxima Nova',
               fontWeight: '700',
-            },           
+            },
           }}
           name="CreatePost"
           component={CreatePost}
-        /> */}
+        />
         <Stack.Screen name="Camera" component={Camera} />
         <Stack.Screen name="Settings" component={Settings} />
       </Stack.Navigator>

@@ -320,6 +320,7 @@ const Home = ({navigation, route}) => {
 
         <UploadProgress 
           uploadingPost={route?.params?.uploadingPost}
+          hashTag = {route?.params?.hashTag}
           setPostRerender={setPostRerender}
         />
         

@@ -137,8 +137,9 @@ function HashTagVideoList({hashTagId, hashTagName}) {
   };
 
   return (
-    <View style={{marginBottom: 200}}>
+    <View style={{height: 220}}>
       <FlatList
+        showsHorizontalScrollIndicator={false}
         key={hashTagName}
         nestedScrollEnabled={true}
         data={uris}

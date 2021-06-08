@@ -255,6 +255,8 @@ dependencies {
 
     implementation project(':lottie-react-native')
 
+    compile project(':RNMail')
+
     // implementation project(':react-native-inappbrowser-reborn')
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
