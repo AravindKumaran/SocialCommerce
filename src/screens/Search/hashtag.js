@@ -11,7 +11,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {listPosts} from '../../graphql/queries';
+import {listPostHashTags} from '../../graphql/queries';
 
 import FullScreenVideo from './fullScreenVideo';
 import HashTagVideoList from './HashTagVideoList';
@@ -39,16 +39,82 @@ const hashTags = [
 ];
 
 const HashTag = () => {
-  return (
-    <View style={styles.container}>
-      {hashTags.map((h, i) => (
-        <View key={`${h.name}-${i}`}>
-          <Text style={styles.hashTag}>{h.name}</Text>
-          <Text style={styles.trending}>Trending Hashtag</Text>
-          {/* <Text style={styles.views}>24.2M Views</Text> */}
+  const [hashTags, setHashTags] = useState(null)
+  const [isLoader, setLoader] = useState(false);
 
-          <HashTagVideoList hashTagName={h.name} />
-        </View>
+  useEffect(() => {
+    const fetchHashTags = async () => {
+      try {
+        setLoader(true);
+        const response = await API.graphql(
+          graphqlOperation(listPostHashTags, {
+            
+          }),
+        );
+        const allItems = response.data.listPostHashTags.items;
+        //console.log(allItems);
+
+        var hashtagResult = [];
+        allItems.reduce(function(res, value) {
+          //console.log('res',res)
+          //console.log('value',value)
+
+           if (!res[value.hashTag.name]) {
+            res[value.hashTag.name] = { id:value.hashTag.id, name: value.hashTag.name, likes: 0 };
+            hashtagResult.push(res[value.hashTag.name])
+          }
+          res[value.hashTag.name].likes += (value.post.likes!=null) ? value.post.likes.length : 0 ;
+           return res;
+        }, {});
+
+        //console.log(hashtagResult)
+
+        // // const sortedItems = allItems.sort(
+        // //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        // // );
+        // Sort Items
+        hashtagResult = hashtagResult
+          .filter((item) => item.likes>0)
+          .sort((a, b) => b.likes.length - a.likes.length);
+
+        console.log('sortedItems', hashtagResult)
+
+        setHashTags(hashtagResult);
+        setLoader(false);
+
+        // //console.log('sortedItems', response.data.listPosts.nextToken);
+        // setNextToken(response.data.listPosts.nextToken);
+
+        // //Append undefined likes to sortedItems
+        // setUris(
+        //   sortedItems.concat(allItems.filter((item) => item.likes === null)),
+        // );
+      } catch (e) {
+        console.log('hashtag fetchpost error');
+        console.error(e);
+        setLoader(false);
+      }
+    };
+
+    fetchHashTags();
+  },[]);
+
+  return (
+    
+    <View style={styles.container}>
+      {isLoader ? (
+          <ActivityIndicator size={'large'} animating color="white" />
+        ) : null
+      }
+      {hashTags &&
+        hashTags.map((h, i) => (
+          <View key={`${h.name}-${i}`}>
+            <Text style={styles.hashTag}>{h.name}</Text>
+            <Text style={styles.trending}>Trending Hashtag</Text>
+            {/* <Text style={styles.views}>24.2M Views</Text> */}
+
+            <HashTagVideoList hashTagId={h.id} hashTagName={h.name} />
+          </View>
       ))}
     </View>
   );

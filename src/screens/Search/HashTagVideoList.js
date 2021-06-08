@@ -12,13 +12,14 @@ import {
 } from 'react-native';
 
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {listPosts} from '../../graphql/queries';
+import {listPosts, listPostHashTags} from '../../graphql/queries';
 import HashTagVideo from './hashtagVideo';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-function HashTagVideoList({hashTagName}) {
+function HashTagVideoList({hashTagId, hashTagName}) {
+  console.log(hashTagId)
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(12);
@@ -28,36 +29,50 @@ function HashTagVideoList({hashTagName}) {
     const fetchPost = async () => {
       try {
         const response = await API.graphql(
-          graphqlOperation(listPosts, {
+          graphqlOperation(listPostHashTags, {
             filter: {
-              hashTag: {
-                contains: hashTagName,
+              hashTagID: {
+                eq: hashTagId,
               },
             },
-            limit: curLimit,
+            limit: curLimit
           }),
         );
-        const allItems = response.data.listPosts.items;
+        const allItems = response.data.listPostHashTags.items;
+        console.log('HashTagVideoList',allItems);
+
+        const keys_to_keep = ['post'];
+
+        //to remove hashtag in all items
+        const redux = array => array.map(o => keys_to_keep.reduce((acc, curr) => {
+          acc[curr] = o[curr];
+          return acc.post;
+        }, {}));
+        
+        const sortedItems=redux(allItems);
+
+        setUris(sortedItems);
 
         // const sortedItems = allItems.sort(
         //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         // );
         //Sort Items
-        let sortedItems = allItems
-          .filter((item) => item.likes)
-          .sort((a, b) => b.likes.length - a.likes.length);
+        // let sortedItems = allItems
+        //   .filter((item) => item.likes)
+        //   .sort((a, b) => b.likes.length - a.likes.length);
 
         // console.log(
         //   'sortedItems',
         //   sortedItems.map((item) => item?.likes?.length),
         // );
         //console.log('sortedItems', response.data.listPosts.nextToken);
-        setNextToken(response.data.listPosts.nextToken);
+        // setNextToken(response.data.listPostHashTags.nextToken);
 
         //Append undefined likes to sortedItems
-        setUris(
-          sortedItems.concat(allItems.filter((item) => item.likes === null)),
-        );
+        // setUris(
+        //   sortedItems
+        //   //sortedItems.concat(allItems.filter((item) => item.likes === null)),
+        // );
       } catch (e) {
         console.log('hashtag fetchpost error');
         console.error(e);
@@ -72,10 +87,10 @@ function HashTagVideoList({hashTagName}) {
       if (nextToken) {
         setLoader(true);
         const response = await API.graphql(
-          graphqlOperation(listPosts, {
+          graphqlOperation(listPostHashTags, {
             filter: {
-              hashTag: {
-                contains: hashTagName,
+              hashTagID: {
+                eq: hashTagId,
               },
             },
             limit: curLimit + 15,
@@ -84,8 +99,8 @@ function HashTagVideoList({hashTagName}) {
         );
         console.log('AllItems', curLimit);
         setCurLimit((lim) => lim + 15);
-        setNextToken(response.data.listPosts.nextToken);
-        setUris((post) => [...post, ...response.data.listPosts.items]);
+        setNextToken(response.data.listPostHashTags.nextToken);
+        setUris((post) => [...post, ...response.data.listPostHashTags.items]);
         setLoader(false);
       }
     } catch (error) {
@@ -122,7 +137,7 @@ function HashTagVideoList({hashTagName}) {
   };
 
   return (
-    <View style={{marginBottom: '-137.5%'}}>
+    <View style={{marginBottom: 200}}>
       <FlatList
         key={hashTagName}
         nestedScrollEnabled={true}

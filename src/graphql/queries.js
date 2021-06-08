@@ -603,12 +603,25 @@ export const listPostHashTags = /* GraphQL */ `
     $nextToken: String
   ) {
     listPostHashTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        createdAt
-        id
-        hashTagID
-        postID
-        updatedAt
+      items {        
+        hashTag {
+          id
+          name
+        }
+        post {
+          brand
+          category
+          createdAt
+          description
+          id
+          likes
+          songID
+          thumbnail
+          updatedAt
+          userID
+          videoUri
+          views
+        }
       }
       nextToken
     }
