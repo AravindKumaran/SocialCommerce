@@ -167,7 +167,7 @@ const Languages = ({languages, user}) => {
                     <Text
                       style={[
                         styles.text2,
-                        {color: c.selected ? '#21FFFC' : '#FFFFFF'},
+                        {color: selLanguages.findIndex((l) => c.language === l) !== -1 ? '#21FFFC' : '#FFFFFF'},
                       ]}>
                       {c.letter}
                     </Text>
@@ -175,7 +175,7 @@ const Languages = ({languages, user}) => {
                   <Text
                     style={[
                       styles.text3,
-                      {color: c.selected ? '#21FFFC' : '#FFFFFF'},
+                      {color: selLanguages.findIndex((l) => c.language === l) !== -1 ? '#21FFFC' : '#FFFFFF'},
                     ]}>
                     {c.language}
                   </Text>
