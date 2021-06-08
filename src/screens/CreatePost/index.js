@@ -23,7 +23,8 @@ const {RNVideoEditorSDK} = NativeModules;
 import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import styles from './styles';
-import {createPost} from '../../graphql/mutations';
+import {createPost, createHashTag, createPostHashTag} from '../../graphql/mutations';
+import {listHashTags} from '../../graphql/queries';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
 import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomSheet';
@@ -134,13 +135,13 @@ const CreatePost = () => {
     hashTagResult = description.match(hashTagRegexp);
     //console.log(hashTagResult);return false;
 
-    const fileDetails = {
-      videoPath: videoUrii.replace('file://', ''), //To remove "file://"
-      videoName: videoUrii.split('/').pop(),
-      thumbnailPath: thumbnail.replace('file://', ''),
-      thumbnailName: thumbnail.split('/').pop(),
-    };
-
+    // const fileDetails = {
+    //   videoPath: videoUrii.replace("file://",""), //To remove "file://"
+    //   videoName: videoUrii.split("/").pop(),
+    //   thumbnailPath: thumbnail.replace("file://",""),
+    //   thumbnailName: thumbnail.split("/").pop(),
+    // }
+    
     // Upload.getFileInfo(fileDetails.videoPath).then(metadata => {
 
     //   const uploadVideoOpts = {
@@ -264,6 +265,73 @@ const CreatePost = () => {
         graphqlOperation(createPost, {input: newPost}),
       );
       console.log('posRes', posRes);
+
+      if(hashTagResult){
+        for (var i = 0; i < hashTagResult.length; i++) {
+          console.log(hashTagResult[i]);
+          //check hashtag is avail in db
+          const response = await API.graphql(
+              graphqlOperation(listHashTags, {
+                  filter: {
+                      name: {eq: hashTagResult[i]}
+                  }
+              }),
+          )
+
+          console.log('response',response);
+
+          if(response.data.listHashTags.items.length){
+            console.log('posRes.data.createPost.id', posRes.data.createPost.id)
+            console.log('response.data.listHashTags.id', response.data.listHashTags.items[0].id)
+
+              const postHashTagRes = await API.graphql(
+                  graphqlOperation(createPostHashTag, 
+                      {
+                          input: {
+                              postID: posRes.data.createPost.id, 
+                              hashTagID: response.data.listHashTags.items[0].id
+                          }
+                      }
+                  ),
+              ) 
+              console.log('postHashTagRes', postHashTagRes)
+          }
+
+          //if hashtag is not avail in db then it will create or it will store
+          // if(!response.data.listHashTags.items.length){
+          //     const hashTagRes = await API.graphql(
+          //         graphqlOperation(createHashTag, {input: {name: hashTagResult[i]}}),
+          //     )
+          //     const postHashTagRes = await API.graphql(
+          //         graphqlOperation(createPostHashTag, 
+          //             {
+          //                 input: {
+          //                     postID: posRes.data.createPost.id, 
+          //                     hashTagID: hashTagRes.data.createHashTag.id
+          //                 }
+          //             }
+          //         ),
+          //     ) 
+              
+          //     console.log('postHashTagRes', postHashTagRes)                           
+          // }else{
+          //   console.log('posRes.data.createPost.id', posRes.data.createPost.id)
+          //   console.log('response.data.listHashTags.id', response.data.listHashTags.items[0].id)
+
+          //     const postHashTagRes = await API.graphql(
+          //         graphqlOperation(createPostHashTag, 
+          //             {
+          //                 input: {
+          //                     postID: posRes.data.createPost.id, 
+          //                     hashTagID: response.data.listHashTags.items[0].id
+          //                 }
+          //             }
+          //         ),
+          //     ) 
+          //     console.log('postHashTagRes', postHashTagRes)
+          // }
+        }
+      }      
       setLoading(false);
       ToastAndroid.show(message1, ToastAndroid.SHORT);
       navigation.navigate('Home', {

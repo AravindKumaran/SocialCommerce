@@ -221,6 +221,9 @@ export const onCreateUser = /* GraphQL */ `
       updatedAt
       username
       youtube
+      supports {
+        nextToken
+      }
     }
   }
 `;
@@ -530,6 +533,9 @@ export const onDeleteUser = /* GraphQL */ `
       updatedAt
       username
       youtube
+      supports {
+        nextToken
+      }
     }
   }
 `;
@@ -839,6 +845,9 @@ export const onUpdateUser = /* GraphQL */ `
       updatedAt
       username
       youtube
+      supports {
+        nextToken
+      }
     }
   }
 `;
@@ -1046,6 +1055,81 @@ export const onDeletePostHashTag = /* GraphQL */ `
         userID
         videoUri
         views
+      }
+      updatedAt
+    }
+  }
+`;
+export const onCreateSupport = /* GraphQL */ `
+  subscription OnCreateSupport {
+    onCreateSupport {
+      createdAt
+      id
+      query
+      message
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSupport = /* GraphQL */ `
+  subscription OnUpdateSupport {
+    onUpdateSupport {
+      createdAt
+      id
+      query
+      message
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSupport = /* GraphQL */ `
+  subscription OnDeleteSupport {
+    onDeleteSupport {
+      createdAt
+      id
+      query
+      message
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
       }
       updatedAt
     }

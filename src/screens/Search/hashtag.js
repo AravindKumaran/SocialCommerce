@@ -54,6 +54,7 @@ const HashTag = () => {
         const allItems = response.data.listPostHashTags.items;
         //console.log(allItems);
 
+        //To remove hashtag data 
         var hashtagResult = [];
         allItems.reduce(function(res, value) {
           //console.log('res',res)
@@ -74,8 +75,8 @@ const HashTag = () => {
         // // );
         // Sort Items
         hashtagResult = hashtagResult
-          .filter((item) => item.likes>0)
-          .sort((a, b) => b.likes.length - a.likes.length);
+          //.filter((item) => item.likes)
+          .sort((a, b) => b.likes - a.likes);
 
         console.log('sortedItems', hashtagResult)
 

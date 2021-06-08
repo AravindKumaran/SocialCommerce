@@ -236,6 +236,9 @@ export const createUser = /* GraphQL */ `
       updatedAt
       username
       youtube
+      supports {
+        nextToken
+      }
     }
   }
 `;
@@ -563,6 +566,9 @@ export const deleteUser = /* GraphQL */ `
       updatedAt
       username
       youtube
+      supports {
+        nextToken
+      }
     }
   }
 `;
@@ -890,6 +896,9 @@ export const updateUser = /* GraphQL */ `
       updatedAt
       username
       youtube
+      supports {
+        nextToken
+      }
     }
   }
 `;
@@ -1118,6 +1127,90 @@ export const deletePostHashTag = /* GraphQL */ `
         userID
         videoUri
         views
+      }
+      updatedAt
+    }
+  }
+`;
+export const createSupport = /* GraphQL */ `
+  mutation CreateSupport(
+    $input: CreateSupportInput!
+    $condition: ModelSupportConditionInput
+  ) {
+    createSupport(input: $input, condition: $condition) {
+      createdAt
+      id
+      query
+      message
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      updatedAt
+    }
+  }
+`;
+export const updateSupport = /* GraphQL */ `
+  mutation UpdateSupport(
+    $input: UpdateSupportInput!
+    $condition: ModelSupportConditionInput
+  ) {
+    updateSupport(input: $input, condition: $condition) {
+      createdAt
+      id
+      query
+      message
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      updatedAt
+    }
+  }
+`;
+export const deleteSupport = /* GraphQL */ `
+  mutation DeleteSupport(
+    $input: DeleteSupportInput!
+    $condition: ModelSupportConditionInput
+  ) {
+    deleteSupport(input: $input, condition: $condition) {
+      createdAt
+      id
+      query
+      message
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
       }
       updatedAt
     }

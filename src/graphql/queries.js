@@ -221,6 +221,9 @@ export const getUser = /* GraphQL */ `
       updatedAt
       username
       youtube
+      supports {
+        nextToken
+      }
     }
   }
 `;
@@ -622,6 +625,50 @@ export const listPostHashTags = /* GraphQL */ `
           videoUri
           views
         }
+      }
+      nextToken
+    }
+  }
+`;
+export const getSupport = /* GraphQL */ `
+  query GetSupport($id: ID!) {
+    getSupport(id: $id) {
+      createdAt
+      id
+      query
+      message
+      userID
+      user {
+        bio
+        createdAt
+        facebook
+        id
+        imageUri
+        instagram
+        languages
+        name
+        updatedAt
+        username
+        youtube
+      }
+      updatedAt
+    }
+  }
+`;
+export const listSupports = /* GraphQL */ `
+  query ListSupports(
+    $filter: ModelSupportFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSupports(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        createdAt
+        id
+        query
+        message
+        userID
+        updatedAt
       }
       nextToken
     }
