@@ -504,7 +504,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                           bottom: 85,
                         },
                       }}>
-                      <Settings />
+                      <Settings user={user} />
                     </RBSheet>
                   </>
                 )}
