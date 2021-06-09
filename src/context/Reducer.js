@@ -1,5 +1,6 @@
 const Reducer = (state, action) => {
     switch (action.type) {
+        //background upload video
         case 'uploadStarted':
             return {
                 ...state,
@@ -15,6 +16,14 @@ const Reducer = (state, action) => {
                 ...state,
                 uploadError: action.payload
             };
+        
+        //Global mute while routing
+        case 'globalMuted':
+            return {
+                ...state,
+                globalMuted: action.payload
+            };
+            
         default:
             return state;
     }

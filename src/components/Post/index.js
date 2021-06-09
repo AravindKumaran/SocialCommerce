@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useContext} from 'react';
 import {
   View,
   TouchableWithoutFeedback,
@@ -36,8 +36,11 @@ import * as Animatable from 'react-native-animatable';
 import LottieView from 'lottie-react-native';
 import Share from 'react-native-share';
 import LinearGradient from 'react-native-linear-gradient';
+import {Context} from '../../context/Store';
+
 
 const Post = (props) => {
+  const [mute_state, mute_dispatch] = useContext(Context);
   //console.log('props.post.user', props.post.user)
   //console.log('Props', props?.post?.user?.followers);
   const [post, setPost] = useState(props.post);
@@ -52,7 +55,7 @@ const Post = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [paused, setPaused] = useState(false);
-  const [muted, setMuted] = useState(false);
+  const [muted, setMuted] = useState(mute_state.globalMuted);
   const [videoUri, setVideoUri] = useState('');
 
   const [currentTime, setCurrentTime] = useState(0);
@@ -66,6 +69,7 @@ const Post = (props) => {
   const [message1] = useState('Coming Soon!');
 
   const [isFollow, setIsFollow] = useState(false);
+
 
   const fadeIn = {
     from: {
@@ -404,7 +408,7 @@ const Post = (props) => {
   };
 
   const handleClick = () => {
-    // console.log('Propsd', props?.muteAll);
+     console.log('Propsd', props?.muteAll);
     showPauseRef.current = null;
     if (showRef.current) {
       clearTimeout(showRef.current);
@@ -415,6 +419,8 @@ const Post = (props) => {
     } else {
       // console.log('TGH');
       setMuted(!muted);
+      //set mute globally
+      mute_dispatch({type: 'globalMuted', payload: true})
     }
     setShowMutedIcon(true);
     showRef.current = setTimeout(() => {
