@@ -515,7 +515,7 @@ const Post = (props) => {
               }
               posterResizeMode="cover"
               resizeMode={'cover'}
-              repeat={props.currentIndex === 0}
+              repeat={true}
               paused={paused}
               // muted={muted}
               muted={props?.muteAll || muted}

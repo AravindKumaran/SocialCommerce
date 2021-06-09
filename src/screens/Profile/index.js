@@ -555,7 +555,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                 </View>
 
                 <View style={{alignItems: 'center'}}>
-                  <View style={{position: 'absolute', zIndex: 1}}>
+                  <View style={{position: 'absolute', zIndex: 1, top: -10}}>
                     <Text
                       style={{
                         color: '#FFFFFF',
