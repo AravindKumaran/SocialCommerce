@@ -23,7 +23,8 @@ const {RNVideoEditorSDK} = NativeModules;
 import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import styles from './styles';
-import {createPost} from '../../graphql/mutations';
+import {createPost, createHashTag, createPostHashTag} from '../../graphql/mutations';
+import {listHashTags} from '../../graphql/queries';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
 import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomSheet';
@@ -147,7 +148,7 @@ const CreatePost = () => {
     // Upload.getFileInfo(fileDetails.videoPath).then(metadata => {
 
     //   const uploadVideoOpts = {
-    //     url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
+    //     url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/',
     //     path: fileDetails.videoPath,
     //     method: 'POST',
     //     type: 'multipart',
@@ -192,7 +193,7 @@ const CreatePost = () => {
     //     //for thumbnail upload
     //     Upload.getFileInfo(fileDetails.thumbnailPath).then(metadata => {
     //       const uploadThumbnailOpts = {
-    //         url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
+    //         url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/',
     //         path: fileDetails.thumbnailPath,
     //         method: 'POST',
     //         type: 'multipart',
