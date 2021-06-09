@@ -115,98 +115,103 @@ const ProfileScreen = ({navigation, route, postUser}) => {
 
       console.log('UserInformation', userInfo.attributes);
 
-      const userRes = await API.graphql(
-        graphqlOperation(getUser, {
-          id: userInfo?.attributes?.email,
-          limit: 2,
-        }),
-      );
-
-      console.log('UserRes', userRes);
-      //console.log('UserRews', userRes.data.getUser.posts.items.length);
-
-      // console.log('USer', userRes.data.listUsers.items.length);
-
-      //If the User is created from cognito ui but not stored in db
-      if (!userRes?.data?.getUser || !userRes) {
-        let identity, provider;
-
-        if (userInfo.attributes?.identities) {
-          identity = JSON.parse(userInfo.attributes?.identities);
-          provider = identity[0].providerName;
-        }
-
-        let uri;
-        if (userInfo.attributes?.picture) {
-          if (provider === 'Facebook') {
-            uri = `https://graph.facebook.com/${identity[0].userId}/picture?height=300`;
-          } else if (provider === 'Google') {
-            let s = userInfo.attributes.picture;
-            uri = s.replace('s96-c', 's250-c');
-          }
-        } else {
-          uri = getRandomImage();
-        }
-
-        let profileName;
-        if (userInfo.attributes?.name) {
-          const nm = userInfo.attributes?.name.split(' ');
-          if (nm.length > 0) {
-            profileName = nm[0] + ' ' + nm[nm.length - 1];
-          } else {
-            profileName = nm[0];
-          }
-        }
-        const newUser = {
-          id: userInfo.attributes.email,
-          username: userInfo.attributes.email.split('@')[0],
-          name: profileName || '',
-          imageUri: uri,
-        };
-        const res = await API.graphql(
-          graphqlOperation(createUser, {input: newUser}),
+      if(userInfo.attributes){
+        const userRes = await API.graphql(
+          graphqlOperation(getUser, {
+            id: userInfo?.attributes?.email,
+            limit: 2,
+          }),
         );
+  
+        console.log('UserRes', userRes);    
 
-        setUser(res?.data?.createUser);
-        await AsyncStorage.setItem('userImg', uri);
-        c.setOptions({
-          tabBarIcon: ({focused, tintColor}) => (
-            <>
-              <Image
-                // source={require('../assets/images/Profile_icon.png')}
-                source={{
-                  uri: res?.data?.createUser.imageUri.startsWith('https')
-                    ? res?.data?.createUser.imageUri
-                    : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
-                }}
-                size={25}
-                style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
-              />
-              {focused && <ActiveStyle />}
-            </>
-          ),
-        });
-      } else {
-        setUser(userRes?.data?.getUser);
-        await AsyncStorage.setItem('userImg', userRes.data?.getUser?.imageUri);
-        // getTabBarIcon(isFocused, userRes.data?.getUser?.imageUri);
-        c.setOptions({
-          tabBarIcon: ({focused, tintColor}) => (
-            <>
-              <Image
-                // source={require('../assets/images/Profile_icon.png')}
-                source={{
-                  uri: userRes.data?.getUser?.imageUri.startsWith('https')
-                    ? userRes.data?.getUser?.imageUri
-                    : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
-                }}
-                size={25}
-                style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
-              />
-              {focused && <ActiveStyle />}
-            </>
-          ),
-        });
+        //console.log('UserRews', userRes.data.getUser.posts.items.length);
+
+        // console.log('USer', userRes.data.listUsers.items.length);
+
+        //If the User is created from cognito ui but not stored in db
+        if (!userRes?.data?.getUser || !userRes) {
+          let identity, provider;
+
+          if (userInfo.attributes?.identities) {
+            identity = JSON.parse(userInfo.attributes?.identities);
+            provider = identity[0].providerName;
+          }
+
+          let uri;
+          if (userInfo.attributes?.picture) {
+            if (provider === 'Facebook') {
+              uri = `https://graph.facebook.com/${identity[0].userId}/picture?height=300`;
+            } else if (provider === 'Google') {
+              let s = userInfo.attributes.picture;
+              uri = s.replace('s96-c', 's250-c');
+            }
+          } else {
+            uri = getRandomImage();
+          }
+
+          let profileName;
+          if (userInfo.attributes?.name) {
+            const nm = userInfo.attributes?.name.split(' ');
+            if (nm.length > 0) {
+              profileName = nm[0] + ' ' + nm[nm.length - 1];
+            } else {
+              profileName = nm[0];
+            }
+          }
+          const newUser = {
+            id: userInfo.attributes.email,
+            username: userInfo.attributes.email.split('@')[0],
+            name: profileName || '',
+            imageUri: uri,
+          };
+          console.log('new user', newUser);
+          const res = await API.graphql(
+            graphqlOperation(createUser, {input: newUser}),
+          );
+          console.log('res?.data?.createUser', res?.data?.createUser);
+          setUser(res?.data?.createUser);
+          await AsyncStorage.setItem('userImg', uri);
+          c.setOptions({
+            tabBarIcon: ({focused, tintColor}) => (
+              <>
+                <Image
+                  // source={require('../assets/images/Profile_icon.png')}
+                  source={{
+                    uri: res?.data?.createUser.imageUri.startsWith('https')
+                      ? res?.data?.createUser.imageUri
+                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
+                  }}
+                  size={25}
+                  style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
+                />
+                {focused && <ActiveStyle />}
+              </>
+            ),
+          });
+        } else {
+          setUser(userRes?.data?.getUser);
+          await AsyncStorage.setItem('userImg', userRes.data?.getUser?.imageUri);
+          // getTabBarIcon(isFocused, userRes.data?.getUser?.imageUri);
+          c.setOptions({
+            tabBarIcon: ({focused, tintColor}) => (
+              <>
+                <Image
+                  // source={require('../assets/images/Profile_icon.png')}
+                  source={{
+                    uri: userRes.data?.getUser?.imageUri.startsWith('https')
+                      ? userRes.data?.getUser?.imageUri
+                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
+                  }}
+                  size={25}
+                  style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
+                />
+                {focused && <ActiveStyle />}
+              </>
+            ),
+          });
+        }
+
       }
       setLoading(false);
     } catch (error) {
