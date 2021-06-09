@@ -24,13 +24,14 @@ const styles = StyleSheet.create({
     width: 235,
     right: 20,
     color: 'white',
-    paddingBottom: 180
+    paddingBottom: 180,
   },
   button: {
     alignItems: 'center',
     justifyContent: 'center',
     margin: 0,
     height: 100,
+    marginHorizontal: 15,
   },
   buttonText: {
     color: 'white',

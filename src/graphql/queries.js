@@ -10,6 +10,7 @@ export const getComment = /* GraphQL */ `
       post {
         brand
         category
+        languages
         comments {
           nextToken
         }
@@ -95,6 +96,7 @@ export const getPost = /* GraphQL */ `
     getPost(id: $id) {
       brand
       category
+      languages
       comments {
         items {
           createdAt
@@ -205,6 +207,7 @@ export const getUser = /* GraphQL */ `
         items {
           brand
           category
+          languages
           createdAt
           description
           id
@@ -243,6 +246,7 @@ export const getUserNotification = /* GraphQL */ `
       post {
         brand
         category
+        languages
         comments {
           nextToken
         }
@@ -327,6 +331,7 @@ export const listComments = /* GraphQL */ `
         post {
           brand
           category
+          languages
           createdAt
           description
           id
@@ -387,6 +392,7 @@ export const listPosts = /* GraphQL */ `
       items {
         brand
         category
+        languages
         comments {
           nextToken
         }
@@ -468,6 +474,7 @@ export const listUserNotifications = /* GraphQL */ `
         post {
           brand
           category
+          languages
           createdAt
           description
           id
@@ -584,6 +591,7 @@ export const getPostHashTag = /* GraphQL */ `
       post {
         brand
         category
+        languages
         createdAt
         description
         id
@@ -606,7 +614,7 @@ export const listPostHashTags = /* GraphQL */ `
     $nextToken: String
   ) {
     listPostHashTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {        
+      items {
         hashTag {
           id
           name
@@ -614,6 +622,7 @@ export const listPostHashTags = /* GraphQL */ `
         post {
           brand
           category
+          languages
           createdAt
           description
           id

@@ -81,6 +81,7 @@ const ActiveStyle = () => (
 // ];
 
 const ProfileScreen = ({navigation, route, postUser}) => {
+  console.log('postuser', postUser);
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
@@ -270,12 +271,23 @@ const ProfileScreen = ({navigation, route, postUser}) => {
   }, []);
 
   useEffect(() => {
+    console.log('user', user);
+  }, [user]);
+
+  useEffect(() => {
+    console.log('usersss');
     const onOtherUser = async () => {
       if (!postUser) {
         console.log('isfocused useeffect');
         checkUser();
       } else {
-        setUser(postUser);
+        const selectedUserResponse = await API.graphql(
+          graphqlOperation(getUser, {
+            id: postUser.id,
+          }),
+        );
+        console.log('suserres', selectedUserResponse.data.getUser);
+        setUser(selectedUserResponse.data.getUser);
         const value = await AsyncStorage.getItem('userImg');
         if (value) {
           c.setOptions({
@@ -395,7 +407,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                 {!postUser && (
                   <>
                     <TouchableOpacity onPress={() => refRBSheet.current.open()}>
-                      <ImageBackground
+                      {/* <ImageBackground
                         style={{
                           backgroundColor: '#1C1D21',
                           height: 50,
@@ -411,7 +423,11 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                           size={20}
                           style={{alignSelf: 'center'}}
                         />
-                      </ImageBackground>
+                      </ImageBackground> */}
+                      <Image
+                        source={require('../../assets/images/edit_profile.png')}
+                        style={{height: 75, width: 75}}
+                      />
                     </TouchableOpacity>
 
                     <RBSheet
@@ -463,7 +479,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   <>
                     <TouchableOpacity
                       onPress={() => refRBSheet4.current.open()}>
-                      <ImageBackground
+                      {/* <ImageBackground
                         style={{
                           backgroundColor: '#1C1D21',
                           height: 50,
@@ -479,7 +495,11 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                           name={'settings'}
                           size={20}
                         />
-                      </ImageBackground>
+                      </ImageBackground> */}
+                      <Image
+                        source={require('../../assets/images/settings.png')}
+                        style={{height: 75, width: 75}}
+                      />
                     </TouchableOpacity>
 
                     <RBSheet
