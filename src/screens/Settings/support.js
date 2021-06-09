@@ -1,65 +1,83 @@
-import React, {useEffect, useRef, useState, useCallback} from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  ActivityIndicator,
-  StyleSheet,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, TextInput, StyleSheet, ToastAndroid} from 'react-native';
 import AppButton from '../../components/Common/AppButton';
+import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
+import {createSupport} from '../../graphql/mutations';
 // import Mailer from 'react-native-mail';
 
-const Support = ({user, saveUser, closeSheet}) => {
-  console.log('user', user);
-  console.log('Userss', user?.id);
+const Support = ({user}) => {
   const [query, setQuery] = useState(user?.query || '');
   const [message, setMessage] = useState(user?.message || '');
 
-  const handleEmail = () => {
-    Mailer.mail(
-      {
-        subject: 'Livebox Support',
-        recipients: ['liveboxtechnologies@gmail.com'],
-        // ccRecipients: ['supportCC@example.com'],
-        // bccRecipients: ['supportBCC@example.com'],
-        // body: '<b></b>',
-        // customChooserTitle: 'This is my new title', // Android only (defaults to "Send Mail")
-        isHTML: true,
-        // attachments: [
-        //   {
-        //     // Specify either `path` or `uri` to indicate where to find the file data.
-        //     // The API used to create or locate the file will usually indicate which it returns.
-        //     // An absolute path will look like: /cacheDir/photos/some image.jpg
-        //     // A URI starts with a protocol and looks like: content://appname/cacheDir/photos/some%20image.jpg
-        //     path: '', // The absolute path of the file from which to read data.
-        //     uri: '', // The uri of the file from which to read the data.
-        //     // Specify either `type` or `mimeType` to indicate the type of data.
-        //     type: '', // Mime Type: jpg, png, doc, ppt, html, pdf, csv
-        //     mimeType: '', // - use only if you want to use custom type
-        //     name: '', // Optional: Custom filename for attachment
-        //   },
-        // ],
-      },
-      (error, event) => {
-        Alert.alert(
-          error,
-          event,
-          [
-            {
-              text: 'Ok',
-              onPress: () => console.log('OK: Email Error Response'),
-            },
-            {
-              text: 'Cancel',
-              onPress: () => console.log('CANCEL: Email Error Response'),
-            },
-          ],
-          {cancelable: true},
-        );
-      },
-    );
+  const [message1] = useState('Please provide all details');
+  const [message2] = useState('Your message have been submitted successfully');
+
+  const Send = async () => {
+    console.log('Support', query, message);
+    if (!query || !message) {
+      ToastAndroid.show(message1, ToastAndroid.SHORT);
+      return;
+    }
+    try {
+      const newSupport = {
+        userID: user.id,
+        query: query,
+        message: message,
+      };
+      const posRes = await API.graphql(
+        graphqlOperation(createSupport, {input: newSupport}),
+      );
+      console.log('posRes', posRes);
+      ToastAndroid.show(message2, ToastAndroid.SHORT);
+    } catch (e) {
+      console.error(e);
+    }
   };
+
+  // const handleEmail = () => {
+  //   Mailer.mail(
+  //     {
+  //       subject: 'Livebox Support',
+  //       recipients: ['liveboxtechnologies@gmail.com'],
+  //       // ccRecipients: ['supportCC@example.com'],
+  //       // bccRecipients: ['supportBCC@example.com'],
+  //       // body: '<b></b>',
+  //       // customChooserTitle: 'This is my new title', // Android only (defaults to "Send Mail")
+  //       isHTML: true,
+  //       // attachments: [
+  //       //   {
+  //       //     // Specify either `path` or `uri` to indicate where to find the file data.
+  //       //     // The API used to create or locate the file will usually indicate which it returns.
+  //       //     // An absolute path will look like: /cacheDir/photos/some image.jpg
+  //       //     // A URI starts with a protocol and looks like: content://appname/cacheDir/photos/some%20image.jpg
+  //       //     path: '', // The absolute path of the file from which to read data.
+  //       //     uri: '', // The uri of the file from which to read the data.
+  //       //     // Specify either `type` or `mimeType` to indicate the type of data.
+  //       //     type: '', // Mime Type: jpg, png, doc, ppt, html, pdf, csv
+  //       //     mimeType: '', // - use only if you want to use custom type
+  //       //     name: '', // Optional: Custom filename for attachment
+  //       //   },
+  //       // ],
+  //     },
+  //     (error, event) => {
+  //       Alert.alert(
+  //         error,
+  //         event,
+  //         [
+  //           {
+  //             text: 'Ok',
+  //             onPress: () => console.log('OK: Email Error Response'),
+  //           },
+  //           {
+  //             text: 'Cancel',
+  //             onPress: () => console.log('CANCEL: Email Error Response'),
+  //           },
+  //         ],
+  //         {cancelable: true},
+  //       );
+  //     },
+  //   );
+  // };
 
   return (
     <View style={styles.container}>
@@ -104,7 +122,7 @@ const Support = ({user, saveUser, closeSheet}) => {
         </View>
       </View>
       <View style={{alignItems: 'center', paddingTop: 0, margin: 20}}>
-        <AppButton onPress={handleEmail} title="Submit" />
+        <AppButton onPress={Send} title="Submit" />
       </View>
     </View>
   );

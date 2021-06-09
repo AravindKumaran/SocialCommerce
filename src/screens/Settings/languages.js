@@ -13,7 +13,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {useNavigation} from '@react-navigation/native';
 import {ImageBackground} from 'react-native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import { c } from '../../navigation/homeBottomTabNavigator';
+import {c} from '../../navigation/homeBottomTabNavigator';
 import {updateUser} from '../../graphql/mutations';
 
 const languagesList = [
@@ -76,25 +76,21 @@ const languagesList = [
 ];
 
 const Languages = ({languages, user}) => {
-
-  const [selLanguages, setSelLanguages] = useState([])
+  const [selLanguages, setSelLanguages] = useState([]);
 
   useEffect(() => {
-    console.log(languages)
+    console.log(languages);
     setSelLanguages([...languages]);
-
   }, [languages]);
 
   const selectLanguage = async (l) => {
-   try{     
-
+    try {
       let langArray = languages;
 
       let checkLanguage = langArray.findIndex((lang) => l === lang);
       console.log(checkLanguage);
 
-      if(checkLanguage==-1){
-        
+      if (checkLanguage == -1) {
         console.log(langArray);
         langArray.push(l);
         setSelLanguages([...langArray]);
@@ -103,13 +99,12 @@ const Languages = ({languages, user}) => {
           graphqlOperation(updateUser, {
             input: {
               id: user.id,
-              languages: langArray
-            }
+              languages: langArray,
+            },
           }),
         );
-      }
-      else{
-        console.log('before splice',langArray);
+      } else {
+        console.log('before splice', langArray);
         langArray.splice(langArray.indexOf(l), 1);
         console.log('after splice', langArray);
 
@@ -119,16 +114,15 @@ const Languages = ({languages, user}) => {
           graphqlOperation(updateUser, {
             input: {
               id: user.id,
-              languages: langArray
-            }
+              languages: langArray,
+            },
           }),
         );
-      } 
-      
-    }catch (error) {
+      }
+    } catch (error) {
       console.log('Lang select Error', error);
     }
-  }
+  };
 
   const navigation = useNavigation();
 
@@ -167,7 +161,13 @@ const Languages = ({languages, user}) => {
                     <Text
                       style={[
                         styles.text2,
-                        {color: selLanguages.findIndex((l) => c.language === l) !== -1 ? '#21FFFC' : '#FFFFFF'},
+                        {
+                          color:
+                            selLanguages.findIndex((l) => c.language === l) !==
+                            -1
+                              ? '#21FFFC'
+                              : '#FFFFFF',
+                        },
                       ]}>
                       {c.letter}
                     </Text>
@@ -175,7 +175,12 @@ const Languages = ({languages, user}) => {
                   <Text
                     style={[
                       styles.text3,
-                      {color: selLanguages.findIndex((l) => c.language === l) !== -1 ? '#21FFFC' : '#FFFFFF'},
+                      {
+                        color:
+                          selLanguages.findIndex((l) => c.language === l) !== -1
+                            ? '#21FFFC'
+                            : '#FFFFFF',
+                      },
                     ]}>
                     {c.language}
                   </Text>

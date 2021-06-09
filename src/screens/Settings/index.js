@@ -201,7 +201,7 @@ const Settings = (props) => {
                       marginLeft: 30,
                     }}>
                     <TouchableOpacity
-                      onPress={() => handleCategory(c.name)}                      
+                      onPress={() => handleCategory(c.name)}
                       style={styles.catItem}>
                       <Text>
                         <Image
@@ -228,13 +228,15 @@ const Settings = (props) => {
           </View>
         </ScrollView>
 
-        {settings === 'Languages' && <Languages languages={user.languages} user={user} />}
+        {settings === 'Languages' && (
+          <Languages languages={user.languages} user={user} />
+        )}
         {settings === 'Invite friends via WhatsApp' && <Invite />}
         {settings === 'Notifications' && <Notifications />}
         {settings === 'Account' && <Account />}
         {settings === 'Rate us' && <Rating />}
         {settings === 'Feedback' && <Feedback />}
-        {settings === 'Support' && <Support />}
+        {settings === 'Support' && <Support user={user} />}
         {/* {settings === 'Logout' && <Feedback />} */}
       </ImageBackground>
     </>

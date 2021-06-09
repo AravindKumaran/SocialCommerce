@@ -10,6 +10,7 @@ export const onCreateComment = /* GraphQL */ `
       post {
         brand
         category
+        languages
         comments {
           nextToken
         }
@@ -95,6 +96,7 @@ export const onCreatePost = /* GraphQL */ `
     onCreatePost {
       brand
       category
+      languages
       comments {
         items {
           createdAt
@@ -205,6 +207,7 @@ export const onCreateUser = /* GraphQL */ `
         items {
           brand
           category
+          languages
           createdAt
           description
           id
@@ -243,6 +246,7 @@ export const onCreateUserNotification = /* GraphQL */ `
       post {
         brand
         category
+        languages
         comments {
           nextToken
         }
@@ -322,6 +326,7 @@ export const onDeleteComment = /* GraphQL */ `
       post {
         brand
         category
+        languages
         comments {
           nextToken
         }
@@ -407,6 +412,7 @@ export const onDeletePost = /* GraphQL */ `
     onDeletePost {
       brand
       category
+      languages
       comments {
         items {
           createdAt
@@ -517,6 +523,7 @@ export const onDeleteUser = /* GraphQL */ `
         items {
           brand
           category
+          languages
           createdAt
           description
           id
@@ -555,6 +562,7 @@ export const onDeleteUserNotification = /* GraphQL */ `
       post {
         brand
         category
+        languages
         comments {
           nextToken
         }
@@ -634,6 +642,7 @@ export const onUpdateComment = /* GraphQL */ `
       post {
         brand
         category
+        languages
         comments {
           nextToken
         }
@@ -719,6 +728,7 @@ export const onUpdatePost = /* GraphQL */ `
     onUpdatePost {
       brand
       category
+      languages
       comments {
         items {
           createdAt
@@ -829,6 +839,7 @@ export const onUpdateUser = /* GraphQL */ `
         items {
           brand
           category
+          languages
           createdAt
           description
           id
@@ -867,6 +878,7 @@ export const onUpdateUserNotification = /* GraphQL */ `
       post {
         brand
         category
+        languages
         comments {
           nextToken
         }
@@ -983,6 +995,7 @@ export const onCreatePostHashTag = /* GraphQL */ `
       post {
         brand
         category
+        languages
         createdAt
         description
         id
@@ -1014,6 +1027,7 @@ export const onUpdatePostHashTag = /* GraphQL */ `
       post {
         brand
         category
+        languages
         createdAt
         description
         id
@@ -1045,6 +1059,7 @@ export const onDeletePostHashTag = /* GraphQL */ `
       post {
         brand
         category
+        languages
         createdAt
         description
         id

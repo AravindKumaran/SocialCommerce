@@ -1,7 +1,6 @@
 package com.livebox;
 
 
-import com.github.droibit.android.reactnative.customtabs.CustomTabsPackage;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
@@ -33,7 +32,6 @@ public class MainApplication extends androidx.multidex.MultiDexApplication imple
           List<ReactPackage> packages = new PackageList(this).getPackages();
 
           // new WebViewBridgePackage();
-          new CustomTabsPackage();
           packages.add(new LottiePackage());
           new RNMail();
           // Packages that cannot be autolinked yet can be added manually here, for example:

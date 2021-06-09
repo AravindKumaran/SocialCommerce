@@ -701,13 +701,13 @@ const Post = (props) => {
                     }}></ImageBackground>
                   <Image
                     style={{
-                      height: 30,
+                      height: 25,
                       width: 25,
                       alignSelf: 'center',
                       right: 40,
                       bottom: 67.5,
                     }}
-                    source={require('../../assets/images/Cl7.png')}
+                    source={require('../../assets/images/shop-bag.png')}
                   />
                   {/* ) : (
                     <ImageBackground
@@ -726,7 +726,7 @@ const Post = (props) => {
                       alignSelf: 'center',
                       right: 35,
                     }}
-                    source={require('../../assets/images/Cl6.png')}
+                    source={require('../../assets/images/shop-bag-selected.png')}
                   />
                   )} */}
                   {/* {isTouched && <Product />} */}
@@ -786,7 +786,7 @@ const Post = (props) => {
                       right: 10,
                       bottom: 37.5,
                     }}
-                    source={require('../../assets/images/Cl5.png')}
+                    source={require('../../assets/images/comments.png')}
                   />
                   <View
                     style={{
