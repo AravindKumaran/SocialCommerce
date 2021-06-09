@@ -39,7 +39,7 @@ const hashTags = [
 ];
 
 const HashTag = () => {
-  const [hashTags, setHashTags] = useState(null)
+  const [hashTags, setHashTags] = useState(null);
   const [isLoader, setLoader] = useState(false);
 
   useEffect(() => {
@@ -47,25 +47,28 @@ const HashTag = () => {
       try {
         setLoader(true);
         const response = await API.graphql(
-          graphqlOperation(listPostHashTags, {
-            
-          }),
+          graphqlOperation(listPostHashTags, {}),
         );
         const allItems = response.data.listPostHashTags.items;
         //console.log(allItems);
 
-        //To remove hashtag data 
+        //To remove hashtag data
         var hashtagResult = [];
-        allItems.reduce(function(res, value) {
+        allItems.reduce(function (res, value) {
           //console.log('res',res)
           //console.log('value',value)
 
-           if (!res[value.hashTag.name]) {
-            res[value.hashTag.name] = { id:value.hashTag.id, name: value.hashTag.name, likes: 0 };
-            hashtagResult.push(res[value.hashTag.name])
+          if (!res[value.hashTag.name]) {
+            res[value.hashTag.name] = {
+              id: value.hashTag.id,
+              name: value.hashTag.name,
+              likes: 0,
+            };
+            hashtagResult.push(res[value.hashTag.name]);
           }
-          res[value.hashTag.name].likes += (value.post.likes!=null) ? value.post.likes.length : 0 ;
-           return res;
+          res[value.hashTag.name].likes +=
+            value.post.likes != null ? value.post.likes.length : 0;
+          return res;
         }, {});
 
         //console.log(hashtagResult)
@@ -78,7 +81,7 @@ const HashTag = () => {
           //.filter((item) => item.likes)
           .sort((a, b) => b.likes - a.likes);
 
-        console.log('sortedItems', hashtagResult)
+        console.log('sortedItems', hashtagResult);
 
         setHashTags(hashtagResult);
         setLoader(false);
@@ -98,15 +101,13 @@ const HashTag = () => {
     };
 
     fetchHashTags();
-  },[]);
+  }, []);
 
   return (
-    
     <View style={styles.container}>
       {isLoader ? (
-          <ActivityIndicator size={'large'} animating color="white" />
-        ) : null
-      }
+        <ActivityIndicator size={'large'} animating color="white" />
+      ) : null}
       {hashTags &&
         hashTags.map((h, i) => (
           <View key={`${h.name}-${i}`}>
@@ -116,7 +117,7 @@ const HashTag = () => {
 
             <HashTagVideoList hashTagId={h.id} hashTagName={h.name} />
           </View>
-      ))}
+        ))}
     </View>
   );
 };
@@ -125,6 +126,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginLeft: 10,
+    marginBottom: 80,
   },
   hashTag: {
     color: '#FFFFFF',

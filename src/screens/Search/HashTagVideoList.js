@@ -19,7 +19,7 @@ const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
 function HashTagVideoList({hashTagId, hashTagName}) {
-  console.log(hashTagId)
+  console.log(hashTagId);
   const [uris, setUris] = useState([]);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(12);
@@ -35,21 +35,24 @@ function HashTagVideoList({hashTagId, hashTagName}) {
                 eq: hashTagId,
               },
             },
-            limit: curLimit
+            limit: curLimit,
           }),
         );
         const allItems = response.data.listPostHashTags.items;
-        console.log('HashTagVideoList',allItems);
+        console.log('HashTagVideoList', allItems);
 
         const keys_to_keep = ['post'];
 
         //to remove hashtag in all items
-        const redux = array => array.map(o => keys_to_keep.reduce((acc, curr) => {
-          acc[curr] = o[curr];
-          return acc.post;
-        }, {}));
-        
-        const sortedItems=redux(allItems);
+        const redux = (array) =>
+          array.map((o) =>
+            keys_to_keep.reduce((acc, curr) => {
+              acc[curr] = o[curr];
+              return acc.post;
+            }, {}),
+          );
+
+        const sortedItems = redux(allItems);
 
         setUris(sortedItems);
 
