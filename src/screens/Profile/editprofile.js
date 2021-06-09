@@ -38,7 +38,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   const [userImageUri, setUserImageUri] = useState(
     user.imageUri.startsWith('https')
       ? user.imageUri
-      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
+      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
   );
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
@@ -141,9 +141,9 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
 
       if (imgKey !== user.imageUri) {
         setUserImageUri(
-          `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${imgKey}`,
+          `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${imgKey}`,
         );
-        user.imageUri = `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${imgKey}`;
+        user.imageUri = `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${imgKey}`;
       }
 
       user.bio = bio;

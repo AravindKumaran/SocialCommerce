@@ -147,7 +147,7 @@ const CreatePost = () => {
     // Upload.getFileInfo(fileDetails.videoPath).then(metadata => {
 
     //   const uploadVideoOpts = {
-    //     url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/',
+    //     url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
     //     path: fileDetails.videoPath,
     //     method: 'POST',
     //     type: 'multipart',
@@ -192,7 +192,7 @@ const CreatePost = () => {
     //     //for thumbnail upload
     //     Upload.getFileInfo(fileDetails.thumbnailPath).then(metadata => {
     //       const uploadThumbnailOpts = {
-    //         url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/',
+    //         url: 'https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/',
     //         path: fileDetails.thumbnailPath,
     //         method: 'POST',
     //         type: 'multipart',
