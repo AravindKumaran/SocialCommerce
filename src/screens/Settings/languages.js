@@ -15,6 +15,7 @@ import {ImageBackground} from 'react-native';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {c} from '../../navigation/homeBottomTabNavigator';
 import {updateUser} from '../../graphql/mutations';
+import {getUser} from '../../graphql/queries';
 
 const languagesList = [
   {
@@ -76,16 +77,38 @@ const languagesList = [
 ];
 
 const Languages = ({languages, user}) => {
-  const [selLanguages, setSelLanguages] = useState([]);
+  console.log('languages', languages)
+  const [selLanguages, setSelLanguages] = useState(languages?languages:[]);
 
-  useEffect(() => {
-    console.log(languages);
-    setSelLanguages([...languages]);
-  }, [languages]);
+  useEffect(async () => {
+     console.log('useeff');
+    console.log(user.id);
+    const response = await API.graphql(
+      graphqlOperation(getUser, {
+        id: user.id,
+      }),
+    );
+
+    console.log('res',response.data.getUser.languages);
+
+    let lang = response?.data?.getUser?.languages
+    if(lang){
+      setSelLanguages([...lang])
+    }else{
+      setSelLanguages([])
+    }
+
+    // if(languages){
+    //   setSelLanguages([...lang])
+    // }else{
+    //   setSelLanguages([])
+    // }
+
+  }, []);
 
   const selectLanguage = async (l) => {
     try {
-      let langArray = languages;
+      let langArray = selLanguages;
 
       let checkLanguage = langArray.findIndex((lang) => l === lang);
       console.log(checkLanguage);
