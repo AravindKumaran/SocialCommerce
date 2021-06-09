@@ -82,10 +82,10 @@ const ActiveStyle = () => (
 
 const ProfileScreen = ({navigation, route, postUser}) => {
   console.log('postuser', postUser);
-  const refRBSheet = useRef();
-  const refRBSheet1 = useRef();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const refRBSheet = useRef();
+  const refRBSheet1 = useRef();
   const refRBSheet2 = useRef();
   const refRBSheet3 = useRef();
   const refRBSheet4 = useRef();
@@ -94,6 +94,14 @@ const ProfileScreen = ({navigation, route, postUser}) => {
 
   function closeSheets() {
     refRBSheet.current.close();
+  }
+
+  function closeSheets1() {
+    refRBSheet1.current.close();
+  }
+
+  function closeSheets2() {
+    refRBSheet2.current.close();
   }
 
   const checkUser = async () => {
@@ -645,6 +653,8 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                       <Followers
                         data={user.followers}
                         followingData={user.following}
+                        followerCloseSheet={closeSheets1}
+                        user={user}
                       />
                     </RBSheet>
 
@@ -698,6 +708,8 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                       <Following
                         data={user.following}
                         followerData={user.followers}
+                        followingCloseSheet={closeSheets2}
+                        user={user}
                       />
                     </RBSheet>
 

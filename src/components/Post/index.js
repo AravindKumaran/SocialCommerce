@@ -38,7 +38,6 @@ import Share from 'react-native-share';
 import LinearGradient from 'react-native-linear-gradient';
 import {Context} from '../../context/Store';
 
-
 const Post = (props) => {
   const [mute_state, mute_dispatch] = useContext(Context);
   //console.log('props.post.user', props.post.user)
@@ -69,7 +68,6 @@ const Post = (props) => {
   const [message1] = useState('Coming Soon!');
 
   const [isFollow, setIsFollow] = useState(false);
-
 
   const fadeIn = {
     from: {
@@ -408,7 +406,7 @@ const Post = (props) => {
   };
 
   const handleClick = () => {
-     console.log('Propsd', props?.muteAll);
+    console.log('Propsd', props?.muteAll);
     showPauseRef.current = null;
     if (showRef.current) {
       clearTimeout(showRef.current);
@@ -420,7 +418,7 @@ const Post = (props) => {
       // console.log('TGH');
       setMuted(!muted);
       //set mute globally
-      mute_dispatch({type: 'globalMuted', payload: true})
+      mute_dispatch({type: 'globalMuted', payload: true});
     }
     setShowMutedIcon(true);
     showRef.current = setTimeout(() => {
@@ -701,10 +699,10 @@ const Post = (props) => {
                     }}></ImageBackground>
                   <Image
                     style={{
-                      height: 25,
-                      width: 25,
+                      height: 30,
+                      width: 30,
                       alignSelf: 'center',
-                      right: 40,
+                      right: 42.5,
                       bottom: 67.5,
                     }}
                     source={require('../../assets/images/shop-bag.png')}
@@ -712,19 +710,20 @@ const Post = (props) => {
                   {/* ) : (
                     <ImageBackground
                     style={{
-                      backgroundColor: '#363E45',
-                      height: 50,
-                      width: 50,
+                        backgroundColor: '#363E45',
+                      height: 55,
+                      width: 55,
                       borderRadius: 50,
                       opacity: 0.3,
                       justifyContent: 'center',
                     }}></ImageBackground>
                   <Image
                     style={{
-                      height: 25,
-                      width: 20,
+                    height: 30,
+                      width: 30,
                       alignSelf: 'center',
-                      right: 35,
+                      right: 42.5,
+                      bottom: 67.5,
                     }}
                     source={require('../../assets/images/shop-bag-selected.png')}
                   />
@@ -753,7 +752,7 @@ const Post = (props) => {
               <TouchableOpacity
                 style={{
                   position: 'absolute',
-                  right: 20,
+                  right: 15,
                   bottom: 0,
                   top: 170,
                   zIndex: 1,
@@ -780,10 +779,10 @@ const Post = (props) => {
 
                   <Image
                     style={{
-                      height: 25,
-                      width: 25,
+                      height: 30,
+                      width: 30,
                       alignSelf: 'center',
-                      right: 10,
+                      right: 12.5,
                       bottom: 37.5,
                     }}
                     source={require('../../assets/images/comments.png')}
@@ -791,19 +790,19 @@ const Post = (props) => {
                   <View
                     style={{
                       backgroundColor: '#69FA89',
-                      height: 17.5,
-                      width: 30,
+                      height: 12.5,
+                      width: 35,
                       borderRadius: 10,
-                      top: 42.5,
-                      right: 37.5,
+                      top: 45,
+                      right: 45,
                       justifyContent: 'center',
                       zIndex: 1,
                     }}>
                     <Text
                       style={{
                         color: '#3E4446',
-                        fontSize: 12,
-                        fontWeight: '400',
+                        fontSize: 10,
+                        fontWeight: '700',
                         textAlign: 'center',
                         alignItems: 'center',
                         alignSelf: 'center',
@@ -909,10 +908,10 @@ const Post = (props) => {
                     }}></ImageBackground>
                   <Image
                     style={{
-                      height: 25,
-                      width: 25,
+                      height: 30,
+                      width: 30,
                       alignSelf: 'center',
-                      right: 40,
+                      right: 42.5,
                     }}
                     source={require('../../assets/images/Cl8.png')}
                   />
@@ -974,7 +973,7 @@ const Post = (props) => {
                       currentPost={post}
                     />
                   </View>
-                  <View style={{flexDirection: 'row', top: 25}}>
+                  <View style={{flexDirection: 'row', top: 22.5}}>
                     <Image
                       source={require('../../assets/images/Dot.png')}
                       size={25}

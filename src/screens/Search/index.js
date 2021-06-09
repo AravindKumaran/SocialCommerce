@@ -1,5 +1,4 @@
 import React, {useEffect, useRef, useState, useCallback} from 'react';
-
 import {
   StyleSheet,
   View,
@@ -11,7 +10,6 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-
 import Searchhbar from '../../screens/Search/searchbar';
 import Brands from '../Search/brands3';
 import Trending from '../Search/trending3';
@@ -20,7 +18,6 @@ import {API, graphqlOperation} from 'aws-amplify';
 import {searchUsersList} from '../../graphql/queries';
 import {listPosts} from '../../graphql/queries';
 import {Header} from 'react-native-elements';
-
 import RBSheet from 'react-native-raw-bottom-sheet';
 import Feather from 'react-native-vector-icons/Feather';
 import Settings from '../Settings';
@@ -126,13 +123,13 @@ const Categories = () => {
   const [loading, setLoading] = useState(false);
   const [brand, setBrand] = useState('');
   const [category, setcategory] = useState('');
-
   const refRBSheet3 = useRef();
 
   const handleActive = (value) => {
     setActive(value);
     setBrand('');
     setSearchedData(null);
+    setcategory('');
   };
 
   const handleBrandSelection = (value) => {

@@ -13,6 +13,7 @@ import {
   FlatList,
   ImageBase,
   TouchableWithoutFeedback,
+  ToastAndroid,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Feather from 'react-native-vector-icons/Feather';
@@ -59,23 +60,27 @@ const ActiveStyle = () => (
   </>
 );
 
-const Followers = ({data, followingData, user, post}) => {
-  console.log('followingdata', followingData);
-  console.log('data', data);
-  console.log('user', user);
+const Followers = ({data, followingData, post, followerCloseSheet, user}) => {
   const [isTouched, setTouched] = useState(true);
   const [isPressed, setPressed] = useState(false);
   const [actualData, setData] = useState(data);
+  console.log('actual', actualData);
 
   const [active, setActive] = useState('followers');
 
   const navigation = useNavigation();
+
+  const [message] = useState('Please login!');
+  const [message1] = useState("You can't follow yourself");
+
+  const [isFollow, setIsFollow] = useState(true);
 
   const handleActive = (value) => {
     setActive(value);
   };
 
   const seeProfile = async (selecteduderID) => {
+    followerCloseSheet();
     console.log('id', selecteduderID);
     const selectedUserResponse = await API.graphql(
       graphqlOperation(getUser, {
@@ -90,10 +95,11 @@ const Followers = ({data, followingData, user, post}) => {
   };
 
   const handleFollow = async (postUser) => {
-    if (post) {
+    console.log('ps', postUser);
+    if (postUser) {
       const selectedUserResponse = await API.graphql(
         graphqlOperation(getUser, {
-          id: post.user.id,
+          id: postUser.userId,
         }),
       );
 
@@ -105,7 +111,7 @@ const Followers = ({data, followingData, user, post}) => {
         if (user) {
           const userRes = await API.graphql(
             graphqlOperation(getUser, {
-              id: user.email,
+              id: user.id,
             }),
           );
           if (userRes.data.getUser.followers === null) {
@@ -128,31 +134,29 @@ const Followers = ({data, followingData, user, post}) => {
               selectedUserResponse.data.getUser.followers;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: {id: postUser.id, followers: updatedFollowers},
+                input: {id: postUser.userId, followers: updatedFollowers}, //
               }),
             );
           }
 
           const fr = {
-            userId: postUser.id,
-            userName: postUser.username,
-            imgUri: postUser.imageUri,
+            userId: postUser.userId, //
+            userName: postUser.username, //
+            imgUri: postUser.imageUri, //
           };
           const fwIndex = userRes.data.getUser.following.findIndex(
-            (f) => f.userId === postUser.id,
+            (f) => f.userId === postUser.userId, //
           );
           if (fwIndex === -1) {
             userRes.data.getUser.following.push(fr);
             const updatedFollowing = userRes.data.getUser.following;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: {id: user.email, following: updatedFollowing},
+                input: {id: user.id, following: updatedFollowing}, //
               }),
             );
+            setData(updatedFollowing);
           }
-          props.setPostRerender(true);
-          props.setPostRerender(false);
-
           console.log('FollowDone');
         }
       } catch (error) {
@@ -165,14 +169,15 @@ const Followers = ({data, followingData, user, post}) => {
   const handleUnFollow = async (postUser) => {
     const selectedUserResponse = await API.graphql(
       graphqlOperation(getUser, {
-        id: post.user.id,
+        id: postUser.userId, //
       }),
     );
+    console.log('seleuser', selectedUserResponse);
     if (selectedUserResponse?.data?.getUser?.followers.length > 0) {
       try {
         if (user) {
           const frIndex = selectedUserResponse.data.getUser.followers.findIndex(
-            (f) => f.userId === user.email,
+            (f) => f.userId === user.id,
           );
           if (frIndex !== -1) {
             selectedUserResponse.data.getUser.followers.splice(frIndex, 1);
@@ -180,18 +185,18 @@ const Followers = ({data, followingData, user, post}) => {
               selectedUserResponse.data.getUser.followers;
             await API.graphql(
               graphqlOperation(updateUser, {
-                input: {id: postUser.id, followers: updatedFollowers},
+                input: {id: postUser.userId, followers: updatedFollowers},
               }),
             );
 
             const userRes = await API.graphql(
               graphqlOperation(getUser, {
-                id: user.email,
+                id: user.id,
               }),
             );
             if (userRes.data.getUser?.following?.length > 0) {
               const fwIndex = userRes.data.getUser.following.findIndex(
-                (f) => f.userId === postUser.id,
+                (f) => f.userId === postUser.userId,
               );
               if (fwIndex !== -1) {
                 userRes.data.getUser.following.splice(fwIndex, 1);
@@ -199,22 +204,72 @@ const Followers = ({data, followingData, user, post}) => {
                 await API.graphql(
                   graphqlOperation(updateUser, {
                     input: {
-                      id: user.email,
+                      id: user.id,
                       following: updatedFollowing,
                     },
                   }),
                 );
+                setData(updatedFollowing);
               }
             }
           }
-          props.setPostRerender(true);
-          props.setPostRerender(false);
           console.log('UnfollowDone');
         }
       } catch (error) {
         console.log('Please Login', error);
         ToastAndroid.show(message, ToastAndroid.SHORT);
       }
+    }
+  };
+
+  useEffect(() => {
+    //console.log(currentPost?.user?.username)
+    const checkFollowings = async () => {
+      if (data?.followers?.length || followingData?.followers?.length > 0) {
+        //
+        if (user) {
+          //
+          const checkFollow = post?.followers.findIndex(
+            (f) => user.email === f.userId, //
+          );
+          if (checkFollow != -1) {
+            setIsFollow(true);
+          } else {
+            setIsFollow(false);
+          }
+        }
+        // else {
+        //   currentPost?.user?.followers.forEach(() => setIsFollow(false));
+        // }
+      } else {
+        setIsFollow(false);
+      }
+    };
+    checkFollowings();
+  }, [user, post]); //
+
+  //useEffect(()=>console.log('isfollow',isFollow),[isFollow])
+
+  const handleFolloww = async (selecteduser) => {
+    console.log('usersss', user);
+    console.log('selecteduser', selecteduser);
+    if (user?.id === selecteduser.userId) {
+      ToastAndroid.show(message1, ToastAndroid.SHORT);
+      return;
+    }
+    if (user) {
+      console.log('user1');
+      if (!isFollow) {
+        console.log('I am called1');
+        handleUnFollow(selecteduser); //
+        // setIsFollow(false);
+      } else if (isFollow) {
+        console.log('I am called2');
+        handleFollow(selecteduser); //
+        // setIsFollow(true);
+      }
+    } else {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
     }
   };
 
@@ -229,6 +284,7 @@ const Followers = ({data, followingData, user, post}) => {
               {active === 'followers' ? <ActiveStyle /> : <></>}
               <TouchableWithoutFeedback
                 onPress={() => {
+                  setIsFollow(true);
                   setData(data);
                   handleActive('followers');
                 }}>
@@ -246,6 +302,7 @@ const Followers = ({data, followingData, user, post}) => {
               <TouchableWithoutFeedback
                 onPress={() => {
                   if (isTouched === true) {
+                    setIsFollow(false);
                     setData(followingData);
                   }
                   handleActive('following');
@@ -319,13 +376,13 @@ const Followers = ({data, followingData, user, post}) => {
                             alignItems: 'center',
                             bottom: 30,
                           }}>
-                          {actualData === data ? (
+                          {/* {actualData === data ? (
                             <Follow1
                               isTouched={isTouched}
                               onFollow={handleFollow}
                               onUnFollow={handleUnFollow}
                               user={user}
-                              currentPost={post}
+                              followuser={v.userId}
                             />
                           ) : (
                             <Follow2
@@ -333,8 +390,53 @@ const Followers = ({data, followingData, user, post}) => {
                               onFollow={handleFollow}
                               onUnFollow={handleUnFollow}
                               user={user}
-                              currentPost={post}
+                              followinguser={v.userId}
                             />
+                          )} */}
+                          {isFollow ? (
+                            <TouchableOpacity
+                              style={styles.Rectangle1}
+                              onPress={() => {
+                                handleFolloww(v);
+                              }}>
+                              <LinearGradient
+                                start={{x: 0, y: 0}}
+                                end={{x: 1, y: 0}}
+                                style={{
+                                  height: 25,
+                                  width: 75,
+                                  borderRadius: 15,
+                                  justifyContent: 'center',
+                                  alignContent: 'center',
+                                  alignItems: 'center',
+                                }}
+                                colors={['#3cb2f1', '#3cb2f1', '#3cb2f1']}>
+                                <Text style={styles.text3}>Follow</Text>
+                              </LinearGradient>
+                            </TouchableOpacity>
+                          ) : (
+                            <TouchableOpacity
+                              style={styles.Rectangle1}
+                              onPress={() => {
+                                handleFolloww(v);
+                              }}>
+                              <LinearGradient
+                                start={{x: 0, y: 0}}
+                                end={{x: 1, y: 0}}
+                                style={{
+                                  height: 25,
+                                  width: 75,
+                                  borderRadius: 15,
+                                  justifyContent: 'center',
+                                  alignContent: 'center',
+                                  alignItems: 'center',
+                                  borderTopWidth: 1,
+                                  borderTopColor: '#757575',
+                                }}
+                                colors={['#252525', '#252525', '#252525']}>
+                                <Text style={styles.text3}>Following</Text>
+                              </LinearGradient>
+                            </TouchableOpacity>
                           )}
                           <View>
                             <TouchableOpacity
@@ -395,8 +497,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     alignItems: 'center',
-    left: 210,
-    bottom: 52,
+    left: 0,
+    bottom: 0,
     margin: -25,
   },
   choose: {
@@ -412,5 +514,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginHorizontal: 25,
     marginTop: 20,
+  },
+  text3: {
+    fontFamily: 'Proxima Nova',
+    fontWeight: '700',
+    fontSize: 10,
   },
 });

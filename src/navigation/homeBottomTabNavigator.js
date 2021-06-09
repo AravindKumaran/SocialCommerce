@@ -106,11 +106,7 @@ const Stack = createStackNavigator();
 
 const HomeNavigator = () => (
   <Stack.Navigator initialRouteName="Home">
-    <Stack.Screen
-      name="Home"
-      component={Home}
-      options={{headerShown: false}}
-    />
+    <Stack.Screen name="Home" component={Home} options={{headerShown: false}} />
     <Stack.Screen
       name="SeeProfile"
       component={SeeProfile}
@@ -131,7 +127,7 @@ const HomeNavigator = () => (
           color: 'white',
           fontFamily: 'Proxima Nova',
           fontWeight: '700',
-        },           
+        },
       }}
     />
   </Stack.Navigator>
@@ -147,6 +143,16 @@ const ProfileNavigator = () => (
     <Stack.Screen
       name="ProfileVideoList"
       component={ProfileVideoList}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="SeeProfile"
+      component={SeeProfile}
+      options={{headerShown: false}}
+    />
+    <Stack.Screen
+      name="SeeProfileVideoList"
+      component={SeeProfileVideoList}
       options={{headerShown: false}}
     />
   </Stack.Navigator>
@@ -166,6 +172,7 @@ const ExploreNavigator = () => (
     />
   </Stack.Navigator>
 );
+
 const NotifNavigator = () => (
   <Stack.Navigator initialRouteName="Notification">
     <Stack.Screen
