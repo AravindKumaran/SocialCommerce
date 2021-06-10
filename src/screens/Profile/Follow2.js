@@ -13,16 +13,22 @@ import styles from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 
 const Follow2 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
+  console.log('FollowingDatauser', user);
+  console.log('FollowingDatacurrentPost', currentPost);
   const [isFollow, setIsFollow] = useState(false);
   const [message] = useState('Please login!');
   const [message1] = useState("You can't follow yourself");
   const navigation = useNavigation();
 
+  //currentPost?.user? = v.userId
+  //user = user
+
   useEffect(() => {
+    //console.log(currentPost?.user?.username)
     const checkFollowings = async () => {
-      if (currentPost?.user?.followers?.length > 0) {
+      if (currentPost?.followers?.length > 0) {
         if (user) {
-          const checkFollow = currentPost?.user?.followers.findIndex(
+          const checkFollow = currentPost?.followers.findIndex(
             (f) => user.email === f.userId,
           );
           if (checkFollow != -1) {
@@ -31,6 +37,9 @@ const Follow2 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
             setIsFollow(false);
           }
         }
+        // else {
+        //   currentPost?.user?.followers.forEach(() => setIsFollow(false));
+        // }
       } else {
         setIsFollow(false);
       }
@@ -38,18 +47,20 @@ const Follow2 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
     checkFollowings();
   }, [user, currentPost]);
 
+  //useEffect(()=>console.log('isfollow',isFollow),[isFollow])
+
   const handleFollow = async () => {
-    if (user?.email === currentPost.user.id) {
+    if (user?.email === currentPost) {
       ToastAndroid.show(message1, ToastAndroid.SHORT);
       return;
     }
     if (user) {
       if (isFollow) {
-        onUnFollow(currentPost.user);
+        onUnFollow(currentPost);
         console.log('I am called1');
         setIsFollow(false);
       } else if (!isFollow) {
-        onFollow(currentPost.user);
+        onFollow(currentPost);
         console.log('I am called2');
         setIsFollow(true);
       }

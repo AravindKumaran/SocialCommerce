@@ -68,7 +68,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
       style={[
         {
           position: 'absolute',
-          right: 40,
+          right: 45,
           bottom: 0,
           top: -20,
         },
