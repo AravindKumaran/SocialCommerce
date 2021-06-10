@@ -40,7 +40,6 @@ import {Context} from '../../context/Store';
 
 
 const Post = (props) => {
-  const [mute_state, mute_dispatch] = useContext(Context);
   //console.log('props.post.user', props.post.user)
   //console.log('Props', props?.post?.user?.followers);
   const [post, setPost] = useState(props.post);
@@ -55,7 +54,7 @@ const Post = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   const [paused, setPaused] = useState(false);
-  const [muted, setMuted] = useState(mute_state.globalMuted);
+  const [muted, setMuted] = useState(props?.muteAll);
   const [videoUri, setVideoUri] = useState('');
 
   const [currentTime, setCurrentTime] = useState(0);
@@ -69,6 +68,8 @@ const Post = (props) => {
   const [message1] = useState('Coming Soon!');
 
   const [isFollow, setIsFollow] = useState(false);
+
+  const [globalState, globalDispatch] = useContext(Context);
 
 
   const fadeIn = {
@@ -149,7 +150,7 @@ const Post = (props) => {
   useEffect(() => {
     if (!props.post?.videoUri?.startsWith('https')) {
       setVideoUri(
-        `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.videoUri}`,
+        `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${props.post?.videoUri}`,
       );
     } else {
       setVideoUri(props.post?.videoUri);
@@ -407,21 +408,29 @@ const Post = (props) => {
     }
   };
 
+  useEffect(() => {
+   //console.log('props?.muteAll', props?.muteAll);
+   setMuted(props?.muteAll)
+  }, [props?.muteAll])
+
   const handleClick = () => {
-     console.log('Propsd', props?.muteAll);
+
+    //console.log('Propsd', props?.muteAll);
     showPauseRef.current = null;
     if (showRef.current) {
       clearTimeout(showRef.current);
     }
+
+    console.log('muted',muted);
+    setMuted(!muted)
+
     if (props?.setMuteAll) {
-      props?.setMuteAll(!props?.muteAll);
-      // console.log('df');
-    } else {
-      // console.log('TGH');
-      setMuted(!muted);
-      //set mute globally
-      mute_dispatch({type: 'globalMuted', payload: true})
-    }
+      setTimeout(() => {
+        props?.setMuteAll(!props?.muteAll);
+        globalDispatch({type: 'globalMuted', payload: !props?.muteAll});
+      }, 0);      
+    } 
+
     setShowMutedIcon(true);
     showRef.current = setTimeout(() => {
       setShowMutedIcon(false);
@@ -510,15 +519,15 @@ const Post = (props) => {
               style={styles.video}
               poster={
                 props.post?.thumbnail
-                  ? `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${props.post?.thumbnail}`
+                  ? `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${props.post?.thumbnail}`
                   : ''
               }
               posterResizeMode="cover"
               resizeMode={'cover'}
               repeat={true}
               paused={paused}
-              // muted={muted}
-              muted={props?.muteAll || muted}
+              muted={muted}
+              // muted={props?.muteAll || muted}
               onProgress={onProgress}
               onLoad={onLoad}
             />
@@ -589,7 +598,8 @@ const Post = (props) => {
                 justifyContent: 'center',
                 padding: 15,
               }}>
-              {props?.muteAll || muted ? (
+              {/* {props?.muteAll || muted ? ( */}
+              {muted ? (
                 <Feather name="volume-x" size={50} color="#fff" />
               ) : (
                 <Feather name="volume-2" size={50} color="#fff" />
