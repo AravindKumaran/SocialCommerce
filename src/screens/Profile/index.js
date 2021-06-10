@@ -273,6 +273,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
             checkUser();
             break;
           case 'signOut':
+            setLoading(false);
             setUser(null);
             console.log('User', user);
             break;
