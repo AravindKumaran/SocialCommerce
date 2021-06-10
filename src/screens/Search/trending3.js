@@ -24,36 +24,46 @@ const Trending = ({category, searchedData}) => {
   const [curLimit, setCurLimit] = useState(12);
   const [isLoader, setLoader] = useState(false);
 
-  console.log('Category', category)
+  console.log('Category', category);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await API.graphql(
-          graphqlOperation(listPosts, (category!=='')?{
-            limit: curLimit,
-            filter: {              
-              category: {eq: category}
-            }    
-          }:{
-            limit: curLimit
-          })
+          graphqlOperation(
+            listPosts,
+            category !== ''
+              ? {
+                  limit: curLimit,
+                  filter: {
+                    category: {eq: category},
+                  },
+                }
+              : {
+                  limit: curLimit,
+                },
+          ),
         );
         const allItems = response.data.listPosts.items;
         // const sortedItems = allItems.sort(
         //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         // );
         //Sort Items
-        let sortedItems = allItems.filter(item => item.likes).sort(
-          (a, b) => (b.likes.length) - (a.likes.length)
-        );
+        let sortedItems = allItems
+          .filter((item) => item.likes)
+          .sort((a, b) => b.likes.length - a.likes.length);
 
-        console.log('sortedItems', sortedItems.map(item => item?.likes?.length));
+        console.log(
+          'sortedItems',
+          sortedItems.map((item) => item?.likes?.length),
+        );
         //console.log('sortedItems', response.data.listPosts.nextToken);
         setNextToken(response.data.listPosts.nextToken);
 
         //Append undefined likes to sortedItems
-        setUris(sortedItems.concat(allItems.filter(item => item.likes === null))); 
+        setUris(
+          sortedItems.concat(allItems.filter((item) => item.likes === null)),
+        );
       } catch (e) {
         console.log('Caledd');
         console.error(e);
@@ -64,20 +74,25 @@ const Trending = ({category, searchedData}) => {
   }, [category]);
 
   const getMorePosts = async () => {
-    try {      
+    try {
       if (nextToken) {
         setLoader(true);
         const response = await API.graphql(
-          graphqlOperation(listPosts, (category!=='')?{
-            limit: curLimit + 15,
-            filter: {
-              category:{eq: category}
-            },
-            nextToken,
-          }:{
-            limit: curLimit + 15,
-            nextToken
-          })
+          graphqlOperation(
+            listPosts,
+            category !== ''
+              ? {
+                  limit: curLimit + 15,
+                  filter: {
+                    category: {eq: category},
+                  },
+                  nextToken,
+                }
+              : {
+                  limit: curLimit + 15,
+                  nextToken,
+                },
+          ),
         );
         console.log('AllItems', curLimit);
         setCurLimit((lim) => lim + 15);
@@ -133,6 +148,7 @@ const Trending = ({category, searchedData}) => {
           <Text style={styles.text2}>Top Trending</Text>
           <FlatList
             nestedScrollEnabled={true}
+            showsVerticalScrollIndicator={false}
             data={uris}
             numColumns={3}
             renderItem={_renderItem}

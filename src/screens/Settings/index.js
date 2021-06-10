@@ -66,11 +66,10 @@ const settingsmenu = [
   },
 ];
 
-const Settings = (props) => {
+const Settings = ({profileUser, closeSettings}) => {
   const [settings, setSettings] = useState('');
   const [searchedData, setSearchedData] = useState(null);
-  const refRBSheet3 = useRef();
-  const [user, setUser] = useState(props.user);
+  const [user, setUser] = useState(profileUser);
 
   useEffect(() => {
     if (settings == 'Logout') {
@@ -236,7 +235,9 @@ const Settings = (props) => {
         {settings === 'Account' && <Account />}
         {settings === 'Rate us' && <Rating />}
         {settings === 'Feedback' && <Feedback />}
-        {settings === 'Support' && <Support user={user} />}
+        {settings === 'Support' && (
+          <Support user={user} closeSettings={closeSettings} />
+        )}
         {/* {settings === 'Logout' && <Feedback />} */}
       </ImageBackground>
     </>

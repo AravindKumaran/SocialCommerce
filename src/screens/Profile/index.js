@@ -104,6 +104,10 @@ const ProfileScreen = ({navigation, route, postUser}) => {
     refRBSheet2.current.close();
   }
 
+  function closeSettings() {
+    refRBSheet4.current.close();
+  }
+
   const checkUser = async () => {
     setLoading(true);
     // console.log('Im calling');
@@ -115,15 +119,15 @@ const ProfileScreen = ({navigation, route, postUser}) => {
 
       console.log('UserInformation', userInfo.attributes);
 
-      if(userInfo.attributes){
+      if (userInfo.attributes) {
         const userRes = await API.graphql(
           graphqlOperation(getUser, {
             id: userInfo?.attributes?.email,
             limit: 2,
           }),
         );
-  
-        console.log('UserRes', userRes);    
+
+        console.log('UserRes', userRes);
 
         //console.log('UserRews', userRes.data.getUser.posts.items.length);
 
@@ -180,7 +184,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   source={{
                     uri: res?.data?.createUser.imageUri.startsWith('https')
                       ? res?.data?.createUser.imageUri
-                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
+                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
                   }}
                   size={25}
                   style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -191,7 +195,10 @@ const ProfileScreen = ({navigation, route, postUser}) => {
           });
         } else {
           setUser(userRes?.data?.getUser);
-          await AsyncStorage.setItem('userImg', userRes.data?.getUser?.imageUri);
+          await AsyncStorage.setItem(
+            'userImg',
+            userRes.data?.getUser?.imageUri,
+          );
           // getTabBarIcon(isFocused, userRes.data?.getUser?.imageUri);
           c.setOptions({
             tabBarIcon: ({focused, tintColor}) => (
@@ -201,7 +208,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   source={{
                     uri: userRes.data?.getUser?.imageUri.startsWith('https')
                       ? userRes.data?.getUser?.imageUri
-                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
+                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
                   }}
                   size={25}
                   style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -211,7 +218,6 @@ const ProfileScreen = ({navigation, route, postUser}) => {
             ),
           });
         }
-
       }
       setLoading(false);
     } catch (error) {
@@ -311,7 +317,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   source={{
                     uri: value?.startsWith('https')
                       ? value
-                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${value}`,
+                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${value}`,
                   }}
                   size={25}
                   style={{
@@ -341,7 +347,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
             source={{
               uri: user.imageUri.startsWith('https')
                 ? user.imageUri
-                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
+                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
             }}
             size={25}
             style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -483,7 +489,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   source={{
                     uri: user?.imageUri?.startsWith('https')
                       ? user.imageUri
-                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61155909-staging.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
+                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
                   }}
                 />
               </View>
@@ -537,7 +543,10 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                           bottom: 85,
                         },
                       }}>
-                      <Settings user={user} />
+                      <Settings
+                        profileUser={user}
+                        closeSettings={closeSettings}
+                      />
                     </RBSheet>
                   </>
                 )}
