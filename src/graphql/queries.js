@@ -411,17 +411,26 @@ export const listPosts = /* GraphQL */ `
         thumbnail
         updatedAt
         user {
+          id
+          username
+          name
+          imageUri
+          following {
+            userId
+            userName
+            imgUri
+          }
+          followers {
+            userId
+            userName
+            imgUri
+          }
+          facebook
+          instagram
+          youtube
           bio
           createdAt
-          facebook
-          id
-          imageUri
-          instagram
-          languages
-          name
           updatedAt
-          username
-          youtube
         }
         userID
         videoUri
@@ -623,13 +632,36 @@ export const listPostHashTags = /* GraphQL */ `
           brand
           category
           languages
+          comments {
+            nextToken
+          }
           createdAt
           description
           id
           likes
+          song {
+            createdAt
+            id
+            imageUri
+            name
+            updatedAt
+          }
           songID
           thumbnail
           updatedAt
+          user {
+            bio
+            createdAt
+            facebook
+            id
+            imageUri
+            instagram
+            languages
+            name
+            updatedAt
+            username
+            youtube
+          }
           userID
           videoUri
           views

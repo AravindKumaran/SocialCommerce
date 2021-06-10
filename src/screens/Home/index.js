@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useContext} from 'react';
 import {
   View,
   FlatList,
@@ -21,6 +21,8 @@ import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Header} from 'react-native-elements';
 import UploadProgress from '../CreatePost/UploadProgress';
+import {Context} from '../../context/Store';
+
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -76,10 +78,21 @@ const Home = ({navigation, route}) => {
   const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0);
   const [nextToken, setNextToken] = useState(undefined);
   const [curLimit, setCurLimit] = useState(10);
-  const [muteAll, setMuteAll] = useState(false);
+
+  const [globalState, globalDispatch] = useContext(Context);
+  //console.log('home glst', globalState);
+  const [muteAll, setMuteAll] = useState(globalState.globalMuted?globalState.globalMuted:false);
+
   const flatListRef = useRef(null);
 
   const [postRerender, setPostRerender] = useState(false);
+
+
+  useEffect(() => {
+    console.log('home globalMuted useeff muteAll', muteAll)
+    setMuteAll(globalState?.globalMuted)
+  }, [globalState?.globalMuted])
+  
 
   useEffect(() => {
     const setUserIcon = async () => {
