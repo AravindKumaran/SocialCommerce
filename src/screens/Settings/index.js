@@ -53,24 +53,25 @@ const settingsmenu = [
   //   name: 'Feedback',
   // },
   {
-    src: require('../../assets/images/languageset.png'),
+    src: require('../../assets/images/feedbackset.png'),
     name: 'Support',
   },
   {
-    src: require('../../assets/images/languageset.png'),
+    src: require('../../assets/images/ratingset.png'),
     name: 'Privacy Policy',
   },
   {
-    src: require('../../assets/images/logoutset.png'),
+    src: require('../../assets/images/accountset.png'),
     name: 'Logout',
   },
 ];
 
-const Settings = (props) => {
+const Settings = ({profileUser, closeSettings}) => {
   const [settings, setSettings] = useState('');
   const [searchedData, setSearchedData] = useState(null);
-  const refRBSheet3 = useRef();
-  const [user, setUser] = useState(props.user);
+  const [user, setUser] = useState(profileUser);
+
+  const refRBSheet = useRef();
 
   useEffect(() => {
     if (settings == 'Logout') {
@@ -229,14 +230,20 @@ const Settings = (props) => {
         </ScrollView>
 
         {settings === 'Languages' && (
-          <Languages languages={user.languages} user={user} />
+          <Languages
+            languages={user.languages}
+            user={user}
+            closeSettings={closeSettings}
+          />
         )}
         {settings === 'Invite friends via WhatsApp' && <Invite />}
         {settings === 'Notifications' && <Notifications />}
         {settings === 'Account' && <Account />}
         {settings === 'Rate us' && <Rating />}
         {settings === 'Feedback' && <Feedback />}
-        {settings === 'Support' && <Support user={user} />}
+        {settings === 'Support' && (
+          <Support user={user} closeSettings={closeSettings} />
+        )}
         {/* {settings === 'Logout' && <Feedback />} */}
       </ImageBackground>
     </>

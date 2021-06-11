@@ -74,7 +74,6 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
         },
         // isTouched ? {top: -130} : '',
       ]}>
-      
       <>
         <TouchableOpacity onPress={seeProfile} style={{bottom: 5}}>
           <Image

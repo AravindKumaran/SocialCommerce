@@ -76,12 +76,12 @@ const languagesList = [
   },
 ];
 
-const Languages = ({languages, user}) => {
-  console.log('languages', languages)
-  const [selLanguages, setSelLanguages] = useState(languages?languages:[]);
+const Languages = ({languages, user, closeSettings}) => {
+  console.log('languages', languages);
+  const [selLanguages, setSelLanguages] = useState(languages ? languages : []);
 
   useEffect(async () => {
-     console.log('useeff');
+    console.log('useeff');
     console.log(user.id);
     const response = await API.graphql(
       graphqlOperation(getUser, {
@@ -89,13 +89,13 @@ const Languages = ({languages, user}) => {
       }),
     );
 
-    console.log('res',response.data.getUser.languages);
+    console.log('res', response.data.getUser.languages);
 
-    let lang = response?.data?.getUser?.languages
-    if(lang){
-      setSelLanguages([...lang])
-    }else{
-      setSelLanguages([])
+    let lang = response?.data?.getUser?.languages;
+    if (lang) {
+      setSelLanguages([...lang]);
+    } else {
+      setSelLanguages([]);
     }
 
     // if(languages){
@@ -103,7 +103,6 @@ const Languages = ({languages, user}) => {
     // }else{
     //   setSelLanguages([])
     // }
-
   }, []);
 
   const selectLanguage = async (l) => {
@@ -154,18 +153,16 @@ const Languages = ({languages, user}) => {
       <ScrollView>
         <View>
           <Text style={styles.text1}>Languages</Text>
-          {/* <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}
+          <TouchableOpacity
+            onPress={closeSettings}
             style={{
               alignSelf: 'center',
               alignSelf: 'flex-start',
-              marginLeft: 10,
+              left: 30,
               bottom: 20,
             }}>
-            <Feather name={'chevron-left'} size={20} />
-          </TouchableOpacity> */}
+            <Feather name={'x'} size={20} />
+          </TouchableOpacity>
         </View>
         <View
           style={{

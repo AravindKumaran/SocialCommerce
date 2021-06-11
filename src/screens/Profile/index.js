@@ -104,6 +104,10 @@ const ProfileScreen = ({navigation, route, postUser}) => {
     refRBSheet2.current.close();
   }
 
+  function closeSettings() {
+    refRBSheet4.current.close();
+  }
+
   const checkUser = async () => {
     setLoading(true);
     // console.log('Im calling');
@@ -115,15 +119,15 @@ const ProfileScreen = ({navigation, route, postUser}) => {
 
       console.log('UserInformation', userInfo.attributes);
 
-      if(userInfo.attributes){
+      if (userInfo.attributes) {
         const userRes = await API.graphql(
           graphqlOperation(getUser, {
             id: userInfo?.attributes?.email,
             limit: 2,
           }),
         );
-  
-        console.log('UserRes', userRes);    
+
+        console.log('UserRes', userRes);
 
         //console.log('UserRews', userRes.data.getUser.posts.items.length);
 
@@ -191,7 +195,10 @@ const ProfileScreen = ({navigation, route, postUser}) => {
           });
         } else {
           setUser(userRes?.data?.getUser);
-          await AsyncStorage.setItem('userImg', userRes.data?.getUser?.imageUri);
+          await AsyncStorage.setItem(
+            'userImg',
+            userRes.data?.getUser?.imageUri,
+          );
           // getTabBarIcon(isFocused, userRes.data?.getUser?.imageUri);
           c.setOptions({
             tabBarIcon: ({focused, tintColor}) => (
@@ -211,7 +218,6 @@ const ProfileScreen = ({navigation, route, postUser}) => {
             ),
           });
         }
-
       }
       setLoading(false);
     } catch (error) {
@@ -262,7 +268,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
 
   useEffect(() => {
     if (!postUser) {
-      Hub.listen('auth', ({payload: {event, data}}) => {        
+      Hub.listen('auth', ({payload: {event, data}}) => {
         console.log('event', event);
         switch (event) {
           case 'parsingCallbackUrl':
@@ -291,14 +297,14 @@ const ProfileScreen = ({navigation, route, postUser}) => {
   }, [user]);
 
   useEffect(() => {
-    console.log('usersss');    
+    console.log('usersss');
     const onOtherUser = async () => {
       if (!postUser) {
         console.log('isfocused useeffect');
         checkUser();
       } else {
         setLoading(true);
-        try {          
+        try {
           const selectedUserResponse = await API.graphql(
             graphqlOperation(getUser, {
               id: postUser.id,
@@ -335,7 +341,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
           console.log('get 3rd user Error', error);
           setLoading(false);
           setUser(null);
-        }        
+        }
       }
     };
     onOtherUser();
@@ -400,14 +406,14 @@ const ProfileScreen = ({navigation, route, postUser}) => {
 
   return (
     <View style={styles.container}>
-      {loading ? (        
-        <LoadingIndicator visible={loading} />        
-      ):(
+      {loading ? (
+        <LoadingIndicator visible={loading} />
+      ) : (
         <View>
           <ScrollView
             nestedScrollEnabled={true}
-            showsVerticalScrollIndicator={false}>        
-            {!user ? (              
+            showsVerticalScrollIndicator={false}>
+            {!user ? (
               <View
                 style={{
                   flex: 1,
@@ -416,9 +422,11 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   marginHorizontal: 30,
                   marginTop: 300,
                 }}>
-                <Text style={{fontSize: 22, margin: 5}}>You are not logged in</Text>
+                <Text style={{fontSize: 22, margin: 5}}>
+                  You are not logged in
+                </Text>
                 <AppButton title="Login" onPress={handleLogin} />
-              </View>                         
+              </View>
             ) : (
               <View style={styles.container}>
                 <View
@@ -432,7 +440,8 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                   <View>
                     {!postUser && (
                       <>
-                        <TouchableOpacity onPress={() => refRBSheet.current.open()}>
+                        <TouchableOpacity
+                          onPress={() => refRBSheet.current.open()}>
                           {/* <ImageBackground
                             style={{
                               backgroundColor: '#1C1D21',
@@ -550,7 +559,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                               bottom: 85,
                             },
                           }}>
-                          <Settings user={user} />
+                          <Settings profileUser={user} closeSettings={closeSettings} />
                         </RBSheet>
                       </>
                     )}
@@ -801,7 +810,6 @@ const ProfileScreen = ({navigation, route, postUser}) => {
           </ScrollView>
         </View>
       )}
-      
     </View>
   );
 };

@@ -5,7 +5,7 @@ import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
 import {createSupport} from '../../graphql/mutations';
 // import Mailer from 'react-native-mail';
 
-const Support = ({user}) => {
+const Support = ({user, closeSettings}) => {
   const [query, setQuery] = useState(user?.query || '');
   const [message, setMessage] = useState(user?.message || '');
 
@@ -29,6 +29,7 @@ const Support = ({user}) => {
       );
       console.log('posRes', posRes);
       ToastAndroid.show(message2, ToastAndroid.SHORT);
+      closeSettings();
     } catch (e) {
       console.error(e);
     }

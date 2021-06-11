@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-  useContext,
-} from 'react';
+import React, {useEffect, useState, useContext, useRef} from 'react';
 import {
   View,
   Text,
@@ -15,6 +9,7 @@ import {
   StyleSheet,
   ScrollView,
   NativeModules,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import {v4 as uuidv4, v4} from 'uuid';
 
@@ -23,7 +18,11 @@ const {RNVideoEditorSDK} = NativeModules;
 import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import styles from './styles';
-import {createPost, createHashTag, createPostHashTag} from '../../graphql/mutations';
+import {
+  createPost,
+  createHashTag,
+  createPostHashTag,
+} from '../../graphql/mutations';
 import {listHashTags} from '../../graphql/queries';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
@@ -124,6 +123,8 @@ const CreatePost = () => {
   const [loading, setLoading] = useState(false);
 
   const [bgu_state, bgu_dispatch] = useContext(Context);
+
+  const dropDownRef = useRef();
 
   const uploadToStorage = async () => {
     // console.log('gdf', videoUrii, description, category, brand, languages);
@@ -274,37 +275,38 @@ const CreatePost = () => {
       );
       console.log('posRes', posRes);
 
-      if(hashTagResult){
-        for (var i = 0; i < hashTagResult.length; i++) {         
+      if (hashTagResult) {
+        for (var i = 0; i < hashTagResult.length; i++) {
           console.log(hashTagResult[i]);
           var hashTagLower = hashTagResult[i].toLowerCase();
 
           //check hashtag is avail in db
           const response = await API.graphql(
-              graphqlOperation(listHashTags, {
-                  filter: {
-                      name: {eq: hashTagLower}
-                  }
+            graphqlOperation(listHashTags, {
+              filter: {
+                name: {eq: hashTagLower},
+              },
+            }),
+          );
+
+          console.log('response', response);
+
+          if (response.data.listHashTags.items.length) {
+            console.log('posRes.data.createPost.id', posRes.data.createPost.id);
+            console.log(
+              'response.data.listHashTags.id',
+              response.data.listHashTags.items[0].id,
+            );
+
+            const postHashTagRes = await API.graphql(
+              graphqlOperation(createPostHashTag, {
+                input: {
+                  postID: posRes.data.createPost.id,
+                  hashTagID: response.data.listHashTags.items[0].id,
+                },
               }),
-          )
-
-          console.log('response',response);
-
-          if(response.data.listHashTags.items.length){
-            console.log('posRes.data.createPost.id', posRes.data.createPost.id)
-            console.log('response.data.listHashTags.id', response.data.listHashTags.items[0].id)
-
-              const postHashTagRes = await API.graphql(
-                  graphqlOperation(createPostHashTag, 
-                      {
-                          input: {
-                              postID: posRes.data.createPost.id, 
-                              hashTagID: response.data.listHashTags.items[0].id
-                          }
-                      }
-                  ),
-              ) 
-              console.log('postHashTagRes', postHashTagRes)
+            );
+            console.log('postHashTagRes', postHashTagRes);
           }
 
           //if hashtag is not avail in db then it will create or it will store
@@ -313,35 +315,35 @@ const CreatePost = () => {
           //         graphqlOperation(createHashTag, {input: {name: hashTagResult[i]}}),
           //     )
           //     const postHashTagRes = await API.graphql(
-          //         graphqlOperation(createPostHashTag, 
+          //         graphqlOperation(createPostHashTag,
           //             {
           //                 input: {
-          //                     postID: posRes.data.createPost.id, 
+          //                     postID: posRes.data.createPost.id,
           //                     hashTagID: hashTagRes.data.createHashTag.id
           //                 }
           //             }
           //         ),
-          //     ) 
-              
-          //     console.log('postHashTagRes', postHashTagRes)                           
+          //     )
+
+          //     console.log('postHashTagRes', postHashTagRes)
           // }else{
           //   console.log('posRes.data.createPost.id', posRes.data.createPost.id)
           //   console.log('response.data.listHashTags.id', response.data.listHashTags.items[0].id)
 
           //     const postHashTagRes = await API.graphql(
-          //         graphqlOperation(createPostHashTag, 
+          //         graphqlOperation(createPostHashTag,
           //             {
           //                 input: {
-          //                     postID: posRes.data.createPost.id, 
+          //                     postID: posRes.data.createPost.id,
           //                     hashTagID: response.data.listHashTags.items[0].id
           //                 }
           //             }
           //         ),
-          //     ) 
+          //     )
           //     console.log('postHashTagRes', postHashTagRes)
           // }
         }
-      }  
+      }
       setLoading(false);
       ToastAndroid.show(message1, ToastAndroid.SHORT);
       navigation.navigate('Home', {
@@ -392,6 +394,8 @@ const CreatePost = () => {
   };
 
   return (
+    // <TouchableWithoutFeedback
+    //   onPress={(dropDownRef.current?.close(), console.log('hello'))}>
     <ScrollView style={styles.container}>
       {loading && <LoadingIndicator visible={loading} />}
 
@@ -412,7 +416,7 @@ const CreatePost = () => {
           />
         </View>
         <View style={{flexDirection: 'column', left: 10, bottom: 10}}>
-          <Text style={styles.text1}>Hashtag</Text>
+          <Text style={styles.text1}>#Challenge</Text>
           <TextInput
             value={description}
             onChangeText={(text) => setDescription(text)}
@@ -425,19 +429,19 @@ const CreatePost = () => {
       </View>
 
       {/* <AppButton
-        onPress={() =>
-          VESDK.openEditor({
-            uri: videoUrii,
-          })
-            .then((res) => {
-              if (res?.hasChanges === true) {
-                setVideoUrii(res.video);
-              }
+          onPress={() =>
+            VESDK.openEditor({
+              uri: videoUrii,
             })
-            .catch((err) => console.log('Error', err))
-        }
-        title="Edit Video"
-      /> */}
+              .then((res) => {
+                if (res?.hasChanges === true) {
+                  setVideoUrii(res.video);
+                }
+              })
+              .catch((err) => console.log('Error', err))
+          }
+          title="Edit Video"
+        /> */}
 
       <View style={{marginHorizontal: 20}}>
         <AppText style={{color: 'white', fontSize: 12}}>Categories</AppText>
@@ -464,8 +468,35 @@ const CreatePost = () => {
       </View>
 
       <View style={{marginHorizontal: 20, paddingBottom: 0}}>
+        <AppText style={{color: 'white', fontSize: 12}}>Language</AppText>
+        <DropDownPicker
+          items={language}
+          placeholder="Select the Language"
+          containerStyle={{
+            height: 40,
+            borderRadius: 30,
+            marginVertical: 5,
+          }}
+          style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          dropDownStyle={{backgroundColor: '#20232A', color: '#fff'}}
+          onChangeItem={(item) => {
+            setLanguage([...item]);
+          }}
+          placeholderStyle={{color: 'white', fontSize: 12}}
+          arrowColor={{color: 'white'}}
+          selectedLabelStyle={{color: 'white'}}
+          multiple={true}
+          defaultValue={0}
+          // controller={(instance) => dropDownRef.current = instance}
+        />
+      </View>
+
+      <View style={{marginHorizontal: 20, paddingBottom: 0}}>
         <AppText style={{color: 'white', fontSize: 12, marginBottom: 10}}>
-          Brand
+          Brands(optional)
         </AppText>
         <TextInput
           style={{
@@ -485,34 +516,6 @@ const CreatePost = () => {
         />
       </View>
 
-      <View style={{marginHorizontal: 20, paddingBottom: 45}}>
-        <AppText style={{color: 'white', fontSize: 12}}>
-          Select video Language
-        </AppText>
-        <DropDownPicker
-          items={language}
-          placeholder="Select the Language"
-          containerStyle={{
-            height: 40,
-            borderRadius: 30,
-            marginVertical: 5,
-          }}
-          style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
-          itemStyle={{
-            justifyContent: 'flex-start',
-          }}
-          dropDownStyle={{backgroundColor: '#20232A'}}
-          onChangeItem={(item) => {
-            setLanguage([...item]);
-          }}
-          placeholderStyle={{color: 'white', fontSize: 12}}
-          arrowColor={{color: 'white'}}
-          selectedLabelStyle={{color: 'white'}}
-          multiple={true}
-          defaultValue={0}
-        />
-      </View>
-
       {user ? (
         <View style={styles.button}>
           <AppButton onPress={uploadToStorage} title="Publish" />
@@ -527,6 +530,7 @@ const CreatePost = () => {
         </View>
       )}
     </ScrollView>
+    // </TouchableWithoutFeedback>
   );
 };
 
