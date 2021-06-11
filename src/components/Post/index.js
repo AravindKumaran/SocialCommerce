@@ -331,6 +331,16 @@ const Post = (props) => {
             (f) => f.userId === postUser.id,
           );
           if (fwIndex === -1) {
+            
+            //update user following to global
+            globalDispatch({type: 'userFollowing', payload: [...globalState.userFollowing, fr]});
+            let f_idx = globalState.userUnFollowing.findIndex(
+              (f) => fr.userId === f.userId
+            );
+            if(f_idx !== -1){
+              globalDispatch({type: 'userUnFollowing', payload: [...globalState.userUnFollowing.splice(0, f_idx)]});
+            }
+
             userRes.data.getUser.following.push(fr);
             const updatedFollowing = userRes.data.getUser.following;
             await API.graphql(
@@ -339,8 +349,8 @@ const Post = (props) => {
               }),
             );
           }
-          props.setPostRerender(true);
-          props.setPostRerender(false);
+          //props.setPostRerender(true);
+          //props.setPostRerender(false);
 
           console.log('FollowDone');
         }
@@ -378,11 +388,28 @@ const Post = (props) => {
                 id: user.email,
               }),
             );
+
+            const fr = {
+              userId: postUser.id,
+              userName: postUser.username,
+              imgUri: postUser.imageUri,
+            };
+
             if (userRes.data.getUser?.following?.length > 0) {
               const fwIndex = userRes.data.getUser.following.findIndex(
                 (f) => f.userId === postUser.id,
               );
               if (fwIndex !== -1) {
+
+                //update user following to global
+                let f_idx = globalState.userFollowing.findIndex(
+                  (f) => postUser.id === f.userId
+                );
+                if(f_idx !== -1){
+                  globalDispatch({type: 'userFollowing', payload: [...globalState.userFollowing.slice(0, f_idx)]});
+                }                
+                globalDispatch({type: 'userUnFollowing', payload: [...globalState.userUnFollowing, fr]});
+
                 userRes.data.getUser.following.splice(fwIndex, 1);
                 const updatedFollowing = userRes.data.getUser.following;
                 await API.graphql(
@@ -396,8 +423,8 @@ const Post = (props) => {
               }
             }
           }
-          props.setPostRerender(true);
-          props.setPostRerender(false);
+          // props.setPostRerender(true);
+          // props.setPostRerender(false);
           console.log('UnfollowDone');
         }
       } catch (error) {

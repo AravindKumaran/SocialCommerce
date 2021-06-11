@@ -89,7 +89,7 @@ const Home = ({navigation, route}) => {
 
 
   useEffect(() => {
-    console.log('home globalMuted useeff muteAll', muteAll)
+    //console.log('home globalMuted useeff muteAll', muteAll)
     setMuteAll(globalState?.globalMuted)
   }, [globalState?.globalMuted])
   

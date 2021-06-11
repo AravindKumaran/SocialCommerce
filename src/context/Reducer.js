@@ -23,6 +23,20 @@ const Reducer = (state, action) => {
                 ...state,
                 globalMuted: action.payload
             };
+
+        //check user following while routing
+        case 'userFollowing':
+            return {
+                ...state,
+                userFollowing: action.payload
+            };
+
+        //check user unfollowing while routing
+        case 'userUnFollowing':
+            return {
+                ...state,
+                userUnFollowing: action.payload
+            };
             
         default:
             return state;

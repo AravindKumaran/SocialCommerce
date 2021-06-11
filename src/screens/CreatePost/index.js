@@ -118,6 +118,7 @@ const CreatePost = () => {
 
   const [message] = useState('Please provide all details');
   const [message1] = useState('Your video has been uploaded');
+  const [message2] = useState('Your video is being uploaded');
 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -240,6 +241,9 @@ const CreatePost = () => {
 
     try {
       setLoading(true);
+      
+      ToastAndroid.show(message2, ToastAndroid.LONG);
+
       const response1 = await fetch(videoUrii);
       const blob1 = await response1.blob();
       const response2 = await fetch(thumbnail);

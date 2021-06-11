@@ -83,7 +83,7 @@ const ActiveStyle = () => (
 const ProfileScreen = ({navigation, route, postUser}) => {
   console.log('postuser', postUser);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const refRBSheet = useRef();
   const refRBSheet1 = useRef();
   const refRBSheet2 = useRef();
@@ -105,7 +105,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
   }
 
   const checkUser = async () => {
-    //setLoading(true);
+    setLoading(true);
     // console.log('Im calling');
 
     try {
@@ -339,7 +339,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
       }
     };
     onOtherUser();
-  }, []);
+  }, [isFocused === true]);
 
   const handleUpdateUser = (user) => {
     console.log('I am called');

@@ -5,7 +5,10 @@ import Reducer from './Reducer'
 const initialState = {
     uploadStarted: false,
     uploadProgress: 0,
-    uploadError: null
+    uploadError: null,
+    globalMuted: false,
+    userFollowing: [],
+    userUnFollowing: []
 };
 
 const Store = ({children}) => {
