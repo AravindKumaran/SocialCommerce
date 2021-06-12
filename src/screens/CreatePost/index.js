@@ -432,7 +432,7 @@ const CreatePost = () => {
           />
         </View>
         <View style={{flexDirection: 'column', left: 10, bottom: 10}}>
-          <Text style={styles.text1}>#Challenge</Text>
+          <Text style={styles.text1}># Challenges</Text>
           <TextInput
             value={description}
             onChangeText={(text) => setDescription(text)}
