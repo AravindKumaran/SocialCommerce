@@ -122,9 +122,25 @@ const CreatePost = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const [bgu_state, bgu_dispatch] = useContext(Context);
+  const [globalState, globalDispatch] = useContext(Context);
 
   const dropDownRef = useRef();
+
+  useEffect(() => {    
+    if(globalState.globalMuted==false){
+      // console.log('createpost mute gloabally');
+      globalDispatch({type: 'globalMuted', payload: true});
+    }
+  }, [globalState.globalMuted==false])
+
+  useEffect(() => {    
+    return () => {      
+      if(globalState.globalMuted==true){
+        // console.log('createpost Unmute gloabally');
+        globalDispatch({type: 'globalMuted', payload: false});
+      }
+    }
+  }, [globalState.globalMuted==true])
 
   const uploadToStorage = async () => {
     // console.log('gdf', videoUrii, description, category, brand, languages);

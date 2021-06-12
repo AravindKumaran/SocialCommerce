@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity, Image, ToastAndroid} from 'react-native';
 import {RNCamera} from 'react-native-camera';
 import {ProcessingManager} from 'react-native-video-processing';
@@ -12,6 +12,7 @@ import {createThumbnail} from 'react-native-create-thumbnail';
 
 import ImagePicker from 'react-native-image-crop-picker';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {Context} from '../../context/Store';
 
 const Camera = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -21,8 +22,26 @@ const Camera = () => {
 
   const navigation = useNavigation();
 
+  const [globalState, globalDispatch] = useContext(Context);
+
   const [message] = useState('Please select video of size less than 20mb');
   const [message1] = useState('Video duration should be less than 3min.');
+
+  useEffect(() => {    
+    if(globalState.globalMuted==false){
+      // console.log('camera mute gloabally');
+      globalDispatch({type: 'globalMuted', payload: true});
+    }
+  }, [globalState.globalMuted==false])
+
+  useEffect(() => {    
+    return () => {      
+      if(globalState.globalMuted==true){
+        // console.log('camera Unmute gloabally');
+        globalDispatch({type: 'globalMuted', payload: false});
+      }
+    }
+  }, [globalState.globalMuted==true])
 
   const onRecord = async () => {
     if (isRecording) {
