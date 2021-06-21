@@ -28,6 +28,7 @@ import {c} from '../../navigation/homeBottomTabNavigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Header} from 'react-native-elements';
 import Settings from '../Settings';
+import Follow1 from '../../components/Post/Follow1';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -559,7 +560,10 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                               bottom: 85,
                             },
                           }}>
-                          <Settings profileUser={user} closeSettings={closeSettings} />
+                          <Settings
+                            profileUser={user}
+                            closeSettings={closeSettings}
+                          />
                         </RBSheet>
                       </>
                     )}
@@ -591,7 +595,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
 
                     <View style={{alignItems: 'center'}}>
                       <View style={{position: 'absolute', zIndex: 1, top: -10}}>
-                        <Text
+                        {/* <Text
                           style={{
                             color: '#FFFFFF',
                             fontFamily: 'Proxima Nova',
@@ -600,7 +604,34 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                             textAlign: 'center',
                           }}>
                           {user?.name}
-                        </Text>
+                        </Text> */}
+                        {!postUser ? (
+                          <Text
+                            style={{
+                              color: '#FFFFFF',
+                              fontFamily: 'Proxima Nova',
+                              fontWeight: '700',
+                              fontSize: 16,
+                              textAlign: 'center',
+                            }}>
+                            {user?.name}
+                          </Text>
+                        ) : (
+                          <View style={{flexDirection: 'row'}}>
+                            <Text
+                              style={{
+                                color: '#FFFFFF',
+                                fontFamily: 'Proxima Nova',
+                                fontWeight: '700',
+                                fontSize: 16,
+                                textAlign: 'center',
+                                marginHorizontal: 10,
+                              }}>
+                              {user?.name}
+                            </Text>
+                            <Follow1 />
+                          </View>
+                        )}
                         <Text
                           style={{
                             color: '#FFFFFF',
