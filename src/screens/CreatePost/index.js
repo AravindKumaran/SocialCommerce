@@ -436,6 +436,7 @@ const CreatePost = () => {
           <TextInput
             value={description}
             onChangeText={(text) => setDescription(text)}
+            multiline={true}
             numberOfLines={5}
             placeholder={'Tell us something about your post...'}
             style={styles.textInput}

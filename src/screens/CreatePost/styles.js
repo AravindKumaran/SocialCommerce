@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
     width: 235,
     right: 20,
     color: 'white',
-    paddingBottom: 180,
+    // paddingBottom: 180,
+    textAlignVertical: "top"
   },
   button: {
     alignItems: 'center',

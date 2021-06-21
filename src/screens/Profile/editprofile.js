@@ -295,6 +295,8 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
             <TextInput
               style={styles.input1}
               // value={bio}
+              multiline={true}
+              numberOfLines={5}
               defaultValue={bio}
               onChangeText={(e) => setBio(e)}
               maxLength={50}
@@ -365,8 +367,9 @@ const styles = StyleSheet.create({
   input1: {
     width: 300,
     height: 120,
-    padding: 10,
-    top: 10,
+    textAlignVertical: "top",
+    // padding: 10,
+    // top: 10,
     // backgroundColor: '#1A1A1A',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
@@ -378,7 +381,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     borderWidth: 0.5,
     borderColor: '#737373',
-    paddingBottom: 75,
+    // paddingBottom: 75,
   },
   Rectangle1: {
     width: 300,
