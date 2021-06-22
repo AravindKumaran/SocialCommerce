@@ -37,6 +37,7 @@ import LottieView from 'lottie-react-native';
 import Share from 'react-native-share';
 import LinearGradient from 'react-native-linear-gradient';
 import {Context} from '../../context/Store';
+import {S3_URL} from '@env';
 
 const Post = (props) => {
   //console.log('props.post.user', props.post.user)
@@ -150,7 +151,7 @@ const Post = (props) => {
   useEffect(() => {
     if (!props.post?.videoUri?.startsWith('https')) {
       setVideoUri(
-        `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${props.post?.videoUri}`,
+        `${S3_URL}${props.post?.videoUri}`,
       );
     } else {
       setVideoUri(props.post?.videoUri);
@@ -390,7 +391,7 @@ const Post = (props) => {
               style={styles.video}
               poster={
                 props.post?.thumbnail
-                  ? `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${props.post?.thumbnail}`
+                  ? `${S3_URL}${props.post?.thumbnail}`
                   : ''
               }
               posterResizeMode="cover"
@@ -552,7 +553,11 @@ const Post = (props) => {
                       <View style={{margin: 15}}>
                         <TouchableOpacity
                           onPress={() => {
-                            navigation.navigate('CreatePost');
+                            navigation.navigate('CreatePost', {
+                              editVideo: true,
+                              videoUri: S3_URL+post.videoUri,
+                              thumbnailUri: S3_URL+post.thumbnail
+                            });
                           }}>
                           <Text style={styles.text4}>Edit Post</Text>
                         </TouchableOpacity>

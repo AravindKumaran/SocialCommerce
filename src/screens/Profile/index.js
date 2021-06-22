@@ -29,6 +29,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Header} from 'react-native-elements';
 import Settings from '../Settings';
 import Follow1 from '../../components/Post/Follow1';
+import {S3_URL} from '@env';
 
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
@@ -170,7 +171,7 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
                   source={{
                     uri: res?.data?.createUser.imageUri.startsWith('https')
                       ? res?.data?.createUser.imageUri
-                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${res?.data?.createUser.imageUri}`,
+                      : `${S3_URL}${res?.data?.createUser.imageUri}`,
                   }}
                   size={25}
                   style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -194,7 +195,7 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
                   source={{
                     uri: userRes.data?.getUser?.imageUri.startsWith('https')
                       ? userRes.data?.getUser?.imageUri
-                      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${userRes.data?.getUser?.imageUri}`,
+                      : `${S3_URL}${userRes.data?.getUser?.imageUri}`,
                   }}
                   size={25}
                   style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -308,7 +309,7 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
                     source={{
                       uri: value?.startsWith('https')
                         ? value
-                        : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${value}`,
+                        : `${S3_URL}${value}`,
                     }}
                     size={25}
                     style={{
@@ -343,7 +344,7 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
             source={{
               uri: user.imageUri.startsWith('https')
                 ? user.imageUri
-                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
+                : `${S3_URL}${user.imageUri}`,
             }}
             size={25}
             style={{bottom: 5, width: 25, height: 25, borderRadius: 12}}
@@ -491,7 +492,7 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
                       source={{
                         uri: user?.imageUri?.startsWith('https')
                           ? user.imageUri
-                          : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
+                          : `${S3_URL}${user.imageUri}`,
                       }}
                     />
                   </View>

@@ -3,6 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, Text, Image, Alert, ToastAndroid} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import {S3_URL} from '@env';
 
 const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   const [isFollow, setIsFollow] = useState(false);
@@ -81,7 +82,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
             source={{
               uri: currentPost.user?.imageUri?.startsWith('https')
                 ? currentPost.user?.imageUri
-                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${currentPost.user?.imageUri}`,
+                : `${S3_URL}${currentPost.user?.imageUri}`,
             }}
             size={35}
             style={{height: 65, width: 65, borderRadius: 50}}

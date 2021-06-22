@@ -14,6 +14,7 @@ import DoubleClick from 'react-native-double-tap';
 import convertToProxyURL from 'react-native-video-cache';
 import Slider from '../../components/Post/slider';
 import {useNavigation} from '@react-navigation/native';
+import {S3_URL} from '@env';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -63,7 +64,7 @@ const TrendingVideo = ({
           uri: convertToProxyURL(
             videoUri.startsWith('https')
               ? videoUri
-              : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${videoUri}`,
+              : `${S3_URL}${videoUri}`,
           ),
         }}
         style={[
@@ -82,7 +83,7 @@ const TrendingVideo = ({
           poster
             ? poster.startsWith('https')
               ? poster
-              : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${poster}`
+              : `${S3_URL}${poster}`
             : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Big_Buck_Bunny_thumbnail_vlc.png/320px-Big_Buck_Bunny_thumbnail_vlc.png'
         }
         posterResizeMode="cover"

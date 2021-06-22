@@ -22,7 +22,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Header} from 'react-native-elements';
 import UploadProgress from '../CreatePost/UploadProgress';
 import {Context} from '../../context/Store';
-
+import {S3_URL} from '@env';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -106,7 +106,7 @@ const Home = ({navigation, route}) => {
                 source={{
                   uri: value?.startsWith('https')
                     ? value
-                    : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${value}`,
+                    : `${S3_URL}${value}`,
                 }}
                 size={25}
                 style={{

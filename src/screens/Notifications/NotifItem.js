@@ -4,6 +4,7 @@ import {StyleSheet, View, Text, Image, TouchableOpacity} from 'react-native';
 import TimeAgo from 'react-native-timeago';
 import {useNavigation} from '@react-navigation/native';
 import AppText from '../../components/Common/AppText';
+import {S3_URL} from '@env';
 
 const NotifItem = ({item}) => {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ const NotifItem = ({item}) => {
             source={{
               uri: item?.user?.imageUri.startsWith('https')
                 ? item?.user?.imageUri
-                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${item?.user?.imageUri}`,
+                : `${S3_URL}${item?.user?.imageUri}`,
             }}
             style={{
               height: 35,
@@ -70,7 +71,7 @@ const NotifItem = ({item}) => {
             source={{
               uri: item?.post?.thumbnail.startsWith('https')
                 ? item?.post?.thumbnail
-                : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${item.post?.thumbnail}`,
+                : `${S3_URL}${item.post?.thumbnail}`,
             }}
             style={{
               height: 35,

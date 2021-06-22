@@ -20,6 +20,7 @@ import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AppText from '../../components/Common/AppText';
+import {S3_URL} from '@env';
 
 let languages = [
   {label: 'English', value: 'English', disabled: false},
@@ -38,7 +39,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
   const [userImageUri, setUserImageUri] = useState(
     user.imageUri.startsWith('https')
       ? user.imageUri
-      : `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${user.imageUri}`,
+      : `${S3_URL}${user.imageUri}`,
   );
   const [bio, setBio] = useState(user?.bio || '');
   const [loading, setLoading] = useState(false);
@@ -141,9 +142,9 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
 
       if (imgKey !== user.imageUri) {
         setUserImageUri(
-          `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${imgKey}`,
+          `${S3_URL}${imgKey}`,
         );
-        user.imageUri = `https://liveboxpro823eea7b9bbf4c1fa57da0c49d1c8d61151613-test.s3.ap-south-1.amazonaws.com/public/${imgKey}`;
+        user.imageUri = `${S3_URL}${imgKey}`;
       }
 
       user.bio = bio;
