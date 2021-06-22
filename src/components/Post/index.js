@@ -279,172 +279,6 @@ const Post = (props) => {
     }
   };
 
-  const handleFollow = async (postUser) => {
-    if (post) {
-      const selectedUserResponse = await API.graphql(
-        graphqlOperation(getUser, {
-          id: post.user.id,
-        }),
-      );
-
-      if (selectedUserResponse.data.getUser.followers === null) {
-        selectedUserResponse.data.getUser.followers = [];
-      }
-
-      try {
-        if (user) {
-          const userRes = await API.graphql(
-            graphqlOperation(getUser, {
-              id: user.email,
-            }),
-          );
-          if (userRes.data.getUser.followers === null) {
-            userRes.data.getUser.followers = [];
-          }
-          if (userRes.data.getUser.following === null) {
-            userRes.data.getUser.following = [];
-          }
-          const fw = {
-            userId: userRes.data.getUser.id,
-            userName: userRes.data.getUser.username,
-            imgUri: userRes.data.getUser.imageUri,
-          };
-          const frIndex = selectedUserResponse?.data?.getUser?.followers.findIndex(
-            (f) => f.userId === userRes.data.getUser.id,
-          );
-          if (frIndex === -1) {
-            selectedUserResponse.data.getUser.followers.push(fw);
-            const updatedFollowers =
-              selectedUserResponse.data.getUser.followers;
-            await API.graphql(
-              graphqlOperation(updateUser, {
-                input: {id: postUser.id, followers: updatedFollowers},
-              }),
-            );
-          }
-
-          const fr = {
-            userId: postUser.id,
-            userName: postUser.username,
-            imgUri: postUser.imageUri,
-          };
-          const fwIndex = userRes.data.getUser.following.findIndex(
-            (f) => f.userId === postUser.id,
-          );
-          if (fwIndex === -1) {
-            //update user following to global
-            globalDispatch({
-              type: 'userFollowing',
-              payload: [...globalState.userFollowing, fr],
-            });
-            let f_idx = globalState.userUnFollowing.findIndex(
-              (f) => fr.userId === f.userId,
-            );
-            if (f_idx !== -1) {
-              globalDispatch({
-                type: 'userUnFollowing',
-                payload: [...globalState.userUnFollowing.splice(0, f_idx)],
-              });
-            }
-
-            userRes.data.getUser.following.push(fr);
-            const updatedFollowing = userRes.data.getUser.following;
-            await API.graphql(
-              graphqlOperation(updateUser, {
-                input: {id: user.email, following: updatedFollowing},
-              }),
-            );
-          }
-          //props.setPostRerender(true);
-          //props.setPostRerender(false);
-
-          console.log('FollowDone');
-        }
-      } catch (error) {
-        console.log('Please Login', error);
-        ToastAndroid.show(message, ToastAndroid.SHORT);
-      }
-    }
-  };
-
-  const handleUnFollow = async (postUser) => {
-    const selectedUserResponse = await API.graphql(
-      graphqlOperation(getUser, {
-        id: post.user.id,
-      }),
-    );
-    if (selectedUserResponse?.data?.getUser?.followers.length > 0) {
-      try {
-        if (user) {
-          const frIndex = selectedUserResponse.data.getUser.followers.findIndex(
-            (f) => f.userId === user.email,
-          );
-          if (frIndex !== -1) {
-            selectedUserResponse.data.getUser.followers.splice(frIndex, 1);
-            const updatedFollowers =
-              selectedUserResponse.data.getUser.followers;
-            await API.graphql(
-              graphqlOperation(updateUser, {
-                input: {id: postUser.id, followers: updatedFollowers},
-              }),
-            );
-
-            const userRes = await API.graphql(
-              graphqlOperation(getUser, {
-                id: user.email,
-              }),
-            );
-
-            const fr = {
-              userId: postUser.id,
-              userName: postUser.username,
-              imgUri: postUser.imageUri,
-            };
-
-            if (userRes.data.getUser?.following?.length > 0) {
-              const fwIndex = userRes.data.getUser.following.findIndex(
-                (f) => f.userId === postUser.id,
-              );
-              if (fwIndex !== -1) {
-                //update user following to global
-                let f_idx = globalState.userFollowing.findIndex(
-                  (f) => postUser.id === f.userId,
-                );
-                if (f_idx !== -1) {
-                  globalDispatch({
-                    type: 'userFollowing',
-                    payload: [...globalState.userFollowing.slice(0, f_idx)],
-                  });
-                }
-                globalDispatch({
-                  type: 'userUnFollowing',
-                  payload: [...globalState.userUnFollowing, fr],
-                });
-
-                userRes.data.getUser.following.splice(fwIndex, 1);
-                const updatedFollowing = userRes.data.getUser.following;
-                await API.graphql(
-                  graphqlOperation(updateUser, {
-                    input: {
-                      id: user.email,
-                      following: updatedFollowing,
-                    },
-                  }),
-                );
-              }
-            }
-          }
-          // props.setPostRerender(true);
-          // props.setPostRerender(false);
-          console.log('UnfollowDone');
-        }
-      } catch (error) {
-        console.log('Please Login', error);
-        ToastAndroid.show(message, ToastAndroid.SHORT);
-      }
-    }
-  };
-
   useEffect(() => {
     //console.log('props?.muteAll', props?.muteAll);
     setMuted(props?.muteAll);
@@ -667,75 +501,80 @@ const Post = (props) => {
           )}
 
           <View style={styles.uiContainer}>
-            <View style={{flex: 1, alignItems: 'flex-end', margin: 10}}>
-              {!isEdited ? (
-                <TouchableOpacity onPress={() => setEdited(true)}>
-                  <ImageBackground
-                    style={{
-                      backgroundColor: '#363E45',
-                      height: 50,
-                      width: 50,
-                      borderRadius: 50,
-                      justifyContent: 'center',
-                    }}>
-                    <Feather
-                      name="bar-chart"
-                      size={25}
-                      color="#FFFFFF"
+
+            {(post.user.id === user?.email) &&
+              <View style={{flex: 1, alignItems: 'flex-end', margin: 10}}>
+                {!isEdited ? (
+                  <TouchableOpacity onPress={() => setEdited(true)}>
+                    <ImageBackground
                       style={{
-                        transform: [{scaleX: -1}, {rotate: '90deg'}],
-                        alignSelf: 'center',
-                      }}
-                    />
-                  </ImageBackground>
-                </TouchableOpacity>
-              ) : (
-                <>
-                  <ImageBackground
-                    // source={require('../../assets/images/Editpost.png')}
-                    style={{
-                      width: 100,
-                      height: 125,
-                      backgroundColor: '#363E45',
-                      borderRadius: 10,
-                      opacity: 0.3,
-                    }}></ImageBackground>
-                  <View style={{flex: 1, bottom: 125}}>
-                    <TouchableOpacity onPress={() => setEdited(false)}>
+                        backgroundColor: '#363E45',
+                        height: 50,
+                        width: 50,
+                        borderRadius: 50,
+                        justifyContent: 'center',
+                      }}>
                       <Feather
                         name="bar-chart"
-                        size={20}
+                        size={25}
                         color="#FFFFFF"
                         style={{
                           transform: [{scaleX: -1}, {rotate: '90deg'}],
-                          alignSelf: 'flex-end',
-                          margin: 5,
+                          alignSelf: 'center',
                         }}
                       />
-                    </TouchableOpacity>
-                    <View style={{margin: 15}}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate('CreatePost');
-                        }}>
-                        <Text style={styles.text4}>Edit Post</Text>
+                    </ImageBackground>
+                  </TouchableOpacity>
+                ) : (
+                  <>
+                    <ImageBackground
+                      // source={require('../../assets/images/Editpost.png')}
+                      style={{
+                        width: 100,
+                        height: 125,
+                        backgroundColor: '#363E45',
+                        borderRadius: 10,
+                        opacity: 0.3,
+                      }}></ImageBackground>
+                    <View style={{flex: 1, bottom: 125}}>
+                      <TouchableOpacity onPress={() => setEdited(false)}>
+                        <Feather
+                          name="bar-chart"
+                          size={20}
+                          color="#FFFFFF"
+                          style={{
+                            transform: [{scaleX: -1}, {rotate: '90deg'}],
+                            alignSelf: 'flex-end',
+                            margin: 5,
+                          }}
+                        />
                       </TouchableOpacity>
-                      <View
-                        style={{
-                          borderWidth: 0.5,
-                          borderColor: 'rgba(163, 163, 163, 0.44)',
-                          marginVertical: 5,
-                          width: '75%',
-                        }}
-                      />
-                      <TouchableOpacity>
-                        <Text style={styles.text4}>Delete Post</Text>
-                      </TouchableOpacity>
+                      <View style={{margin: 15}}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate('CreatePost');
+                          }}>
+                          <Text style={styles.text4}>Edit Post</Text>
+                        </TouchableOpacity>
+                        <View
+                          style={{
+                            borderWidth: 0.5,
+                            borderColor: 'rgba(163, 163, 163, 0.44)',
+                            marginVertical: 5,
+                            width: '75%',
+                          }}
+                        />
+                        <TouchableOpacity>
+                          <Text style={styles.text4}>Delete Post</Text>
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                  </View>
-                </>
-              )}
-            </View>
+                  </>
+                )}
+              </View>
+            }
+
+
             <View style={styles.rightContainer}>
               {/* <TouchableOpacity
                 style={{
@@ -771,8 +610,8 @@ const Post = (props) => {
 
               <Follow
                 isTouched={isTouched}
-                onFollow={handleFollow}
-                onUnFollow={handleUnFollow}
+                // onFollow={handleFollow}
+                // onUnFollow={handleUnFollow}
                 user={user}
                 currentPost={post}
               />
@@ -1078,18 +917,12 @@ const Post = (props) => {
 
                         navigation.navigate('SeeProfile', {
                           screen: 'SeeProfile',
-                          postUser: props?.post?.user,
+                          thirdUser: props?.post?.user,
                         })
                       }>
                       <Text style={styles.handle}>{post?.user?.username}</Text>
                     </TouchableOpacity>
-                    <Follow1
-                      isTouched={isTouched}
-                      onFollow={handleFollow}
-                      onUnFollow={handleUnFollow}
-                      user={user}
-                      currentPost={post}
-                    />
+                    <Follow1 thirdUser={post.user} />
                   </View>
                   <View style={{flexDirection: 'row', top: 22.5}}>
                     <Image

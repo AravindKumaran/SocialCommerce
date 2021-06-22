@@ -3,7 +3,7 @@ import Profile from '../Profile';
 
 function SeeProfile({navigation, route}) {
     return (               
-        <Profile postUser={route?.params?.postUser}/>       
+        <Profile thirdUser={route?.params?.thirdUser}/>       
     )
 }
 

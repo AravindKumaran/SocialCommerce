@@ -21,8 +21,10 @@ import Searchbar from '../../screens/Profile/search';
 import {useNavigation} from '@react-navigation/native';
 import {getUser} from '../../graphql/queries';
 import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
-import Follow1 from './Follow1';
+// import Follow1 from './Follow1';
+import Follow1 from '../../components/Post/Follow1';
 import Follow2 from './Follow2';
+import FollowUserDetails from './FollowUserDetails';
 import {
   updatePost,
   createNotification,
@@ -376,68 +378,7 @@ const Followers = ({data, followingData, post, followerCloseSheet, user}) => {
                             alignItems: 'center',
                             bottom: 30,
                           }}>
-                          {/* {actualData === data ? (
-                            <Follow1
-                              isTouched={isTouched}
-                              onFollow={handleFollow}
-                              onUnFollow={handleUnFollow}
-                              user={user}
-                              followuser={v.userId}
-                            />
-                          ) : (
-                            <Follow2
-                              isTouched={isTouched}
-                              onFollow={handleFollow}
-                              onUnFollow={handleUnFollow}
-                              user={user}
-                              followinguser={v.userId}
-                            />
-                          )} */}
-                          {isFollow ? (
-                            <TouchableOpacity
-                              style={styles.Rectangle1}
-                              onPress={() => {
-                                handleFolloww(v);
-                              }}>
-                              <LinearGradient
-                                start={{x: 0, y: 0}}
-                                end={{x: 1, y: 0}}
-                                style={{
-                                  height: 25,
-                                  width: 75,
-                                  borderRadius: 15,
-                                  justifyContent: 'center',
-                                  alignContent: 'center',
-                                  alignItems: 'center',
-                                }}
-                                colors={['#3cb2f1', '#3cb2f1', '#3cb2f1']}>
-                                <Text style={styles.text3}>Follow</Text>
-                              </LinearGradient>
-                            </TouchableOpacity>
-                          ) : (
-                            <TouchableOpacity
-                              style={styles.Rectangle1}
-                              onPress={() => {
-                                handleFolloww(v);
-                              }}>
-                              <LinearGradient
-                                start={{x: 0, y: 0}}
-                                end={{x: 1, y: 0}}
-                                style={{
-                                  height: 25,
-                                  width: 75,
-                                  borderRadius: 15,
-                                  justifyContent: 'center',
-                                  alignContent: 'center',
-                                  alignItems: 'center',
-                                  borderTopWidth: 1,
-                                  borderTopColor: '#757575',
-                                }}
-                                colors={['#252525', '#252525', '#252525']}>
-                                <Text style={styles.text3}>Following</Text>
-                              </LinearGradient>
-                            </TouchableOpacity>
-                          )}
+                          <FollowUserDetails thirdUserId={v.userId} />                          
                           <View>
                             <TouchableOpacity
                               style={{

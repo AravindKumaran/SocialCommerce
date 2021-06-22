@@ -8,12 +8,16 @@ import {
   ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
+import {API, graphqlOperation, Storage, Auth, Hub} from 'aws-amplify';
+import {updateUser} from '../../graphql/mutations';
+import {getUser} from '../../graphql/queries';
 import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 import LinearGradient from 'react-native-linear-gradient';
 import {Context} from '../../context/Store';
 
-const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
+const Follow1 = ({thirdUser}) => {
+  const [user, setUser] = useState(null)
   const [isFollow, setIsFollow] = useState(false);
   const [message] = useState('Please login!');
   const [message1] = useState("You can't follow yourself");
@@ -21,14 +25,27 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
 
   const [globalState, globalDispatch] = useContext(Context);
 
+  function getCurrentUser() {
+    return Auth.currentAuthenticatedUser()
+      .then((userData) => userData)
+      .catch(() => console.log('Not signed in'));
+  }
+
+  useEffect(() => {  
+    getCurrentUser().then((userData) => {
+      if (userData?.attributes) {
+        setUser(userData.attributes);
+      }
+    });
+  }, []);
+
   useEffect(() => {
     const checkFollowings = async () => {
-      if (currentPost?.user?.followers?.length > 0) {
+      if (thirdUser?.followers?.length > 0) {
         if (user) {
-          const checkFollow = currentPost?.user?.followers.findIndex(
+          const checkFollow = thirdUser?.followers.findIndex(
             (f) => user.email === f.userId,
           );
-          // console.log('forllow useeff called',currentPost?.user?.id, checkFollow);
           if (checkFollow != -1) {
             setIsFollow(true);
           } else {
@@ -41,16 +58,13 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
       }
     };
     checkFollowings();
-  }, [user, currentPost]);
+  }, [user, thirdUser]);
 
   useEffect(() => {
-    //console.log('globalState.userFollowing', globalState.userFollowing);
     if(globalState.userFollowing.length){
-      //console.log('currentPost.user.id', currentPost.user.id);
       const checkFollow = globalState.userFollowing.findIndex(
-        (f) => currentPost.user.id === f.userId
+        (f) => thirdUser.id === f.userId
       );
-      //console.log('checkFollow', checkFollow);
       if (checkFollow != -1) {
         setTimeout(() => {
           setIsFollow(true);
@@ -60,13 +74,10 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   }, [globalState.userFollowing])
 
   useEffect(() => {
-    //console.log('globalState.userUnFollowing', globalState.userUnFollowing);
     if(globalState.userUnFollowing.length){
-      //console.log('currentPost.user.id', currentPost.user.id);
       const checkUnFollow = globalState.userUnFollowing.findIndex(
-        (f) => currentPost.user.id === f.userId
+        (f) => thirdUser.id === f.userId
       );
-      //console.log('checkUnFollow', checkUnFollow);
       if (checkUnFollow != -1) {
         setTimeout(() => {
           setIsFollow(false);
@@ -75,30 +86,193 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
     }
   }, [globalState.userUnFollowing])
 
-  const handleFollow = async () => {
-    if (user?.email === currentPost.user.id) {
+  const toggleFollow = async () => {
+    if (user?.email === thirdUser.id) {
       ToastAndroid.show(message1, ToastAndroid.SHORT);
       return;
     }
     if (user) {
-      if (isFollow) {
-        onUnFollow(currentPost.user);
+      console.log('isFollow', isFollow);
+      if (!isFollow) {       
         console.log('I am called1');
         setIsFollow(false);
-      } else if (!isFollow) {
-        onFollow(currentPost.user);
+        handleFollow(thirdUser)
+      } else{        
         console.log('I am called2');
         setIsFollow(true);
+        handleUnFollow(thirdUser)
       }
     } else {
       ToastAndroid.show(message, ToastAndroid.SHORT);
     }
   };
 
+  const handleFollow = async (thirdUser) => {
+    
+      const selectedUserResponse = await API.graphql(
+        graphqlOperation(getUser, {
+          id: thirdUser.id,
+        }),
+      );
+
+      if (selectedUserResponse.data.getUser.followers === null) {
+        selectedUserResponse.data.getUser.followers = [];
+      }
+
+      try {
+        if (user) {
+          const userRes = await API.graphql(
+            graphqlOperation(getUser, {
+              id: user.email,
+            }),
+          );
+          if (userRes.data.getUser.followers === null) {
+            userRes.data.getUser.followers = [];
+          }
+          if (userRes.data.getUser.following === null) {
+            userRes.data.getUser.following = [];
+          }
+          const fw = {
+            userId: userRes.data.getUser.id,
+            userName: userRes.data.getUser.username,
+            imgUri: userRes.data.getUser.imageUri,
+          };
+          const frIndex = selectedUserResponse?.data?.getUser?.followers.findIndex(
+            (f) => f.userId === userRes.data.getUser.id,
+          );
+          if (frIndex === -1) {
+            selectedUserResponse.data.getUser.followers.push(fw);
+            const updatedFollowers =
+              selectedUserResponse.data.getUser.followers;
+            await API.graphql(
+              graphqlOperation(updateUser, {
+                input: {id: thirdUser.id, followers: updatedFollowers},
+              }),
+            );
+          }
+
+          const fr = {
+            userId: thirdUser.id,
+            userName: thirdUser.username,
+            imgUri: thirdUser.imageUri,
+          };
+          const fwIndex = userRes.data.getUser.following.findIndex(
+            (f) => f.userId === thirdUser.id,
+          );
+          if (fwIndex === -1) {
+            //update user following to global
+            globalDispatch({
+              type: 'userFollowing',
+              payload: [...globalState.userFollowing, fr],
+            });
+            let f_idx = globalState.userUnFollowing.findIndex(
+              (f) => fr.userId === f.userId,
+            );
+            if (f_idx !== -1) {
+              globalDispatch({
+                type: 'userUnFollowing',
+                payload: [...globalState.userUnFollowing.splice(0, f_idx)],
+              });
+            }
+
+            userRes.data.getUser.following.push(fr);
+            const updatedFollowing = userRes.data.getUser.following;
+            await API.graphql(
+              graphqlOperation(updateUser, {
+                input: {id: user.email, following: updatedFollowing},
+              }),
+            );
+          }
+
+          console.log('FollowDone');
+        }
+      } catch (error) {
+        console.log('Please Login', error);
+        ToastAndroid.show(message, ToastAndroid.SHORT);
+      }
+    
+  };
+
+  const handleUnFollow = async (thirdUser) => {
+    const selectedUserResponse = await API.graphql(
+      graphqlOperation(getUser, {
+        id: thirdUser.id,
+      }),
+    );
+    if (selectedUserResponse?.data?.getUser?.followers.length > 0) {
+      try {
+        if (user) {
+          const frIndex = selectedUserResponse.data.getUser.followers.findIndex(
+            (f) => f.userId === user.email,
+          );
+          if (frIndex !== -1) {
+            selectedUserResponse.data.getUser.followers.splice(frIndex, 1);
+            const updatedFollowers =
+              selectedUserResponse.data.getUser.followers;
+            await API.graphql(
+              graphqlOperation(updateUser, {
+                input: {id: thirdUser.id, followers: updatedFollowers},
+              }),
+            );
+
+            const userRes = await API.graphql(
+              graphqlOperation(getUser, {
+                id: user.email,
+              }),
+            );
+
+            const fr = {
+              userId: thirdUser.id,
+              userName: thirdUser.username,
+              imgUri: thirdUser.imageUri,
+            };
+
+            if (userRes.data.getUser?.following?.length > 0) {
+              const fwIndex = userRes.data.getUser.following.findIndex(
+                (f) => f.userId === thirdUser.id,
+              );
+              if (fwIndex !== -1) {
+                //update user following to global
+                let f_idx = globalState.userFollowing.findIndex(
+                  (f) => thirdUser.id === f.userId,
+                );
+                if (f_idx !== -1) {
+                  globalDispatch({
+                    type: 'userFollowing',
+                    payload: [...globalState.userFollowing.slice(0, f_idx)],
+                  });
+                }
+                globalDispatch({
+                  type: 'userUnFollowing',
+                  payload: [...globalState.userUnFollowing, fr],
+                });
+
+                userRes.data.getUser.following.splice(fwIndex, 1);
+                const updatedFollowing = userRes.data.getUser.following;
+                await API.graphql(
+                  graphqlOperation(updateUser, {
+                    input: {
+                      id: user.email,
+                      following: updatedFollowing,
+                    },
+                  }),
+                );
+              }
+            }
+          }
+          console.log('UnfollowDone');
+        }
+      } catch (error) {
+        console.log('Please Login', error);
+        ToastAndroid.show(message, ToastAndroid.SHORT);
+      }
+    }
+  };
+
   return (
     <View>
       {!isFollow ? (
-        <TouchableOpacity style={styles.Rectangle1} onPress={handleFollow}>
+        <TouchableOpacity style={styles.Rectangle1} onPress={toggleFollow}>
           <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}
@@ -115,7 +289,7 @@ const Follow1 = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
           </LinearGradient>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity style={styles.Rectangle1} onPress={handleFollow}>
+        <TouchableOpacity style={styles.Rectangle1} onPress={toggleFollow}>
           <LinearGradient
             start={{x: 0, y: 0}}
             end={{x: 1, y: 0}}

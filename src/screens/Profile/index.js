@@ -66,23 +66,8 @@ const ActiveStyle = () => (
   </>
 );
 
-// const logos = [
-//   {
-//     src: require('../../assets/images/Fblogo.png'),
-//   },
-//   {
-//     src: require('../../assets/images/Instagramlogo.png'),
-//   },
-//   {
-//     src: require('../../assets/images/Youtubelogo.png'),
-//   },
-//   {
-//     src: require('../../assets/images/Twitterlogo.png'),
-//   },
-// ];
-
-const ProfileScreen = ({navigation, route, postUser}) => {
-  console.log('postuser', postUser);
+const ProfileScreen = ({navigation, route, thirdUser}) => {
+  console.log('thirdUser', thirdUser);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const refRBSheet = useRef();
@@ -268,7 +253,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
   };
 
   useEffect(() => {
-    if (!postUser) {
+    if (!thirdUser) {
       Hub.listen('auth', ({payload: {event, data}}) => {
         console.log('event', event);
         switch (event) {
@@ -300,7 +285,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
   useEffect(() => {
     console.log('usersss');
     const onOtherUser = async () => {
-      if (!postUser) {
+      if (!thirdUser) {
         console.log('isfocused useeffect');
         checkUser();
       } else {
@@ -308,7 +293,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
         try {
           const selectedUserResponse = await API.graphql(
             graphqlOperation(getUser, {
-              id: postUser.id,
+              id: thirdUser.id,
             }),
           );
           console.log('suserres', selectedUserResponse.data.getUser);
@@ -439,7 +424,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                     marginTop: 60,
                   }}>
                   <View>
-                    {!postUser && (
+                    {!thirdUser && (
                       <>
                         <TouchableOpacity
                           onPress={() => refRBSheet.current.open()}>
@@ -511,7 +496,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                     />
                   </View>
                   <View>
-                    {!postUser && (
+                    {!thirdUser && (
                       <>
                         <TouchableOpacity
                           onPress={() => refRBSheet4.current.open()}>
@@ -605,7 +590,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                           }}>
                           {user?.name}
                         </Text> */}
-                        {!postUser ? (
+                        {!thirdUser ? (
                           <Text
                             style={{
                               color: '#FFFFFF',
@@ -629,7 +614,7 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                               }}>
                               {user?.name}
                             </Text>
-                            <Follow1 />
+                            <Follow1 thirdUser={thirdUser} />
                           </View>
                         )}
                         <Text
@@ -831,8 +816,8 @@ const ProfileScreen = ({navigation, route, postUser}) => {
                     <Videos
                       userId={user.id}
                       postLength={user?.posts?.items?.length}
-                      isProfile={!postUser ? true : false}
-                      isSeeProfile={postUser ? true : false}
+                      isProfile={!thirdUser ? true : false}
+                      isSeeProfile={thirdUser ? true : false}
                     />
                   )}
                 </View>
