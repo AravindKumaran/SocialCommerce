@@ -103,6 +103,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 10,
   },
+  text4: {
+    fontFamily: 'Proxima Nova',
+    fontWeight: '700',
+    fontSize: 12,
+    color: '#FFFFFF',
+  },
 });
 
 export default styles;

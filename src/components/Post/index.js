@@ -70,6 +70,7 @@ const Post = (props) => {
 
   const [globalState, globalDispatch] = useContext(Context);
 
+  const [isEdited, setEdited] = useState(false);
 
   const fadeIn = {
     from: {
@@ -331,14 +332,19 @@ const Post = (props) => {
             (f) => f.userId === postUser.id,
           );
           if (fwIndex === -1) {
-            
             //update user following to global
-            globalDispatch({type: 'userFollowing', payload: [...globalState.userFollowing, fr]});
+            globalDispatch({
+              type: 'userFollowing',
+              payload: [...globalState.userFollowing, fr],
+            });
             let f_idx = globalState.userUnFollowing.findIndex(
-              (f) => fr.userId === f.userId
+              (f) => fr.userId === f.userId,
             );
-            if(f_idx !== -1){
-              globalDispatch({type: 'userUnFollowing', payload: [...globalState.userUnFollowing.splice(0, f_idx)]});
+            if (f_idx !== -1) {
+              globalDispatch({
+                type: 'userUnFollowing',
+                payload: [...globalState.userUnFollowing.splice(0, f_idx)],
+              });
             }
 
             userRes.data.getUser.following.push(fr);
@@ -400,15 +406,20 @@ const Post = (props) => {
                 (f) => f.userId === postUser.id,
               );
               if (fwIndex !== -1) {
-
                 //update user following to global
                 let f_idx = globalState.userFollowing.findIndex(
-                  (f) => postUser.id === f.userId
+                  (f) => postUser.id === f.userId,
                 );
-                if(f_idx !== -1){
-                  globalDispatch({type: 'userFollowing', payload: [...globalState.userFollowing.slice(0, f_idx)]});
-                }                
-                globalDispatch({type: 'userUnFollowing', payload: [...globalState.userUnFollowing, fr]});
+                if (f_idx !== -1) {
+                  globalDispatch({
+                    type: 'userFollowing',
+                    payload: [...globalState.userFollowing.slice(0, f_idx)],
+                  });
+                }
+                globalDispatch({
+                  type: 'userUnFollowing',
+                  payload: [...globalState.userUnFollowing, fr],
+                });
 
                 userRes.data.getUser.following.splice(fwIndex, 1);
                 const updatedFollowing = userRes.data.getUser.following;
@@ -435,12 +446,11 @@ const Post = (props) => {
   };
 
   useEffect(() => {
-   //console.log('props?.muteAll', props?.muteAll);
-   setMuted(props?.muteAll)
-  }, [props?.muteAll])
+    //console.log('props?.muteAll', props?.muteAll);
+    setMuted(props?.muteAll);
+  }, [props?.muteAll]);
 
   const handleClick = () => {
-
     //console.log('Propsd', props?.muteAll);
     console.log('Propsd', props?.muteAll);
     showPauseRef.current = null;
@@ -448,15 +458,15 @@ const Post = (props) => {
       clearTimeout(showRef.current);
     }
 
-    console.log('muted',muted);
-    setMuted(!muted)
+    console.log('muted', muted);
+    setMuted(!muted);
 
     if (props?.setMuteAll) {
       setTimeout(() => {
         props?.setMuteAll(!props?.muteAll);
         globalDispatch({type: 'globalMuted', payload: !props?.muteAll});
-      }, 0);      
-    } 
+      }, 0);
+    }
 
     setShowMutedIcon(true);
     showRef.current = setTimeout(() => {
@@ -657,6 +667,75 @@ const Post = (props) => {
           )}
 
           <View style={styles.uiContainer}>
+            <View style={{flex: 1, alignItems: 'flex-end', margin: 10}}>
+              {!isEdited ? (
+                <TouchableOpacity onPress={() => setEdited(true)}>
+                  <ImageBackground
+                    style={{
+                      backgroundColor: '#363E45',
+                      height: 50,
+                      width: 50,
+                      borderRadius: 50,
+                      justifyContent: 'center',
+                    }}>
+                    <Feather
+                      name="bar-chart"
+                      size={25}
+                      color="#FFFFFF"
+                      style={{
+                        transform: [{scaleX: -1}, {rotate: '90deg'}],
+                        alignSelf: 'center',
+                      }}
+                    />
+                  </ImageBackground>
+                </TouchableOpacity>
+              ) : (
+                <>
+                  <ImageBackground
+                    // source={require('../../assets/images/Editpost.png')}
+                    style={{
+                      width: 100,
+                      height: 125,
+                      backgroundColor: '#363E45',
+                      borderRadius: 10,
+                      opacity: 0.3,
+                    }}></ImageBackground>
+                  <View style={{flex: 1, bottom: 125}}>
+                    <TouchableOpacity onPress={() => setEdited(false)}>
+                      <Feather
+                        name="bar-chart"
+                        size={20}
+                        color="#FFFFFF"
+                        style={{
+                          transform: [{scaleX: -1}, {rotate: '90deg'}],
+                          alignSelf: 'flex-end',
+                          margin: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                    <View style={{margin: 15}}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate('CreatePost');
+                        }}>
+                        <Text style={styles.text4}>Edit Post</Text>
+                      </TouchableOpacity>
+                      <View
+                        style={{
+                          borderWidth: 0.5,
+                          borderColor: 'rgba(163, 163, 163, 0.44)',
+                          marginVertical: 5,
+                          width: '75%',
+                        }}
+                      />
+                      <TouchableOpacity>
+                        <Text style={styles.text4}>Delete Post</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </>
+              )}
+            </View>
             <View style={styles.rightContainer}>
               {/* <TouchableOpacity
                 style={{

@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
     height: 120,
     textAlignVertical: "top",
     // padding: 10,
-    // top: 10,
+    top: 10,
     // backgroundColor: '#1A1A1A',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
