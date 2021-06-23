@@ -14,11 +14,12 @@ import Post from '../../components/Post';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import {Header} from 'react-native-elements';
 import {Context} from '../../context/Store';
+import {useNavigation} from '@react-navigation/native';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
 
-const ProfileVideoList = ({navigation, route, idx, item, data, isCategory}) => {
+const ProfileVideoList = ({route, idx, item, data, isCategory}) => {
   const [globalState, globalDispatch] = useContext(Context);
   //console.log('videolist glst', globalState);
 
@@ -28,6 +29,7 @@ const ProfileVideoList = ({navigation, route, idx, item, data, isCategory}) => {
   const [posts, setPosts] = useState([]);
   const [muteAll, setMuteAll] = useState(globalState.globalMuted?globalState.globalMuted:false);
   const focused = useIsFocused();
+  const navigation = useNavigation();
   // console.log('Fic', focused);
 
   // useEffect(() => {
@@ -61,6 +63,7 @@ const ProfileVideoList = ({navigation, route, idx, item, data, isCategory}) => {
       currentVisibleIndex={currentVisibleIndex}
       muteAll={muteAll}
       setMuteAll={setMuteAll}
+      navigation={navigation}
     />
   );
 

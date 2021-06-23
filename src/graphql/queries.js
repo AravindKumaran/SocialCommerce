@@ -624,6 +624,7 @@ export const listPostHashTags = /* GraphQL */ `
   ) {
     listPostHashTags(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        id
         hashTag {
           id
           name

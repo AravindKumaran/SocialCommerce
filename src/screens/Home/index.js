@@ -161,10 +161,6 @@ const Home = ({navigation, route}) => {
         );
         console.log('sortedItemsInside', sortedItems.length, sortedItems[0]);
         setNextToken(response.data.listPosts.nextToken);
-        // if (route?.params?.newPost) {
-        //   setPosts([route?.params?.newPost, ...sortedItems]);
-        // } else {
-        // }
         setPosts(sortedItems);
         setLoading(false);
       } catch (e) {

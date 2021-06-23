@@ -22,8 +22,10 @@ import {
   createPost,
   createHashTag,
   createPostHashTag,
+  updatePost,
+  deletePostHashTag
 } from '../../graphql/mutations';
-import {listHashTags} from '../../graphql/queries';
+import {listHashTags, listPostHashTags} from '../../graphql/queries';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import AppButton from '../../components/Common/AppButton';
 import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomSheet';
@@ -104,16 +106,19 @@ const language = [
   {label: 'Bengali', value: 'Bengali'},
 ];
 
-const CreatePost = () => {
+const CreatePost = () => {  
   const route = useRoute();
   const navigation = useNavigation();
-  const [description, setDescription] = useState('');
+  const [editPost, seteditPost] = useState(route.params.editPost ? true: false);
+  const [description, setDescription] = useState(route.params.description ? route.params.description : '');
   const [thumbnail, setThumbnail] = useState(route.params.thumbnailUri);
-  const [category, setCategory] = useState();
-  const [brand, setBrand] = useState(user?.brand || '');
-  const [languages, setLanguage] = useState([]);
+  const [category, setCategory] = useState(route.params.category ? route.params.category: null);
+  const [brand, setBrand] = useState(route.params.brand ? route.params.brand : (user?.brand || ''));
+  const [languages, setLanguage] = useState(route.params.languages ? route.params.languages : []);
   const [videoKey, setVideoKey] = useState(null);
   const [videoUrii, setVideoUrii] = useState(route.params.videoUri);
+
+  console.log('editPost', editPost, description, thumbnail, category, brand, languages);
 
   const [message] = useState('Please provide all details');
   const [message1] = useState('Your video has been uploaded');
@@ -323,41 +328,7 @@ const CreatePost = () => {
               }),
             );
             console.log('postHashTagRes', postHashTagRes);
-          }
-
-          //if hashtag is not avail in db then it will create or it will store
-          // if(!response.data.listHashTags.items.length){
-          //     const hashTagRes = await API.graphql(
-          //         graphqlOperation(createHashTag, {input: {name: hashTagResult[i]}}),
-          //     )
-          //     const postHashTagRes = await API.graphql(
-          //         graphqlOperation(createPostHashTag,
-          //             {
-          //                 input: {
-          //                     postID: posRes.data.createPost.id,
-          //                     hashTagID: hashTagRes.data.createHashTag.id
-          //                 }
-          //             }
-          //         ),
-          //     )
-
-          //     console.log('postHashTagRes', postHashTagRes)
-          // }else{
-          //   console.log('posRes.data.createPost.id', posRes.data.createPost.id)
-          //   console.log('response.data.listHashTags.id', response.data.listHashTags.items[0].id)
-
-          //     const postHashTagRes = await API.graphql(
-          //         graphqlOperation(createPostHashTag,
-          //             {
-          //                 input: {
-          //                     postID: posRes.data.createPost.id,
-          //                     hashTagID: response.data.listHashTags.items[0].id
-          //                 }
-          //             }
-          //         ),
-          //     )
-          //     console.log('postHashTagRes', postHashTagRes)
-          // }
+          }          
         }
       }
       setLoading(false);
@@ -381,6 +352,98 @@ const CreatePost = () => {
     // console.log('Uploading Done...');
   };
 
+  const updatePostDetails = async () => {    
+    if (!description || !videoUrii || !thumbnail || !category || !languages) {
+      ToastAndroid.show(message, ToastAndroid.SHORT);
+      return;
+    }
+
+    //to get hashtags
+    var hashTagRegexp = /\B\#\w\w+\b/g;
+    hashTagResult = description.match(hashTagRegexp);
+    //console.log(hashTagResult);return false;
+
+    try {
+      setLoading(true);     
+
+      const posRes = await API.graphql(
+        graphqlOperation(updatePost, {
+          input: {
+            id: route.params.postId, 
+            description: description, 
+            category: category, 
+            brand: brand, 
+            languages: languages
+          }
+        }),
+      );
+      console.log('posRes', posRes);
+
+      const res = await API.graphql(
+        graphqlOperation(listPostHashTags, {
+          filter: {
+            postID: {eq: route.params.postId}
+          },
+        }),
+      );
+
+      if(res.data.listPostHashTags.items.length){
+        console.log('res', res.data.listPostHashTags.items);
+        const posthashtags= res.data.listPostHashTags.items;
+        posthashtags.map(async (h, i)=> {
+          const res = await API.graphql(
+            graphqlOperation(deletePostHashTag, {
+              input: {id: h.id}
+            }),
+          );
+        })
+      }
+
+      if (hashTagResult) {
+        for (var i = 0; i < hashTagResult.length; i++) {
+          console.log(hashTagResult[i]);
+          var hashTagLower = hashTagResult[i].toLowerCase();
+
+          //check hashtag is avail in db
+          const response = await API.graphql(
+            graphqlOperation(listHashTags, {
+              filter: {
+                name: {eq: hashTagLower},
+              },
+            }),
+          );
+
+          console.log('response', response);
+
+          if (response.data.listHashTags.items.length) {
+            console.log('posRes.data.updatePost.id', posRes.data.updatePost.id);
+            console.log(
+              'response.data.listHashTags.id',
+              response.data.listHashTags.items[0].id,
+            );
+
+            const postHashTagRes = await API.graphql(
+              graphqlOperation(createPostHashTag, {
+                input: {
+                  postID: posRes.data.updatePost.id,
+                  hashTagID: response.data.listHashTags.items[0].id,
+                },
+              }),
+            );
+            console.log('postHashTagRes', postHashTagRes);
+          }          
+        }
+      }
+      setLoading(false);
+      
+      navigation.navigate('Home', {
+        screen: 'Home'
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     console.log(languages);
   }, [languages]);
@@ -399,6 +462,7 @@ const CreatePost = () => {
       setLoading(false);
     }
   };
+  
   useEffect(() => {
     console.log('route.params.videoUri', route.params.videoUri);
     checkUser();
@@ -463,7 +527,8 @@ const CreatePost = () => {
       <View style={{marginHorizontal: 20}}>
         <AppText style={{color: 'white', fontSize: 12}}>Categories</AppText>
         <DropDownPicker
-          items={categoryItems}
+          defaultValue={category}
+          items={categoryItems}          
           placeholder="Select the Category"
           containerStyle={{
             height: 40,
@@ -506,7 +571,7 @@ const CreatePost = () => {
           arrowColor={{color: 'white'}}
           selectedLabelStyle={{color: 'white'}}
           multiple={true}
-          defaultValue={0}
+          defaultValue={languages}
           // controller={(instance) => dropDownRef.current = instance}
         />
       </View>
@@ -530,12 +595,13 @@ const CreatePost = () => {
           placeholder="Enter the Brand"
           onChangeText={(text) => setBrand(text)}
           placeholderTextColor="white"
+          value={brand}
         />
       </View>
 
       {user ? (
         <View style={styles.button}>
-          <AppButton onPress={uploadToStorage} title="Publish" />
+          <AppButton onPress={editPost? updatePostDetails : uploadToStorage} title={editPost?'Update':'Publish'} />
         </View>
       ) : (
         <View style={styles.button}>

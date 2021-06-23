@@ -359,6 +359,18 @@ const Post = (props) => {
     }
   };
 
+  // const deletePost = async () => {
+  //   try {
+  //     await API.graphql(
+  //       graphqlOperation(updatePost, {
+  //         input: {id: post.id, views: post.views},
+  //       }),
+  //     );
+  //   } catch (error) {
+  //     console.log('delete post err', error);
+  //   }
+  // }
+
   return (
     <View style={styles.container}>
       <DoubleClick
@@ -554,9 +566,14 @@ const Post = (props) => {
                         <TouchableOpacity
                           onPress={() => {
                             navigation.navigate('CreatePost', {
-                              editVideo: true,
+                              editPost: true,
+                              postId: post.id,
                               videoUri: S3_URL+post.videoUri,
-                              thumbnailUri: S3_URL+post.thumbnail
+                              thumbnailUri: S3_URL+post.thumbnail,
+                              description: post.description,
+                              category: post.category,
+                              brand: post.brand,
+                              languages: post.languages
                             });
                           }}>
                           <Text style={styles.text4}>Edit Post</Text>
@@ -569,7 +586,10 @@ const Post = (props) => {
                             width: '75%',
                           }}
                         />
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                          onPress={() => {
+                            deletePost()
+                          }}>
                           <Text style={styles.text4}>Delete Post</Text>
                         </TouchableOpacity>
                       </View>
