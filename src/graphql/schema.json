@@ -1714,6 +1714,18 @@
                             },
                             "isDeprecated": false,
                             "deprecationReason": null
+                        },
+                        {
+                            "name": "isDeleted",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "inputFields": null,
@@ -2749,6 +2761,18 @@
                             },
                             "isDeprecated": false,
                             "deprecationReason": null
+                        },
+                        {
+                            "name": "postDeleted",
+                            "description": null,
+                            "args": [],
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
+                            },
+                            "isDeprecated": false,
+                            "deprecationReason": null
                         }
                     ],
                     "inputFields": null,
@@ -2883,6 +2907,16 @@
                             "type": {
                                 "kind": "INPUT_OBJECT",
                                 "name": "ModelStringInput",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "postDeleted",
+                            "description": null,
+                            "type": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelBooleanInput",
                                 "ofType": null
                             },
                             "defaultValue": null
@@ -3281,6 +3315,16 @@
                             "type": {
                                 "kind": "INPUT_OBJECT",
                                 "name": "ModelStringInput",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "isDeleted",
+                            "description": null,
+                            "type": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelBooleanInput",
                                 "ofType": null
                             },
                             "defaultValue": null
@@ -6520,6 +6564,16 @@
                                 }
                             },
                             "defaultValue": null
+                        },
+                        {
+                            "name": "isDeleted",
+                            "description": null,
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
+                            },
+                            "defaultValue": null
                         }
                     ],
                     "interfaces": null,
@@ -6648,6 +6702,16 @@
                             "type": {
                                 "kind": "INPUT_OBJECT",
                                 "name": "ModelStringInput",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "isDeleted",
+                            "description": null,
+                            "type": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelBooleanInput",
                                 "ofType": null
                             },
                             "defaultValue": null
@@ -6840,6 +6904,16 @@
                                     "name": "String",
                                     "ofType": null
                                 }
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "isDeleted",
+                            "description": null,
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
                             },
                             "defaultValue": null
                         }
@@ -8034,6 +8108,16 @@
                                 "ofType": null
                             },
                             "defaultValue": null
+                        },
+                        {
+                            "name": "postDeleted",
+                            "description": null,
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
+                                "ofType": null
+                            },
+                            "defaultValue": null
                         }
                     ],
                     "interfaces": null,
@@ -8082,6 +8166,16 @@
                             "type": {
                                 "kind": "INPUT_OBJECT",
                                 "name": "ModelStringInput",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "postDeleted",
+                            "description": null,
+                            "type": {
+                                "kind": "INPUT_OBJECT",
+                                "name": "ModelBooleanInput",
                                 "ofType": null
                             },
                             "defaultValue": null
@@ -8185,6 +8279,16 @@
                             "type": {
                                 "kind": "SCALAR",
                                 "name": "AWSDateTime",
+                                "ofType": null
+                            },
+                            "defaultValue": null
+                        },
+                        {
+                            "name": "postDeleted",
+                            "description": null,
+                            "type": {
+                                "kind": "SCALAR",
+                                "name": "Boolean",
                                 "ofType": null
                             },
                             "defaultValue": null

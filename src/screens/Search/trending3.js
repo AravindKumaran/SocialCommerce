@@ -37,10 +37,12 @@ const Trending = ({category, searchedData}) => {
                   limit: curLimit,
                   filter: {
                     category: {eq: category},
+                    isDeleted: {ne: true}
                   },
                 }
               : {
                   limit: curLimit,
+                  filter: {isDeleted: {ne: true}},
                 },
           ),
         );
@@ -85,11 +87,13 @@ const Trending = ({category, searchedData}) => {
                   limit: curLimit + 15,
                   filter: {
                     category: {eq: category},
+                    isDeleted: {ne: true}
                   },
                   nextToken,
                 }
               : {
                   limit: curLimit + 15,
+                  filter: {isDeleted: {ne: true}},
                   nextToken,
                 },
           ),

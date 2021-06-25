@@ -22,8 +22,9 @@ import {
   createNotification,
   createUserNotification,
   updateUser,
+  updatePostHashTag
 } from '../../graphql/mutations';
-import {getUser} from '../../graphql/queries';
+import {getUser, listPostHashTags} from '../../graphql/queries';
 import styles from './styles';
 import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
@@ -38,6 +39,8 @@ import Share from 'react-native-share';
 import LinearGradient from 'react-native-linear-gradient';
 import {Context} from '../../context/Store';
 import {S3_URL} from '@env';
+
+console.log('S3_URL', S3_URL);
 
 const Post = (props) => {
   //console.log('props.post.user', props.post.user)
@@ -66,6 +69,7 @@ const Post = (props) => {
 
   const [message] = useState('Please sign in first');
   const [message1] = useState('Coming Soon!');
+  const [delete_msg] = useState('Video is deleted!');
 
   const [isFollow, setIsFollow] = useState(false);
 
@@ -359,17 +363,48 @@ const Post = (props) => {
     }
   };
 
-  // const deletePost = async () => {
-  //   try {
-  //     await API.graphql(
-  //       graphqlOperation(updatePost, {
-  //         input: {id: post.id, views: post.views},
-  //       }),
-  //     );
-  //   } catch (error) {
-  //     console.log('delete post err', error);
-  //   }
-  // }
+  const deletePost = async () => {
+    setIsLoading(true);
+    try {      
+      await API.graphql(
+        graphqlOperation(updatePost, {
+          input: {id: post.id, isDeleted: true},
+        }),
+      );
+
+      const res = await API.graphql(
+        graphqlOperation(listPostHashTags, {
+          filter: {
+            postID: {eq: post.id}
+          }
+        }),
+      );
+
+      const listPostHashTagsRes = res.data.listPostHashTags.items;
+
+      if(listPostHashTagsRes.length){
+        listPostHashTagsRes.map(async (p, i) => {
+
+          await API.graphql(
+            graphqlOperation(updatePostHashTag, {
+              input: {id: p.id, postDeleted: true},
+            }),
+          );
+
+        });
+      }      
+
+      globalDispatch({type: 'postDeleted', payload: true});
+      setTimeout(() => {
+        globalDispatch({type: 'postDeleted', payload: false});
+      }, 100);
+      setIsLoading(false);
+      ToastAndroid.show(delete_msg, ToastAndroid.SHORT);
+    } catch (error) {
+      setIsLoading(false);
+      console.log('delete post err', error);
+    }
+  }
 
   return (
     <View style={styles.container}>

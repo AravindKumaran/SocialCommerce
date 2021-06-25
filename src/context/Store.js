@@ -8,7 +8,8 @@ const initialState = {
     uploadError: null,
     globalMuted: false,
     userFollowing: [],
-    userUnFollowing: []
+    userUnFollowing: [],
+    postDeleted: false
 };
 
 const Store = ({children}) => {

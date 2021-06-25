@@ -37,6 +37,12 @@ const Reducer = (state, action) => {
                 ...state,
                 userUnFollowing: action.payload
             };
+
+        case 'postDeleted':
+            return {
+                ...state,
+                postDeleted: action.payload
+            };
             
         default:
             return state;

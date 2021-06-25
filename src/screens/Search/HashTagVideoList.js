@@ -34,6 +34,7 @@ function HashTagVideoList({hashTagId, hashTagName}) {
               hashTagID: {
                 eq: hashTagId,
               },
+              postDeleted: {ne: true}
             },
             limit: curLimit,
           }),
@@ -55,27 +56,6 @@ function HashTagVideoList({hashTagId, hashTagName}) {
         const sortedItems = redux(allItems);
 
         setUris(sortedItems);
-
-        // const sortedItems = allItems.sort(
-        //   (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-        // );
-        //Sort Items
-        // let sortedItems = allItems
-        //   .filter((item) => item.likes)
-        //   .sort((a, b) => b.likes.length - a.likes.length);
-
-        // console.log(
-        //   'sortedItems',
-        //   sortedItems.map((item) => item?.likes?.length),
-        // );
-        //console.log('sortedItems', response.data.listPosts.nextToken);
-        // setNextToken(response.data.listPostHashTags.nextToken);
-
-        //Append undefined likes to sortedItems
-        // setUris(
-        //   sortedItems
-        //   //sortedItems.concat(allItems.filter((item) => item.likes === null)),
-        // );
       } catch (e) {
         console.log('hashtag fetchpost error');
         console.error(e);
@@ -95,6 +75,7 @@ function HashTagVideoList({hashTagId, hashTagName}) {
               hashTagID: {
                 eq: hashTagId,
               },
+              postDeleted: {ne: true}
             },
             limit: curLimit + 15,
             nextToken,

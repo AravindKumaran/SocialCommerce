@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,6 +11,7 @@ import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {listPosts} from '../../graphql/queries';
 import Feather from 'react-native-vector-icons/Feather';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
+import {Context} from '../../context/Store';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -23,20 +24,26 @@ const Videos = ({userId, postLength, isProfile, isSeeProfile}) => {
   const [nextToken, setNextToken] = useState(undefined);
   const [isLoader, setLoader] = useState(false);
 
+  const [globalState, globalDispatch] = useContext(Context);
+
   useEffect(() => {
     const fetchPost = async () => {
-      try {
+      try {        
         setLoading(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
             limit: curLimit,
             filter: {
               userID: {eq: userId},
+              isDeleted: {ne: true}
             },
           }),
         );
 
         const allItems = response.data.listPosts.items;
+
+        // console.log('allItems', allItems);
+
         let sortedItems = allItems.filter(item => item.likes).sort(
           (a, b) => (b.likes.length) - (a.likes.length)
         );
@@ -52,7 +59,7 @@ const Videos = ({userId, postLength, isProfile, isSeeProfile}) => {
     };
 
     fetchPost();
-  }, [userId, postLength]);
+  }, [userId, postLength, globalState?.postDeleted]);
 
   const getMorePosts = async () => {
     console.log('I am called222');
@@ -64,6 +71,7 @@ const Videos = ({userId, postLength, isProfile, isSeeProfile}) => {
             limit: curLimit + 15,
             filter: {
               userID: {eq: userId},
+              isDeleted: {ne: true}
             },
             nextToken,
           }),

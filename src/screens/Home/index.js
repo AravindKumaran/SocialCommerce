@@ -146,12 +146,14 @@ const Home = ({navigation, route}) => {
   }, [route?.params?.idx]);
 
   useEffect(() => {
-    //console.log('home useeffect')
+    console.log('home useeffect')
+    
     const fetchPost = async () => {
       try {
         setLoading(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
+            filter: {isDeleted: {ne: true}},
             limit: curLimit
           }),
         );
@@ -170,13 +172,14 @@ const Home = ({navigation, route}) => {
     };
 
     fetchPost();
-  }, [navigation, route?.params?.newPost]);
+  }, [navigation, route?.params?.newPost, globalState?.postDeleted]);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         const response = await API.graphql(
           graphqlOperation(listPosts, {
+            filter: {isDeleted: {ne: true}},
             limit: curLimit,
           }),
         );
@@ -204,6 +207,7 @@ const Home = ({navigation, route}) => {
         console.log('curlimit', curLimit)
         const response = await API.graphql(
           graphqlOperation(listPosts, {
+            filter: {isDeleted: {ne: true}},
             limit: curLimit + 10,
             nextToken,
           }),
@@ -226,6 +230,7 @@ const Home = ({navigation, route}) => {
       setRefreshing(true);
       const response = await API.graphql(
         graphqlOperation(listPosts, {
+          filter: {isDeleted: {ne: true}},
           limit: 10,
         }),
       );

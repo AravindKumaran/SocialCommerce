@@ -31,6 +31,8 @@ import Settings from '../Settings';
 import Follow1 from '../../components/Post/Follow1';
 import {S3_URL} from '@env';
 
+console.log('S3_URL', S3_URL);
+
 const randomImages = [
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-2.jpg',
   'https://hieumobile.com/wp-content/uploads/avatar-among-us-3.jpg',

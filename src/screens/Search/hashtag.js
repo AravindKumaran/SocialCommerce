@@ -47,7 +47,11 @@ const HashTag = () => {
       try {
         setLoader(true);
         const response = await API.graphql(
-          graphqlOperation(listPostHashTags, {}),
+          graphqlOperation(listPostHashTags, {
+            filter: {
+              postDeleted: {ne: true}
+            }
+          }),
         );
         const allItems = response.data.listPostHashTags.items;
         //console.log(allItems);

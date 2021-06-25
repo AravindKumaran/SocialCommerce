@@ -150,6 +150,7 @@ const Categories = () => {
         const response = await API.graphql(
           graphqlOperation(listPosts, {
             filter: {
+              isDeleted: {ne: true},
               or: [
                 {description: {contains: value}},
                 {category: {contains: value}},
