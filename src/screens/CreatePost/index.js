@@ -23,7 +23,7 @@ import {
   createHashTag,
   createPostHashTag,
   updatePost,
-  deletePostHashTag
+  deletePostHashTag,
 } from '../../graphql/mutations';
 import {listHashTags, listPostHashTags} from '../../graphql/queries';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
@@ -106,19 +106,41 @@ const language = [
   {label: 'Bengali', value: 'Bengali'},
 ];
 
-const CreatePost = () => {  
+const CreatePost = () => {
   const route = useRoute();
   const navigation = useNavigation();
-  const [editPost, seteditPost] = useState(route.params.editPost ? true: false);
-  const [description, setDescription] = useState(route.params.description ? route.params.description : '');
+  const [editPost, seteditPost] = useState(
+    route.params.editPost ? true : false,
+  );
+  const [description, setDescription] = useState(
+    route.params.description ? route.params.description : '',
+  );
   const [thumbnail, setThumbnail] = useState(route.params.thumbnailUri);
-  const [category, setCategory] = useState(route.params.category ? route.params.category: null);
-  const [brand, setBrand] = useState(route.params.brand ? route.params.brand : (user?.brand || ''));
-  const [languages, setLanguage] = useState(route.params.languages ? route.params.languages : []);
+  const [category, setCategory] = useState(
+    route.params.category ? route.params.category : null,
+  );
+  const [brand, setBrand] = useState(
+    route.params.brand ? route.params.brand : user?.brand || '',
+  );
+  const [languages, setLanguage] = useState(
+    route.params.languages ? route.params.languages : [],
+  );
+  const [audience, setAudience] = useState(
+    route.params.audience ? route.params.audience : [],
+  );
   const [videoKey, setVideoKey] = useState(null);
   const [videoUrii, setVideoUrii] = useState(route.params.videoUri);
 
-  console.log('editPost', editPost, description, thumbnail, category, brand, languages);
+  console.log(
+    'editPost',
+    editPost,
+    description,
+    thumbnail,
+    category,
+    brand,
+    languages,
+    audience,
+  );
 
   const [message] = useState('Please provide all details');
   const [message1] = useState('Your video has been uploaded');
@@ -131,21 +153,21 @@ const CreatePost = () => {
 
   const dropDownRef = useRef();
 
-  useEffect(() => {    
-    if(globalState.globalMuted==false){
+  useEffect(() => {
+    if (globalState.globalMuted == false) {
       // console.log('createpost mute gloabally');
       globalDispatch({type: 'globalMuted', payload: true});
     }
-  }, [globalState.globalMuted==false])
+  }, [globalState.globalMuted == false]);
 
-  useEffect(() => {    
-    return () => {      
-      if(globalState.globalMuted==true){
+  useEffect(() => {
+    return () => {
+      if (globalState.globalMuted == true) {
         // console.log('createpost Unmute gloabally');
         globalDispatch({type: 'globalMuted', payload: false});
       }
-    }
-  }, [globalState.globalMuted==true])
+    };
+  }, [globalState.globalMuted == true]);
 
   const uploadToStorage = async () => {
     // console.log('gdf', videoUrii, description, category, brand, languages);
@@ -263,7 +285,7 @@ const CreatePost = () => {
 
     try {
       setLoading(true);
-      
+
       ToastAndroid.show(message2, ToastAndroid.LONG);
 
       const response1 = await fetch(videoUrii);
@@ -328,7 +350,7 @@ const CreatePost = () => {
               }),
             );
             console.log('postHashTagRes', postHashTagRes);
-          }          
+          }
         }
       }
       setLoading(false);
@@ -352,7 +374,7 @@ const CreatePost = () => {
     // console.log('Uploading Done...');
   };
 
-  const updatePostDetails = async () => {    
+  const updatePostDetails = async () => {
     if (!description || !videoUrii || !thumbnail || !category || !languages) {
       ToastAndroid.show(message, ToastAndroid.SHORT);
       return;
@@ -364,17 +386,17 @@ const CreatePost = () => {
     //console.log(hashTagResult);return false;
 
     try {
-      setLoading(true);     
+      setLoading(true);
 
       const posRes = await API.graphql(
         graphqlOperation(updatePost, {
           input: {
-            id: route.params.postId, 
-            description: description, 
-            category: category, 
-            brand: brand, 
-            languages: languages
-          }
+            id: route.params.postId,
+            description: description,
+            category: category,
+            brand: brand,
+            languages: languages,
+          },
         }),
       );
       console.log('posRes', posRes);
@@ -382,21 +404,21 @@ const CreatePost = () => {
       const res = await API.graphql(
         graphqlOperation(listPostHashTags, {
           filter: {
-            postID: {eq: route.params.postId}
+            postID: {eq: route.params.postId},
           },
         }),
       );
 
-      if(res.data.listPostHashTags.items.length){
+      if (res.data.listPostHashTags.items.length) {
         console.log('res', res.data.listPostHashTags.items);
-        const posthashtags= res.data.listPostHashTags.items;
-        posthashtags.map(async (h, i)=> {
+        const posthashtags = res.data.listPostHashTags.items;
+        posthashtags.map(async (h, i) => {
           const res = await API.graphql(
             graphqlOperation(deletePostHashTag, {
-              input: {id: h.id}
+              input: {id: h.id},
             }),
           );
-        })
+        });
       }
 
       if (hashTagResult) {
@@ -431,13 +453,13 @@ const CreatePost = () => {
               }),
             );
             console.log('postHashTagRes', postHashTagRes);
-          }          
+          }
         }
       }
       setLoading(false);
-      
+
       navigation.navigate('Home', {
-        screen: 'Home'
+        screen: 'Home',
       });
     } catch (e) {
       console.error(e);
@@ -462,7 +484,7 @@ const CreatePost = () => {
       setLoading(false);
     }
   };
-  
+
   useEffect(() => {
     console.log('route.params.videoUri', route.params.videoUri);
     checkUser();
@@ -528,7 +550,7 @@ const CreatePost = () => {
         <AppText style={{color: 'white', fontSize: 12}}>Categories</AppText>
         <DropDownPicker
           defaultValue={category}
-          items={categoryItems}          
+          items={categoryItems}
           placeholder="Select the Category"
           containerStyle={{
             height: 40,
@@ -577,6 +599,33 @@ const CreatePost = () => {
       </View>
 
       <View style={{marginHorizontal: 20, paddingBottom: 0}}>
+        <AppText style={{color: 'white', fontSize: 12}}>Audience</AppText>
+        <DropDownPicker
+          items={language}
+          placeholder="Select the Language"
+          containerStyle={{
+            height: 40,
+            borderRadius: 30,
+            marginVertical: 5,
+          }}
+          style={{backgroundColor: '#20232A', borderColor: '#3F464F'}}
+          itemStyle={{
+            justifyContent: 'flex-start',
+          }}
+          dropDownStyle={{backgroundColor: '#20232A', color: '#fff'}}
+          onChangeItem={(item) => {
+            setAudience([...item]);
+          }}
+          placeholderStyle={{color: 'white', fontSize: 12}}
+          arrowColor={{color: 'white'}}
+          selectedLabelStyle={{color: 'white'}}
+          multiple={true}
+          defaultValue={audience}
+          // controller={(instance) => dropDownRef.current = instance}
+        />
+      </View>
+
+      <View style={{marginHorizontal: 20, paddingBottom: 0}}>
         <AppText style={{color: 'white', fontSize: 12, marginBottom: 10}}>
           Brands(optional)
         </AppText>
@@ -601,7 +650,10 @@ const CreatePost = () => {
 
       {user ? (
         <View style={styles.button}>
-          <AppButton onPress={editPost? updatePostDetails : uploadToStorage} title={editPost?'Update':'Publish'} />
+          <AppButton
+            onPress={editPost ? updatePostDetails : uploadToStorage}
+            title={editPost ? 'Update' : 'Publish'}
+          />
         </View>
       ) : (
         <View style={styles.button}>

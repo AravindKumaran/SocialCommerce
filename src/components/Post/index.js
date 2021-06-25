@@ -150,9 +150,7 @@ const Post = (props) => {
 
   useEffect(() => {
     if (!props.post?.videoUri?.startsWith('https')) {
-      setVideoUri(
-        `${S3_URL}${props.post?.videoUri}`,
-      );
+      setVideoUri(`${S3_URL}${props.post?.videoUri}`);
     } else {
       setVideoUri(props.post?.videoUri);
     }
@@ -402,9 +400,7 @@ const Post = (props) => {
               source={{uri: convertToProxyURL(videoUri)}}
               style={styles.video}
               poster={
-                props.post?.thumbnail
-                  ? `${S3_URL}${props.post?.thumbnail}`
-                  : ''
+                props.post?.thumbnail ? `${S3_URL}${props.post?.thumbnail}` : ''
               }
               posterResizeMode="cover"
               resizeMode={'cover'}
@@ -514,8 +510,7 @@ const Post = (props) => {
           )}
 
           <View style={styles.uiContainer}>
-
-            {(post.user.id === user?.email) &&
+            {post.user.id === user?.email && (
               <View style={{flex: 1, alignItems: 'flex-end', margin: 10}}>
                 {!isEdited ? (
                   <TouchableOpacity onPress={() => setEdited(true)}>
@@ -526,17 +521,18 @@ const Post = (props) => {
                         width: 50,
                         borderRadius: 50,
                         justifyContent: 'center',
-                      }}>
-                      <Feather
-                        name="bar-chart"
-                        size={25}
-                        color="#FFFFFF"
-                        style={{
-                          transform: [{scaleX: -1}, {rotate: '90deg'}],
-                          alignSelf: 'center',
-                        }}
-                      />
-                    </ImageBackground>
+                        opacity: 0.3,
+                      }}></ImageBackground>
+                    <Feather
+                      name="bar-chart"
+                      size={25}
+                      color="#FFFFFF"
+                      style={{
+                        transform: [{scaleX: -1}, {rotate: '90deg'}],
+                        alignSelf: 'center',
+                        bottom: 40,
+                      }}
+                    />
                   </TouchableOpacity>
                 ) : (
                   <>
@@ -568,12 +564,12 @@ const Post = (props) => {
                             navigation.navigate('CreatePost', {
                               editPost: true,
                               postId: post.id,
-                              videoUri: S3_URL+post.videoUri,
-                              thumbnailUri: S3_URL+post.thumbnail,
+                              videoUri: S3_URL + post.videoUri,
+                              thumbnailUri: S3_URL + post.thumbnail,
                               description: post.description,
                               category: post.category,
                               brand: post.brand,
-                              languages: post.languages
+                              languages: post.languages,
                             });
                           }}>
                           <Text style={styles.text4}>Edit Post</Text>
@@ -588,7 +584,7 @@ const Post = (props) => {
                         />
                         <TouchableOpacity
                           onPress={() => {
-                            deletePost()
+                            deletePost();
                           }}>
                           <Text style={styles.text4}>Delete Post</Text>
                         </TouchableOpacity>
@@ -597,8 +593,7 @@ const Post = (props) => {
                   </>
                 )}
               </View>
-            }
-
+            )}
 
             <View style={styles.rightContainer}>
               {/* <TouchableOpacity
