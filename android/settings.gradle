@@ -13,5 +13,5 @@ project(':react-native-splash-screen').projectDir = new File(rootProject.project
 // project(':react-native-webview-bridge').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-webview-bridge/android')
 include ':lottie-react-native'
 project(':lottie-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/lottie-react-native/src/android')
-include ':RNMail', ':app'
-project(':RNMail').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-mail/android')
+// include ':RNMail', ':app'
+// project(':RNMail').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-mail/android')
