@@ -112,7 +112,9 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
         const userRes = await API.graphql(
           graphqlOperation(getUser, {
             id: userInfo?.attributes?.email,
-            limit: 2,
+            postFilter: {
+              isDeleted: {ne: true}
+            } 
           }),
         );
 
@@ -261,14 +263,14 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
         console.log('event', event);
         switch (event) {
           case 'parsingCallbackUrl':
-            setLoading(true);
+            //setLoading(true);
             break;
           case 'signIn':
           case 'cognitoHostedUI':
             checkUser();
             break;
           case 'signOut':
-            setLoading(false);
+            //setLoading(false);
             setUser(null);
             console.log('User', user);
             break;
@@ -297,6 +299,9 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
           const selectedUserResponse = await API.graphql(
             graphqlOperation(getUser, {
               id: thirdUser.id,
+              postFilter: {
+                isDeleted: {ne: true}
+              }  
             }),
           );
           console.log('suserres', selectedUserResponse.data.getUser);

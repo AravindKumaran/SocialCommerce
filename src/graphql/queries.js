@@ -11,6 +11,7 @@ export const getComment = /* GraphQL */ `
         brand
         category
         languages
+        audience
         comments {
           nextToken
         }
@@ -97,6 +98,7 @@ export const getPost = /* GraphQL */ `
       brand
       category
       languages
+      audience
       comments {
         items {
           createdAt
@@ -170,7 +172,12 @@ export const getSong = /* GraphQL */ `
   }
 `;
 export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
+  query GetUser(
+    $id: ID!
+    $postFilter: ModelPostFilterInput
+    $postLimit: Int
+    $postNextToken: String
+  ) {
     getUser(id: $id) {
       bio
       createdAt
@@ -203,11 +210,12 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
-      posts {
+      posts(filter: $postFilter, limit: $postLimit, nextToken: $postNextToken) {
         items {
           brand
           category
           languages
+          audience
           createdAt
           description
           id
@@ -217,7 +225,29 @@ export const getUser = /* GraphQL */ `
           updatedAt
           userID
           videoUri
-          views
+          views          
+          user {
+            id
+            username
+            name
+            imageUri
+            following {
+              userId
+              userName
+              imgUri
+            }
+            followers {
+              userId
+              userName
+              imgUri
+            }
+            facebook
+            instagram
+            youtube
+            bio
+            createdAt
+            updatedAt
+          }
         }
         nextToken
       }
@@ -247,6 +277,7 @@ export const getUserNotification = /* GraphQL */ `
         brand
         category
         languages
+        audience
         comments {
           nextToken
         }
@@ -332,6 +363,7 @@ export const listComments = /* GraphQL */ `
           brand
           category
           languages
+          audience
           createdAt
           description
           id
@@ -393,6 +425,7 @@ export const listPosts = /* GraphQL */ `
         brand
         category
         languages
+        audience
         comments {
           nextToken
         }
@@ -434,7 +467,7 @@ export const listPosts = /* GraphQL */ `
         }
         userID
         videoUri
-        views
+        views        
       }
       nextToken
     }
@@ -484,6 +517,7 @@ export const listUserNotifications = /* GraphQL */ `
           brand
           category
           languages
+          audience
           createdAt
           description
           id
@@ -601,6 +635,7 @@ export const getPostHashTag = /* GraphQL */ `
         brand
         category
         languages
+        audience
         createdAt
         description
         id
@@ -633,6 +668,7 @@ export const listPostHashTags = /* GraphQL */ `
           brand
           category
           languages
+          audience
           comments {
             nextToken
           }

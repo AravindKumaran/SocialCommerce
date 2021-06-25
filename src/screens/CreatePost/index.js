@@ -311,6 +311,7 @@ const CreatePost = () => {
         category,
         brand,
         languages,
+        audience
       };
 
       const posRes = await API.graphql(
@@ -396,6 +397,7 @@ const CreatePost = () => {
             category: category,
             brand: brand,
             languages: languages,
+            audience: audience
           },
         }),
       );

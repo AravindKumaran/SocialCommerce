@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import TrendingVideo from '../Search/trendingVideo';
 import {API, graphqlOperation, Auth} from 'aws-amplify';
-import {listPosts} from '../../graphql/queries';
+import {listPosts, getUser} from '../../graphql/queries';
 import Feather from 'react-native-vector-icons/Feather';
 import LoadingIndicator from '../../components/Common/LoadingIndicator';
 import {Context} from '../../context/Store';
@@ -30,26 +30,33 @@ const Videos = ({userId, postLength, isProfile, isSeeProfile}) => {
     const fetchPost = async () => {
       try {        
         setLoading(true);
+
+        // const response = await API.graphql(
+        //   graphqlOperation(listPosts, {
+        //     limit: curLimit,
+        //     filter: {
+        //       userID: {eq: userId},
+        //       isDeleted: {ne: true}
+        //     },
+        //   }),
+        // );
+        // const allItems = response.data.listPosts.items;
+        // setNextToken(response.data.listPosts.nextToken);
+
         const response = await API.graphql(
-          graphqlOperation(listPosts, {
-            limit: curLimit,
-            filter: {
-              userID: {eq: userId},
+          graphqlOperation(getUser, {  
+            id: userId, 
+            postLimit: curLimit,                      
+            postFilter: {
               isDeleted: {ne: true}
-            },
-          }),
-        );
-
-        const allItems = response.data.listPosts.items;
-
-        // console.log('allItems', allItems);
-
-        let sortedItems = allItems.filter(item => item.likes).sort(
-          (a, b) => (b.likes.length) - (a.likes.length)
-        );
-        console.log('sortedItemsProfile', sortedItems.length, sortedItems[0]);
-        setNextToken(response.data.listPosts.nextToken);
-        setPosts(sortedItems.concat(allItems.filter(item => item.likes === null)));
+            }            
+          })
+        );      
+        const allItems = response.data.getUser.posts.items;
+        
+        console.log('allItems', allItems.length);
+        setNextToken(response.data.getUser.posts.nextToken);
+        setPosts(allItems);
         setLoading(false);
       } catch (e) {
         console.log('Caledd');
@@ -66,20 +73,36 @@ const Videos = ({userId, postLength, isProfile, isSeeProfile}) => {
     try {
       if (nextToken) {
         setLoader(true);
+
+        // const response = await API.graphql(
+        //   graphqlOperation(listPosts, {
+        //     limit: curLimit + 15,
+        //     filter: {
+        //       userID: {eq: userId},
+        //       isDeleted: {ne: true}
+        //     },
+        //     nextToken,
+        //   }),
+        // );
+        // setCurLimit((lim) => lim + 15);
+        // setNextToken(response.data.listPosts.nextToken);
+        // setPosts((post) => [...post, ...response.data.listPosts.items]);
+
         const response = await API.graphql(
-          graphqlOperation(listPosts, {
-            limit: curLimit + 15,
-            filter: {
-              userID: {eq: userId},
-              isDeleted: {ne: true}
-            },
-            nextToken,
-          }),
-        );
-        // console.log('AllItems', curLimit);
-        setCurLimit((lim) => lim + 15);
-        setNextToken(response.data.listPosts.nextToken);
-        setPosts((post) => [...post, ...response.data.listPosts.items]);
+            graphqlOperation(getUser, {
+              id: userId,  
+              postLimit: curLimit + 15,
+              postFilter: {
+                isDeleted: {ne: true}
+              },
+              postNextToken:nextToken
+            })
+          );
+          console.log('getMorePosts', response.data.getUser.posts.items.length);
+          setCurLimit((lim) => lim + 15);
+          setNextToken(response.data.getUser.posts.nextToken);
+          setPosts((post) => [...post, ...response.data.getUser.posts.items]);
+
         setLoader(false);
       }
     } catch (error) {

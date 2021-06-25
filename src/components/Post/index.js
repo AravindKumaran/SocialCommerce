@@ -605,6 +605,7 @@ const Post = (props) => {
                               category: post.category,
                               brand: post.brand,
                               languages: post.languages,
+                              audience: post.audience
                             });
                           }}>
                           <Text style={styles.text4}>Edit Post</Text>
