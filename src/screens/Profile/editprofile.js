@@ -300,7 +300,7 @@ const EditProfile = ({user, saveUser, closeSheet}) => {
               numberOfLines={5}
               defaultValue={bio}
               onChangeText={(e) => setBio(e)}
-              maxLength={50}
+              maxLength={100}
             />
           </View>
         </View>
