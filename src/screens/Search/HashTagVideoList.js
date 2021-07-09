@@ -36,7 +36,7 @@ function HashTagVideoList({hashTagId, hashTagName}) {
               },
               postDeleted: {ne: true}
             },
-            limit: curLimit,
+            // limit: curLimit,
           }),
         );
         const allItems = response.data.listPostHashTags.items;
