@@ -67,7 +67,6 @@ const Followers = ({data, followingData, post, followerCloseSheet, user}) => {
   const [isPressed, setPressed] = useState(false);
   const [actualData, setData] = useState(data);
   console.log('actual', actualData);
-
   const [active, setActive] = useState('followers');
 
   const navigation = useNavigation();
@@ -92,7 +91,7 @@ const Followers = ({data, followingData, post, followerCloseSheet, user}) => {
     console.log('resId', selectedUserResponse);
     navigation.navigate('SeeProfile', {
       screen: 'SeeProfile',
-      postUser: selectedUserResponse.data.getUser,
+      thirdUser: selectedUserResponse.data.getUser,
     });
   };
 

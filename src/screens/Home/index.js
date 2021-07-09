@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef, useContext} from 'react';
+import React, {useEffect, useState, useRef, useContext, useReducer} from 'react';
 import {
   View,
   FlatList,
@@ -23,6 +23,8 @@ import {Header} from 'react-native-elements';
 import UploadProgress from '../CreatePost/UploadProgress';
 import {Context} from '../../context/Store';
 import {S3_URL} from '@env';
+import { useIsFocused } from '@react-navigation/native';
+import { InsertEmoticonOutlined } from '@material-ui/icons';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -68,6 +70,8 @@ const options = {
 };
 
 const Home = ({navigation, route}) => {
+  const isFocused = useIsFocused();
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
   //console.log('route?', route)
   //console.log('route?.params?.uploadingPost', route?.params?.uploadingPost)
   const [posts, setPosts] = useState([]);
@@ -150,11 +154,11 @@ const Home = ({navigation, route}) => {
     
     const fetchPost = async () => {
       try {
+        console.log('fetching new Posts...')
         setLoading(true);
         const response = await API.graphql(
           graphqlOperation(listPosts, {
-            filter: {isDeleted: {ne: true}},
-            limit: curLimit
+            filter: {isDeleted: {ne: true}}
           }),
         );
         const allItems = response.data.listPosts.items;
@@ -165,6 +169,11 @@ const Home = ({navigation, route}) => {
         setNextToken(response.data.listPosts.nextToken);
         setPosts(sortedItems);
         setLoading(false);
+        const isNewPost = await AsyncStorage.getItem('isNewPost')
+        if(isNewPost == 'true') {
+          flatListRef.current.scrollToOffset({ animated: true, offset: 0 })
+          await AsyncStorage.setItem('isNewPost', 'false')
+        }
       } catch (e) {
         console.error(e);
         setLoading(false);
@@ -172,7 +181,8 @@ const Home = ({navigation, route}) => {
     };
 
     fetchPost();
-  }, [navigation, route?.params?.newPost, globalState?.postDeleted]);
+  // }, [navigation, isFocused, route?.params?.newPost, globalState?.postDeleted]);
+}, [navigation, isFocused, globalState?.postDeleted]);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -231,7 +241,7 @@ const Home = ({navigation, route}) => {
       const response = await API.graphql(
         graphqlOperation(listPosts, {
           filter: {isDeleted: {ne: true}},
-          limit: 10,
+          //limit: 10,
         }),
       );
 
