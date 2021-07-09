@@ -60,7 +60,7 @@ const Follow = ({isTouched, onFollow, onUnFollow, currentPost, user}) => {
   const seeProfile = () => {
     navigation.navigate('SeeProfile', {
       screen: 'SeeProfile',
-      postUser: currentPost.user,
+      thirdUser: currentPost.user,
     });
   };
 

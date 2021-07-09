@@ -1,0 +1,21 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-liveboxpro-staging-155909-authRole",
+      "UnauthRoleArn": "arn:aws:iam::276950829219:role/amplify-liveboxpro-staging-155909-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::276950829219:role/amplify-liveboxpro-staging-155909-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-liveboxpro-staging-155909-deployment",
+      "UnauthRoleName": "amplify-liveboxpro-staging-155909-unauthRole",
+      "StackName": "amplify-liveboxpro-staging-155909",
+      "StackId": "arn:aws:cloudformation:ap-south-1:276950829219:stack/amplify-liveboxpro-staging-155909/60f13e40-c38d-11eb-bff1-06e0a27727aa",
+      "AmplifyAppId": "dpd2yaug149kf"
+    },
+    "categories": {
+      "auth": {
+        "liveboxpro400401e5": {},
+        "userPoolGroups": {}
+      }
+    }
+  }
+}

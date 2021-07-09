@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useEffect, useState, useRef, useContext} from 'react';
 import {
   View,
@@ -771,7 +772,8 @@ const Post = (props) => {
                   zIndex: 1,
                   flexDirection: 'row',
                 }}
-                onPress={() => refRBSheet.current.open()}>
+                onPress={() => refRBSheet.current.open()}
+                >
                 <>
                   {/* {!isTouched ? ( */}
                   {/* <Image
