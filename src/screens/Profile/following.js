@@ -14,8 +14,10 @@ import {
   ImageBase,
   TouchableWithoutFeedback,
   ToastAndroid,
+  Dimensions
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import Feather from 'react-native-vector-icons/Feather';
 import Searchbar from '../../screens/Profile/search';
 import {useNavigation} from '@react-navigation/native';
@@ -74,6 +76,11 @@ const Following = ({data, followerData, post, followingCloseSheet, user}) => {
   const [message1] = useState("You can't follow yourself");
 
   const [isFollow, setIsFollow] = useState(true);
+  const refRBSheet2 = useRef();
+
+  function closeSheets2() {
+    refRBSheet2.current.close();
+  }
 
   const handleActive = (value) => {
     setActive(value);
@@ -90,7 +97,7 @@ const Following = ({data, followerData, post, followingCloseSheet, user}) => {
     console.log('resId', selectedUserResponse);
     navigation.navigate('SeeProfile', {
       screen: 'SeeProfile',
-      postUser: selectedUserResponse.data.getUser,
+      thirdUser: selectedUserResponse.data.getUser
     });
   };
 
@@ -365,6 +372,43 @@ const Following = ({data, followerData, post, followingCloseSheet, user}) => {
                             </Text>
                           </View>
                         </TouchableOpacity>
+                        {/* <Follow2
+                          data={user.following}
+                          followerData={data.followers}
+                          user={data}
+                          onFollow={handleFollow}
+                          onUnFollow={handleUnFollow}
+                        /> */}
+                        {/* <RBSheet
+                          ref={refRBSheet2}
+                          height={Dimensions.get('window').height - 140}
+                          animationType="fade"
+                          //closeOnDragDown={false}
+                          customStyles={{
+                            wrapper: {
+                              backgroundColor: 'rgba(0,0,0,.6)',
+                              padding: 10,
+                            },
+                            draggableIcon: {
+                              backgroundColor: '#000',
+                            },
+                            container: {
+                              backgroundColor: '#1A1A1A',
+                              borderBottomLeftRadius: 10,
+                              borderBottomRightRadius: 10,
+                              borderTopLeftRadius: 10,
+                              borderTopRightRadius: 10,
+                              bottom: 85,
+                            },
+                          }}>
+                          <Follow2
+                            data={user.following}
+                            followerData={data.followers}
+                            user={data}
+                            onFollow={handleFollow}
+                            onUnFollow={handleUnFollow}
+                          />
+                        </RBSheet> */}
                         <View
                           style={{
                             flexDirection: 'row',

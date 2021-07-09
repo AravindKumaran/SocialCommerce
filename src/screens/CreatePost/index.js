@@ -31,6 +31,7 @@ import AppButton from '../../components/Common/AppButton';
 import ImagePickerBottomSheet from '../../components/Common/ImagePickerBottomSheet';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AppText from '../../components/Common/AppText';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import Upload from 'react-native-background-upload';
 
 import {Context} from '../../context/Store';
@@ -356,6 +357,7 @@ const CreatePost = () => {
       }
       setLoading(false);
       ToastAndroid.show(message1, ToastAndroid.SHORT);
+      await AsyncStorage.setItem('isNewPost', 'true')
       navigation.navigate('Home', {
         screen: 'Home',
         params: {
