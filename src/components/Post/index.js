@@ -77,6 +77,7 @@ const Post = (props) => {
   const [globalState, globalDispatch] = useContext(Context);
 
   const [isEdited, setEdited] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState();
 
   const fadeIn = {
     from: {
@@ -134,6 +135,19 @@ const Post = (props) => {
     getComments();
     // console.log('commentLength', commentLength);
   }, [commentss]);
+
+  const loggedInUserDetails = async () => {
+    setIsLoading(true);
+    const userInfo = await Auth.currentAuthenticatedUser({
+      bypassCache: true,
+    });
+
+    setLoggedInUser(userInfo?.attributes?.email);
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    loggedInUserDetails();
+  }, [user]);
 
   useEffect(() => {
     Hub.listen('auth', ({payload: {event, data}}) => {
@@ -1001,7 +1015,9 @@ const Post = (props) => {
                       }>
                       <Text style={styles.handle}>{post?.user?.username}</Text>
                     </TouchableOpacity>
-                    <Follow1 thirdUser={post.user} />
+                    {!(post?.user?.id === loggedInUser) ? (
+                      <Follow1 thirdUser={post.user} />
+                    ) : null}
                   </View>
                   <View style={{flexDirection: 'row', top: 22.5}}>
                     <Image

@@ -70,7 +70,6 @@ const ActiveStyle = () => (
 );
 
 const ProfileScreen = ({navigation, route, thirdUser}) => {
- 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [loggedInUser, setLoggedInUser] = useState();
@@ -79,7 +78,6 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
   const refRBSheet2 = useRef();
   const refRBSheet3 = useRef();
   const refRBSheet4 = useRef();
-
 
   const isFocused = useIsFocused();
 
@@ -219,19 +217,20 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
       setUser(null);
     }
   };
-  const loggedInUserDetails= async ()=>{
-    setLoading(true)
+  const loggedInUserDetails = async () => {
+    setLoading(true);
     const userInfo = await Auth.currentAuthenticatedUser({
       bypassCache: true,
     });
 
     setLoggedInUser(userInfo?.attributes?.email);
     setLoading(false);
-  }
-  useEffect( ()=>{
+  };
+  useEffect(() => {
     loggedInUserDetails();
-    console.log("thirdUser",thirdUser);
-  },[user]);
+    console.log('object');
+    console.log('thirdUser', thirdUser);
+  }, [user]);
 
   const handleLogin = async (event) => {
     if (!user) {
@@ -593,7 +592,9 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
                         {user?.name}
                         {/* Tamilvanan */}
                       </Text>
-                      <Follow1 thirdUser={thirdUser} />
+                      {!(loggedInUser === user.id) ? (
+                        <Follow1 thirdUser={thirdUser} />
+                      ) : null}
                     </View>
                   )}
                   <Text
