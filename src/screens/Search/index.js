@@ -355,7 +355,7 @@ const Categories = () => {
                       }}
                     />
                   </View>
-                  <Text style={[styles.catItemText, {top: 7}]}>{c.name}</Text>
+                  <Text style={[styles.catItemText, {top: 10}]}>{c.name}</Text>
                 </TouchableOpacity>
               ))}
             </View>

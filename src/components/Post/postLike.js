@@ -125,7 +125,7 @@ const PostLike = ({isTouched, likes, onLike, onUnlike, currentPost, user}) => {
                 alignSelf: 'center',
                 alignContent: 'center',
               }}>
-              {likesCount}
+              {likesCount || 1}
             </Text>
           </View>
         </>
