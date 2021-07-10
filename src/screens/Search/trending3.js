@@ -37,7 +37,7 @@ const Trending = ({category, searchedData}) => {
                   limit: curLimit,
                   filter: {
                     category: {eq: category},
-                    isDeleted: {ne: true}
+                    isDeleted: {ne: true},
                   },
                 }
               : {
@@ -87,7 +87,7 @@ const Trending = ({category, searchedData}) => {
                   limit: curLimit + 15,
                   filter: {
                     category: {eq: category},
-                    isDeleted: {ne: true}
+                    isDeleted: {ne: true},
                   },
                   nextToken,
                 }
@@ -186,8 +186,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 5,
-    bottom: 30,
-    // marginTop: -540,
+    bottom: 20,
   },
   text2: {
     marginBottom: 30,

@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  ImageBackground,
 } from 'react-native';
 import Searchhbar from '../../screens/Search/searchbar';
 import Brands from '../Search/brands3';
@@ -337,14 +338,24 @@ const Categories = () => {
                   onPress={() => handleCategory(c.name)}
                   key={`${c.name}-${i}`}
                   style={styles.catItem}>
-                  <Image
-                    source={c.src}
-                    size={15}
-                    style={{height: 75, width: 75}}
-                  />
-                  <Text style={[styles.catItemText, {marginTop: -10}]}>
-                    {c.name}
-                  </Text>
+                  <View
+                    style={{
+                      borderRadius: 100,
+                      borderWidth: 1.5,
+                      borderColor:
+                        category === c.name ? '#518BF9' : 'transparent',
+                      top: 7,
+                    }}>
+                    <Image
+                      source={c.src}
+                      style={{
+                        height: 75,
+                        width: 75,
+                        top: 5,
+                      }}
+                    />
+                  </View>
+                  <Text style={[styles.catItemText, {top: 7}]}>{c.name}</Text>
                 </TouchableOpacity>
               ))}
             </View>
