@@ -13,8 +13,19 @@
     },
     "categories": {
       "auth": {
-        "liveboxpro400401e5": {},
-        "userPoolGroups": {}
+        "liveboxpro3ec57d75": {
+          "userPoolId": "ap-south-1_3Q03jI6OI",
+          "userPoolName": "livebox-staging",
+          "webClientId": "4791jpusu9ll10mbepcsjj0brk",
+          "nativeClientId": "4jkhf51gumvq6246vkgj1qdfba",
+          "identityPoolId": "ap-south-1:13028ae7-4572-4932-a3bd-c7b01539a74f",
+          "identityPoolName": "liveboxstaging",
+          "allowUnauthenticatedIdentities": false,
+          "authRoleArn": "arn:aws:iam::276950829219:role/Cognito_liveboxstagingAuth_Role",
+          "authRoleName": "Cognito_liveboxstagingAuth_Role",
+          "unauthRoleArn": "arn:aws:iam::276950829219:role/Cognito_liveboxstagingUnauth_Role",
+          "unauthRoleName": "Cognito_liveboxstagingUnauth_Role"
+        }
       }
     }
   }

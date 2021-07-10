@@ -23,9 +23,9 @@ import {
   createNotification,
   createUserNotification,
   updateUser,
-  updatePostHashTag
+  updatePostHashTag,
 } from '../../graphql/mutations';
-import {getUser, listPostHashTags} from '../../graphql/queries';
+import {getUser, getPost, listPostHashTags} from '../../graphql/queries';
 import styles from './styles';
 import Slider from '../Post/slider';
 import DoubleClick from '../Post/doubletap';
@@ -56,7 +56,7 @@ const Post = (props) => {
   const [showMutedIcon, setShowMutedIcon] = useState(false);
   const [showPauseIcon, setShowPauseIcon] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [commentLength, setCommentLength] = useState();
   const [paused, setPaused] = useState(false);
   const [muted, setMuted] = useState(props?.muteAll);
   const [videoUri, setVideoUri] = useState('');
@@ -110,6 +110,30 @@ const Post = (props) => {
       scale: 0,
     },
   };
+
+  useEffect(() => {
+    const getComments = async () => {
+      try {
+        setIsLoading(true);
+        const res = await API.graphql(
+          graphqlOperation(getPost, {
+            id: props.post?.id,
+          }),
+        );
+        console.log('ress', res?.data?.getPost?.comments?.items?.length);
+        setCommentLength(res?.data?.getPost?.comments?.items?.length);
+        // console.log('length', sortedItems.length);
+        // setCommentLength(sortedItems.length);
+        // setCommentss(sortedItems);
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
+        console.log('Error', err);
+      }
+    };
+    getComments();
+    // console.log('commentLength', commentLength);
+  }, [commentss]);
 
   useEffect(() => {
     Hub.listen('auth', ({payload: {event, data}}) => {
@@ -364,7 +388,7 @@ const Post = (props) => {
 
   const deletePost = async () => {
     setIsLoading(true);
-    try {      
+    try {
       await API.graphql(
         graphqlOperation(updatePost, {
           input: {id: post.id, isDeleted: true},
@@ -374,24 +398,22 @@ const Post = (props) => {
       const res = await API.graphql(
         graphqlOperation(listPostHashTags, {
           filter: {
-            postID: {eq: post.id}
-          }
+            postID: {eq: post.id},
+          },
         }),
       );
 
       const listPostHashTagsRes = res.data.listPostHashTags.items;
 
-      if(listPostHashTagsRes.length){
+      if (listPostHashTagsRes.length) {
         listPostHashTagsRes.map(async (p, i) => {
-
           await API.graphql(
             graphqlOperation(updatePostHashTag, {
               input: {id: p.id, postDeleted: true},
             }),
           );
-
         });
-      }      
+      }
 
       globalDispatch({type: 'postDeleted', payload: true});
       setTimeout(() => {
@@ -403,7 +425,7 @@ const Post = (props) => {
       setIsLoading(false);
       console.log('delete post err', error);
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -606,7 +628,7 @@ const Post = (props) => {
                               category: post.category,
                               brand: post.brand,
                               languages: post.languages,
-                              audience: post.audience
+                              audience: post.audience,
                             });
                           }}>
                           <Text style={styles.text4}>Edit Post</Text>
@@ -772,8 +794,7 @@ const Post = (props) => {
                   zIndex: 1,
                   flexDirection: 'row',
                 }}
-                onPress={() => refRBSheet.current.open()}
-                >
+                onPress={() => refRBSheet.current.open()}>
                 <>
                   {/* {!isTouched ? ( */}
                   {/* <Image
@@ -823,7 +844,7 @@ const Post = (props) => {
                         alignSelf: 'center',
                         alignContent: 'center',
                       }}>
-                      {commentss?.length > 0 ? commentss.length : 0}
+                      {commentLength > 0 ? commentLength : 0}
                     </Text>
                   </View>
                   {/* ) : (
