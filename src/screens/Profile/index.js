@@ -115,8 +115,8 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
           graphqlOperation(getUser, {
             id: userInfo?.attributes?.email,
             postFilter: {
-              isDeleted: {ne: true}
-            } 
+              isDeleted: {ne: true},
+            },
           }),
         );
 
@@ -311,8 +311,8 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
             graphqlOperation(getUser, {
               id: thirdUser.id,
               postFilter: {
-                isDeleted: {ne: true}
-              }  
+                isDeleted: {ne: true},
+              },
             }),
           );
           console.log('suserres', selectedUserResponse.data.getUser);
@@ -447,23 +447,6 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
                       <>
                         <TouchableOpacity
                           onPress={() => refRBSheet.current.open()}>
-                          {/* <ImageBackground
-                            style={{
-                              backgroundColor: '#1C1D21',
-                              height: 50,
-                              width: 50,
-                              borderRadius: 50,
-                              justifyContent: 'center',
-                              elevation: 10,
-                              borderTopWidth: 1,
-                              borderTopColor: '#949494',
-                            }}>
-                            <Feather
-                              name={'edit'}
-                              size={20}
-                              style={{alignSelf: 'center'}}
-                            />
-                          </ImageBackground> */}
                           <Image
                             source={require('../../assets/images/edit_profile.png')}
                             style={{height: 75, width: 75}}
@@ -574,263 +557,253 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
                   </View>
                 </View>
 
-                <View style={{marginTop: 10, height: 0}}>
-                  <View style={{top: 0, marginHorizontal: '4%'}}>
-                    <View>
-                      <Image
+                <View
+                  style={{
+                    marginVertical: 10,
+                    marginLeft: 20,
+                  }}>
+                  {!thirdUser ? (
+                    <Text
+                      style={{
+                        color: '#FFFFFF',
+                        fontFamily: 'Proxima Nova',
+                        fontWeight: '700',
+                        fontSize: 16,
+                        textAlign: 'center',
+                      }}>
+                      {user?.name}
+                      {/* Tamilvanan */}
+                    </Text>
+                  ) : (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        alignSelf: 'center',
+                      }}>
+                      <Text
                         style={{
-                          top: 50,
-                          position: 'absolute',
-                          left: 5,
-                          width: '98%',
-                        }}
-                        source={require('../../assets/images/Pline.png')}
-                      />
-                      <Image
-                        style={{
-                          top: 110,
-                          position: 'absolute',
-                          left: 5,
-                          width: '98%',
-                        }}
-                        source={require('../../assets/images/Pline.png')}
-                      />
-                    </View>
-
-                    <View style={{alignItems: 'center'}}>
-                      <View style={{position: 'absolute', zIndex: 1, top: -10}}>
-                        {/* <Text
-                          style={{
-                            color: '#FFFFFF',
-                            fontFamily: 'Proxima Nova',
-                            fontWeight: '700',
-                            fontSize: 16,
-                            textAlign: 'center',
-                          }}>
-                          {user?.name}
-                        </Text> */}
-                        {!thirdUser ? (
-                          <Text
-                            style={{
-                              color: '#FFFFFF',
-                              fontFamily: 'Proxima Nova',
-                              fontWeight: '700',
-                              fontSize: 16,
-                              textAlign: 'center',
-                            }}>
-                            {user?.name}
-                          </Text>
-                        ) : (
-                          <View style={{flexDirection: 'row'}}>
-                            <Text
-                              style={{
-                                color: '#FFFFFF',
-                                fontFamily: 'Proxima Nova',
-                                fontWeight: '700',
-                                fontSize: 16,
-                                textAlign: 'center',
-                                marginHorizontal: 10,
-                              }}>
-                              {user?.name}
-                            </Text>
-                            {!(user?.id===loggedInUser)?(<Follow1 thirdUser={thirdUser} />):(null)}
-                          </View>
-                        )}
-                        <Text
-                          style={{
-                            color: '#FFFFFF',
-                            fontFamily: 'Proxima Nova',
-                            fontWeight: '700',
-                            fontSize: 13,
-                            textAlign: 'center',
-                          }}>
-                          {` (${user.username}) `}
-                        </Text>
-                        <Text
-                          style={{
-                            color: '#FFFFFF',
-                            fontFamily: 'Proxima Nova',
-                            fontWeight: '400',
-                            fontSize: 12,
-                            bottom: 0,
-                            alignSelf: 'center',
-                          }}>
-                          {user.bio}
-                        </Text>
-                      </View>
-
-                      <View style={{bottom: 50}}>
-                        <TouchableOpacity
-                          style={{
-                            top: 115,
-                            right: 130,
-                            height: 50,
-                            width: 80,
-                          }}
-                          onPress={() => refRBSheet1.current.open()}>
-                          <Text
-                            style={{
-                              color: '#939495',
-                              fontFamily: 'Proxima Nova',
-                              fontWeight: '400',
-                              fontSize: 12,
-                              left: 15,
-                            }}>
-                            Followers
-                          </Text>
-                          <Text
-                            style={{
-                              color: '#FFFFFF',
-                              fontFamily: 'Proxima Nova',
-                              fontWeight: '700',
-                              fontSize: 16,
-                              left: 35,
-                            }}>
-                            {user?.followers?.length || 0}
-                          </Text>
-                        </TouchableOpacity>
-
-                        <RBSheet
-                          ref={refRBSheet1}
-                          height={Dimensions.get('window').height - 140}
-                          animationType="fade"
-                          closeOnDragDown={false}
-                          customStyles={{
-                            wrapper: {
-                              backgroundColor: 'rgba(0,0,0,.6)',
-                              padding: 10,
-                            },
-                            draggableIcon: {
-                              backgroundColor: '#000',
-                            },
-                            container: {
-                              backgroundColor: '#1A1A1A',
-                              borderBottomLeftRadius: 10,
-                              borderBottomRightRadius: 10,
-                              borderTopLeftRadius: 10,
-                              borderTopRightRadius: 10,
-                              bottom: 85,
-                            },
-                          }}>
-                          <Followers
-                            data={user.followers}
-                            followingData={user.following}
-                            followerCloseSheet={closeSheets1}
-                            user={user}
-                          />
-                        </RBSheet>
-
-                        <TouchableOpacity
-                          style={{top: 65, height: 50, width: 80}}
-                          onPress={() => refRBSheet2.current.open()}>
-                          <Text
-                            style={{
-                              color: '#939495',
-                              fontFamily: 'Proxima Nova',
-                              fontWeight: '400',
-                              fontSize: 12,
-                              left: 15,
-                            }}>
-                            Following
-                          </Text>
-                          <Text
-                            style={{
-                              color: '#FFFFFF',
-                              fontFamily: 'Proxima Nova',
-                              fontWeight: '700',
-                              fontSize: 16,
-                              left: 35,
-                            }}>
-                            {user?.following?.length || 0}
-                          </Text>
-                        </TouchableOpacity>
-
-                        <RBSheet
-                          ref={refRBSheet2}
-                          height={Dimensions.get('window').height - 140}
-                          animationType="fade"
-                          closeOnDragDown={false}
-                          customStyles={{
-                            wrapper: {
-                              backgroundColor: 'rgba(0,0,0,.6)',
-                              padding: 10,
-                            },
-                            draggableIcon: {
-                              backgroundColor: '#000',
-                            },
-                            container: {
-                              backgroundColor: '#1A1A1A',
-                              borderBottomLeftRadius: 10,
-                              borderBottomRightRadius: 10,
-                              borderTopLeftRadius: 10,
-                              borderTopRightRadius: 10,
-                              bottom: 85,
-                            },
-                          }}>
-                          <Following
-                            data={user.following}
-                            followerData={user.followers}
-                            followingCloseSheet={closeSheets2}
-                            user={user}
-                          />
-                        </RBSheet>
-
-                        <TouchableOpacity
-                          style={{top: 15, left: 130, height: 50, width: 80}}>
-                          <Text
-                            style={{
-                              color: '#939495',
-                              fontFamily: 'Proxima Nova',
-                              fontWeight: '400',
-                              fontSize: 12,
-                              left: 15,
-                            }}>
-                            Posts
-                          </Text>
-                          <Text
-                            style={{
-                              color: '#FFFFFF',
-                              fontFamily: 'Proxima Nova',
-                              fontWeight: '700',
-                              fontSize: 16,
-                              left: 25,
-                            }}>
-                            {user?.posts?.items?.length || 0}
-                          </Text>
-                        </TouchableOpacity>
-                      </View>
-
-                      <RBSheet
-                        ref={refRBSheet3}
-                        height={Dimensions.get('window').height - 140}
-                        animationType="fade"
-                        closeOnDragDown={false}
-                        customStyles={{
-                          wrapper: {
-                            backgroundColor: 'rgba(0,0,0,.6)',
-                            padding: 10,
-                          },
-                          draggableIcon: {
-                            backgroundColor: '#000',
-                          },
-                          container: {
-                            backgroundColor: '#1A1A1A',
-                            borderBottomLeftRadius: 10,
-                            borderBottomRightRadius: 10,
-                            borderTopLeftRadius: 10,
-                            borderTopRightRadius: 10,
-                            bottom: 85,
-                          },
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 16,
+                          textAlign: 'center',
+                          marginHorizontal: 10,
                         }}>
-                        <Following
-                          data={user.following}
-                          followerData={user.followers}
-                        />
-                      </RBSheet>
+                        {user?.name}
+                        {/* Tamilvanan */}
+                      </Text>
+                      <Follow1 thirdUser={thirdUser} />
                     </View>
-                  </View>
+                  )}
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontFamily: 'Proxima Nova',
+                      fontWeight: '700',
+                      fontSize: 13,
+                      textAlign: 'center',
+                    }}>
+                    {` (${user.username}) `}
+                  </Text>
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontFamily: 'Proxima Nova',
+                      fontWeight: '400',
+                      fontSize: 12,
+                      textAlign: 'center',
+                    }}>
+                    {user.bio}
+                  </Text>
+
+                  <RBSheet
+                    ref={refRBSheet1}
+                    height={Dimensions.get('window').height - 140}
+                    animationType="fade"
+                    closeOnDragDown={false}
+                    customStyles={{
+                      wrapper: {
+                        backgroundColor: 'rgba(0,0,0,.6)',
+                        padding: 10,
+                      },
+                      draggableIcon: {
+                        backgroundColor: '#000',
+                      },
+                      container: {
+                        backgroundColor: '#1A1A1A',
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        bottom: 85,
+                      },
+                    }}>
+                    <Followers
+                      data={user.followers}
+                      followingData={user.following}
+                      followerCloseSheet={closeSheets1}
+                      user={user}
+                    />
+                  </RBSheet>
+
+                  <RBSheet
+                    ref={refRBSheet2}
+                    height={Dimensions.get('window').height - 140}
+                    animationType="fade"
+                    closeOnDragDown={false}
+                    customStyles={{
+                      wrapper: {
+                        backgroundColor: 'rgba(0,0,0,.6)',
+                        padding: 10,
+                      },
+                      draggableIcon: {
+                        backgroundColor: '#000',
+                      },
+                      container: {
+                        backgroundColor: '#1A1A1A',
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        bottom: 85,
+                      },
+                    }}>
+                    <Following
+                      data={user.following}
+                      followerData={user.followers}
+                      followingCloseSheet={closeSheets2}
+                      user={user}
+                    />
+                  </RBSheet>
+
+                  <RBSheet
+                    ref={refRBSheet3}
+                    height={Dimensions.get('window').height - 140}
+                    animationType="fade"
+                    closeOnDragDown={false}
+                    customStyles={{
+                      wrapper: {
+                        backgroundColor: 'rgba(0,0,0,.6)',
+                        padding: 10,
+                      },
+                      draggableIcon: {
+                        backgroundColor: '#000',
+                      },
+                      container: {
+                        backgroundColor: '#1A1A1A',
+                        borderBottomLeftRadius: 10,
+                        borderBottomRightRadius: 10,
+                        borderTopLeftRadius: 10,
+                        borderTopRightRadius: 10,
+                        bottom: 85,
+                      },
+                    }}>
+                    <Following
+                      data={user.following}
+                      followerData={user.followers}
+                    />
+                  </RBSheet>
                 </View>
-                <View style={{marginVertical: 120}}>
+
+                <View>
+                  <Image
+                    style={{
+                      alignSelf: 'center',
+                    }}
+                    source={require('../../assets/images/Pline.png')}
+                  />
+
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      margin: 10,
+                    }}>
+                    <TouchableOpacity
+                      style={{
+                        flexDirection: 'column',
+                      }}
+                      onPress={() => refRBSheet1.current.open()}>
+                      <Text
+                        style={{
+                          color: '#939495',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '400',
+                          fontSize: 12,
+                          textAlign: 'center',
+                        }}>
+                        Followers
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 16,
+                          textAlign: 'center',
+                        }}>
+                        {user?.followers?.length || 0}
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={{flexDirection: 'column', marginHorizontal: 100}}
+                      onPress={() => refRBSheet2.current.open()}>
+                      <Text
+                        style={{
+                          color: '#939495',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '400',
+                          fontSize: 12,
+                          textAlign: 'center',
+                        }}>
+                        Following
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 16,
+                          textAlign: 'center',
+                        }}>
+                        {user?.following?.length || 0}
+                      </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{flexDirection: 'column'}}>
+                      <Text
+                        style={{
+                          color: '#939495',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '400',
+                          fontSize: 12,
+                          textAlign: 'center',
+                        }}>
+                        Posts
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontFamily: 'Proxima Nova',
+                          fontWeight: '700',
+                          fontSize: 16,
+                          textAlign: 'center',
+                        }}>
+                        {user?.posts?.items?.length || 0}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <Image
+                    style={{
+                      alignSelf: 'center',
+                    }}
+                    source={require('../../assets/images/Pline.png')}
+                  />
+                </View>
+
+                <View style={{marginVertical: 10}}>
                   {user?.id && (
                     <Videos
                       userId={user.id}
