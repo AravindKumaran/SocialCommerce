@@ -334,29 +334,39 @@ const Categories = () => {
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             <View style={styles.cat}>
               {cat.map((c, i) => (
-                <TouchableOpacity
-                  onPress={() => handleCategory(c.name)}
-                  key={`${c.name}-${i}`}
-                  style={styles.catItem}>
-                  <View
-                    style={{
-                      borderRadius: 100,
-                      borderWidth: 1.5,
-                      borderColor:
-                        category === c.name ? '#518BF9' : 'transparent',
-                      top: 7,
-                    }}>
-                    <Image
-                      source={c.src}
-                      style={{
-                        height: 75,
-                        width: 75,
-                        top: 5,
-                      }}
-                    />
+                <>
+                  <View style={{flexDirection: 'column'}}>
+                    <TouchableOpacity
+                      onPress={() => handleCategory(c.name)}
+                      key={`${c.name}-${i}`}
+                      style={styles.catItem}>
+                      <View
+                        style={{
+                          borderRadius: 100,
+                          borderWidth: 1.5,
+                          borderColor:
+                            category === c.name ? '#518BF9' : 'transparent',
+                          height: '80%',
+                          width: '80%',
+                          position: 'absolute',
+                        }}>
+                        <View>
+                          <Text style={[styles.catItemText, {top: 70}]}>
+                            {c.name}
+                          </Text>
+                        </View>
+                      </View>
+
+                      <Image
+                        source={c.src}
+                        style={{
+                          height: 75,
+                          width: 75,
+                        }}
+                      />
+                    </TouchableOpacity>
                   </View>
-                  <Text style={[styles.catItemText, {top: 10}]}>{c.name}</Text>
-                </TouchableOpacity>
+                </>
               ))}
             </View>
           </ScrollView>
@@ -432,6 +442,10 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontFamily: 'Proxima Nova',
     fontSize: 12,
+    alignItems: 'center',
+    alignContent: 'center',
+    alignSelf: 'center',
+    textAlign: 'center',
   },
   text1: {
     fontWeight: '700',
