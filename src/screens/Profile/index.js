@@ -561,7 +561,12 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
                     marginVertical: 10,
                     marginLeft: 20,
                   }}>
-                  {!thirdUser ? (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      alignSelf: 'center',
+                    }}>
                     <Text
                       style={{
                         color: '#FFFFFF',
@@ -569,34 +574,14 @@ const ProfileScreen = ({navigation, route, thirdUser}) => {
                         fontWeight: '700',
                         fontSize: 16,
                         textAlign: 'center',
+                        marginHorizontal: user?.name === '' ? 0 : 10,
                       }}>
                       {user?.name}
-                      {/* Tamilvanan */}
                     </Text>
-                  ) : (
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        alignSelf: 'center',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#FFFFFF',
-                          fontFamily: 'Proxima Nova',
-                          fontWeight: '700',
-                          fontSize: 16,
-                          textAlign: 'center',
-                          marginHorizontal: 10,
-                        }}>
-                        {user?.name}
-                        {/* Tamilvanan */}
-                      </Text>
-                      {!(loggedInUser === user.id) ? (
-                        <Follow1 thirdUser={thirdUser} />
-                      ) : null}
-                    </View>
-                  )}
+                    {!(loggedInUser === user.id) ? (
+                      <Follow1 thirdUser={thirdUser} />
+                    ) : null}
+                  </View>
                   <Text
                     style={{
                       color: '#FFFFFF',
