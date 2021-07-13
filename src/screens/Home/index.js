@@ -165,7 +165,7 @@ const Home = ({navigation, route}) => {
         const sortedItems = allItems.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         );
-        console.log('sortedItemsInside', sortedItems.length, sortedItems[0]);
+        console.log('sortedItemsInside', sortedItems.length, sortedItems[0].videoUri);
         setNextToken(response.data.listPosts.nextToken);
         setPosts(sortedItems);
         setLoading(false);

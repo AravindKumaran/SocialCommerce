@@ -39,9 +39,10 @@ import LottieView from 'lottie-react-native';
 import Share from 'react-native-share';
 import LinearGradient from 'react-native-linear-gradient';
 import {Context} from '../../context/Store';
-import {S3_URL} from '@env';
+import {S3_URL, NIMBLE_URL} from '@env';
 
 console.log('S3_URL', S3_URL);
+console.log('NIMBLE_URL', NIMBLE_URL);
 
 const Post = (props) => {
   //console.log('props.post.user', props.post.user)
@@ -192,12 +193,23 @@ const Post = (props) => {
   const showPauseRef = useRef();
 
   useEffect(() => {
-    if (!props.post?.videoUri?.startsWith('https')) {
-      setVideoUri(`${S3_URL}${props.post?.videoUri}`);
+    if (!props.post?.videoUri?.startsWith('http')) {
+      //setVideoUri(`${S3_URL}${props.post?.videoUri}`);
+      setVideoUri(`${NIMBLE_URL}${props.post?.videoUri}/playlist.m3u8`);
     } else {
       setVideoUri(props.post?.videoUri);
     }
+    //setVideoUri(`${NIMBLE_URL}${props.post?.videoUri}/playlist.mp4`);
   }, []);
+
+  // useEffect(() => {
+  //   const fetchNimble = async() => {
+  //     const uri = await fetch(`${NIMBLE_URL}0db4388e-8b03-4652-8a9e-98829a419893-screenshot2895438940258767827.mp4/playlist.m3u8`);
+  //     console.log('nimble res', uri.url)
+  //     setVideoUri(uri.url)
+  //   }
+  //   fetchNimble();
+  // }, [videoUri])
 
   useEffect(async () => {
     if (props.currentIndex === props.currentVisibleIndex) {
@@ -469,7 +481,9 @@ const Post = (props) => {
             <Video
               ref={(ref) => (vidRef.current = ref)}
               // ref={vidRef}
-              source={{uri: convertToProxyURL(videoUri)}}
+              //source={{uri: convertToProxyURL(videoUri)}}
+              source={{uri: videoUri}}
+              //source={{uri: `${NIMBLE_URL}0db4388e-8b03-4652-8a9e-98829a419893-screenshot2895438940258767827.mp4/playlist.m3u8`}}
               style={styles.video}
               poster={
                 props.post?.thumbnail ? `${S3_URL}${props.post?.thumbnail}` : ''

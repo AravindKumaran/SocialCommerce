@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {
   StyleSheet,
@@ -14,7 +14,7 @@ import DoubleClick from 'react-native-double-tap';
 import convertToProxyURL from 'react-native-video-cache';
 import Slider from '../../components/Post/slider';
 import {useNavigation} from '@react-navigation/native';
-import {S3_URL} from '@env';
+import {S3_URL, NIMBLE_URL} from '@env';
 
 const vpHeight = Dimensions.get('window').height;
 const vpWidth = Dimensions.get('window').width;
@@ -38,6 +38,7 @@ const TrendingVideo = ({
   const [isLoading, setIsLoading] = useState(true);
 
   const navigation = useNavigation();
+  //console.log('videoUri', convertToProxyURL(videoUri));
 
   const onSeeking = (currentVideoTime) => setCurrentTime(currentVideoTime);
 
@@ -68,11 +69,12 @@ const TrendingVideo = ({
     <DoubleClick singleTap={handleClick}>
       <Video
         source={{
-          uri: convertToProxyURL(
-            videoUri.startsWith('https')
-              ? videoUri
-              : `${S3_URL}${videoUri}`,
-          ),
+          // uri: convertToProxyURL(
+          //   videoUri.startsWith('https')
+          //     ? videoUri
+          //     : `${S3_URL}${videoUri}`,
+          // ),
+          uri: `${NIMBLE_URL}${videoUri}/playlist.m3u8`
         }}
         style={[
           {

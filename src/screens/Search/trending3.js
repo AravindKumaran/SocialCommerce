@@ -55,10 +55,10 @@ const Trending = ({category, searchedData}) => {
           .filter((item) => item.likes)
           .sort((a, b) => b.likes.length - a.likes.length);
 
-        console.log(
-          'sortedItems',
-          sortedItems.map((item) => item?.likes?.length),
-        );
+        // console.log(
+        //   'sortedItems',
+        //   sortedItems.map((item) => item?.likes?.length),
+        // );
         //console.log('sortedItems', response.data.listPosts.nextToken);
         setNextToken(response.data.listPosts.nextToken);
 
@@ -66,6 +66,7 @@ const Trending = ({category, searchedData}) => {
         setUris(
           sortedItems.concat(allItems.filter((item) => item.likes === null)),
         );
+        console.log('sorted Items', sortedItems[0])
       } catch (e) {
         console.log('Caledd');
         console.error(e);

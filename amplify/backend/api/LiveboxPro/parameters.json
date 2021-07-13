@@ -1,5 +1,0 @@
-{
-  "AppSyncApiName": "LiveboxPro",
-  "DynamoDBBillingMode": "PAY_PER_REQUEST",
-  "DynamoDBEnableServerSideEncryption": false
-}
